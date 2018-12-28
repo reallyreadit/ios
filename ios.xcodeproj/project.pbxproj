@@ -8,20 +8,62 @@
 
 /* Begin PBXBuildFile section */
 		1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4BF21CB167500EE6927 /* AppDelegate.swift */; };
-		1F13B4C221CB167500EE6927 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4C121CB167500EE6927 /* ViewController.swift */; };
 		1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C321CB167500EE6927 /* Main.storyboard */; };
 		1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C621CB167700EE6927 /* Assets.xcassets */; };
 		1F13B4CA21CB167700EE6927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */; };
+		1F13B4D321CC117300EE6927 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
+		1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */; };
+		1F13B4E821D2906E00EE6927 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */; };
+		1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4EA21D2AAA900EE6927 /* UserPage.swift */; };
+		1F13B4ED21D2ABA300EE6927 /* UserArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4EC21D2ABA300EE6927 /* UserArticle.swift */; };
+		1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */; };
+		1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F021D2B48200EE6927 /* PageParseResult.swift */; };
+		1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */; };
+		1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */; };
+		1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */; };
+		1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */; };
+		1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */; };
+		1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */; };
+		1F13B4FF21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */; };
+		1F13B50821D4445F00EE6927 /* ContentScript.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50721D4445F00EE6927 /* ContentScript.js */; };
+		1F13B50A21D4480700EE6927 /* ContentScriptMessagingShim.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50921D4480700EE6927 /* ContentScriptMessagingShim.js */; };
+		1F13B50C21D5298A00EE6927 /* WebViewMessagingContext.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50B21D5298900EE6927 /* WebViewMessagingContext.js */; };
+		1F13B50E21D52B6700EE6927 /* WebViewMessagingContextAmdModuleShim.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50D21D52B6700EE6927 /* WebViewMessagingContextAmdModuleShim.js */; };
+		1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */; };
+		1F13B51221D58EB900EE6927 /* ContentScriptInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */; };
+		1F13B51421D58F5000EE6927 /* SourceRuleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */; };
+		1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51521D5901D00EE6927 /* SourceRule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F13B4C121CB167500EE6927 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F13B4C421CB167500EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F13B4C621CB167700EE6927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F13B4C921CB167700EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F13B4CB21CB167700EE6927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F13B4D221CC117300EE6927 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppViewController.swift; sourceTree = "<group>"; };
+		1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		1F13B4EA21D2AAA900EE6927 /* UserPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPage.swift; sourceTree = "<group>"; };
+		1F13B4EC21D2ABA300EE6927 /* UserArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArticle.swift; sourceTree = "<group>"; };
+		1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLookupResult.swift; sourceTree = "<group>"; };
+		1F13B4F021D2B48200EE6927 /* PageParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageParseResult.swift; sourceTree = "<group>"; };
+		1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleParseResult.swift; sourceTree = "<group>"; };
+		1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceParseResult.swift; sourceTree = "<group>"; };
+		1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorParseResult.swift; sourceTree = "<group>"; };
+		1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinkParseResult.swift; sourceTree = "<group>"; };
+		1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommitData.swift; sourceTree = "<group>"; };
+		1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerParams.swift; sourceTree = "<group>"; };
+		1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerArticleParam.swift; sourceTree = "<group>"; };
+		1F13B50721D4445F00EE6927 /* ContentScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ContentScript.js; sourceTree = "<group>"; };
+		1F13B50921D4480700EE6927 /* ContentScriptMessagingShim.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ContentScriptMessagingShim.js; sourceTree = "<group>"; };
+		1F13B50B21D5298900EE6927 /* WebViewMessagingContext.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WebViewMessagingContext.js; sourceTree = "<group>"; };
+		1F13B50D21D52B6700EE6927 /* WebViewMessagingContextAmdModuleShim.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WebViewMessagingContextAmdModuleShim.js; sourceTree = "<group>"; };
+		1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScriptConfig.swift; sourceTree = "<group>"; };
+		1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScriptInitData.swift; sourceTree = "<group>"; };
+		1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRuleAction.swift; sourceTree = "<group>"; };
+		1F13B51521D5901D00EE6927 /* SourceRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F13B4D321CC117300EE6927 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +83,7 @@
 			children = (
 				1F13B4BE21CB167500EE6927 /* ios */,
 				1F13B4BD21CB167500EE6927 /* Products */,
+				1F13B4D121CC117300EE6927 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +98,66 @@
 		1F13B4BE21CB167500EE6927 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				1F13B50421D443CC00EE6927 /* Resources */,
+				1F13B4E921D2AA9500EE6927 /* Models */,
+				1F13B4D421CC334400EE6927 /* ViewControllers */,
 				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
-				1F13B4C121CB167500EE6927 /* ViewController.swift */,
 				1F13B4C321CB167500EE6927 /* Main.storyboard */,
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
 				1F13B4CB21CB167700EE6927 /* Info.plist */,
 			);
 			path = ios;
+			sourceTree = "<group>";
+		};
+		1F13B4D121CC117300EE6927 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F13B4D221CC117300EE6927 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F13B4D421CC334400EE6927 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
+				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
+				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
+				1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1F13B4E921D2AA9500EE6927 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1F13B4EA21D2AAA900EE6927 /* UserPage.swift */,
+				1F13B4EC21D2ABA300EE6927 /* UserArticle.swift */,
+				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
+				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
+				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
+				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
+				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
+				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
+				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
+				1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */,
+				1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */,
+				1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */,
+				1F13B51521D5901D00EE6927 /* SourceRule.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1F13B50421D443CC00EE6927 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F13B50B21D5298900EE6927 /* WebViewMessagingContext.js */,
+				1F13B50721D4445F00EE6927 /* ContentScript.js */,
+				1F13B50921D4480700EE6927 /* ContentScriptMessagingShim.js */,
+				1F13B50D21D52B6700EE6927 /* WebViewMessagingContextAmdModuleShim.js */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,8 +219,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F13B4CA21CB167700EE6927 /* LaunchScreen.storyboard in Resources */,
+				1F13B50E21D52B6700EE6927 /* WebViewMessagingContextAmdModuleShim.js in Resources */,
+				1F13B50A21D4480700EE6927 /* ContentScriptMessagingShim.js in Resources */,
 				1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */,
+				1F13B50821D4445F00EE6927 /* ContentScript.js in Resources */,
 				1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */,
+				1F13B50C21D5298A00EE6927 /* WebViewMessagingContext.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,8 +235,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F13B4C221CB167500EE6927 /* ViewController.swift in Sources */,
+				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
+				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
+				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
+				1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */,
+				1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */,
+				1F13B51221D58EB900EE6927 /* ContentScriptInitData.swift in Sources */,
+				1F13B51421D58F5000EE6927 /* SourceRuleAction.swift in Sources */,
+				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
+				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
+				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,
+				1F13B4E821D2906E00EE6927 /* ArticleViewController.swift in Sources */,
+				1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
+				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
+				1F13B4FF21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift in Sources */,
+				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
+				1F13B4ED21D2ABA300EE6927 /* UserArticle.swift in Sources */,
+				1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
