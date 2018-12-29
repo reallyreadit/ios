@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F12E66221D69E8D001553F9 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12E66121D69E8D001553F9 /* Macaw.framework */; };
+		1F12E66821D6A1B4001553F9 /* SpeechBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12E66721D6A1B4001553F9 /* SpeechBubbleView.swift */; };
 		1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4BF21CB167500EE6927 /* AppDelegate.swift */; };
 		1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C321CB167500EE6927 /* Main.storyboard */; };
 		1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C621CB167700EE6927 /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F12E66121D69E8D001553F9 /* Macaw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Macaw.framework; path = Carthage/Build/iOS/Macaw.framework; sourceTree = "<group>"; };
+		1F12E66721D6A1B4001553F9 /* SpeechBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubbleView.swift; sourceTree = "<group>"; };
 		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F13B4C421CB167500EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F12E66221D69E8D001553F9 /* Macaw.framework in Frameworks */,
 				1F13B4D321CC117300EE6927 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F12E66421D6A16B001553F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F12E66721D6A1B4001553F9 /* SpeechBubbleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1F13B4B321CB167500EE6927 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +111,7 @@
 		1F13B4BE21CB167500EE6927 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				1F12E66421D6A16B001553F9 /* Views */,
 				1F13B50421D443CC00EE6927 /* Resources */,
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F13B4D421CC334400EE6927 /* ViewControllers */,
@@ -113,6 +127,7 @@
 		1F13B4D121CC117300EE6927 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F12E66121D69E8D001553F9 /* Macaw.framework */,
 				1F13B4D221CC117300EE6927 /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -170,6 +185,7 @@
 				1F13B4B821CB167500EE6927 /* Sources */,
 				1F13B4B921CB167500EE6927 /* Frameworks */,
 				1F13B4BA21CB167500EE6927 /* Resources */,
+				1F12E66321D69EA7001553F9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -230,6 +246,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1F12E66321D69EA7001553F9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Macaw.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Macaw.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1F13B4B821CB167500EE6927 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -237,6 +275,7 @@
 			files = (
 				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
+				1F12E66821D6A1B4001553F9 /* SpeechBubbleView.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
 				1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */,
 				1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */,
@@ -400,6 +439,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -418,6 +461,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -3,11 +3,20 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, WKScriptMessageHandler {
+    // coder
+    let coder: NSCoder
+    
     // article parameters passed from WebAppViewController
     var params: ArticleViewControllerParams!
     
     // article webview
     var webView: WKWebView!
+    
+    // init
+    required init?(coder: NSCoder) {
+        self.coder = coder
+        super.init(coder: coder)
+    }
     
     // create and configure the webview
     override func loadView() {
@@ -49,9 +58,16 @@ class ArticleViewController: UIViewController, WKScriptMessageHandler {
         view = webView
     }
     
-    // fetch and preprocess the article
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // speech bubble
+        let bubble = SpeechBubbleView(coder: coder)!
+        bubble.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        bubble.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: bubble)
+        
+        // fetch and preprocess the article
         URLSession
             .shared
             .dataTask(
@@ -99,6 +115,15 @@ class ArticleViewController: UIViewController, WKScriptMessageHandler {
                 }
             )
             .resume()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController!.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController!.setNavigationBarHidden(true, animated: true)
     }
     
     // messaging

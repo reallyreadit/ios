@@ -17,6 +17,8 @@ class WebAppViewController: UIViewController, WKScriptMessageHandler {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController!.setNavigationBarHidden(true, animated: false)
+        navigationController!.hidesBarsOnSwipe = true
         webView.load(
             URLRequest(
                 url: URL(string: "http://dev.reallyread.it")!
