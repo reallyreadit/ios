@@ -2,71 +2,116 @@ import UIKit
 import WebKit
 import os.log
 
-class WebAppViewController: UIViewController, WKScriptMessageHandler {
-    var webView: WKWebView!
-    override func loadView() {
-        let config = WKWebViewConfiguration()
-        config.userContentController = WKUserContentController()
-        config.userContentController.add(self, name: "reallyreadit")
-        webView = WKWebView(
-            frame: .zero,
-            configuration: config
-        )
-        webView.customUserAgent = "reallyread.it iOS App WebView"
-        view = webView
+class WebAppViewController: WebViewUIViewController {
+    var hideStatusBar = false
+    override var prefersStatusBarHidden: Bool {
+        return hideStatusBar
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController!.setNavigationBarHidden(true, animated: false)
-        navigationController!.hidesBarsOnSwipe = true
-        webView.load(
-            URLRequest(
-                url: URL(string: "http://dev.reallyread.it")!
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    var sessionKey: String?
+    required init?(coder: NSCoder) {
+        // configure webview
+        super.init(coder: coder)
+        webView.customUserAgent = "reallyread.it iOS App WebView"
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.bounces = false
+        // update auth state
+        updateAuthStateFromWebview()
+    }
+    private func updateAuthStateFromWebview() {
+        webView.configuration.websiteDataStore.httpCookieStore.getAllCookies({
+            cookies in
+            if
+                let sessionCookie = cookies.first(where: {
+                    cookie in
+                    cookie.domain == ".dev.reallyread.it" && cookie.name == "devSessionKey"
+                })
+            {
+                self.sessionKey = sessionCookie.value
+                self.view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
+                os_log(.debug, "sessionKey = %s", sessionCookie.value)
+            } else {
+                self.sessionKey = nil
+                self.view.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+                os_log(.debug, "sessionKey = nil")
+            }
+        })
+    }
+    override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
+        updateAuthStateFromWebview()
+    }
+    override func loadView() {
+        view = UIView()
+    }
+    override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
+        switch message.type {
+        case "readArticle":
+            performSegue(
+                withIdentifier: "readArticle",
+                sender: message.data
             )
-        )
+        default:
+            return
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if
             let destination = segue.destination as? ArticleViewController,
             let data = sender as? [String: Any]
         {
+            // hide status bar with animation
+            hideStatusBar = true
+            UIView.animate(withDuration: 0.25) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+            // show navigation bar
+            navigationController!.setNavigationBarHidden(false, animated: true)
+            navigationController!.hidesBarsOnSwipe = true
+            // set view controller params
             destination.params = ArticleViewControllerParams(
                 article: ArticleViewControllerArticleParam(
                     title: data["title"] as! String,
                     url: URL(string: data["url"] as! String)!
-                )/*,
-                onRegisterPage: {
-                    data in
-                    os_log(.debug, "onRegisterPage")
-                    return ""
+                ),
+                onClose: {
+                    // set status bar to hidden
+                    self.hideStatusBar = false
+                    // hide navigation bar
+                    self.navigationController!.setNavigationBarHidden(true, animated: true)
+                    self.navigationController!.hidesBarsOnSwipe = false
                 },
-                onCommitReadState: {
-                    commitData, isCompletionCommit in
-                    os_log(.debug, "onCommitReadState")
-                    return ""
-                }*/
+                onReadStateCommitted: {
+                    event in
+                    self.sendMessage(
+                        message: Message(
+                            type: "articleUpdated",
+                            data: event
+                        )
+                    )
+                },
+                sessionKey: sessionKey!
             )
         }
     }
-    func userContentController(
-        _ userContentController: WKUserContentController,
-        didReceive message: WKScriptMessage
-    ) {
-        if
-            let envelope = message.body as? [String: Any],
-            let message = envelope["data"] as? [String: Any]
-        {
-            if let messageType = message["type"] as? String {
-                switch messageType {
-                case "readArticle":
-                    performSegue(
-                        withIdentifier: "readArticle",
-                        sender: message["data"]
-                    )
-                default:
-                    return
-                }
-            }
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // hide the navigation bar
+        navigationController!.setNavigationBarHidden(true, animated: false)
+        // add the webview as a subview
+        view.addSubview(webView)
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        // load the webview
+        webView.load(
+            URLRequest(
+                url: URL(string: "http://dev.reallyread.it")!
+            )
+        )
     }
 }

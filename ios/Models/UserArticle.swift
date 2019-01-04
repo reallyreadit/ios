@@ -16,7 +16,7 @@ struct UserArticle: Codable {
     var commentCount: Int
     var readCount: Int
     var dateCreated: Date?
-    var percentComplete: Decimal
+    var percentComplete: Double
     var isRead: Bool
     var dateStarred: Date?
     var proofToken: String?
