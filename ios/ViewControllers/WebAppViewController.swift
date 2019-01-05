@@ -44,6 +44,13 @@ class WebAppViewController: WebViewViewController {
     override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         updateAuthStateFromWebview()
     }
+    func loadURL(_ url: URL) {
+        webView.load(
+            URLRequest(
+                url: url
+            )
+        )
+    }
     override func loadView() {
         view = UIView()
     }
