@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-class WebViewUIViewController: UIViewController, WKHTTPCookieStoreObserver, WKScriptMessageHandler {
+class WebViewViewController: UIViewController, WKHTTPCookieStoreObserver, WKScriptMessageHandler {
     private static func jsonEncodeForLiteral<T: Encodable>(_ object: T) -> String {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -21,7 +21,8 @@ class WebViewUIViewController: UIViewController, WKHTTPCookieStoreObserver, WKSc
         )
         return jsonString as String
     }
-    var responseCallbacks = [ResponseCallback]()
+    private let messageHandlerKey = "reallyreadit"
+    private var responseCallbacks = [ResponseCallback]()
     var webView: WKWebView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -32,7 +33,7 @@ class WebViewUIViewController: UIViewController, WKHTTPCookieStoreObserver, WKSc
         setWebView(config: webViewConfig)
     }
     private func setWebView(config: WKWebViewConfiguration) {
-        config.userContentController.add(self, name: "reallyreadit")
+        config.userContentController.add(self, name: messageHandlerKey)
         config.websiteDataStore.httpCookieStore.add(self)
         webView = WKWebView(
             frame: .zero,
@@ -55,16 +56,12 @@ class WebViewUIViewController: UIViewController, WKHTTPCookieStoreObserver, WKSc
             )
             responseCallbacks.append(ResponseCallback(id: callbackId!, function: responseCallback!))
         }
-        let envelope = WebViewUIViewController.jsonEncodeForLiteral(CallEnvelope(callbackId: callbackId, data: message))
-        webView.evaluateJavaScript(
-            "window.reallyreadit.postMessage('\(envelope)');"
-        )
+        let envelope = WebViewViewController.jsonEncodeForLiteral(CallEnvelope(callbackId: callbackId, data: message))
+        webView.evaluateJavaScript("window.reallyreadit.postMessage('\(envelope)');")
     }
     func sendResponse<T: Codable>(data: T, callbackId: Int) {
-        let envelope = WebViewUIViewController.jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
-        webView.evaluateJavaScript(
-            "window.reallyreadit.sendResponse('\(envelope)');"
-        )
+        let envelope = WebViewViewController.jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
+        webView.evaluateJavaScript("window.reallyreadit.sendResponse('\(envelope)');")
     }
     func userContentController(
         _ userContentController: WKUserContentController,
@@ -89,6 +86,14 @@ class WebViewUIViewController: UIViewController, WKHTTPCookieStoreObserver, WKSc
                     callbackId: envelope["callbackId"] as? Int
                 )
             }
+        }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        if self.isBeingDismissed || self.isMovingFromParent {
+            webView.configuration.userContentController.removeScriptMessageHandler(
+                forName: messageHandlerKey
+            )
+            webView.configuration.websiteDataStore.httpCookieStore.remove(self)
         }
     }
 }

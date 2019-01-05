@@ -2,14 +2,16 @@ import UIKit
 import WebKit
 import os.log
 
-class WebAppViewController: WebViewUIViewController {
-    var hideStatusBar = false
+class WebAppViewController: WebViewViewController {
+    // status bar config
+    private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
         return hideStatusBar
     }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
     }
+    // webview authentication
     var sessionKey: String?
     required init?(coder: NSCoder) {
         // configure webview

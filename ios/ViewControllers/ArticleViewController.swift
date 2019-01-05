@@ -2,127 +2,33 @@ import UIKit
 import WebKit
 import os.log
 
-class ArticleViewController: WebViewUIViewController {
-    var hideStatusBar = true
-    override var prefersStatusBarHidden: Bool {
-        return hideStatusBar
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .slide
-    }
-    var params: ArticleViewControllerParams!
-    let speechBubble: SpeechBubbleView
-    required init?(coder: NSCoder) {
-        // init speech bubble
-        speechBubble = SpeechBubbleView(coder: coder)!
-        NSLayoutConstraint.activate([
-            speechBubble.widthAnchor.constraint(equalToConstant: 32),
-            speechBubble.heightAnchor.constraint(equalToConstant: 32)
-        ])
-        // configure webview
-        let config = WKWebViewConfiguration()
-        [
-            (
-                fileName: "WebViewMessagingContextAmdModuleShim",
-                injectionTime: WKUserScriptInjectionTime.atDocumentStart
-            ), (
-                fileName: "WebViewMessagingContext",
-                injectionTime: WKUserScriptInjectionTime.atDocumentStart
-            ), (
-                fileName: "ContentScriptMessagingShim",
-                injectionTime: WKUserScriptInjectionTime.atDocumentStart
-            ), (
-                fileName: "ContentScript",
-                injectionTime: WKUserScriptInjectionTime.atDocumentEnd
-            )
-            ]
-            .forEach({
-                script in
-                config.userContentController.addUserScript(
-                    WKUserScript(
-                        source: try! String(
-                            contentsOf: Bundle.main.url(forResource: script.fileName, withExtension: "js")!
-                        ),
-                        injectionTime: script.injectionTime,
-                        forMainFrameOnly: true
-                    )
-                )
-            })
-        super.init(coder: coder, webViewConfig: config)
-        webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
-    }
-    override func loadView() {
-        view = webView
-    }
-    override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
-        switch message.type {
-        case "registerContentScript":
-            sendResponse(
-                data: ContentScriptInitData(
-                    config: ContentScriptConfig(
-                        idleReadRate: 500,
-                        pageOffsetUpdateRate: 3000,
-                        readStateCommitRate: 3000,
-                        readWordRate: 100
-                    ),
-                    loadPage: true,
-                    parseMetadata: false,
-                    parseMode: "mutate",
-                    showOverlay: false,
-                    sourceRules: []
-                ),
-                callbackId: callbackId!
-            )
-        case "registerPage":
-            postJson(
-                path: "/Extension/GetUserArticle",
-                data: ["url": params.article.url.absoluteString],
-                onSuccess: {
-                    (result: ArticleLookupResult) in
-                    self.speechBubble.setState(
-                        isLoading: false,
-                        percentComplete: result.userArticle.percentComplete,
-                        isRead: result.userArticle.isRead
-                    )
-                    self.sendResponse(data: result.userPage, callbackId: callbackId!)
-                },
-                onError: { _ in }
-            )
-        case "commitReadState":
-            let event = CommitReadStateEvent(message.data as! [String: Any])
-            postJson(
-                path: "/Extension/CommitReadState",
-                data: event.commitData,
-                onSuccess: {
-                    (article: UserArticle) in
-                    self.speechBubble.setState(
-                        isLoading: false,
-                        percentComplete: article.percentComplete,
-                        isRead: article.isRead
-                    )
-                    self.params.onReadStateCommitted(
-                        ReadStateCommittedEvent(
-                            article: article,
-                            isCompletionCommit: event.isCompletionCommit
-                        )
-                    )
-                },
-                onError: { _ in }
-            )
-        default:
-            return
-        }
-    }
-    func postJson<TData: Encodable, TResult: Decodable>(
+class ArticleViewController: WebViewViewController {
+    private static let scripts = [
+        (
+            fileName: "WebViewMessagingContextAmdModuleShim",
+            injectionTime: WKUserScriptInjectionTime.atDocumentStart
+        ), (
+            fileName: "WebViewMessagingContext",
+            injectionTime: WKUserScriptInjectionTime.atDocumentStart
+        ), (
+            fileName: "ContentScriptMessagingShim",
+            injectionTime: WKUserScriptInjectionTime.atDocumentStart
+        ), (
+            fileName: "ContentScript",
+            injectionTime: WKUserScriptInjectionTime.atDocumentEnd
+        )
+    ]
+    private static func postJson<TData: Encodable, TResult: Decodable>(
         path: String,
         data: TData?,
+        sessionKey: String,
         onSuccess: @escaping (_: TResult) -> Void,
         onError: @escaping (_: Error?) -> Void
     ) {
         var request = URLRequest(url: URL(string: "http://api.dev.reallyread.it" + path)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("devSessionKey=\(params.sessionKey)", forHTTPHeaderField: "Cookie")
+        request.addValue("devSessionKey=\(sessionKey)", forHTTPHeaderField: "Cookie")
         request.httpBody = try! JSONEncoder().encode(data)
         URLSession
             .shared
@@ -153,12 +59,112 @@ class ArticleViewController: WebViewUIViewController {
             )
             .resume()
     }
+    // status bar config
+    private var hideStatusBar = true
+    override var prefersStatusBarHidden: Bool {
+        return hideStatusBar
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    var params: ArticleViewControllerParams!
+    private let speechBubble: SpeechBubbleView
+    required init?(coder: NSCoder) {
+        // init speech bubble
+        speechBubble = SpeechBubbleView(coder: coder)!
+        NSLayoutConstraint.activate([
+            speechBubble.widthAnchor.constraint(equalToConstant: 32),
+            speechBubble.heightAnchor.constraint(equalToConstant: 32)
+        ])
+        // configure webview
+        let config = WKWebViewConfiguration()
+        ArticleViewController.scripts.forEach({
+            script in
+            config.userContentController.addUserScript(
+                WKUserScript(
+                    source: try! String(
+                        contentsOf: Bundle.main.url(forResource: script.fileName, withExtension: "js")!
+                    ),
+                    injectionTime: script.injectionTime,
+                    forMainFrameOnly: true
+                )
+            )
+        })
+        super.init(coder: coder, webViewConfig: config)
+        webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+    }
+    override func loadView() {
+        view = webView
+    }
+    override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
+        switch message.type {
+        case "registerContentScript":
+            sendResponse(
+                data: ContentScriptInitData(
+                    config: ContentScriptConfig(
+                        idleReadRate: 500,
+                        pageOffsetUpdateRate: 3000,
+                        readStateCommitRate: 3000,
+                        readWordRate: 100
+                    ),
+                    loadPage: true,
+                    parseMetadata: false,
+                    parseMode: "mutate",
+                    showOverlay: false,
+                    sourceRules: []
+                ),
+                callbackId: callbackId!
+            )
+        case "registerPage":
+            ArticleViewController.postJson(
+                path: "/Extension/GetUserArticle",
+                data: ["url": params.article.url.absoluteString],
+                sessionKey: params.sessionKey,
+                onSuccess: {
+                    [weak self] (result: ArticleLookupResult) in
+                    if let self = self {
+                        self.speechBubble.setState(
+                            isLoading: false,
+                            percentComplete: result.userArticle.percentComplete,
+                            isRead: result.userArticle.isRead
+                        )
+                        self.sendResponse(data: result.userPage, callbackId: callbackId!)
+                    }
+                },
+                onError: { _ in }
+            )
+        case "commitReadState":
+            let event = CommitReadStateEvent(message.data as! [String: Any])
+            ArticleViewController.postJson(
+                path: "/Extension/CommitReadState",
+                data: event.commitData,
+                sessionKey: params.sessionKey,
+                onSuccess: {
+                    [weak self] (article: UserArticle) in
+                    if let self = self {
+                        self.speechBubble.setState(
+                            isLoading: false,
+                            percentComplete: article.percentComplete,
+                            isRead: article.isRead
+                        )
+                        self.params.onReadStateCommitted(
+                            ReadStateCommittedEvent(
+                                article: article,
+                                isCompletionCommit: event.isCompletionCommit
+                            )
+                        )
+                    }
+                },
+                onError: { _ in }
+            )
+        default:
+            return
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // speech bubble
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: speechBubble)
-        
         // fetch and preprocess the article
         URLSession
             .shared
@@ -169,10 +175,11 @@ class ArticleViewController: WebViewUIViewController {
                         with: "https:",
                         options: [.regularExpression, .caseInsensitive]
                     )
-                    )!,
+                )!,
                 completionHandler: {
-                    (data, response, error) in
+                    [weak self] (data, response, error) in
                     if
+                        let self = self,
                         error == nil,
                         let httpResponse = response as? HTTPURLResponse,
                         (200...299).contains(httpResponse.statusCode),
@@ -210,11 +217,14 @@ class ArticleViewController: WebViewUIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // show status bar with animation
-        hideStatusBar = false
-        UIView.animate(withDuration: 0.25) {
-            self.setNeedsStatusBarAppearanceUpdate()
+        if self.isBeingDismissed || self.isMovingFromParent {
+            // show status bar with animation
+            hideStatusBar = false
+            UIView.animate(withDuration: 0.25) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+            // call onClose
+            params.onClose()
         }
-        params.onClose()
     }
 }
