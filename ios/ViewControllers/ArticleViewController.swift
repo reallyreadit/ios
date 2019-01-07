@@ -4,18 +4,25 @@ import os.log
 
 class ArticleViewController: WebViewViewController {
     private static let scripts = [
-        (
-            fileName: "WebViewMessagingContextAmdModuleShim",
-            injectionTime: WKUserScriptInjectionTime.atDocumentStart
-        ), (
-            fileName: "WebViewMessagingContext",
-            injectionTime: WKUserScriptInjectionTime.atDocumentStart
-        ), (
-            fileName: "ContentScriptMessagingShim",
-            injectionTime: WKUserScriptInjectionTime.atDocumentStart
-        ), (
-            fileName: "ContentScript",
-            injectionTime: WKUserScriptInjectionTime.atDocumentEnd
+        ArticleViewControllerScript(
+            appSupportFileName: nil,
+            bundleFileName: "WebViewMessagingContextAmdModuleShim",
+            injectionTime: .atDocumentStart
+        ),
+        ArticleViewControllerScript(
+            appSupportFileName: nil,
+            bundleFileName: "WebViewMessagingContext",
+            injectionTime: .atDocumentStart
+        ),
+        ArticleViewControllerScript(
+            appSupportFileName: nil,
+            bundleFileName: "ContentScriptMessagingShim",
+            injectionTime: .atDocumentStart
+        ),
+        ArticleViewControllerScript(
+            appSupportFileName: "ContentScript.js",
+            bundleFileName: "ContentScript",
+            injectionTime: .atDocumentEnd
         )
     ]
     private static func postJson<TData: Encodable, TResult: Decodable>(
@@ -80,15 +87,40 @@ class ArticleViewController: WebViewViewController {
         let config = WKWebViewConfiguration()
         ArticleViewController.scripts.forEach({
             script in
-            config.userContentController.addUserScript(
-                WKUserScript(
-                    source: try! String(
-                        contentsOf: Bundle.main.url(forResource: script.fileName, withExtension: "js")!
-                    ),
-                    injectionTime: script.injectionTime,
-                    forMainFrameOnly: true
+            var source: String?
+            if
+                script.appSupportFileName != nil,
+                let appSupportDirURL = FileManager.default
+                    .urls(
+                        for: .applicationSupportDirectory,
+                        in: .userDomainMask
+                    )
+                    .first,
+                let fileContent = try? String(
+                    contentsOf: appSupportDirURL.appendingPathComponent("reallyreadit/\(script.appSupportFileName!)")
                 )
-            )
+            {
+                os_log(.debug, "ArticleViewController(coder:): loading script from file: %s", script.bundleFileName)
+                source = fileContent
+            } else if
+                let fileContent = try? String(
+                    contentsOf: Bundle.main.url(forResource: script.bundleFileName, withExtension: "js")!
+                )
+            {
+                os_log(.debug, "ArticleViewController(coder:): loading script from bundle: %s", script.bundleFileName)
+                source = fileContent
+            }
+            if source != nil {
+                config.userContentController.addUserScript(
+                    WKUserScript(
+                        source: source!,
+                        injectionTime: script.injectionTime,
+                        forMainFrameOnly: true
+                    )
+                )
+            } else {
+                os_log(.debug, "ArticleViewController(coder:): error loading script: %s", script.bundleFileName)
+            }
         })
         super.init(coder: coder, webViewConfig: config)
         webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"

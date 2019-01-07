@@ -43,6 +43,7 @@
 		1F19472321DF007A00D1599D /* ResponseCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472221DF007A00D1599D /* ResponseCallback.swift */; };
 		1F19472521DF00F700D1599D /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472421DF00F700D1599D /* WebViewViewController.swift */; };
 		1F19472721DF0F4200D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
+		1F19473C21E1415700D1599D /* ArticleViewControllerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		1F19472421DF00F700D1599D /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommittedEvent.swift; sourceTree = "<group>"; };
 		1F19473A21E105C100D1599D /* ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ios.entitlements; sourceTree = "<group>"; };
+		1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerScript.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
 				1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */,
+				1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				1F13B51421D58F5000EE6927 /* SourceRuleAction.swift in Sources */,
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
+				1F19473C21E1415700D1599D /* ArticleViewControllerScript.swift in Sources */,
 				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,
 				1F13B4E821D2906E00EE6927 /* ArticleViewController.swift in Sources */,
 				1F19472321DF007A00D1599D /* ResponseCallback.swift in Sources */,

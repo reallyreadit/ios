@@ -1,18 +1,82 @@
-//
-//  AppDelegate.swift
-//  ios
-//
-//  Created by Jeff Camera on 12/19/18.
-//  Copyright © 2018 reallyread.it, inc. All rights reserved.
-//
-
 import UIKit
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private func updateContentScript() {
+        let now = Date()
+        let lastCheck = UserDefaults.standard.object(forKey: "contentScriptLastCheck") as? Date
+        os_log(.debug, "updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
+        if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= /*1 * 60 * 60*/ 1 * 60 {
+            let currentVersion = UserDefaults.standard.double(forKey: "contentScriptVersion")
+            os_log(.debug, "updateContentScript(): checking latest version, current version: %f", currentVersion)
+            URLSession
+                .shared
+                .dataTask(
+                    with: URLRequest(
+                        url: URL(
+                            string: "http://dev.reallyread.it/assets/update/ContentScript.js?currentVersion=\(currentVersion)"
+                        )!
+                    ),
+                    completionHandler: {
+                        data, response, error in
+                        if
+                            error == nil,
+                            let httpResponse = response as? HTTPURLResponse,
+                            (200...299).contains(httpResponse.statusCode),
+                            let data = data
+                        {
+                            UserDefaults.standard.set(now, forKey: "contentScriptLastCheck")
+                            if
+                                httpResponse.allHeaderFields.keys.contains("X-ReallyReadIt-Version"),
+                                let newVersionString = httpResponse.allHeaderFields["X-ReallyReadIt-Version"] as? String,
+                                let newVersion = Double(newVersionString),
+                                let appSupportDirURL = FileManager.default
+                                    .urls(
+                                        for: .applicationSupportDirectory,
+                                        in: .userDomainMask
+                                    )
+                                    .first
+                            {
+                                os_log(.debug, "updateContentScript(): upgrading to version %f", newVersion)
+                                let dirURL = appSupportDirURL.appendingPathComponent("reallyreadit")
+                                if
+                                    !FileManager.default.fileExists(
+                                        atPath: dirURL.absoluteString
+                                    )
+                                {
+                                    do {
+                                        try FileManager.default.createDirectory(
+                                            at: dirURL,
+                                            withIntermediateDirectories: true
+                                        )
+                                    } catch let error {
+                                        os_log(.debug, "updateContentScript(): error creating directory: %s", error.localizedDescription)
+                                    }
+                                }
+                                do {
+                                    try data.write(
+                                        to: dirURL.appendingPathComponent("ContentScript.js")
+                                    )
+                                    UserDefaults.standard.set(newVersion, forKey: "contentScriptVersion")
+                                }
+                                catch let error {
+                                    os_log(.debug, "updateContentScript(): error saving file: %s", error.localizedDescription)
+                                }
+                            } else {
+                                os_log(.debug, "updateContentScript(): up to date")
+                            }
+                        } else {
+                            os_log(.debug, "updateContentScript(): error checking latest version")
+                        }
+                    }
+                )
+                .resume()
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -55,12 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        updateContentScript()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
