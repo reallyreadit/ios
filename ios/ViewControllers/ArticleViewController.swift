@@ -168,7 +168,10 @@ class ArticleViewController: WebViewViewController {
                         self.sendResponse(data: result.userPage, callbackId: callbackId!)
                     }
                 },
-                onError: { _ in }
+                onError: {
+                    _ in
+                    self.speechBubble.setState(isLoading: false)
+                }
             )
         case "commitReadState":
             let event = CommitReadStateEvent(message.data as! [String: Any])
@@ -192,7 +195,10 @@ class ArticleViewController: WebViewViewController {
                         )
                     }
                 },
-                onError: { _ in }
+                onError: {
+                    _ in
+                    self.speechBubble.setState(isLoading: false)
+                }
             )
         default:
             return
@@ -244,6 +250,7 @@ class ArticleViewController: WebViewViewController {
                                 stringData as String,
                                 baseURL: nil
                             )
+                            self.speechBubble.setState(isLoading: true)
                         }
                     } else {
                         os_log(.debug, "Error loading article")

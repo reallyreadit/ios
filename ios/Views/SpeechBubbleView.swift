@@ -2,6 +2,7 @@ import Macaw
 import UIKit
 
 class SpeechBubbleView: MacawView {
+    let activityIndicator = UIActivityIndicatorView()
     let speechBubble: Shape
     required init?(coder: NSCoder) {
         speechBubble = PathBuilder(segment: PathSegment(type: .m, data: [14.7385, 0.56637537]))
@@ -30,8 +31,17 @@ class SpeechBubbleView: MacawView {
         )
         contentLayout = ContentLayout.of(contentMode: .scaleToFill)
         backgroundColor = .clear
+        // configure activity indicator
+        activityIndicator.color = .gray
+        self.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -3)
+        ])
     }
-    func setState(isLoading: Bool, percentComplete: Double, isRead: Bool) {
+    func setState(isLoading: Bool, percentComplete: Double = 0, isRead: Bool = false) {
         speechBubble.fill = LinearGradient(
             x1: 64,
             y1: 128,
@@ -51,5 +61,10 @@ class SpeechBubbleView: MacawView {
                 )
             ]
         )
+        if isLoading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
 }
