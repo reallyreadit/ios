@@ -68,9 +68,13 @@ class WebViewViewController:
             loadingView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
         ])
         overlay.addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorView.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            errorView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+        ])
         // show loading view
-        loadingView.isHidden = false
-        errorView.isHidden = true
+        setState(.loading)
     }
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         
@@ -94,6 +98,22 @@ class WebViewViewController:
     func sendResponse<T: Codable>(data: T, callbackId: Int) {
         let envelope = WebViewViewController.jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
         webView.evaluateJavaScript("window.reallyreadit.sendResponse('\(envelope)');")
+    }
+    func setState(_ state: WebViewState) {
+        switch state {
+        case .error:
+            loadingView.isHidden = true
+            errorView.isHidden = false
+            overlay.isHidden = false
+        case .loaded:
+            overlay.isHidden = true
+            loadingView.isHidden = true
+            errorView.isHidden = true
+        case .loading:
+            loadingView.isHidden = false
+            errorView.isHidden = true
+            overlay.isHidden = false
+        }
     }
     func userContentController(
         _ userContentController: WKUserContentController,

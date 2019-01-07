@@ -44,6 +44,7 @@
 		1F19472521DF00F700D1599D /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472421DF00F700D1599D /* WebViewViewController.swift */; };
 		1F19472721DF0F4200D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
 		1F19473C21E1415700D1599D /* ArticleViewControllerScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */; };
+		1F19476621E4033200D1599D /* WebViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19476521E4033200D1599D /* WebViewState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommittedEvent.swift; sourceTree = "<group>"; };
 		1F19473A21E105C100D1599D /* ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ios.entitlements; sourceTree = "<group>"; };
 		1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerScript.swift; sourceTree = "<group>"; };
+		1F19476521E4033200D1599D /* WebViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				1F19472021DF006B00D1599D /* ResponseEnvelope.swift */,
 				1F19472221DF007A00D1599D /* ResponseCallback.swift */,
 				1F19472421DF00F700D1599D /* WebViewViewController.swift */,
+				1F19476521E4033200D1599D /* WebViewState.swift */,
 			);
 			path = WebViewMessaging;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				1F12E66821D6A1B4001553F9 /* SpeechBubbleView.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
 				1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */,
+				1F19476621E4033200D1599D /* WebViewState.swift in Sources */,
 				1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */,
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */,
