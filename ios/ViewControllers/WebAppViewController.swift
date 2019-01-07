@@ -17,14 +17,23 @@ class WebAppViewController: WebViewViewController {
         // configure webview
         super.init(coder: coder)
         webView.customUserAgent = "reallyread.it iOS App WebView"
-        webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.bounces = false
+        // configure the overlay
+        overlay.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+        // configure loading view
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .black
+        indicator.startAnimating()
+        loadingView.addSubview(indicator)
+        // configure the error view
+        
         // update auth state
         updateAuthStateFromWebview()
     }
     private func updateAuthStateFromWebview() {
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies({
             cookies in
+            var color: UIColor
             if
                 let sessionCookie = cookies.first(where: {
                     cookie in
@@ -33,12 +42,13 @@ class WebAppViewController: WebViewViewController {
             {
                 os_log(.debug, "updateAuthStateFromWebview(): authenticated")
                 self.sessionKey = sessionCookie.value
-                self.view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
+                color = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
             } else {
                 os_log(.debug, "updateAuthStateFromWebview(): unauthenticated")
                 self.sessionKey = nil
-                self.view.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+                color = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
             }
+            self.view.backgroundColor = color
         })
     }
     override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
@@ -53,6 +63,7 @@ class WebAppViewController: WebViewViewController {
     }
     override func loadView() {
         view = UIView()
+        view.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
     }
     override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
@@ -110,12 +121,13 @@ class WebAppViewController: WebViewViewController {
         navigationController!.setNavigationBarHidden(true, animated: false)
         // add the webview as a subview
         view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
+        ])
         // load the webview
         webView.load(
             URLRequest(

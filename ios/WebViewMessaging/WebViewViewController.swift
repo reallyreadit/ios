@@ -1,7 +1,12 @@
 import UIKit
 import WebKit
 
-class WebViewViewController: UIViewController, WKHTTPCookieStoreObserver, WKScriptMessageHandler {
+class WebViewViewController:
+    UIViewController,
+    WKHTTPCookieStoreObserver,
+    WKScriptMessageHandler,
+    WKNavigationDelegate
+{
     private static func jsonEncodeForLiteral<T: Encodable>(_ object: T) -> String {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -21,7 +26,10 @@ class WebViewViewController: UIViewController, WKHTTPCookieStoreObserver, WKScri
         )
         return jsonString as String
     }
+    let errorView: UIView = UIView()
+    let loadingView: UIView = UIView()
     private let messageHandlerKey = "reallyreadit"
+    let overlay = UIView()
     private var responseCallbacks = [ResponseCallback]()
     var webView: WKWebView!
     required init?(coder aDecoder: NSCoder) {
@@ -33,12 +41,36 @@ class WebViewViewController: UIViewController, WKHTTPCookieStoreObserver, WKScri
         setWebView(config: webViewConfig)
     }
     private func setWebView(config: WKWebViewConfiguration) {
+        // add self as event listener
         config.userContentController.add(self, name: messageHandlerKey)
         config.websiteDataStore.httpCookieStore.add(self)
+        // create webview with configuration
         webView = WKWebView(
             frame: .zero,
             configuration: config
         )
+        // assign self as navigation delegate
+        webView.navigationDelegate = self
+        // add overlay
+        webView.addSubview(overlay)
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            overlay.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
+            overlay.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
+            overlay.topAnchor.constraint(equalTo: webView.topAnchor),
+            overlay.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        ])
+        // add overlay subviews
+        overlay.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+        ])
+        overlay.addSubview(errorView)
+        // show loading view
+        loadingView.isHidden = false
+        errorView.isHidden = true
     }
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         
@@ -95,5 +127,15 @@ class WebViewViewController: UIViewController, WKHTTPCookieStoreObserver, WKScri
             )
             webView.configuration.websiteDataStore.httpCookieStore.remove(self)
         }
+    }
+    func webView(_: WKWebView, didFail: WKNavigation!, withError: Error) {
+        loadingView.isHidden = true
+        errorView.isHidden = false
+        overlay.isHidden = false
+    }
+    func webView(_: WKWebView, didFinish: WKNavigation!) {
+        overlay.isHidden = true
+        loadingView.isHidden = true
+        errorView.isHidden = true
     }
 }

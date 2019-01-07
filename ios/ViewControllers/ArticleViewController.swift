@@ -124,6 +124,11 @@ class ArticleViewController: WebViewViewController {
         })
         super.init(coder: coder, webViewConfig: config)
         webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        // configure loading view
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .gray
+        indicator.startAnimating()
+        loadingView.addSubview(indicator)
     }
     override func loadView() {
         view = webView
