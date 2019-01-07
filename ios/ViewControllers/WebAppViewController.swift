@@ -31,13 +31,13 @@ class WebAppViewController: WebViewViewController {
                     cookie.domain == ".dev.reallyread.it" && cookie.name == "devSessionKey"
                 })
             {
+                os_log(.debug, "updateAuthStateFromWebview(): authenticated")
                 self.sessionKey = sessionCookie.value
                 self.view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
-                os_log(.debug, "sessionKey = %s", sessionCookie.value)
             } else {
+                os_log(.debug, "updateAuthStateFromWebview(): unauthenticated")
                 self.sessionKey = nil
                 self.view.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
-                os_log(.debug, "sessionKey = nil")
             }
         })
     }
