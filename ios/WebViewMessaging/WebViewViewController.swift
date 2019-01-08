@@ -30,6 +30,7 @@ class WebViewViewController:
     private var responseCallbacks = [ResponseCallback]()
     let errorView: UIView = UIView()
     let loadingView: UIView = UIView()
+    var state: WebViewState!
     var webView: WKWebView!
     let webViewContainer = UIView()
     required init?(coder aDecoder: NSCoder) {
@@ -115,6 +116,7 @@ class WebViewViewController:
         webView.evaluateJavaScript("window.reallyreadit.sendResponse('\(envelope)');")
     }
     func setState(_ state: WebViewState) {
+        self.state = state
         switch state {
         case .error:
             loadingView.isHidden = true

@@ -65,35 +65,41 @@ class WebAppViewController: WebViewViewController {
                 constant: 8
             )
         ])
-        // update auth state
-        updateAuthStateFromWebview()
+        // set session key
+        setSessionKeyFromWebview()
     }
     @objc private func loadWebApp() {
         loadURL(URL(string: "http://dev.reallyread.it")!)
     }
-    private func updateAuthStateFromWebview() {
+    private func setBackgroundColor() {
+        if state == .loaded, sessionKey != nil {
+            view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
+        } else {
+            view.backgroundColor = ghostWhite
+        }
+    }
+    private func setSessionKeyFromWebview() {
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies({
             cookies in
-            var color: UIColor
+            // set the session key
             if
                 let sessionCookie = cookies.first(where: {
                     cookie in
                     cookie.domain == ".dev.reallyread.it" && cookie.name == "devSessionKey"
                 })
             {
-                os_log(.debug, "updateAuthStateFromWebview(): authenticated")
+                os_log(.debug, "setSessionKeyFromWebview(): authenticated")
                 self.sessionKey = sessionCookie.value
-                color = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
             } else {
-                os_log(.debug, "updateAuthStateFromWebview(): unauthenticated")
+                os_log(.debug, "setSessionKeyFromWebview(): unauthenticated")
                 self.sessionKey = nil
-                color = self.ghostWhite
             }
-            self.view.backgroundColor = color
+            // set the background color
+            self.setBackgroundColor()
         })
     }
     override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        updateAuthStateFromWebview()
+        setSessionKeyFromWebview()
     }
     func loadURL(_ url: URL) {
         os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
@@ -105,7 +111,7 @@ class WebAppViewController: WebViewViewController {
     }
     override func loadView() {
         view = UIView()
-        view.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+        view.backgroundColor = ghostWhite
     }
     override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
@@ -156,6 +162,10 @@ class WebAppViewController: WebViewViewController {
                 sessionKey: sessionKey!
             )
         }
+    }
+    override func setState(_ state: WebViewState) {
+        super.setState(state)
+        setBackgroundColor()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
