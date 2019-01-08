@@ -18,7 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .dataTask(
                     with: URLRequest(
                         url: URL(
-                            string: "http://dev.reallyread.it/assets/update/ContentScript.js?currentVersion=\(currentVersion)"
+                            string: (
+                                (Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)
+                                    .trimmingCharacters(in: ["/"]) +
+                                "/assets/update/ContentScript.js?currentVersion=\(currentVersion)"
+                            )
                         )!
                     ),
                     completionHandler: {

@@ -32,10 +32,18 @@ class ArticleViewController: WebViewViewController {
         onSuccess: @escaping (_: TResult) -> Void,
         onError: @escaping (_: Error?) -> Void
     ) {
-        var request = URLRequest(url: URL(string: "http://api.dev.reallyread.it" + path)!)
+        var request = URLRequest(
+            url: URL(
+                string: (Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)
+                    .trimmingCharacters(in: ["/"]) + path
+            )!
+        )
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("devSessionKey=\(sessionKey)", forHTTPHeaderField: "Cookie")
+        request.addValue(
+            "\(Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String)=\(sessionKey)",
+            forHTTPHeaderField: "Cookie"
+        )
         request.httpBody = try! JSONEncoder().encode(data)
         URLSession
             .shared
@@ -185,7 +193,7 @@ class ArticleViewController: WebViewViewController {
                     loadPage: true,
                     parseMetadata: false,
                     parseMode: "mutate",
-                    showOverlay: false,
+                    showOverlay: Bundle.main.infoDictionary!["RRITDebugReader"] as! Bool,
                     sourceRules: []
                 ),
                 callbackId: callbackId!

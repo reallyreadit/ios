@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>RRITDebugReader</key>
+	<true/>
+	<key>RRITAPIServerURL</key>
+	<string>http://api.dev.reallyread.it/</string>
+	<key>RRITAuthCookieName</key>
+	<string>devSessionKey</string>
+	<key>RRITAuthCookieDomain</key>
+	<string>.dev.reallyread.it</string>
+	<key>RRITWebServerURL</key>
+	<string>http://dev.reallyread.it/</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

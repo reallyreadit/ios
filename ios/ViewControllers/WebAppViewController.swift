@@ -75,7 +75,7 @@ class WebAppViewController: WebViewViewController {
         setSessionKeyFromWebview()
     }
     @objc private func loadWebApp() {
-        loadURL(URL(string: "http://dev.reallyread.it")!)
+        loadURL(URL(string: Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)!)
     }
     private func setBackgroundColor() {
         if state == .loaded, sessionKey != nil {
@@ -91,7 +91,8 @@ class WebAppViewController: WebViewViewController {
             if
                 let sessionCookie = cookies.first(where: {
                     cookie in
-                    cookie.domain == ".dev.reallyread.it" && cookie.name == "devSessionKey"
+                    cookie.domain == Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String &&
+                    cookie.name == Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
                 })
             {
                 os_log(.debug, "setSessionKeyFromWebview(): authenticated")
