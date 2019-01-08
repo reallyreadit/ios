@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let now = Date()
         let lastCheck = UserDefaults.standard.object(forKey: "contentScriptLastCheck") as? Date
         os_log(.debug, "updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
-        if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= /*1 * 60 * 60*/ 1 * 60 {
+        if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= 1 * 60 * 60 {
             let currentVersion = UserDefaults.standard.double(forKey: "contentScriptVersion")
             os_log(.debug, "updateContentScript(): checking latest version, current version: %f", currentVersion)
             URLSession
