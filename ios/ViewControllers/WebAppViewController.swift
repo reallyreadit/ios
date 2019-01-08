@@ -3,6 +3,7 @@ import WebKit
 import os.log
 
 class WebAppViewController: WebViewViewController {
+    private let ghostWhite = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
     // status bar config
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
@@ -14,21 +15,61 @@ class WebAppViewController: WebViewViewController {
     // webview authentication
     var sessionKey: String?
     required init?(coder: NSCoder) {
-        // configure webview
+        // init super to create webview
         super.init(coder: coder)
+        // configure webview
         webView.customUserAgent = "reallyread.it iOS App WebView"
         webView.scrollView.bounces = false
-        // configure the overlay
-        overlay.backgroundColor = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
-        // configure loading view
-        let indicator = UIActivityIndicatorView()
-        indicator.color = .black
-        indicator.startAnimating()
-        loadingView.addSubview(indicator)
+        // configre the loading view
+        loadingView.backgroundColor = ghostWhite
         // configure the error view
-        
+        errorView.backgroundColor = ghostWhite
+        let errorContent = UIView()
+        errorContent.translatesAutoresizingMaskIntoConstraints = false
+        errorView.addSubview(errorContent)
+        [
+            "An error occured while loading the app.",
+            "You must be online to use reallyread.it.",
+            "Offline support coming soon!"
+        ]
+        .forEach({
+            line in
+            let label = UILabel(frame: .zero)
+            label.text = line
+            label.translatesAutoresizingMaskIntoConstraints = false
+            errorContent.addSubview(label)
+            label.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor).isActive = true
+            if errorContent.subviews.count > 1 {
+                label.topAnchor
+                    .constraint(
+                        equalTo: errorContent.subviews[errorContent.subviews.count - 2].bottomAnchor,
+                        constant: 8
+                    )
+                    .isActive = true
+            }
+        })
+        let reloadButton = UIButton(type: .system)
+        reloadButton.setTitle("Try Again", for: .normal)
+        reloadButton.addTarget(self, action: #selector(loadWebApp), for: .touchUpInside)
+        reloadButton.translatesAutoresizingMaskIntoConstraints = false
+        errorContent.addSubview(reloadButton)
+        NSLayoutConstraint.activate([
+            errorContent.centerYAnchor.constraint(equalTo: errorView.centerYAnchor),
+            errorContent.topAnchor.constraint(equalTo: errorContent.subviews[0].topAnchor),
+            errorContent.bottomAnchor.constraint(equalTo: errorContent.subviews.last!.bottomAnchor),
+            errorContent.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
+            errorContent.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            reloadButton.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
+            reloadButton.topAnchor.constraint(
+                equalTo: errorContent.subviews[errorContent.subviews.count - 2].bottomAnchor,
+                constant: 8
+            )
+        ])
         // update auth state
         updateAuthStateFromWebview()
+    }
+    @objc private func loadWebApp() {
+        loadURL(URL(string: "http://dev.reallyread.it")!)
     }
     private func updateAuthStateFromWebview() {
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies({
@@ -46,7 +87,7 @@ class WebAppViewController: WebViewViewController {
             } else {
                 os_log(.debug, "updateAuthStateFromWebview(): unauthenticated")
                 self.sessionKey = nil
-                color = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+                color = self.ghostWhite
             }
             self.view.backgroundColor = color
         })
@@ -55,6 +96,7 @@ class WebAppViewController: WebViewViewController {
         updateAuthStateFromWebview()
     }
     func loadURL(_ url: URL) {
+        os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
         webView.load(
             URLRequest(
                 url: url
@@ -119,20 +161,16 @@ class WebAppViewController: WebViewViewController {
         super.viewDidLoad()
         // hide the navigation bar
         navigationController!.setNavigationBarHidden(true, animated: false)
-        // add the webview as a subview
-        view.addSubview(webView)
-        webView.translatesAutoresizingMaskIntoConstraints = false
+        // add the webview container as a subview
+        view.addSubview(webViewContainer)
+        webViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            webViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         // load the webview
-        webView.load(
-            URLRequest(
-                url: URL(string: "http://dev.reallyread.it")!
-            )
-        )
+        loadWebApp()
     }
 }

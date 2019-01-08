@@ -26,22 +26,22 @@ class WebViewViewController:
         )
         return jsonString as String
     }
+    private let messageHandlerKey = "reallyreadit"
+    private var responseCallbacks = [ResponseCallback]()
     let errorView: UIView = UIView()
     let loadingView: UIView = UIView()
-    private let messageHandlerKey = "reallyreadit"
-    let overlay = UIView()
-    private var responseCallbacks = [ResponseCallback]()
     var webView: WKWebView!
+    let webViewContainer = UIView()
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setWebView(config: WKWebViewConfiguration())
+        initialize(config: WKWebViewConfiguration())
     }
     init?(coder aDecoder: NSCoder, webViewConfig: WKWebViewConfiguration) {
         super.init(coder: aDecoder)
-        setWebView(config: webViewConfig)
+        initialize(config: webViewConfig)
     }
-    private func setWebView(config: WKWebViewConfiguration) {
-        // add self as event listener
+    private func initialize(config: WKWebViewConfiguration) {
+        // add self as webview event listener
         config.userContentController.add(self, name: messageHandlerKey)
         config.websiteDataStore.httpCookieStore.add(self)
         // create webview with configuration
@@ -51,29 +51,44 @@ class WebViewViewController:
         )
         // assign self as navigation delegate
         webView.navigationDelegate = self
-        // add overlay
-        webView.addSubview(overlay)
-        overlay.translatesAutoresizingMaskIntoConstraints = false
+        // add webview to container
+        webViewContainer.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            overlay.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
-            overlay.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
-            overlay.topAnchor.constraint(equalTo: webView.topAnchor),
-            overlay.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+            webView.leadingAnchor.constraint(equalTo: webViewContainer.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: webViewContainer.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor)
         ])
-        // add overlay subviews
-        overlay.addSubview(loadingView)
+        // configure the loading view
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .gray
+        indicator.startAnimating()
+        loadingView.addSubview(indicator)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor)
+        ])
+        // add loading view to container
+        webViewContainer.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            loadingView.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+            loadingView.leadingAnchor.constraint(equalTo: webViewContainer.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: webViewContainer.trailingAnchor),
+            loadingView.topAnchor.constraint(equalTo: webViewContainer.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor)
         ])
-        overlay.addSubview(errorView)
+        // add error view to container
+        webViewContainer.addSubview(errorView)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            errorView.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
-            errorView.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+            errorView.leadingAnchor.constraint(equalTo: webViewContainer.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: webViewContainer.trailingAnchor),
+            errorView.topAnchor.constraint(equalTo: webViewContainer.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor)
         ])
-        // show loading view
+        // set loading state
         setState(.loading)
     }
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
@@ -104,15 +119,12 @@ class WebViewViewController:
         case .error:
             loadingView.isHidden = true
             errorView.isHidden = false
-            overlay.isHidden = false
         case .loaded:
-            overlay.isHidden = true
             loadingView.isHidden = true
             errorView.isHidden = true
         case .loading:
             loadingView.isHidden = false
             errorView.isHidden = true
-            overlay.isHidden = false
         }
     }
     func userContentController(
@@ -149,13 +161,15 @@ class WebViewViewController:
         }
     }
     func webView(_: WKWebView, didFail: WKNavigation!, withError: Error) {
-        loadingView.isHidden = true
-        errorView.isHidden = false
-        overlay.isHidden = false
+        setState(.error)
+    }
+    func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        setState(.error)
     }
     func webView(_: WKWebView, didFinish: WKNavigation!) {
-        overlay.isHidden = true
-        loadingView.isHidden = true
-        errorView.isHidden = true
+        setState(.loaded)
+    }
+    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        setState(.loading)
     }
 }
