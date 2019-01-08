@@ -55,7 +55,6 @@
 		1F13B4C421CB167500EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F13B4C621CB167700EE6927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F13B4C921CB167700EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1F13B4CB21CB167700EE6927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F13B4D221CC117300EE6927 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppViewController.swift; sourceTree = "<group>"; };
 		1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +88,8 @@
 		1F19473A21E105C100D1599D /* ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ios.entitlements; sourceTree = "<group>"; };
 		1F19473B21E1415700D1599D /* ArticleViewControllerScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerScript.swift; sourceTree = "<group>"; };
 		1F19476521E4033200D1599D /* WebViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewState.swift; sourceTree = "<group>"; };
+		1F19476721E5552900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		1F19476821E5552900D1599D /* Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +133,8 @@
 		1F13B4BE21CB167500EE6927 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				1F19476721E5552900D1599D /* Debug.plist */,
+				1F19476821E5552900D1599D /* Release.plist */,
 				1F19473A21E105C100D1599D /* ios.entitlements */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19471621DED9DE00D1599D /* JSONDecoder */,
@@ -143,7 +146,6 @@
 				1F13B4C321CB167500EE6927 /* Main.storyboard */,
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
-				1F13B4CB21CB167700EE6927 /* Info.plist */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -507,7 +509,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = ios/Info.plist;
+				INFOPLIST_FILE = ios/Debug.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +532,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = ios/Info.plist;
+				INFOPLIST_FILE = ios/Release.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
