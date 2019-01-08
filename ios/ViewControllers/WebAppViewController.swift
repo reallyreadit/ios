@@ -34,11 +34,17 @@ class WebAppViewController: WebViewViewController {
         ]
         .forEach({
             line in
-            let label = UILabel(frame: .zero)
+            let label = UILabel()
             label.text = line
+            label.numberOfLines = 0
+            label.textAlignment = .center
             label.translatesAutoresizingMaskIntoConstraints = false
             errorContent.addSubview(label)
-            label.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor).isActive = true
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
+                label.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
+                label.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
+            ])
             if errorContent.subviews.count > 1 {
                 label.topAnchor
                     .constraint(

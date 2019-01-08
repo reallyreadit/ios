@@ -72,6 +72,7 @@ class WebViewViewController:
             indicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor)
         ])
         // add loading view to container
+        loadingView.backgroundColor = .white
         webViewContainer.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -81,6 +82,7 @@ class WebViewViewController:
             loadingView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor)
         ])
         // add error view to container
+        errorView.backgroundColor = .white
         webViewContainer.addSubview(errorView)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

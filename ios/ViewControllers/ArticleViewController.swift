@@ -75,6 +75,7 @@ class ArticleViewController: WebViewViewController {
         return .slide
     }
     var params: ArticleViewControllerParams!
+    private let errorMessage = UILabel()
     private let speechBubble: SpeechBubbleView
     required init?(coder: NSCoder) {
         // init speech bubble
@@ -122,8 +123,50 @@ class ArticleViewController: WebViewViewController {
                 os_log(.debug, "ArticleViewController(coder:): error loading script: %s", script.bundleFileName)
             }
         })
+        // init super to create webview
         super.init(coder: coder, webViewConfig: config)
+        // configure instance
         webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        // configure the error view
+        let errorContent = UIView()
+        errorContent.translatesAutoresizingMaskIntoConstraints = false
+        errorView.addSubview(errorContent)
+        errorMessage.numberOfLines = 0
+        errorMessage.textAlignment = .center
+        errorMessage.translatesAutoresizingMaskIntoConstraints = false
+        errorContent.addSubview(errorMessage)
+        [
+            "Check your internet connection and try again.",
+            "Please contact support@reallyread.it if this problem persists."
+        ]
+        .forEach({
+            line in
+            let label = UILabel()
+            label.text = line
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            errorContent.addSubview(label)
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
+                label.topAnchor.constraint(
+                    equalTo: errorContent.subviews[errorContent.subviews.count - 2].bottomAnchor,
+                    constant: 8
+                ),
+                label.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
+                label.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
+            ])
+        })
+        NSLayoutConstraint.activate([
+            errorContent.centerYAnchor.constraint(equalTo: errorView.centerYAnchor),
+            errorContent.topAnchor.constraint(equalTo: errorContent.subviews[0].topAnchor),
+            errorContent.bottomAnchor.constraint(equalTo: errorContent.subviews.last!.bottomAnchor),
+            errorContent.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
+            errorContent.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            errorMessage.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
+            errorMessage.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
+            errorMessage.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
+        ])
     }
     override func loadView() {
         view = webViewContainer
@@ -164,8 +207,8 @@ class ArticleViewController: WebViewViewController {
                     }
                 },
                 onError: {
-                    _ in
-                    self.speechBubble.setState(isLoading: false)
+                    [weak self] _ in
+                    self?.setErrorState(withMessage: "Error loading reading progress.")
                 }
             )
         case "commitReadState":
@@ -191,13 +234,18 @@ class ArticleViewController: WebViewViewController {
                     }
                 },
                 onError: {
-                    _ in
-                    self.speechBubble.setState(isLoading: false)
+                    [weak self] _ in
+                    self?.setErrorState(withMessage: "Error saving reading progress.")
                 }
             )
         default:
             return
         }
+    }
+    func setErrorState(withMessage message: String) {
+        speechBubble.setState(isLoading: false)
+        errorMessage.text = message
+        super.setState(.error)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,7 +296,7 @@ class ArticleViewController: WebViewViewController {
                             self.speechBubble.setState(isLoading: true)
                         }
                     } else {
-                        os_log(.debug, "Error loading article")
+                        self?.setErrorState(withMessage: "Error loading article.")
                     }
                 }
             )
