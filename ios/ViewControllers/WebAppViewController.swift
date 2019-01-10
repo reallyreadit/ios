@@ -18,7 +18,6 @@ class WebAppViewController: WebViewViewController {
         // init super to create webview
         super.init(coder: coder)
         // configure webview
-        webView.customUserAgent = "reallyread.it iOS App WebView"
         webView.scrollView.bounces = false
         // configre the loading view
         loadingView.backgroundColor = ghostWhite
@@ -109,12 +108,23 @@ class WebAppViewController: WebViewViewController {
         setSessionKeyFromWebview()
     }
     func loadURL(_ url: URL) {
-        os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
-        webView.load(
-            URLRequest(
-                url: url
-            )
-        )
+        if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
+            if (components.queryItems == nil) {
+                components.queryItems = [clientTypeQueryItem]
+            } else {
+                components.queryItems!.removeAll(where: { item in item.name == "clientType" })
+                components.queryItems!.append(clientTypeQueryItem)
+            }
+            if let url = components.url {
+                os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
+                webView.load(
+                    URLRequest(
+                        url: url
+                    )
+                )
+            }
+        }
     }
     override func loadView() {
         view = UIView()
