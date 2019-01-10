@@ -2,18 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>RRITDebugReader</key>
-	<false/>
-	<key>RRITAPIServerURL</key>
-	<string>https://api.reallyread.it/</string>
-	<key>RRITAuthCookieName</key>
-	<string>sessionKey</string>
-	<key>RRITAuthCookieDomain</key>
-	<string>.reallyread.it</string>
-	<key>RRITWebServerURL</key>
-	<string>https://reallyread.it/</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>reallyread.it</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -25,11 +17,21 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>2.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>RRITAPIServerURL</key>
+	<string>https://api.reallyread.it/</string>
+	<key>RRITAuthCookieDomain</key>
+	<string>.reallyread.it</string>
+	<key>RRITAuthCookieName</key>
+	<string>sessionKey</string>
+	<key>RRITDebugReader</key>
+	<false/>
+	<key>RRITWebServerURL</key>
+	<string>https://reallyread.it/</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
