@@ -1,11 +1,3 @@
-//
-//  ShareViewController.swift
-//  share-extension
-//
-//  Created by Jeff Camera on 1/10/19.
-//  Copyright © 2019 reallyread.it, inc. All rights reserved.
-//
-
 import UIKit
 import Social
 
@@ -20,7 +12,31 @@ class ShareViewController: SLComposeServiceViewController {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        print("didSelectPost()")
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = HTTPCookieStorage.sharedCookieStorage(
+            forGroupContainerIdentifier: "group.it.reallyread"
+        )
+        URLSession(configuration: config)
+            .dataTask(
+                with: URLRequest(
+                    url: URL(string: "http://api.dev.reallyread.it/HealthCheck/Check")!
+                ),
+                completionHandler: {
+                    data, response, error in
+                    if
+                        error == nil,
+                        let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode)
+                    {
+                        print("OK")
+                    } else {
+                        print("Bad request")
+                    }
+                    self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+                }
+            )
+            .resume()
     }
 
     override func configurationItems() -> [Any]! {
