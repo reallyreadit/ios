@@ -65,10 +65,14 @@ class ArticleViewController: WebViewViewController {
                                 onSuccess(result)
                             }
                         } catch let error {
-                            onError(error)
+                            DispatchQueue.main.async {
+                                onError(error)
+                            }
                         }
                     } else {
-                        onError(error)
+                        DispatchQueue.main.async {
+                            onError(error)
+                        }
                     }
                 }
             )
