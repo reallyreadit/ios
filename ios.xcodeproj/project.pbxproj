@@ -120,7 +120,8 @@
 		1F19476F21E8255900D1599D /* share-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "share-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F19477121E8255900D1599D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		1F19477421E8255900D1599D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		1F19477621E8255900D1599D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F19477E21E90C2900D1599D /* Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
+		1F19477F21E90C2900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,9 +269,10 @@
 		1F19477021E8255900D1599D /* share-extension */ = {
 			isa = PBXGroup;
 			children = (
+				1F19477F21E90C2900D1599D /* Debug.plist */,
+				1F19477E21E90C2900D1599D /* Release.plist */,
 				1F19477121E8255900D1599D /* ShareViewController.swift */,
 				1F19477321E8255900D1599D /* MainInterface.storyboard */,
-				1F19477621E8255900D1599D /* Info.plist */,
 			);
 			path = "share-extension";
 			sourceTree = "<group>";
@@ -656,7 +658,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "share-extension/Info.plist";
+				INFOPLIST_FILE = "share-extension/Debug.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -675,7 +677,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "share-extension/Info.plist";
+				INFOPLIST_FILE = "share-extension/Release.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
