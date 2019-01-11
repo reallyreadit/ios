@@ -28,7 +28,6 @@ class ArticleViewController: WebViewViewController {
     private static func postJson<TData: Encodable, TResult: Decodable>(
         path: String,
         data: TData?,
-        sessionKey: String,
         onSuccess: @escaping (_: TResult) -> Void,
         onError: @escaping (_: Error?) -> Void
     ) {
@@ -40,14 +39,8 @@ class ArticleViewController: WebViewViewController {
         )
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(
-            "\(Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String)=\(sessionKey)",
-            forHTTPHeaderField: "Cookie"
-        )
         request.httpBody = try! JSONEncoder().encode(data)
-        URLSession
-            .shared
-            .dataTask(
+        AppDelegate.appGroupUrlSession.dataTask(
                 with: request,
                 completionHandler: {
                     (data, response, error) in
@@ -206,7 +199,6 @@ class ArticleViewController: WebViewViewController {
             ArticleViewController.postJson(
                 path: "/Extension/GetUserArticle",
                 data: ["url": params.article.url.absoluteString],
-                sessionKey: params.sessionKey,
                 onSuccess: {
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
@@ -228,7 +220,6 @@ class ArticleViewController: WebViewViewController {
             ArticleViewController.postJson(
                 path: "/Extension/CommitReadState",
                 data: event.commitData,
-                sessionKey: params.sessionKey,
                 onSuccess: {
                     [weak self] (article: UserArticle) in
                     if let self = self {

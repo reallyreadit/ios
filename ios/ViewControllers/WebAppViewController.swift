@@ -3,6 +3,13 @@ import WebKit
 import os.log
 
 class WebAppViewController: WebViewViewController {
+    private let authCookieMatchPredicate: (_: HTTPCookie) -> Bool = {
+        cookie in
+        return (
+            cookie.domain == Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String &&
+            cookie.name == Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
+        )
+    }
     private let ghostWhite = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
     // status bar config
     private var hideStatusBar = false
@@ -12,8 +19,7 @@ class WebAppViewController: WebViewViewController {
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
     }
-    // webview authentication
-    var sessionKey: String?
+    private var isAuthenticated = false
     required init?(coder: NSCoder) {
         // init super to create webview
         super.init(coder: coder)
@@ -70,42 +76,39 @@ class WebAppViewController: WebViewViewController {
                 constant: 8
             )
         ])
-        // set session key
-        setSessionKeyFromWebview()
     }
     @objc private func loadWebApp() {
         loadURL(URL(string: Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)!)
     }
     private func setBackgroundColor() {
-        if state == .loaded, sessionKey != nil {
+        if state == .loaded, isAuthenticated {
             view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
         } else {
             view.backgroundColor = ghostWhite
         }
     }
-    private func setSessionKeyFromWebview() {
-        webView.configuration.websiteDataStore.httpCookieStore.getAllCookies({
+    override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
+        cookieStore.getAllCookies({
             cookies in
-            // set the session key
-            if
-                let sessionCookie = cookies.first(where: {
-                    cookie in
-                    cookie.domain == Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String &&
-                    cookie.name == Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
-                })
-            {
-                os_log(.debug, "setSessionKeyFromWebview(): authenticated")
-                self.sessionKey = sessionCookie.value
+            // get shared cookie container
+            let sharedCookieStore = HTTPCookieStorage.sharedCookieStorage(
+                forGroupContainerIdentifier: "group.it.reallyread"
+            )
+            // check for webview cookie
+            if let authCookie = cookies.first(where: self.authCookieMatchPredicate) {
+                os_log(.debug, "cookiesDidChange(in:): authenticated")
+                self.isAuthenticated = true
+                sharedCookieStore.setCookie(authCookie)
             } else {
-                os_log(.debug, "setSessionKeyFromWebview(): unauthenticated")
-                self.sessionKey = nil
+                os_log(.debug, "cookiesDidChange(in:): unauthenticated")
+                self.isAuthenticated = false
+                if var sharedAuthCookies = sharedCookieStore.cookies {
+                    sharedAuthCookies.removeAll(where: self.authCookieMatchPredicate)
+                }
             }
             // set the background color
             self.setBackgroundColor()
         })
-    }
-    override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        setSessionKeyFromWebview()
     }
     func loadURL(_ url: URL) {
         if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
@@ -175,8 +178,7 @@ class WebAppViewController: WebViewViewController {
                             data: event
                         )
                     )
-                },
-                sessionKey: sessionKey!
+                }
             )
         }
     }
