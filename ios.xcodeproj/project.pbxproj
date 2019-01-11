@@ -122,6 +122,7 @@
 		1F19477421E8255900D1599D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		1F19477E21E90C2900D1599D /* Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 		1F19477F21E90C2900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		1F19478221E9545D00D1599D /* share-extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "share-extension.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +270,7 @@
 		1F19477021E8255900D1599D /* share-extension */ = {
 			isa = PBXGroup;
 			children = (
+				1F19478221E9545D00D1599D /* share-extension.entitlements */,
 				1F19477F21E90C2900D1599D /* Debug.plist */,
 				1F19477E21E90C2900D1599D /* Release.plist */,
 				1F19477121E8255900D1599D /* ShareViewController.swift */,
@@ -330,6 +332,9 @@
 					1F13B4BB21CB167500EE6927 = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -337,6 +342,11 @@
 					};
 					1F19476E21E8255900D1599D = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -656,6 +666,7 @@
 		1F19477B21E8255900D1599D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "share-extension/share-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				INFOPLIST_FILE = "share-extension/Debug.plist";
@@ -675,6 +686,7 @@
 		1F19477C21E8255900D1599D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "share-extension/share-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				INFOPLIST_FILE = "share-extension/Release.plist";
