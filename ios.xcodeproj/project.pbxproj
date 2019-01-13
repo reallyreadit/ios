@@ -84,6 +84,7 @@
 		1F1947C421EAC5A800D1599D /* SourceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51521D5901D00EE6927 /* SourceRule.swift */; };
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F1947C621EAC5A800D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
+		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
