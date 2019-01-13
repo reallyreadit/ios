@@ -2,75 +2,7 @@ import UIKit
 import WebKit
 import os.log
 
-class ArticleViewController: WebViewViewController {
-    private static let scripts = [
-        ArticleViewControllerScript(
-            appSupportFileName: nil,
-            bundleFileName: "WebViewMessagingContextAmdModuleShim",
-            injectionTime: .atDocumentStart
-        ),
-        ArticleViewControllerScript(
-            appSupportFileName: nil,
-            bundleFileName: "WebViewMessagingContext",
-            injectionTime: .atDocumentStart
-        ),
-        ArticleViewControllerScript(
-            appSupportFileName: nil,
-            bundleFileName: "ContentScriptMessagingShim",
-            injectionTime: .atDocumentStart
-        ),
-        ArticleViewControllerScript(
-            appSupportFileName: "ContentScript.js",
-            bundleFileName: "ContentScript",
-            injectionTime: .atDocumentEnd
-        )
-    ]
-    private static func postJson<TData: Encodable, TResult: Decodable>(
-        path: String,
-        data: TData?,
-        onSuccess: @escaping (_: TResult) -> Void,
-        onError: @escaping (_: Error?) -> Void
-    ) {
-        var request = URLRequest(
-            url: URL(
-                string: (Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)
-                    .trimmingCharacters(in: ["/"]) + path
-            )!
-        )
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try! JSONEncoder().encode(data)
-        AppDelegate.appGroupUrlSession.dataTask(
-                with: request,
-                completionHandler: {
-                    (data, response, error) in
-                    if
-                        error == nil,
-                        let httpResponse = response as? HTTPURLResponse,
-                        (200...299).contains(httpResponse.statusCode),
-                        let data = data
-                    {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601WithFractionalSeconds
-                        do {
-                            let result = try decoder.decode(TResult.self, from: data)
-                            DispatchQueue.main.async {
-                                onSuccess(result)
-                            }
-                        } catch let error {
-                            DispatchQueue.main.async {
-                                onError(error)
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            onError(error)
-                        }
-                    }
-                }
-            )
-            .resume()
-    }
+class ArticleViewController: UIViewController, MessageWebViewDelegate {
     // status bar config
     private var hideStatusBar = true
     override var prefersStatusBarHidden: Bool {
@@ -82,6 +14,8 @@ class ArticleViewController: WebViewViewController {
     var params: ArticleViewControllerParams!
     private let errorMessage = UILabel()
     private let speechBubble: SpeechBubbleView
+    private var webView: MessageWebView!
+    private var webViewContainer: WebViewContainer!
     required init?(coder: NSCoder) {
         // init speech bubble
         speechBubble = SpeechBubbleView(coder: coder)!
@@ -89,53 +23,18 @@ class ArticleViewController: WebViewViewController {
             speechBubble.widthAnchor.constraint(equalToConstant: 32),
             speechBubble.heightAnchor.constraint(equalToConstant: 32)
         ])
-        // configure webview
+        super.init(coder: coder)
+        // init webview
         let config = WKWebViewConfiguration()
-        ArticleViewController.scripts.forEach({
-            script in
-            var source: String?
-            if
-                script.appSupportFileName != nil,
-                let appSupportDirURL = FileManager.default
-                    .urls(
-                        for: .applicationSupportDirectory,
-                        in: .userDomainMask
-                    )
-                    .first,
-                let fileContent = try? String(
-                    contentsOf: appSupportDirURL.appendingPathComponent("reallyreadit/\(script.appSupportFileName!)")
-                )
-            {
-                os_log(.debug, "ArticleViewController(coder:): loading script from file: %s", script.bundleFileName)
-                source = fileContent
-            } else if
-                let fileContent = try? String(
-                    contentsOf: Bundle.main.url(forResource: script.bundleFileName, withExtension: "js")!
-                )
-            {
-                os_log(.debug, "ArticleViewController(coder:): loading script from bundle: %s", script.bundleFileName)
-                source = fileContent
-            }
-            if source != nil {
-                config.userContentController.addUserScript(
-                    WKUserScript(
-                        source: source!,
-                        injectionTime: script.injectionTime,
-                        forMainFrameOnly: true
-                    )
-                )
-            } else {
-                os_log(.debug, "ArticleViewController(coder:): error loading script: %s", script.bundleFileName)
-            }
-        })
-        // init super to create webview
-        super.init(coder: coder, webViewConfig: config)
-        // configure instance
-        webView.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        ArticleReading.addContentScript(forConfiguration: config)
+        webView = MessageWebView(webViewConfig: config)
+        webView.delegate = self
+        webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        webViewContainer = WebViewContainer(webView: webView.view)
         // configure the error view
         let errorContent = UIView()
         errorContent.translatesAutoresizingMaskIntoConstraints = false
-        errorView.addSubview(errorContent)
+        webViewContainer.errorView.addSubview(errorContent)
         errorMessage.numberOfLines = 0
         errorMessage.textAlignment = .center
         errorMessage.translatesAutoresizingMaskIntoConstraints = false
@@ -163,23 +62,23 @@ class ArticleViewController: WebViewViewController {
             ])
         })
         NSLayoutConstraint.activate([
-            errorContent.centerYAnchor.constraint(equalTo: errorView.centerYAnchor),
+            errorContent.centerYAnchor.constraint(equalTo: webViewContainer.errorView.centerYAnchor),
             errorContent.topAnchor.constraint(equalTo: errorContent.subviews[0].topAnchor),
             errorContent.bottomAnchor.constraint(equalTo: errorContent.subviews.last!.bottomAnchor),
-            errorContent.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
-            errorContent.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            errorContent.leadingAnchor.constraint(equalTo: webViewContainer.errorView.leadingAnchor),
+            errorContent.trailingAnchor.constraint(equalTo: webViewContainer.errorView.trailingAnchor),
             errorMessage.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
             errorMessage.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
             errorMessage.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
         ])
     }
     override func loadView() {
-        view = webViewContainer
+        view = webViewContainer.view
     }
-    override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
+    func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
         case "registerContentScript":
-            sendResponse(
+            webView.sendResponse(
                 data: ContentScriptInitData(
                     config: ContentScriptConfig(
                         idleReadRate: 500,
@@ -196,49 +95,61 @@ class ArticleViewController: WebViewViewController {
                 callbackId: callbackId!
             )
         case "registerPage":
-            ArticleViewController.postJson(
+            APIServer.postJson(
                 path: "/Extension/GetUserArticle",
                 data: ["url": params.article.url.absoluteString],
                 onSuccess: {
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
-                        self.speechBubble.setState(
-                            isLoading: false,
-                            percentComplete: result.userArticle.percentComplete,
-                            isRead: result.userArticle.isRead
-                        )
-                        self.sendResponse(data: result.userPage, callbackId: callbackId!)
+                        DispatchQueue.main.async {
+                            self.speechBubble.setState(
+                                isLoading: false,
+                                percentComplete: result.userArticle.percentComplete,
+                                isRead: result.userArticle.isRead
+                            )
+                            self.webView.sendResponse(data: result.userPage, callbackId: callbackId!)
+                        }
                     }
                 },
                 onError: {
                     [weak self] _ in
-                    self?.setErrorState(withMessage: "Error loading reading progress.")
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error loading reading progress.")
+                        }
+                    }
                 }
             )
         case "commitReadState":
             let event = CommitReadStateEvent(message.data as! [String: Any])
-            ArticleViewController.postJson(
+            APIServer.postJson(
                 path: "/Extension/CommitReadState",
                 data: event.commitData,
                 onSuccess: {
                     [weak self] (article: UserArticle) in
                     if let self = self {
-                        self.speechBubble.setState(
-                            isLoading: false,
-                            percentComplete: article.percentComplete,
-                            isRead: article.isRead
-                        )
-                        self.params.onReadStateCommitted(
-                            ReadStateCommittedEvent(
-                                article: article,
-                                isCompletionCommit: event.isCompletionCommit
+                        DispatchQueue.main.async {
+                            self.speechBubble.setState(
+                                isLoading: false,
+                                percentComplete: article.percentComplete,
+                                isRead: article.isRead
                             )
-                        )
+                            self.params.onReadStateCommitted(
+                                ReadStateCommittedEvent(
+                                    article: article,
+                                    isCompletionCommit: event.isCompletionCommit
+                                )
+                            )
+                        }
                     }
                 },
                 onError: {
                     [weak self] _ in
-                    self?.setErrorState(withMessage: "Error saving reading progress.")
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error saving reading progress.")
+                        }
+                    }
                 }
             )
         default:
@@ -248,66 +159,42 @@ class ArticleViewController: WebViewViewController {
     func setErrorState(withMessage message: String) {
         speechBubble.setState(isLoading: false)
         errorMessage.text = message
-        super.setState(.error)
+        webViewContainer.setState(.error)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // speech bubble
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: speechBubble)
         // fetch and preprocess the article
-        URLSession
-            .shared
-            .dataTask(
-                with: URL(
-                    string: params.article.url.absoluteString.replacingOccurrences(
-                        of: "^http:",
-                        with: "https:",
-                        options: [.regularExpression, .caseInsensitive]
-                    )
-                )!,
-                completionHandler: {
-                    [weak self] (data, response, error) in
-                    if
-                        let self = self,
-                        error == nil,
-                        let httpResponse = response as? HTTPURLResponse,
-                        (200...299).contains(httpResponse.statusCode),
-                        let stringData = NSMutableString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                    {
-                        
-                        [
-                            (searchValue: "<script\\b[^<]*(?:(?!</script>)<[^<]*)*</script>", replaceValue: ""),
-                            (searchValue: "<iframe\\b[^<]*(?:(?!</iframe>)<[^<]*)*</iframe>", replaceValue: ""),
-                            (searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>", replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"),
-                            (searchValue: "<img\\s([^>]*)>", replaceValue: "<img data-rrit-base-url='\(self.params.article.url.absoluteString)' $1>"),
-                            (searchValue: "<img([^>]*)\\ssrc=(['\"])((?:(?!\\2).)*)\\2([^>]*)>", replaceValue: "<img$1 data-rrit-src=$2$3$2$4>"),
-                            (searchValue: "<img([^>]*)\\ssrcset=(['\"])((?:(?!\\2).)*)\\2([^>]*)>", replaceValue: "<img$1 data-rrit-srcset=$2$3$2$4>")
-                            ]
-                            .forEach({ replacement in
-                                stringData.replaceOccurrences(
-                                    of: replacement.searchValue,
-                                    with: replacement.replaceValue,
-                                    options: [.regularExpression, .caseInsensitive],
-                                    range: NSRange(location: 0, length: stringData.length)
-                                )
-                            })
-                        DispatchQueue.main.async {
-                            self.webView.loadHTMLString(
-                                stringData as String,
-                                baseURL: nil
-                            )
-                            self.speechBubble.setState(isLoading: true)
-                        }
-                    } else {
-                        self?.setErrorState(withMessage: "Error loading article.")
+        ArticleReading.fetchArticle(
+            url: params.article.url,
+            onSuccess: {
+                [weak self] content in
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.webView.view.loadHTMLString(
+                            content as String,
+                            baseURL: nil
+                        )
+                        self.speechBubble.setState(isLoading: true)
                     }
                 }
-            )
-            .resume()
+            },
+            onError: {
+                [weak self] in
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.setErrorState(withMessage: "Error loading article.")
+                    }
+                }
+            }
+        )
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isBeingDismissed || self.isMovingFromParent {
+            // clean up webview
+            webView.dispose()
             // show status bar with animation
             hideStatusBar = false
             UIView.animate(withDuration: 0.25) {

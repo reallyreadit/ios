@@ -1,6 +1,6 @@
 import Foundation
 
-enum WebViewState {
+enum WebViewContainerState {
     case error
     case loaded
     case loading

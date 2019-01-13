@@ -3,13 +3,7 @@ import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static let appGroupUrlSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.httpCookieStorage = HTTPCookieStorage.sharedCookieStorage(
-            forGroupContainerIdentifier: "group.it.reallyread"
-        )
-        return URLSession(configuration: config)
-    }()
+    
     var window: UIWindow?
 
     private func updateContentScript() {

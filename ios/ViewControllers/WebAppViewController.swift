@@ -2,7 +2,12 @@ import UIKit
 import WebKit
 import os.log
 
-class WebAppViewController: WebViewViewController {
+class WebAppViewController:
+    UIViewController,
+    MessageWebViewDelegate,
+    WebViewContainerDelegate,
+    WKHTTPCookieStoreObserver
+{
     private let authCookieMatchPredicate: (_: HTTPCookie) -> Bool = {
         cookie in
         return (
@@ -20,18 +25,25 @@ class WebAppViewController: WebViewViewController {
         return .slide
     }
     private var isAuthenticated = false
+    private var webView: MessageWebView!
+    private var webViewContainer: WebViewContainer!
     required init?(coder: NSCoder) {
-        // init super to create webview
         super.init(coder: coder)
+        let config = WKWebViewConfiguration()
+        config.websiteDataStore.httpCookieStore.add(self)
+        webView = MessageWebView(webViewConfig: config)
+        webView.delegate = self
+        webViewContainer = WebViewContainer(webView: webView.view)
+        webViewContainer.delegate = self
         // configure webview
-        webView.scrollView.bounces = false
+        webView.view.scrollView.bounces = false
         // configre the loading view
-        loadingView.backgroundColor = ghostWhite
+        webViewContainer.loadingView.backgroundColor = ghostWhite
         // configure the error view
-        errorView.backgroundColor = ghostWhite
+        webViewContainer.errorView.backgroundColor = ghostWhite
         let errorContent = UIView()
         errorContent.translatesAutoresizingMaskIntoConstraints = false
-        errorView.addSubview(errorContent)
+        webViewContainer.errorView.addSubview(errorContent)
         [
             "An error occured while loading the app.",
             "You must be online to use reallyread.it.",
@@ -65,11 +77,11 @@ class WebAppViewController: WebViewViewController {
         reloadButton.translatesAutoresizingMaskIntoConstraints = false
         errorContent.addSubview(reloadButton)
         NSLayoutConstraint.activate([
-            errorContent.centerYAnchor.constraint(equalTo: errorView.centerYAnchor),
+            errorContent.centerYAnchor.constraint(equalTo: webViewContainer.errorView.centerYAnchor),
             errorContent.topAnchor.constraint(equalTo: errorContent.subviews[0].topAnchor),
             errorContent.bottomAnchor.constraint(equalTo: errorContent.subviews.last!.bottomAnchor),
-            errorContent.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
-            errorContent.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            errorContent.leadingAnchor.constraint(equalTo: webViewContainer.errorView.leadingAnchor),
+            errorContent.trailingAnchor.constraint(equalTo: webViewContainer.errorView.trailingAnchor),
             reloadButton.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
             reloadButton.topAnchor.constraint(
                 equalTo: errorContent.subviews[errorContent.subviews.count - 2].bottomAnchor,
@@ -81,13 +93,13 @@ class WebAppViewController: WebViewViewController {
         loadURL(URL(string: Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)!)
     }
     private func setBackgroundColor() {
-        if state == .loaded, isAuthenticated {
+        if webViewContainer.state == .loaded, isAuthenticated {
             view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
         } else {
             view.backgroundColor = ghostWhite
         }
     }
-    override func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
+    func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies({
             cookies in
             // get shared cookie container
@@ -121,7 +133,7 @@ class WebAppViewController: WebViewViewController {
             }
             if let url = components.url {
                 os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
-                webView.load(
+                webView.view.load(
                     URLRequest(
                         url: url
                     )
@@ -133,7 +145,7 @@ class WebAppViewController: WebViewViewController {
         view = UIView()
         view.backgroundColor = ghostWhite
     }
-    override func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
+    func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
         case "readArticle":
             performSegue(
@@ -143,6 +155,9 @@ class WebAppViewController: WebViewViewController {
         default:
             return
         }
+    }
+    func onStateChange(state: WebViewContainerState) {
+        setBackgroundColor()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if
@@ -172,7 +187,7 @@ class WebAppViewController: WebViewViewController {
                 },
                 onReadStateCommitted: {
                     event in
-                    self.sendMessage(
+                    self.webView.sendMessage(
                         message: Message(
                             type: "articleUpdated",
                             data: event
@@ -182,22 +197,18 @@ class WebAppViewController: WebViewViewController {
             )
         }
     }
-    override func setState(_ state: WebViewState) {
-        super.setState(state)
-        setBackgroundColor()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // hide the navigation bar
         navigationController!.setNavigationBarHidden(true, animated: false)
         // add the webview container as a subview
-        view.addSubview(webViewContainer)
-        webViewContainer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webViewContainer.view)
+        webViewContainer.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            webViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            webViewContainer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webViewContainer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webViewContainer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webViewContainer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         // load the webview
         loadWebApp()
