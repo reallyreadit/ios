@@ -35,5 +35,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
 	</dict>
+	<key>RRITAPIServerURL</key>
+	<string>https://api.reallyread.it/</string>
 </dict>
 </plist>
