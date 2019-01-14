@@ -1,6 +1,10 @@
 import Foundation
 
 struct PageLinkParseResult: Codable {
-    var number: Int
-    var url: URL
+    init(_ data: [String: Any]) {
+        number = data["number"] as! Int
+        url = data["url"] as! String
+    }
+    let number: Int
+    let url: String
 }
