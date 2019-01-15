@@ -85,6 +85,7 @@
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F1947C621EAC5A800D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
+		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		1F19479E21EAAA9100D1599D /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
 		1F1947A021EAAF7200D1599D /* HTMLTagReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTagReplacement.swift; sourceTree = "<group>"; };
 		1F1947B521EAB3E600D1599D /* WebViewContainerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerDelegate.swift; sourceTree = "<group>"; };
+		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 				1F19478221E9545D00D1599D /* share-extension.entitlements */,
 				1F19477F21E90C2900D1599D /* Debug.plist */,
 				1F19477E21E90C2900D1599D /* Release.plist */,
+				1F80C94C21ED53AF0060819F /* AlertViewController.swift */,
 				1F19477121E8255900D1599D /* ShareViewController.swift */,
 				1F19477321E8255900D1599D /* MainInterface.storyboard */,
 			);
@@ -548,6 +551,7 @@
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
 				1F1947C121EAC5A800D1599D /* ContentScriptConfig.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
+				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
 				1F1947B021EAB0FA00D1599D /* ResponseCallback.swift in Sources */,
 				1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */,
