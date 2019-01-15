@@ -37,5 +37,9 @@
 	</dict>
 	<key>RRITAPIServerURL</key>
 	<string>https://api.reallyread.it/</string>
+	<key>RRITAuthCookieDomain</key>
+	<string>.reallyread.it</string>
+	<key>RRITAuthCookieName</key>
+	<string>sessionKey</string>
 </dict>
 </plist>
