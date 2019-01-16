@@ -116,17 +116,25 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                         readWordRate: 100
                     ),
                     loadPage: true,
-                    parseMetadata: false,
+                    parseMetadata: true,
                     parseMode: "mutate",
                     showOverlay: Bundle.main.infoDictionary!["RRITDebugReader"] as! Bool,
-                    sourceRules: []
+                    sourceRules: [
+                        SourceRule(
+                            id: 0,
+                            hostname: params.article.url.host!,
+                            path: "^/",
+                            priority: 0,
+                            action: .read
+                        )
+                    ]
                 ),
                 callbackId: callbackId!
             )
         case "registerPage":
             APIServer.postJson(
                 path: "/Extension/GetUserArticle",
-                data: ["url": params.article.url.absoluteString],
+                data: PageParseResult(contentScriptData: message.data as! [String: Any]),
                 onSuccess: {
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
@@ -203,7 +211,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     DispatchQueue.main.async {
                         self.webView.view.loadHTMLString(
                             content as String,
-                            baseURL: nil
+                            baseURL: self.params.article.url
                         )
                         self.speechBubble.setState(isLoading: true)
                     }
