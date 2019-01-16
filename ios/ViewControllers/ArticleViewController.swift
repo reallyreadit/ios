@@ -2,9 +2,9 @@ import UIKit
 import WebKit
 import os.log
 
-class ArticleViewController: UIViewController, MessageWebViewDelegate {
-    // status bar config
-    private var hideStatusBar = true
+class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
+    private var previousPanYVelocity: CGFloat = 0.0
+    private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
         return hideStatusBar
     }
@@ -30,6 +30,12 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate {
         webView = MessageWebView(webViewConfig: config)
         webView.delegate = self
         webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        let panGestureRecognizer = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handlePanGesture(_:))
+        )
+        panGestureRecognizer.delegate = self
+        webView.view.addGestureRecognizer(panGestureRecognizer)
         webViewContainer = WebViewContainer(webView: webView.view)
         // configure the error view
         let errorContent = UIView()
@@ -71,6 +77,29 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate {
             errorMessage.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
             errorMessage.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
         ])
+    }
+    @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+        let panYVelocity = sender.velocity(in: sender.view).y
+        if panYVelocity.sign != previousPanYVelocity.sign {
+            switch panYVelocity.sign {
+            case .minus:
+                hideStatusBar = true
+                navigationController!.setNavigationBarHidden(true, animated: true)
+            case .plus:
+                hideStatusBar = false
+                navigationController!.setNavigationBarHidden(false, animated: true)
+            }
+            UIView.animate(withDuration: 0.25) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+        previousPanYVelocity = panYVelocity
+    }
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        return true
     }
     override func loadView() {
         view = webViewContainer.view
@@ -196,9 +225,11 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate {
             // clean up webview
             webView.dispose()
             // show status bar with animation
-            hideStatusBar = false
-            UIView.animate(withDuration: 0.25) {
-                self.setNeedsStatusBarAppearanceUpdate()
+            if hideStatusBar {
+                hideStatusBar = false
+                UIView.animate(withDuration: 0.25) {
+                    self.setNeedsStatusBarAppearanceUpdate()
+                }
             }
             // call onClose
             params.onClose()

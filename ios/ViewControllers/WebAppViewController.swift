@@ -16,14 +16,6 @@ class WebAppViewController:
         )
     }
     private let ghostWhite = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
-    // status bar config
-    private var hideStatusBar = false
-    override var prefersStatusBarHidden: Bool {
-        return hideStatusBar
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .slide
-    }
     private var isAuthenticated = false
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
@@ -164,14 +156,8 @@ class WebAppViewController:
             let destination = segue.destination as? ArticleViewController,
             let data = sender as? [String: Any]
         {
-            // hide status bar with animation
-            hideStatusBar = true
-            UIView.animate(withDuration: 0.25) {
-                self.setNeedsStatusBarAppearanceUpdate()
-            }
             // show navigation bar
             navigationController!.setNavigationBarHidden(false, animated: true)
-            navigationController!.hidesBarsOnSwipe = true
             // set view controller params
             destination.params = ArticleViewControllerParams(
                 article: ArticleViewControllerArticleParam(
@@ -179,11 +165,8 @@ class WebAppViewController:
                     url: URL(string: data["url"] as! String)!
                 ),
                 onClose: {
-                    // set status bar to hidden
-                    self.hideStatusBar = false
                     // hide navigation bar
                     self.navigationController!.setNavigationBarHidden(true, animated: true)
-                    self.navigationController!.hidesBarsOnSwipe = false
                 },
                 onReadStateCommitted: {
                     event in
