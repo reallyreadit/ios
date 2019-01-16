@@ -58,14 +58,11 @@ struct ArticleReading {
             var source: String?
             if
                 script.appSupportFileName != nil,
-                let appSupportDirURL = FileManager.default
-                    .urls(
-                        for: .applicationSupportDirectory,
-                        in: .userDomainMask
-                    )
-                    .first,
+                let containerURL = FileManager.default.containerURL(
+                    forSecurityApplicationGroupIdentifier: "group.it.reallyread"
+                ),
                 let fileContent = try? String(
-                    contentsOf: appSupportDirURL.appendingPathComponent("reallyreadit/\(script.appSupportFileName!)")
+                    contentsOf: containerURL.appendingPathComponent(script.appSupportFileName!)
                 )
             {
                 os_log(.debug, "addContentScript(coder:): loading script from file: %s", script.bundleFileName)

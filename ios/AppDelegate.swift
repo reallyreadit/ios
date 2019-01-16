@@ -39,32 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 httpResponse.allHeaderFields.keys.contains("X-ReallyReadIt-Version"),
                                 let newVersionString = httpResponse.allHeaderFields["X-ReallyReadIt-Version"] as? String,
                                 let newVersion = Double(newVersionString),
-                                let appSupportDirURL = FileManager.default
-                                    .urls(
-                                        for: .applicationSupportDirectory,
-                                        in: .userDomainMask
-                                    )
-                                    .first
+                                let containerURL = FileManager.default.containerURL(
+                                    forSecurityApplicationGroupIdentifier: "group.it.reallyread"
+                                )
                             {
                                 os_log(.debug, "updateContentScript(): upgrading to version %f", newVersion)
-                                let dirURL = appSupportDirURL.appendingPathComponent("reallyreadit")
-                                if
-                                    !FileManager.default.fileExists(
-                                        atPath: dirURL.absoluteString
-                                    )
-                                {
-                                    do {
-                                        try FileManager.default.createDirectory(
-                                            at: dirURL,
-                                            withIntermediateDirectories: true
-                                        )
-                                    } catch let error {
-                                        os_log(.debug, "updateContentScript(): error creating directory: %s", error.localizedDescription)
-                                    }
-                                }
                                 do {
                                     try data.write(
-                                        to: dirURL.appendingPathComponent("ContentScript.js")
+                                        to: containerURL.appendingPathComponent("ContentScript.js")
                                     )
                                     userDefaults.set(newVersion, forKey: "contentScriptVersion")
                                 }
