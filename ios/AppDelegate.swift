@@ -8,10 +8,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func updateContentScript() {
         let now = Date()
-        let lastCheck = UserDefaults.standard.object(forKey: "contentScriptLastCheck") as? Date
+        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
+        let lastCheck = userDefaults.object(forKey: "contentScriptLastCheck") as? Date
         os_log(.debug, "updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
         if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= 1 * 60 * 60 {
-            let currentVersion = UserDefaults.standard.double(forKey: "contentScriptVersion")
+            let currentVersion = userDefaults.double(forKey: "contentScriptVersion")
             os_log(.debug, "updateContentScript(): checking latest version, current version: %f", currentVersion)
             URLSession
                 .shared
@@ -33,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             (200...299).contains(httpResponse.statusCode),
                             let data = data
                         {
-                            UserDefaults.standard.set(now, forKey: "contentScriptLastCheck")
+                            userDefaults.set(now, forKey: "contentScriptLastCheck")
                             if
                                 httpResponse.allHeaderFields.keys.contains("X-ReallyReadIt-Version"),
                                 let newVersionString = httpResponse.allHeaderFields["X-ReallyReadIt-Version"] as? String,
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     try data.write(
                                         to: dirURL.appendingPathComponent("ContentScript.js")
                                     )
-                                    UserDefaults.standard.set(newVersion, forKey: "contentScriptVersion")
+                                    userDefaults.set(newVersion, forKey: "contentScriptVersion")
                                 }
                                 catch let error {
                                     os_log(.debug, "updateContentScript(): error saving file: %s", error.localizedDescription)
