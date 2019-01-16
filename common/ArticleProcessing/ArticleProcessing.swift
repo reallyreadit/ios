@@ -27,7 +27,7 @@ private let scripts = [
 private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
     return [
         HTMLTagReplacement(
-            searchValue: "<script\\b[^<]*(?:(?!</script>)<[^<]*)*</script>",
+            searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])application/ld\\+json\\1))*>[^<]*(?:(?!</script>)<[^<]*)*</script>",
             replaceValue: ""
         ),
         HTMLTagReplacement(
