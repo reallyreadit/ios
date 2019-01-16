@@ -34,7 +34,7 @@ struct APIServer {
                     let data = data
                 {
                     let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601WithFractionalSeconds
+                    decoder.dateDecodingStrategy = .iso8601DotNetCore
                     do {
                         let result = try decoder.decode(TResult.self, from: data)
                         onSuccess(result)

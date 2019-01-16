@@ -1,12 +1,17 @@
 import Foundation
 
 extension JSONDecoder.DateDecodingStrategy {
-    static let iso8601WithFractionalSeconds = custom {
+    static let iso8601DotNetCore = custom {
         decoder in
         let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFractionalSeconds]
         let container = try decoder.singleValueContainer()
-        let stringValue = try container.decode(String.self)
+        let stringValue = try container
+            .decode(String.self)
+            .replacingOccurrences(
+                of: "\\.\\d*$",
+                with: "",
+                options: [.regularExpression, .caseInsensitive]
+            ) + "Z"
         if let date = dateFormatter.date(from: stringValue) {
             return date
         }
