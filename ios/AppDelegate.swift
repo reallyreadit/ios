@@ -10,10 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let now = Date()
         let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
         let lastCheck = userDefaults.object(forKey: "contentScriptLastCheck") as? Date
-        os_log(.debug, "updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
+        os_log("updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
         if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= 1 * 60 * 60 {
             let currentVersion = userDefaults.double(forKey: "contentScriptVersion")
-            os_log(.debug, "updateContentScript(): checking latest version, current version: %f", currentVersion)
+            os_log("updateContentScript(): checking latest version, current version: %f", currentVersion)
             URLSession
                 .shared
                 .dataTask(
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     forSecurityApplicationGroupIdentifier: "group.it.reallyread"
                                 )
                             {
-                                os_log(.debug, "updateContentScript(): upgrading to version %f", newVersion)
+                                os_log("updateContentScript(): upgrading to version %f", newVersion)
                                 do {
                                     try data.write(
                                         to: containerURL.appendingPathComponent("ContentScript.js")
@@ -51,13 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     userDefaults.set(newVersion, forKey: "contentScriptVersion")
                                 }
                                 catch let error {
-                                    os_log(.debug, "updateContentScript(): error saving file: %s", error.localizedDescription)
+                                    os_log("updateContentScript(): error saving file: %s", error.localizedDescription)
                                 }
                             } else {
-                                os_log(.debug, "updateContentScript(): up to date")
+                                os_log("updateContentScript(): up to date")
                             }
                         } else {
-                            os_log(.debug, "updateContentScript(): error checking latest version")
+                            os_log("updateContentScript(): error checking latest version")
                         }
                     }
                 )

@@ -65,14 +65,14 @@ struct ArticleReading {
                     contentsOf: containerURL.appendingPathComponent(script.appSupportFileName!)
                 )
             {
-                os_log(.debug, "addContentScript(coder:): loading script from file: %s", script.bundleFileName)
+                os_log("addContentScript(coder:): loading script from file: %s", script.bundleFileName)
                 source = fileContent
             } else if
                 let fileContent = try? String(
                     contentsOf: Bundle.main.url(forResource: script.bundleFileName, withExtension: "js")!
                 )
             {
-                os_log(.debug, "addContentScript(coder:): loading script from bundle: %s", script.bundleFileName)
+                os_log("addContentScript(coder:): loading script from bundle: %s", script.bundleFileName)
                 source = fileContent
             }
             if source != nil {
@@ -84,7 +84,7 @@ struct ArticleReading {
                     )
                 )
             } else {
-                os_log(.debug, "addContentScript(coder:): error loading script: %s", script.bundleFileName)
+                os_log("addContentScript(coder:): error loading script: %s", script.bundleFileName)
             }
         })
     }

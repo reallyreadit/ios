@@ -100,11 +100,11 @@ class WebAppViewController:
             )
             // check for webview cookie
             if let authCookie = cookies.first(where: self.authCookieMatchPredicate) {
-                os_log(.debug, "cookiesDidChange(in:): authenticated")
+                os_log("cookiesDidChange(in:): authenticated")
                 self.isAuthenticated = true
                 sharedCookieStore.setCookie(authCookie)
             } else {
-                os_log(.debug, "cookiesDidChange(in:): unauthenticated")
+                os_log("cookiesDidChange(in:): unauthenticated")
                 self.isAuthenticated = false
                 if var sharedAuthCookies = sharedCookieStore.cookies {
                     sharedAuthCookies.removeAll(where: self.authCookieMatchPredicate)
@@ -124,7 +124,7 @@ class WebAppViewController:
                 components.queryItems!.append(clientTypeQueryItem)
             }
             if let url = components.url {
-                os_log(.debug, "loadURL(_:): loading: %s", url.absoluteString)
+                os_log("loadURL(_:): loading: %s", url.absoluteString)
                 webView.view.load(
                     URLRequest(
                         url: url
