@@ -106,9 +106,13 @@ class WebAppViewController:
             } else {
                 os_log("cookiesDidChange(in:): unauthenticated")
                 self.isAuthenticated = false
-                if var sharedAuthCookies = sharedCookieStore.cookies {
-                    sharedAuthCookies.removeAll(where: self.authCookieMatchPredicate)
-                }
+                sharedCookieStore
+                    .cookies?
+                    .filter(self.authCookieMatchPredicate)
+                    .forEach({
+                        cookie in
+                        sharedCookieStore.deleteCookie(cookie)
+                    })
             }
             // set the background color
             self.setBackgroundColor()
