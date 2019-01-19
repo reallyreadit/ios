@@ -116,7 +116,8 @@ struct ArticleReading {
                         error == nil,
                         let httpResponse = response as? HTTPURLResponse,
                         (200...299).contains(httpResponse.statusCode),
-                        let stringData = NSMutableString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                        let data = data,
+                        let stringData = NSMutableString(data: data, encoding: String.Encoding.utf8.rawValue)
                     {
                         
                         createTagReplacements(forURL: url).forEach({ replacement in
