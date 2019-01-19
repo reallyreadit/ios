@@ -3,7 +3,7 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
-    private var previousPanYVelocity: CGFloat = 0.0
+    private var previousPanYTranslation: CGFloat = 0.0
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
         return hideStatusBar
@@ -79,9 +79,9 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         ])
     }
     @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        let panYVelocity = sender.velocity(in: sender.view).y
-        if panYVelocity.sign != previousPanYVelocity.sign {
-            switch panYVelocity.sign {
+        let panYTranslation = sender.translation(in: sender.view).y
+        if panYTranslation.sign != previousPanYTranslation.sign {
+            switch panYTranslation.sign {
             case .minus:
                 hideStatusBar = true
                 navigationController!.setNavigationBarHidden(true, animated: true)
@@ -93,7 +93,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 self.setNeedsStatusBarAppearanceUpdate()
             }
         }
-        previousPanYVelocity = panYVelocity
+        previousPanYTranslation = panYTranslation
     }
     func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
