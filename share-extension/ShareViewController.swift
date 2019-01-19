@@ -117,11 +117,23 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                 )
             }) ?? false
         {
+            // try to find the url
             if
-                let item = extensionContext?.inputItems.first as? NSExtensionItem,
-                let urlAttachment = item.attachments?.first(where: {
-                    attachment in attachment.hasItemConformingToTypeIdentifier("public.url")
-                })
+                let urlAttachment = extensionContext?
+                    .inputItems
+                    .reduce([NSItemProvider](), {
+                        urlAttachments, item in
+                        if
+                            let item = item as? NSExtensionItem,
+                            let attachments = item.attachments
+                        {
+                            return urlAttachments + attachments.filter({
+                                attachment in attachment.hasItemConformingToTypeIdentifier("public.url")
+                            })
+                        }
+                        return urlAttachments
+                    })
+                    .first
             {
                 urlAttachment.loadItem(
                     forTypeIdentifier: "public.url",
