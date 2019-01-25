@@ -6,6 +6,7 @@ struct UserPage: Codable {
     var userAccountId: Int
     var dateCreated: Date
     var lastModified: Date?
+    var readableWordCount: Int
     var readState: [Int]
     var wordsRead: Int
     var dateCompleted: Date?
