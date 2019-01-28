@@ -43,5 +43,7 @@
 	<string>.reallyread.it</string>
 	<key>RRITAuthCookieName</key>
 	<string>sessionKey</string>
+	<key>RRITDebugReader</key>
+	<false/>
 </dict>
 </plist>
