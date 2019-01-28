@@ -51,7 +51,7 @@ private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
         )
     ]
 }
-struct ArticleReading {
+struct ArticleProcessing {
     static func addContentScript(forConfiguration config: WKWebViewConfiguration) {
         scripts.forEach({
             script in

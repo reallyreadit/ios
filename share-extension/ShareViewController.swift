@@ -16,7 +16,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         super.init(coder: aDecoder)
         // configure webview
         let config = WKWebViewConfiguration()
-        ArticleReading.addContentScript(forConfiguration: config)
+        ArticleProcessing.addContentScript(forConfiguration: config)
         webView = MessageWebView(webViewConfig: config)
         webView.delegate = self
         // configure alert
@@ -36,7 +36,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
     }
     private func loadArticle(url: URL) {
         self.url = url
-        ArticleReading.fetchArticle(
+        ArticleProcessing.fetchArticle(
             url: url,
             onSuccess: {
                 [weak self] content in
