@@ -94,13 +94,17 @@ struct ArticleReading {
         onError: @escaping () -> Void
     ) {
         var request = URLRequest(
-            url: URL(
-                string: url.absoluteString.replacingOccurrences(
-                    of: "^http:",
-                    with: "https:",
-                    options: [.regularExpression, .caseInsensitive]
-                )
-            )!
+            url: (
+                (Bundle.main.infoDictionary!["RRITDebugReader"] as! Bool) ?
+                    url :
+                    URL(
+                        string: url.absoluteString.replacingOccurrences(
+                            of: "^http:",
+                            with: "https:",
+                            options: [.regularExpression, .caseInsensitive]
+                        )
+                    )!
+            )
         )
         request.setValue(
             "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'",
