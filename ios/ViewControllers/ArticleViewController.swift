@@ -3,6 +3,7 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
+    private var articleURL: URL!
     private var previousPanYTranslation: CGFloat = 0.0
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
@@ -95,6 +96,32 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         }
         previousPanYTranslation = panYTranslation
     }
+    private func loadArticle(url: URL) {
+        articleURL = url
+        ArticleProcessing.fetchArticle(
+            url: url,
+            onSuccess: {
+                [weak self] content in
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.webView.view.loadHTMLString(
+                            content as String,
+                            baseURL: self.articleURL
+                        )
+                        self.speechBubble.setState(isLoading: true)
+                    }
+                }
+            },
+            onError: {
+                [weak self] in
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.setErrorState(withMessage: "Error loading article.")
+                    }
+                }
+            }
+        )
+    }
     func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
@@ -122,7 +149,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     sourceRules: [
                         SourceRule(
                             id: 0,
-                            hostname: params.articleURL.host!,
+                            hostname: articleURL.host!,
                             path: "^/",
                             priority: 0,
                             action: .read
@@ -203,29 +230,29 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         // speech bubble
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: speechBubble)
         // fetch and preprocess the article
-        ArticleProcessing.fetchArticle(
-            url: params.articleURL,
-            onSuccess: {
-                [weak self] content in
-                if let self = self {
-                    DispatchQueue.main.async {
-                        self.webView.view.loadHTMLString(
-                            content as String,
-                            baseURL: self.params.articleURL
-                        )
-                        self.speechBubble.setState(isLoading: true)
+        switch params.articleReference {
+        case .slug(let slug):
+            APIServer.getJson(
+                path: "/Articles/Details",
+                queryItems: URLQueryItem(name: "slug", value: slug),
+                onSuccess: {
+                    [weak self] (article: UserArticle) in
+                    if let self = self {
+                        self.loadArticle(url: URL(string: article.url)!)
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error looking up article.")
+                        }
                     }
                 }
-            },
-            onError: {
-                [weak self] in
-                if let self = self {
-                    DispatchQueue.main.async {
-                        self.setErrorState(withMessage: "Error loading article.")
-                    }
-                }
-            }
-        )
+            )
+        case .url(let url):
+            loadArticle(url: url)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -164,7 +164,7 @@ class WebAppViewController:
             navigationController!.setNavigationBarHidden(false, animated: true)
             // set view controller params
             destination.params = ArticleViewControllerParams(
-                articleURL: URL(string: data["url"] as! String)!,
+                articleReference: ArticleReference.url(URL(string: data["url"] as! String)!),
                 onClose: {
                     // hide navigation bar
                     self.navigationController!.setNavigationBarHidden(true, animated: true)
