@@ -122,7 +122,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     sourceRules: [
                         SourceRule(
                             id: 0,
-                            hostname: params.article.url.host!,
+                            hostname: params.articleURL.host!,
                             path: "^/",
                             priority: 0,
                             action: .read
@@ -204,14 +204,14 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: speechBubble)
         // fetch and preprocess the article
         ArticleProcessing.fetchArticle(
-            url: params.article.url,
+            url: params.articleURL,
             onSuccess: {
                 [weak self] content in
                 if let self = self {
                     DispatchQueue.main.async {
                         self.webView.view.loadHTMLString(
                             content as String,
-                            baseURL: self.params.article.url
+                            baseURL: self.params.articleURL
                         )
                         self.speechBubble.setState(isLoading: true)
                     }

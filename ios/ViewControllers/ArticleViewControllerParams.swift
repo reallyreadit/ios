@@ -1,7 +1,7 @@
 import Foundation
 
 struct ArticleViewControllerParams {
-    let article: ArticleViewControllerArticleParam
+    let articleURL: URL
     let onClose: () -> Void
     let onReadStateCommitted: (_: ReadStateCommittedEvent) -> Void
 }

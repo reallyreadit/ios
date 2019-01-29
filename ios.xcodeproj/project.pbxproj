@@ -26,7 +26,6 @@
 		1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */; };
 		1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */; };
 		1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */; };
-		1F13B4FF21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */; };
 		1F13B50821D4445F00EE6927 /* ContentScript.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50721D4445F00EE6927 /* ContentScript.js */; };
 		1F13B50A21D4480700EE6927 /* ContentScriptMessagingShim.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50921D4480700EE6927 /* ContentScriptMessagingShim.js */; };
 		1F13B50C21D5298A00EE6927 /* WebViewMessagingContext.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B50B21D5298900EE6927 /* WebViewMessagingContext.js */; };
@@ -133,7 +132,6 @@
 		1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinkParseResult.swift; sourceTree = "<group>"; };
 		1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommitData.swift; sourceTree = "<group>"; };
 		1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerParams.swift; sourceTree = "<group>"; };
-		1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerArticleParam.swift; sourceTree = "<group>"; };
 		1F13B50721D4445F00EE6927 /* ContentScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ContentScript.js; sourceTree = "<group>"; };
 		1F13B50921D4480700EE6927 /* ContentScriptMessagingShim.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ContentScriptMessagingShim.js; sourceTree = "<group>"; };
 		1F13B50B21D5298900EE6927 /* WebViewMessagingContext.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WebViewMessagingContext.js; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
-				1F13B4FE21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -523,7 +520,6 @@
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ReadStateCommittedEvent.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
-				1F13B4FF21D2D10C00EE6927 /* ArticleViewControllerArticleParam.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
 				1F13B4ED21D2ABA300EE6927 /* UserArticle.swift in Sources */,
 				1F1947B621EAB3E600D1599D /* WebViewContainerDelegate.swift in Sources */,
