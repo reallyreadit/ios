@@ -8,13 +8,6 @@ class WebAppViewController:
     WebViewContainerDelegate,
     WKHTTPCookieStoreObserver
 {
-    private let authCookieMatchPredicate: (_: HTTPCookie) -> Bool = {
-        cookie in
-        return (
-            cookie.domain == Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String &&
-            cookie.name == Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
-        )
-    }
     private let ghostWhite = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
     private var isAuthenticated = false
     private var webView: MessageWebView!
@@ -94,25 +87,15 @@ class WebAppViewController:
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies({
             cookies in
-            // get shared cookie container
-            let sharedCookieStore = HTTPCookieStorage.sharedCookieStorage(
-                forGroupContainerIdentifier: "group.it.reallyread"
-            )
             // check for webview cookie
-            if let authCookie = cookies.first(where: self.authCookieMatchPredicate) {
+            if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
                 os_log("cookiesDidChange(in:): authenticated")
                 self.isAuthenticated = true
-                sharedCookieStore.setCookie(authCookie)
+                SharedCookieStore.setCookie(authCookie)
             } else {
                 os_log("cookiesDidChange(in:): unauthenticated")
                 self.isAuthenticated = false
-                sharedCookieStore
-                    .cookies?
-                    .filter(self.authCookieMatchPredicate)
-                    .forEach({
-                        cookie in
-                        sharedCookieStore.deleteCookie(cookie)
-                    })
+                SharedCookieStore.clearAuthCookies()
             }
             // set the background color
             self.setBackgroundColor()
@@ -144,9 +127,12 @@ class WebAppViewController:
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
         case "readArticle":
+            let data = message.data as! [String: Any]
             performSegue(
                 withIdentifier: "readArticle",
-                sender: message.data
+                sender: data.keys.contains("url") ?
+                    ArticleReference.url(URL(string: data["url"] as! String)!) :
+                    ArticleReference.slug(data["slug"] as! String)
             )
         default:
             return
@@ -158,13 +144,13 @@ class WebAppViewController:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if
             let destination = segue.destination as? ArticleViewController,
-            let data = sender as? [String: Any]
+            let articleReference = sender as? ArticleReference
         {
             // show navigation bar
             navigationController!.setNavigationBarHidden(false, animated: true)
             // set view controller params
             destination.params = ArticleViewControllerParams(
-                articleReference: ArticleReference.url(URL(string: data["url"] as! String)!),
+                articleReference: articleReference,
                 onClose: {
                     // hide navigation bar
                     self.navigationController!.setNavigationBarHidden(true, animated: true)
@@ -180,6 +166,12 @@ class WebAppViewController:
                 }
             )
         }
+    }
+    func readArticle(slug: String) {
+        performSegue(
+            withIdentifier: "readArticle",
+            sender: ArticleReference.slug(slug)
+        )
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -3,9 +3,7 @@ import Foundation
 struct APIServer {
     private static let urlSession: URLSession = {
         let config = URLSessionConfiguration.default
-        config.httpCookieStorage = HTTPCookieStorage.sharedCookieStorage(
-            forGroupContainerIdentifier: "group.it.reallyread"
-        )
+        config.httpCookieStorage = SharedCookieStore.store
         return URLSession(configuration: config)
     }()
     private static func createURL(fromPath path: String) -> URL {

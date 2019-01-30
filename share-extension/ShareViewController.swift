@@ -153,20 +153,8 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         present(alert, animated: true)
     }
     override func viewDidLoad() {
-        // get shared cookie container
-        let sharedCookieStore = HTTPCookieStorage.sharedCookieStorage(
-            forGroupContainerIdentifier: "group.it.reallyread"
-        )
         // check for auth cookie
-        if
-            sharedCookieStore.cookies?.contains(where: {
-                cookie in
-                (
-                    cookie.domain == Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String &&
-                    cookie.name == Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
-                )
-            }) ?? false
-        {
+        if SharedCookieStore.isAuthenticated() {
             // try to find the url
             if
                 let urlAttachment = extensionContext?

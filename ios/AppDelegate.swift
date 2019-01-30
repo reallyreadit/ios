@@ -81,11 +81,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = window?.rootViewController as? UINavigationController,
             let webAppViewController = navigationController.viewControllers[0] as? WebAppViewController
         {
-            if navigationController.viewControllers.count > 1 {
-                navigationController.popToRootViewController(animated: true)
+            if (
+                url.path.starts(with: "/read") &&
+                url.pathComponents.count == 4 &&
+                SharedCookieStore.isAuthenticated()
+            ) {
+                let slug = url.pathComponents[2] + "_" + url.pathComponents[3]
+                if navigationController.viewControllers.count == 1 {
+                    webAppViewController.readArticle(slug: slug)
+                    return true
+                } else if
+                    navigationController.viewControllers.count == 2,
+                    let articleViewController = navigationController.viewControllers[1] as? ArticleViewController
+                {
+                    articleViewController.replaceArticle(slug: slug)
+                    return true
+                }
+            } else {
+                if navigationController.viewControllers.count > 1 {
+                    navigationController.popToRootViewController(animated: true)
+                }
+                webAppViewController.loadURL(url)
+                return true
             }
-            webAppViewController.loadURL(url)
-            return true
         }
         return false
     }

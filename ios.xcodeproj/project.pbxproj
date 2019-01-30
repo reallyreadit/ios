@@ -85,6 +85,8 @@
 		1F1947C621EAC5A800D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
+		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
+		1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -167,6 +169,7 @@
 		1F1947A021EAAF7200D1599D /* HTMLTagReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTagReplacement.swift; sourceTree = "<group>"; };
 		1F1947B521EAB3E600D1599D /* WebViewContainerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerDelegate.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
+		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -322,6 +325,7 @@
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19479321EA9C1900D1599D /* APIServer.swift */,
+				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -514,6 +518,7 @@
 				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,
 				1F13B4E821D2906E00EE6927 /* ArticleViewController.swift in Sources */,
 				1F19472321DF007A00D1599D /* ResponseCallback.swift in Sources */,
+				1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F19479A21EAA93B00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */,
@@ -538,6 +543,7 @@
 			files = (
 				1F1947AA21EAB0FA00D1599D /* HTMLTagReplacement.swift in Sources */,
 				1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */,
+				1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
 				1F1947AF21EAB0FA00D1599D /* ResponseEnvelope.swift in Sources */,

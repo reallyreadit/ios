@@ -96,6 +96,26 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         }
         previousPanYTranslation = panYTranslation
     }
+    private func loadArticle(slug: String) {
+        APIServer.getJson(
+            path: "/Articles/Details",
+            queryItems: URLQueryItem(name: "slug", value: slug),
+            onSuccess: {
+                [weak self] (article: UserArticle) in
+                if let self = self {
+                    self.loadArticle(url: URL(string: article.url)!)
+                }
+            },
+            onError: {
+                [weak self] _ in
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.setErrorState(withMessage: "Error looking up article.")
+                    }
+                }
+            }
+        )
+    }
     private func loadArticle(url: URL) {
         articleURL = url
         ArticleProcessing.fetchArticle(
@@ -220,6 +240,15 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
             return
         }
     }
+    func replaceArticle(slug: String) {
+        speechBubble.setState(
+            isLoading: false,
+            percentComplete: 0,
+            isRead: false
+        )
+        webViewContainer.setState(.loading)
+        loadArticle(slug: slug)
+    }
     func setErrorState(withMessage message: String) {
         speechBubble.setState(isLoading: false)
         errorMessage.text = message
@@ -232,24 +261,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         // fetch and preprocess the article
         switch params.articleReference {
         case .slug(let slug):
-            APIServer.getJson(
-                path: "/Articles/Details",
-                queryItems: URLQueryItem(name: "slug", value: slug),
-                onSuccess: {
-                    [weak self] (article: UserArticle) in
-                    if let self = self {
-                        self.loadArticle(url: URL(string: article.url)!)
-                    }
-                },
-                onError: {
-                    [weak self] _ in
-                    if let self = self {
-                        DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error looking up article.")
-                        }
-                    }
-                }
-            )
+            loadArticle(slug: slug)
         case .url(let url):
             loadArticle(url: url)
         }
