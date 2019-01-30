@@ -87,13 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SharedCookieStore.isAuthenticated()
             ) {
                 let slug = url.pathComponents[2] + "_" + url.pathComponents[3]
+                let commentsURL = URL(
+                    string: url.absoluteString.replacingOccurrences(
+                        of: "^(https?://[^/]+)/read/(.+)",
+                        with: "$1/articles/$2",
+                        options: [.regularExpression, .caseInsensitive]
+                    )
+                )!
                 if navigationController.viewControllers.count == 1 {
+                    webAppViewController.loadURL(commentsURL)
                     webAppViewController.readArticle(slug: slug)
                     return true
                 } else if
                     navigationController.viewControllers.count == 2,
                     let articleViewController = navigationController.viewControllers[1] as? ArticleViewController
                 {
+                    webAppViewController.loadURL(commentsURL)
                     articleViewController.replaceArticle(slug: slug)
                     return true
                 }
