@@ -30,6 +30,12 @@
 	<string>sessionKey</string>
 	<key>RRITDebugReader</key>
 	<false/>
+    <key>RRITReaderScriptVersion</key>
+    <string>1.0.0</string>
+    <key>RRITShareExtensionScriptVersion</key>
+    <string>1.0.0</string>
+    <key>RRITStaticContentServerURL</key>
+    <string>https://static.readup.com/</string>
 	<key>RRITWebServerURL</key>
 	<string>https://reallyread.it/</string>
 	<key>UILaunchStoryboardName</key>

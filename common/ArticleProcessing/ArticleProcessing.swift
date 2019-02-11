@@ -1,29 +1,6 @@
 import Foundation
 import WebKit
-import os.log
 
-private let scripts = [
-    ContentScript(
-        appSupportFileName: nil,
-        bundleFileName: "WebViewMessagingContextAmdModuleShim",
-        injectionTime: .atDocumentStart
-    ),
-    ContentScript(
-        appSupportFileName: nil,
-        bundleFileName: "WebViewMessagingContext",
-        injectionTime: .atDocumentStart
-    ),
-    ContentScript(
-        appSupportFileName: nil,
-        bundleFileName: "ContentScriptMessagingShim",
-        injectionTime: .atDocumentStart
-    ),
-    ContentScript(
-        appSupportFileName: "ContentScript.js",
-        bundleFileName: "ContentScript",
-        injectionTime: .atDocumentEnd
-    )
-]
 private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
     return [
         HTMLTagReplacement(
@@ -52,42 +29,6 @@ private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
     ]
 }
 struct ArticleProcessing {
-    static func addContentScript(forConfiguration config: WKWebViewConfiguration) {
-        scripts.forEach({
-            script in
-            var source: String?
-            if
-                script.appSupportFileName != nil,
-                let containerURL = FileManager.default.containerURL(
-                    forSecurityApplicationGroupIdentifier: "group.it.reallyread"
-                ),
-                let fileContent = try? String(
-                    contentsOf: containerURL.appendingPathComponent(script.appSupportFileName!)
-                )
-            {
-                os_log("addContentScript(coder:): loading script from file: %s", script.bundleFileName)
-                source = fileContent
-            } else if
-                let fileContent = try? String(
-                    contentsOf: Bundle.main.url(forResource: script.bundleFileName, withExtension: "js")!
-                )
-            {
-                os_log("addContentScript(coder:): loading script from bundle: %s", script.bundleFileName)
-                source = fileContent
-            }
-            if source != nil {
-                config.userContentController.addUserScript(
-                    WKUserScript(
-                        source: source!,
-                        injectionTime: script.injectionTime,
-                        forMainFrameOnly: true
-                    )
-                )
-            } else {
-                os_log("addContentScript(coder:): error loading script: %s", script.bundleFileName)
-            }
-        })
-    }
     static func fetchArticle(
         url: URL,
         onSuccess: @escaping (_: NSMutableString) -> Void,

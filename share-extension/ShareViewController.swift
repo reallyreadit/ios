@@ -16,8 +16,11 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         super.init(coder: aDecoder)
         // configure webview
         let config = WKWebViewConfiguration()
-        ArticleProcessing.addContentScript(forConfiguration: config)
-        webView = MessageWebView(webViewConfig: config)
+        webView = MessageWebView(
+            webViewConfig: config,
+            javascriptListenerObject: "window.reallyreadit.nativeClient.shareExtension",
+            injectedScriptName: "share-extension"
+        )
         webView.delegate = self
         // configure alert
         alert = AlertViewController(
@@ -88,32 +91,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
             return
         }
         switch message.type {
-        case "registerContentScript":
-            webView.sendResponse(
-                data: ContentScriptInitData(
-                    config: ContentScriptConfig(
-                        idleReadRate: 0,
-                        pageOffsetUpdateRate: 0,
-                        readStateCommitRate: 0,
-                        readWordRate: 0
-                    ),
-                    loadPage: true,
-                    parseMetadata: true,
-                    parseMode: "analyze",
-                    showOverlay: false,
-                    sourceRules: [
-                        SourceRule(
-                            id: 0,
-                            hostname: url!.host!,
-                            path: "^/",
-                            priority: 0,
-                            action: .read
-                        )
-                    ]
-                ),
-                callbackId: callbackId!
-            )
-        case "registerPage":
+        case "parseResult":
             hasParsedPage = true
             alert.showLoadingMessage(withText: "Saving article")
             APIServer.postJson(

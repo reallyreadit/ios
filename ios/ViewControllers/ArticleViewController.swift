@@ -27,8 +27,11 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         super.init(coder: coder)
         // init webview
         let config = WKWebViewConfiguration()
-        ArticleProcessing.addContentScript(forConfiguration: config)
-        webView = MessageWebView(webViewConfig: config)
+        webView = MessageWebView(
+            webViewConfig: config,
+            javascriptListenerObject: "window.reallyreadit.nativeClient.reader",
+            injectedScriptName: "reader"
+        )
         webView.delegate = self
         webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
         let panGestureRecognizer = UIPanGestureRecognizer(
@@ -153,32 +156,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
-        case "registerContentScript":
-            webView.sendResponse(
-                data: ContentScriptInitData(
-                    config: ContentScriptConfig(
-                        idleReadRate: 500,
-                        pageOffsetUpdateRate: 3000,
-                        readStateCommitRate: 3000,
-                        readWordRate: 100
-                    ),
-                    loadPage: true,
-                    parseMetadata: true,
-                    parseMode: "mutate",
-                    showOverlay: Bundle.main.infoDictionary!["RRITDebugReader"] as! Bool,
-                    sourceRules: [
-                        SourceRule(
-                            id: 0,
-                            hostname: articleURL.host!,
-                            path: "^/",
-                            priority: 0,
-                            action: .read
-                        )
-                    ]
-                ),
-                callbackId: callbackId!
-            )
-        case "registerPage":
+        case "parseResult":
             APIServer.postJson(
                 path: "/Extension/GetUserArticle",
                 data: PageParseResult(contentScriptData: message.data as! [String: Any]),

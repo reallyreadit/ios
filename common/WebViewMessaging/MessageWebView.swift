@@ -1,7 +1,7 @@
 import Foundation
-
 import UIKit
 import WebKit
+import os.log
 
 private func jsonEncodeForLiteral<T: Encodable>(_ object: T) -> String {
     let encoder = JSONEncoder()
@@ -23,17 +23,53 @@ private func jsonEncodeForLiteral<T: Encodable>(_ object: T) -> String {
     return jsonString as String
 }
 class MessageWebView: NSObject, WKScriptMessageHandler {
+    private let javascriptListenerObject: String
     private let messageHandlerKey = "reallyreadit"
     private var responseCallbacks = [ResponseCallback]()
     weak var delegate: MessageWebViewDelegate?
     var view: WKWebView!
-    override convenience init() {
-        self.init(webViewConfig: WKWebViewConfiguration())
-    }
-    init(webViewConfig: WKWebViewConfiguration) {
+    init(
+        webViewConfig: WKWebViewConfiguration,
+        javascriptListenerObject: String,
+        injectedScriptName: String? = nil
+    ) {
+        self.javascriptListenerObject = javascriptListenerObject
         super.init()
         // add self as webview event listener
         webViewConfig.userContentController.add(self, name: messageHandlerKey)
+        // configure injected script
+        if let injectedScriptName = injectedScriptName {
+            var scriptSource: String?
+            if
+                let containerURL = FileManager.default.containerURL(
+                    forSecurityApplicationGroupIdentifier: "group.it.reallyread"
+                ),
+                let fileContent = try? String(
+                    contentsOf: containerURL.appendingPathComponent(injectedScriptName + ".js")
+                )
+            {
+                os_log("MessageWebView: loading script from file: %s", injectedScriptName)
+                scriptSource = fileContent
+            } else if
+                let fileContent = try? String(
+                    contentsOf: Bundle.main.url(forResource: injectedScriptName, withExtension: "js")!
+                )
+            {
+                os_log("MessageWebView: loading script from bundle: %s", injectedScriptName)
+                scriptSource = fileContent
+            }
+            if scriptSource != nil {
+                webViewConfig.userContentController.addUserScript(
+                    WKUserScript(
+                        source: scriptSource!,
+                        injectionTime: .atDocumentEnd,
+                        forMainFrameOnly: true
+                    )
+                )
+            } else {
+                os_log("MessageWebView: error loading script: %s", injectedScriptName)
+            }
+        }
         // create webview with configuration
         view = WKWebView(
             frame: .zero,
@@ -56,11 +92,11 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
             responseCallbacks.append(ResponseCallback(id: callbackId!, function: responseCallback!))
         }
         let envelope = jsonEncodeForLiteral(CallEnvelope(callbackId: callbackId, data: message))
-        view.evaluateJavaScript("window.reallyreadit.postMessage('\(envelope)');")
+        view.evaluateJavaScript("\(javascriptListenerObject).postMessage('\(envelope)');")
     }
     func sendResponse<T: Codable>(data: T, callbackId: Int) {
         let envelope = jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
-        view.evaluateJavaScript("window.reallyreadit.sendResponse('\(envelope)');")
+        view.evaluateJavaScript("\(javascriptListenerObject).sendResponse('\(envelope)');")
     }
     func userContentController(
         _ userContentController: WKUserContentController,

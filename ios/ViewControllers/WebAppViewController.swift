@@ -16,7 +16,10 @@ class WebAppViewController:
         super.init(coder: coder)
         let config = WKWebViewConfiguration()
         config.websiteDataStore.httpCookieStore.add(self)
-        webView = MessageWebView(webViewConfig: config)
+        webView = MessageWebView(
+            webViewConfig: config,
+            javascriptListenerObject: "window.reallyreadit.app"
+        )
         webView.delegate = self
         webViewContainer = WebViewContainer(webView: webView.view)
         webViewContainer.delegate = self

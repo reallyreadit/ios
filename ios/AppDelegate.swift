@@ -1,72 +1,23 @@
 import UIKit
-import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-    private func updateContentScript() {
-        let now = Date()
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        let lastCheck = userDefaults.object(forKey: "contentScriptLastCheck") as? Date
-        os_log("updateContentScript(): last checked: %s", lastCheck?.description ?? "nil")
-        if lastCheck == nil || now.timeIntervalSince(lastCheck!) >= 1 * 60 * 60 {
-            let currentVersion = userDefaults.double(forKey: "contentScriptVersion")
-            os_log("updateContentScript(): checking latest version, current version: %f", currentVersion)
-            URLSession
-                .shared
-                .dataTask(
-                    with: URLRequest(
-                        url: URL(
-                            string: (
-                                (Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)
-                                    .trimmingCharacters(in: ["/"]) +
-                                "/assets/update/ContentScript.js?currentVersion=\(currentVersion)"
-                            )
-                        )!
-                    ),
-                    completionHandler: {
-                        data, response, error in
-                        if
-                            error == nil,
-                            let httpResponse = response as? HTTPURLResponse,
-                            (200...299).contains(httpResponse.statusCode),
-                            let data = data
-                        {
-                            userDefaults.set(now, forKey: "contentScriptLastCheck")
-                            if
-                                httpResponse.allHeaderFields.keys.contains("X-ReallyReadIt-Version"),
-                                let newVersionString = httpResponse.allHeaderFields["X-ReallyReadIt-Version"] as? String,
-                                let newVersion = Double(newVersionString),
-                                let containerURL = FileManager.default.containerURL(
-                                    forSecurityApplicationGroupIdentifier: "group.it.reallyread"
-                                )
-                            {
-                                os_log("updateContentScript(): upgrading to version %f", newVersion)
-                                do {
-                                    try data.write(
-                                        to: containerURL.appendingPathComponent("ContentScript.js")
-                                    )
-                                    userDefaults.set(newVersion, forKey: "contentScriptVersion")
-                                }
-                                catch let error {
-                                    os_log("updateContentScript(): error saving file: %s", error.localizedDescription)
-                                }
-                            } else {
-                                os_log("updateContentScript(): up to date")
-                            }
-                        } else {
-                            os_log("updateContentScript(): error checking latest version")
-                        }
-                    }
-                )
-                .resume()
-        }
-    }
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // cleanup unused settings and files
+        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
+        userDefaults.removeObject(forKey: "contentScriptLastCheck")
+        userDefaults.removeObject(forKey: "contentScriptVersion")
+        let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.it.reallyread"
+        )!
+        let oldContentScriptURL = containerURL.appendingPathComponent("ContentScript.js")
+        if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
+            try! FileManager.default.removeItem(at: oldContentScriptURL)
+        }
         return true
     }
     
@@ -133,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        updateContentScript()
+        ScriptUpdater.updateScripts()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
