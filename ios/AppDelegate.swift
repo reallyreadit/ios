@@ -5,30 +5,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // cleanup unused settings and files
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        userDefaults.removeObject(forKey: "contentScriptLastCheck")
-        userDefaults.removeObject(forKey: "contentScriptVersion")
-        let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.it.reallyread"
-        )!
-        let oldContentScriptURL = containerURL.appendingPathComponent("ContentScript.js")
-        if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
-            try! FileManager.default.removeItem(at: oldContentScriptURL)
-        }
-        return true
-    }
-    
-    func application(
-        _ application: UIApplication,
-        continue userActivity: NSUserActivity,
-        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
-    ) -> Bool {
+    private func loadURL(_ url: URL) -> Bool {
         if
-            userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-            let url = userActivity.webpageURL,
             let navigationController = window?.rootViewController as? UINavigationController,
             let webAppViewController = navigationController.viewControllers[0] as? WebAppViewController
         {
@@ -66,6 +44,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         return false
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        // cleanup unused settings and files
+        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
+        userDefaults.removeObject(forKey: "contentScriptLastCheck")
+        userDefaults.removeObject(forKey: "contentScriptVersion")
+        let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.it.reallyread"
+        )!
+        let oldContentScriptURL = containerURL.appendingPathComponent("ContentScript.js")
+        if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
+            try! FileManager.default.removeItem(at: oldContentScriptURL)
+        }
+        return true
+    }
+    
+    func application(
+        _ application: UIApplication,
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+        if
+            userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let url = userActivity.webpageURL
+        {
+            return loadURL(url)
+        }
+        return false
+    }
+    
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        return loadURL(url)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
