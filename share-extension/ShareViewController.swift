@@ -55,7 +55,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                         )
                     }
                     DispatchQueue.main.asyncAfter(
-                        deadline: .now() + .seconds(3),
+                        deadline: .now() + .seconds(10),
                         execute: {
                             [weak self] in
                             if
