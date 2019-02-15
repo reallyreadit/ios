@@ -19,5 +19,6 @@ struct UserArticle: Codable {
     var percentComplete: Double
     var isRead: Bool
     var dateStarred: Date?
+    var ratingScore: Int?
     var proofToken: String?
 }

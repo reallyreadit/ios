@@ -169,7 +169,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                                 percentComplete: result.userArticle.percentComplete,
                                 isRead: result.userArticle.isRead
                             )
-                            self.webView.sendResponse(data: result.userPage, callbackId: callbackId!)
+                            self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
                 },
@@ -202,6 +202,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                                     isCompletionCommit: event.isCompletionCommit
                                 )
                             )
+                            self.webView.sendResponse(data: article, callbackId: callbackId!)
                         }
                     }
                 },
@@ -210,6 +211,27 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     if let self = self {
                         DispatchQueue.main.async {
                             self.setErrorState(withMessage: "Error saving reading progress.")
+                        }
+                    }
+                }
+            )
+        case "rateArticle":
+            APIServer.postJson(
+                path: "/Articles/Rate",
+                data: ArticleRatingForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (rating: Rating) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(data: rating, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error rating article.")
                         }
                     }
                 }
