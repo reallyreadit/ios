@@ -87,14 +87,9 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         if panYTranslation.sign != previousPanYTranslation.sign {
             switch panYTranslation.sign {
             case .minus:
-                hideStatusBar = true
-                navigationController!.setNavigationBarHidden(true, animated: true)
+                setBarsVisibility(hidden: true)
             case .plus:
-                hideStatusBar = false
-                navigationController!.setNavigationBarHidden(false, animated: true)
-            }
-            UIView.animate(withDuration: 0.25) {
-                self.setNeedsStatusBarAppearanceUpdate()
+                setBarsVisibility(hidden: false)
             }
         }
         previousPanYTranslation = panYTranslation
@@ -144,6 +139,13 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 }
             }
         )
+    }
+    private func setBarsVisibility(hidden: Bool) {
+        hideStatusBar = hidden
+        navigationController!.setNavigationBarHidden(hidden, animated: true)
+        UIView.animate(withDuration: 0.25) {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
     func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
@@ -253,6 +255,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         speechBubble.setState(isLoading: false)
         errorMessage.text = message
         webViewContainer.setState(.error)
+        setBarsVisibility(hidden: false)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

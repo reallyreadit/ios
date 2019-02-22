@@ -41,30 +41,37 @@ class SpeechBubbleView: MacawView {
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -3)
         ])
     }
-    func setState(isLoading: Bool, percentComplete: Double = 0, isRead: Bool = false) {
-        speechBubble.fill = LinearGradient(
-            x1: 64,
-            y1: 128,
-            x2: 64,
-            y2: 0,
-            userSpace: true,
-            stops: [
-                Stop(
-                    offset: percentComplete / 100,
-                    color: isRead ?
-                        .rgb(r: 152, g: 251, b: 152) :
-                        .rgb(r: 255, g: 192, b: 203)
-                ),
-                Stop(
-                    offset: percentComplete / 100,
-                    color: .white
-                )
-            ]
-        )
-        if isLoading {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
+    func setState(isLoading: Bool?, percentComplete: Double? = nil, isRead: Bool? = nil) {
+        if
+            let percentComplete = percentComplete,
+            let isRead = isRead
+        {
+            speechBubble.fill = LinearGradient(
+                x1: 64,
+                y1: 128,
+                x2: 64,
+                y2: 0,
+                userSpace: true,
+                stops: [
+                    Stop(
+                        offset: percentComplete / 100,
+                        color: isRead ?
+                            .rgb(r: 152, g: 251, b: 152) :
+                            .rgb(r: 255, g: 192, b: 203)
+                    ),
+                    Stop(
+                        offset: percentComplete / 100,
+                        color: .white
+                    )
+                ]
+            )
+        }
+        if let isLoading = isLoading {
+            if isLoading {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
         }
     }
 }
