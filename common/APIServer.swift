@@ -1,23 +1,31 @@
 import Foundation
 
-struct APIServer {
-    private static let urlSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.httpCookieStorage = SharedCookieStore.store
-        return URLSession(configuration: config)
-    }()
-    private static func createURL(fromPath path: String) -> URL {
-        return URL(
-            string: (Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)
-                .trimmingCharacters(in: ["/"]) + path
-        )!
-    }
-    private static func sendRequest<TResult: Decodable>(
-        request: URLRequest,
-        onSuccess: @escaping (_: TResult) -> Void,
-        onError: @escaping (_: Error?) -> Void
-    ) {
-        urlSession.dataTask(
+private let apiServerURL = (Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)
+    .trimmingCharacters(in: ["/"])
+private let clientHeaderValue = (
+    (Bundle.main.infoDictionary!["RRITClientID"] as! String) +
+    "@" +
+    (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String) +
+    "." +
+    (Bundle.main.infoDictionary!["CFBundleVersion"] as! String)
+)
+private let urlSession: URLSession = {
+    let config = URLSessionConfiguration.default
+    config.httpCookieStorage = SharedCookieStore.store
+    return URLSession(configuration: config)
+}()
+private func createURL(fromPath path: String) -> URL {
+    return URL(string: apiServerURL + path)!
+}
+private func sendRequest<TResult: Decodable>(
+    request: URLRequest,
+    onSuccess: @escaping (_: TResult) -> Void,
+    onError: @escaping (_: Error?) -> Void
+) {
+    var request = request
+    request.addValue(clientHeaderValue, forHTTPHeaderField: "X-Readup-Client")
+    urlSession
+        .dataTask(
             with: request,
             completionHandler: {
                 (data, response, error) in
@@ -41,7 +49,8 @@ struct APIServer {
             }
         )
         .resume()
-    }
+}
+struct APIServer {
     static func getJson<TResult: Decodable>(
         path: String,
         queryItems: URLQueryItem...,

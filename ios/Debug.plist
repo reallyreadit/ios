@@ -48,6 +48,8 @@
 	<string>.dev.reallyread.it</string>
 	<key>RRITAuthCookieName</key>
 	<string>devSessionKey</string>
+    <key>RRITClientID</key>
+    <string>ios/app</string>
 	<key>RRITDebugReader</key>
 	<true/>
     <key>RRITReaderScriptVersion</key>
