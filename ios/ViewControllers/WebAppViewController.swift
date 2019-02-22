@@ -154,11 +154,7 @@ class WebAppViewController:
             // set view controller params
             destination.params = ArticleViewControllerParams(
                 articleReference: articleReference,
-                onClose: {
-                    // hide navigation bar
-                    self.navigationController!.setNavigationBarHidden(true, animated: true)
-                },
-                onReadStateCommitted: {
+                onArticleUpdated: {
                     event in
                     self.webView.sendMessage(
                         message: Message(
@@ -166,6 +162,10 @@ class WebAppViewController:
                             data: event
                         )
                     )
+                },
+                onClose: {
+                    // hide navigation bar
+                    self.navigationController!.setNavigationBarHidden(true, animated: true)
                 }
             )
         }

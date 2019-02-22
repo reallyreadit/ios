@@ -3,6 +3,7 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
+    private var article: UserArticle!
     private var articleURL: URL!
     private var previousPanYTranslation: CGFloat = 0.0
     private var hideStatusBar = false
@@ -166,6 +167,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
                         DispatchQueue.main.async {
+                            self.article = result.userArticle
                             self.speechBubble.setState(
                                 isLoading: false,
                                 percentComplete: result.userArticle.percentComplete,
@@ -193,13 +195,14 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     [weak self] (article: UserArticle) in
                     if let self = self {
                         DispatchQueue.main.async {
+                            self.article = article
                             self.speechBubble.setState(
                                 isLoading: false,
                                 percentComplete: article.percentComplete,
                                 isRead: article.isRead
                             )
-                            self.params.onReadStateCommitted(
-                                ReadStateCommittedEvent(
+                            self.params.onArticleUpdated(
+                                ArticleUpdatedEvent(
                                     article: article,
                                     isCompletionCommit: event.isCompletionCommit
                                 )
@@ -225,6 +228,13 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     [weak self] (rating: Rating) in
                     if let self = self {
                         DispatchQueue.main.async {
+                            self.article.ratingScore = rating.score
+                            self.params.onArticleUpdated(
+                                ArticleUpdatedEvent(
+                                    article: self.article,
+                                    isCompletionCommit: false
+                                )
+                            )
                             self.webView.sendResponse(data: rating, callbackId: callbackId!)
                         }
                     }
@@ -243,6 +253,8 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         }
     }
     func replaceArticle(slug: String) {
+        article = nil
+        articleURL = nil
         speechBubble.setState(
             isLoading: false,
             percentComplete: 0,

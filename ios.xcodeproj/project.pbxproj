@@ -36,7 +36,7 @@
 		1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471E21DF005C00D1599D /* CallEnvelope.swift */; };
 		1F19472121DF006B00D1599D /* ResponseEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472021DF006B00D1599D /* ResponseEnvelope.swift */; };
 		1F19472321DF007A00D1599D /* ResponseCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472221DF007A00D1599D /* ResponseCallback.swift */; };
-		1F19472721DF0F4200D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
+		1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19476521E4033200D1599D /* WebViewContainerState.swift */; };
 		1F19477221E8255900D1599D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19477121E8255900D1599D /* ShareViewController.swift */; };
 		1F19477521E8255900D1599D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F19477321E8255900D1599D /* MainInterface.storyboard */; };
@@ -72,7 +72,7 @@
 		1F1947C321EAC5A800D1599D /* SourceRuleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */; };
 		1F1947C421EAC5A800D1599D /* SourceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51521D5901D00EE6927 /* SourceRule.swift */; };
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
-		1F1947C621EAC5A800D1599D /* ReadStateCommittedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */; };
+		1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
 		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
@@ -144,7 +144,7 @@
 		1F19471E21DF005C00D1599D /* CallEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEnvelope.swift; sourceTree = "<group>"; };
 		1F19472021DF006B00D1599D /* ResponseEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseEnvelope.swift; sourceTree = "<group>"; };
 		1F19472221DF007A00D1599D /* ResponseCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCallback.swift; sourceTree = "<group>"; };
-		1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommittedEvent.swift; sourceTree = "<group>"; };
+		1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUpdatedEvent.swift; sourceTree = "<group>"; };
 		1F19473A21E105C100D1599D /* ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ios.entitlements; sourceTree = "<group>"; };
 		1F19476521E4033200D1599D /* WebViewContainerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerState.swift; sourceTree = "<group>"; };
 		1F19476721E5552900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 				1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */,
 				1F13B51521D5901D00EE6927 /* SourceRule.swift */,
 				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
-				1F19472621DF0F4200D1599D /* ReadStateCommittedEvent.swift */,
+				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
 				1FDBBC8122173CAF00E03051 /* ArticleRatingForm.swift */,
 				1FDBBC8422173D9400E03051 /* Rating.swift */,
 			);
@@ -535,7 +535,7 @@
 				1F1947A121EAAF7200D1599D /* HTMLTagReplacement.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
-				1F19472721DF0F4200D1599D /* ReadStateCommittedEvent.swift in Sources */,
+				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1FDBBC8222173CAF00E03051 /* ArticleRatingForm.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
@@ -572,7 +572,7 @@
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
 				1F1947B021EAB0FA00D1599D /* ResponseCallback.swift in Sources */,
 				1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */,
-				1F1947C621EAC5A800D1599D /* ReadStateCommittedEvent.swift in Sources */,
+				1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F1947B721EABB0400D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F1947B321EAB0FA00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */,
