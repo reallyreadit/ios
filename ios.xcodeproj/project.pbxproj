@@ -26,10 +26,6 @@
 		1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */; };
 		1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */; };
 		1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */; };
-		1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */; };
-		1F13B51221D58EB900EE6927 /* ContentScriptInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */; };
-		1F13B51421D58F5000EE6927 /* SourceRuleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */; };
-		1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51521D5901D00EE6927 /* SourceRule.swift */; };
 		1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471721DEDA0800D1599D /* DateDecodingStrategy.swift */; };
 		1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F19471D21DF004A00D1599D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471C21DF004A00D1599D /* Message.swift */; };
@@ -67,10 +63,6 @@
 		1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */; };
 		1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */; };
 		1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */; };
-		1F1947C121EAC5A800D1599D /* ContentScriptConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */; };
-		1F1947C221EAC5A800D1599D /* ContentScriptInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */; };
-		1F1947C321EAC5A800D1599D /* SourceRuleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */; };
-		1F1947C421EAC5A800D1599D /* SourceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B51521D5901D00EE6927 /* SourceRule.swift */; };
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
@@ -138,10 +130,6 @@
 		1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinkParseResult.swift; sourceTree = "<group>"; };
 		1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStateCommitData.swift; sourceTree = "<group>"; };
 		1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerParams.swift; sourceTree = "<group>"; };
-		1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScriptConfig.swift; sourceTree = "<group>"; };
-		1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentScriptInitData.swift; sourceTree = "<group>"; };
-		1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRuleAction.swift; sourceTree = "<group>"; };
-		1F13B51521D5901D00EE6927 /* SourceRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRule.swift; sourceTree = "<group>"; };
 		1F19471721DEDA0800D1599D /* DateDecodingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDecodingStrategy.swift; sourceTree = "<group>"; };
 		1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitReadStateEvent.swift; sourceTree = "<group>"; };
 		1F19471C21DF004A00D1599D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -213,10 +201,10 @@
 			isa = PBXGroup;
 			children = (
 				1F19478621EA747E00D1599D /* common */,
-				1F13B4BE21CB167500EE6927 /* ios */,
-				1F19477021E8255900D1599D /* share-extension */,
-				1F13B4BD21CB167500EE6927 /* Products */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
+				1F13B4BE21CB167500EE6927 /* ios */,
+				1F13B4BD21CB167500EE6927 /* Products */,
+				1F19477021E8255900D1599D /* share-extension */,
 			);
 			sourceTree = "<group>";
 		};
@@ -232,19 +220,19 @@
 		1F13B4BE21CB167500EE6927 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				1FDBBC7C221229B500E03051 /* reader.js */,
 				1FDBBC7222109CD900E03051 /* Scripts */,
 				1F13B4D421CC334400EE6927 /* ViewControllers */,
 				1F12E66421D6A16B001553F9 /* Views */,
 				1F19479D21EAAA6E00D1599D /* WebViewUI */,
-				1F19476721E5552900D1599D /* Debug.plist */,
-				1F19476821E5552900D1599D /* Release.plist */,
-				1F19473A21E105C100D1599D /* ios.entitlements */,
-				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
 				1F8768B722318B54002B5D16 /* AppBundleInfo.swift */,
-				1F13B4C321CB167500EE6927 /* Main.storyboard */,
+				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
+				1F19476721E5552900D1599D /* Debug.plist */,
+				1F19473A21E105C100D1599D /* ios.entitlements */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
+				1F13B4C321CB167500EE6927 /* Main.storyboard */,
+				1FDBBC7C221229B500E03051 /* reader.js */,
+				1F19476821E5552900D1599D /* Release.plist */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -261,10 +249,10 @@
 		1F13B4D421CC334400EE6927 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
+				1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */,
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
-				1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */,
+				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -272,23 +260,19 @@
 		1F13B4E921D2AA9500EE6927 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1F13B4EA21D2AAA900EE6927 /* UserPage.swift */,
-				1F13B4EC21D2ABA300EE6927 /* UserArticle.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
-				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
 				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
-				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
-				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
-				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
-				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
-				1F13B50F21D58E6D00EE6927 /* ContentScriptConfig.swift */,
-				1F13B51121D58EB900EE6927 /* ContentScriptInitData.swift */,
-				1F13B51321D58F5000EE6927 /* SourceRuleAction.swift */,
-				1F13B51521D5901D00EE6927 /* SourceRule.swift */,
-				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
-				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
 				1FDBBC8122173CAF00E03051 /* ArticleRatingForm.swift */,
+				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
+				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
+				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
+				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
+				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
 				1FDBBC8422173D9400E03051 /* Rating.swift */,
+				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
+				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
+				1F13B4EC21D2ABA300EE6927 /* UserArticle.swift */,
+				1F13B4EA21D2AAA900EE6927 /* UserPage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,12 +288,12 @@
 		1F19471B21DF003800D1599D /* WebViewMessaging */ = {
 			isa = PBXGroup;
 			children = (
-				1F19471C21DF004A00D1599D /* Message.swift */,
 				1F19471E21DF005C00D1599D /* CallEnvelope.swift */,
-				1F19472021DF006B00D1599D /* ResponseEnvelope.swift */,
-				1F19472221DF007A00D1599D /* ResponseCallback.swift */,
+				1F19471C21DF004A00D1599D /* Message.swift */,
 				1F19479621EAA42E00D1599D /* MessageWebView.swift */,
 				1F19479921EAA93B00D1599D /* MessageWebViewDelegate.swift */,
+				1F19472221DF007A00D1599D /* ResponseCallback.swift */,
+				1F19472021DF006B00D1599D /* ResponseEnvelope.swift */,
 			);
 			path = WebViewMessaging;
 			sourceTree = "<group>";
@@ -317,13 +301,13 @@
 		1F19477021E8255900D1599D /* share-extension */ = {
 			isa = PBXGroup;
 			children = (
+				1F80C94C21ED53AF0060819F /* AlertViewController.swift */,
+				1F19477F21E90C2900D1599D /* Debug.plist */,
+				1F19477321E8255900D1599D /* MainInterface.storyboard */,
+				1F19477E21E90C2900D1599D /* Release.plist */,
 				1FDBBC7A2210E31300E03051 /* share-extension.js */,
 				1F19478221E9545D00D1599D /* share-extension.entitlements */,
-				1F19477F21E90C2900D1599D /* Debug.plist */,
-				1F19477E21E90C2900D1599D /* Release.plist */,
-				1F80C94C21ED53AF0060819F /* AlertViewController.swift */,
 				1F19477121E8255900D1599D /* ShareViewController.swift */,
-				1F19477321E8255900D1599D /* MainInterface.storyboard */,
 			);
 			path = "share-extension";
 			sourceTree = "<group>";
@@ -336,8 +320,8 @@
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19479321EA9C1900D1599D /* APIServer.swift */,
-				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
 				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
+				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
 				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
 			);
 			path = common;
@@ -355,9 +339,9 @@
 		1F19479D21EAAA6E00D1599D /* WebViewUI */ = {
 			isa = PBXGroup;
 			children = (
-				1F19476521E4033200D1599D /* WebViewContainerState.swift */,
 				1F19479E21EAAA9100D1599D /* WebViewContainer.swift */,
 				1F1947B521EAB3E600D1599D /* WebViewContainerDelegate.swift */,
+				1F19476521E4033200D1599D /* WebViewContainerState.swift */,
 			);
 			path = WebViewUI;
 			sourceTree = "<group>";
@@ -517,14 +501,10 @@
 				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
-				1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */,
 				1F19479F21EAAA9100D1599D /* WebViewContainer.swift in Sources */,
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
-				1F13B51621D5901D00EE6927 /* SourceRule.swift in Sources */,
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */,
-				1F13B51221D58EB900EE6927 /* ContentScriptInitData.swift in Sources */,
-				1F13B51421D58F5000EE6927 /* SourceRuleAction.swift in Sources */,
 				1FDBBC8522173D9400E03051 /* Rating.swift in Sources */,
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
@@ -570,13 +550,10 @@
 				1F1947B221EAB0FA00D1599D /* MessageWebView.swift in Sources */,
 				1F1947AD21EAB0FA00D1599D /* Message.swift in Sources */,
 				1F1947BA21EAC5A800D1599D /* ArticleLookupResult.swift in Sources */,
-				1F1947C421EAC5A800D1599D /* SourceRule.swift in Sources */,
 				1FDBBC8322173CAF00E03051 /* ArticleRatingForm.swift in Sources */,
 				1FDBBC8622173D9400E03051 /* Rating.swift in Sources */,
-				1F1947C321EAC5A800D1599D /* SourceRuleAction.swift in Sources */,
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
-				1F1947C121EAC5A800D1599D /* ContentScriptConfig.swift in Sources */,
 				1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
@@ -588,7 +565,6 @@
 				1F1947B721EABB0400D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F1947B321EAB0FA00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */,
-				1F1947C221EAC5A800D1599D /* ContentScriptInitData.swift in Sources */,
 				1F1947B921EAC5A800D1599D /* UserArticle.swift in Sources */,
 				1F19477221E8255900D1599D /* ShareViewController.swift in Sources */,
 				1F1947B421EAB0FA00D1599D /* APIServer.swift in Sources */,
