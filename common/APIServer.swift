@@ -1,13 +1,9 @@
 import Foundation
 
-private let apiServerURL = (Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)
-    .trimmingCharacters(in: ["/"])
 private let clientHeaderValue = (
-    (Bundle.main.infoDictionary!["RRITClientID"] as! String) +
+    SharedBundleInfo.clientID +
     "@" +
-    (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String) +
-    "." +
-    (Bundle.main.infoDictionary!["CFBundleVersion"] as! String)
+    SharedBundleInfo.version.description
 )
 private let urlSession: URLSession = {
     let config = URLSessionConfiguration.default
@@ -15,7 +11,7 @@ private let urlSession: URLSession = {
     return URLSession(configuration: config)
 }()
 private func createURL(fromPath path: String) -> URL {
-    return URL(string: apiServerURL + path)!
+    return SharedBundleInfo.apiServerURL.appendingPathComponent(path)
 }
 private func sendRequest<TResult: Decodable>(
     request: URLRequest,

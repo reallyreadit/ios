@@ -78,7 +78,7 @@ class WebAppViewController:
         ])
     }
     @objc private func loadWebApp() {
-        loadURL(URL(string: Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)!)
+        loadURL(AppBundleInfo.webServerURL)
     }
     private func setBackgroundColor() {
         if webViewContainer.state == .loaded, isAuthenticated {

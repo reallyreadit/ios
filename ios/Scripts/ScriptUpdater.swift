@@ -1,21 +1,13 @@
 import Foundation
 import os.log
 
-private let staticContentServerURL = URL(
-    string: (Bundle.main.infoDictionary!["RRITStaticContentServerURL"] as! String)
-        .trimmingCharacters(in: ["/"])
-)!
 private let scripts = [
     Script(
-        bundledVersion: SemanticVersion(
-            fromVersionString: Bundle.main.infoDictionary!["RRITReaderScriptVersion"] as? String
-        )!,
+        bundledVersion: AppBundleInfo.readerScriptVersion,
         name: "reader"
     ),
     Script(
-        bundledVersion: SemanticVersion(
-            fromVersionString: Bundle.main.infoDictionary!["RRITShareExtensionScriptVersion"] as? String
-        )!,
+        bundledVersion: AppBundleInfo.shareExtensionScriptVersion,
         name: "share-extension"
     )
 ]
@@ -39,7 +31,7 @@ struct ScriptUpdater {
                 URLSession
                     .shared
                     .dataTask(
-                        with: staticContentServerURL.appendingPathComponent("/native-client/\(script.name).txt"),
+                        with: AppBundleInfo.staticContentServerURL.appendingPathComponent("/native-client/\(script.name).txt"),
                         completionHandler: {
                             data, response, error in
                             if
@@ -60,7 +52,7 @@ struct ScriptUpdater {
                                 {
                                     URLSession.shared
                                         .dataTask(
-                                            with: staticContentServerURL.appendingPathComponent("/native-client/\(script.name)/\(newVersionFileName)"),
+                                            with: AppBundleInfo.staticContentServerURL.appendingPathComponent("/native-client/\(script.name)/\(newVersionFileName)"),
                                             completionHandler: {
                                                 data, response, error in
                                                 if

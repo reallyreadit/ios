@@ -78,6 +78,10 @@
 		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
+		1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
+		1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
+		1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
+		1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B722318B54002B5D16 /* AppBundleInfo.swift */; };
 		1FDBBC7422109CED00E03051 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* Script.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -165,6 +169,8 @@
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
+		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -235,6 +241,7 @@
 				1F19476821E5552900D1599D /* Release.plist */,
 				1F19473A21E105C100D1599D /* ios.entitlements */,
 				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
+				1F8768B722318B54002B5D16 /* AppBundleInfo.swift */,
 				1F13B4C321CB167500EE6927 /* Main.storyboard */,
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
@@ -329,6 +336,8 @@
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19479321EA9C1900D1599D /* APIServer.swift */,
+				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
+				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
 				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
 			);
 			path = common;
@@ -358,7 +367,6 @@
 			children = (
 				1FDBBC7322109CED00E03051 /* Script.swift */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
-				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -506,7 +514,9 @@
 				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
 				1F12E66821D6A1B4001553F9 /* SpeechBubbleView.swift in Sources */,
+				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
+				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F13B51021D58E6D00EE6927 /* ContentScriptConfig.swift in Sources */,
 				1F19479F21EAAA9100D1599D /* WebViewContainer.swift in Sources */,
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
@@ -567,9 +577,11 @@
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
 				1F1947C121EAC5A800D1599D /* ContentScriptConfig.swift in Sources */,
+				1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
+				1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */,
 				1F1947B021EAB0FA00D1599D /* ResponseCallback.swift in Sources */,
 				1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */,
 				1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */,

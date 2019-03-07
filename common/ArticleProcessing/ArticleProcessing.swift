@@ -36,7 +36,7 @@ struct ArticleProcessing {
     ) {
         var request = URLRequest(
             url: (
-                (Bundle.main.infoDictionary!["RRITDebugReader"] as! Bool) ?
+                SharedBundleInfo.debugReader ?
                     url :
                     URL(
                         string: url.absoluteString.replacingOccurrences(

@@ -1,17 +1,14 @@
 import Foundation
 
-private let apiServerURL = URL(string: Bundle.main.infoDictionary!["RRITAPIServerURL"] as! String)!
-private let authCookieDomain = Bundle.main.infoDictionary!["RRITAuthCookieDomain"] as! String
-private let authCookieName = Bundle.main.infoDictionary!["RRITAuthCookieName"] as! String
 private func getAuthCookies() -> [HTTPCookie]? {
     return SharedCookieStore
         .store
-        .cookies(for: apiServerURL)?
-        .filter({ cookie in cookie.name == authCookieName })
+        .cookies(for: SharedBundleInfo.apiServerURL)?
+        .filter({ cookie in cookie.name == SharedBundleInfo.authCookieName })
 }
 struct SharedCookieStore {
     static let authCookieMatchPredicate: (_: HTTPCookie) -> Bool = {
-        cookie in cookie.domain == authCookieDomain && cookie.name == authCookieName
+        cookie in cookie.domain == SharedBundleInfo.authCookieDomain && cookie.name == SharedBundleInfo.authCookieName
     }
     static let store = HTTPCookieStorage.sharedCookieStorage(
         forGroupContainerIdentifier: "group.it.reallyread"
