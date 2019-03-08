@@ -74,6 +74,7 @@
 		1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
 		1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
 		1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B722318B54002B5D16 /* AppBundleInfo.swift */; };
+		1F8768BA2231AC0D002B5D16 /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B92231AC0D002B5D16 /* ShareData.swift */; };
 		1FDBBC7422109CED00E03051 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* Script.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -159,6 +160,7 @@
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
+		1F8768B92231AC0D002B5D16 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */,
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
+				1F8768B92231AC0D002B5D16 /* ShareData.swift */,
 				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 			);
 			path = ViewControllers;
@@ -515,6 +518,7 @@
 				1F19472321DF007A00D1599D /* ResponseCallback.swift in Sources */,
 				1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */,
 				1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */,
+				1F8768BA2231AC0D002B5D16 /* ShareData.swift in Sources */,
 				1F19479A21EAA93B00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1FDBBC7422109CED00E03051 /* Script.swift in Sources */,
 				1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */,

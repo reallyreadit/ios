@@ -129,6 +129,11 @@ class WebAppViewController:
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
+        case "getVersion":
+            self.webView.sendResponse(
+                data: SharedBundleInfo.version.description,
+                callbackId: callbackId!
+            )
         case "readArticle":
             let data = message.data as! [String: Any]
             performSegue(
@@ -137,6 +142,21 @@ class WebAppViewController:
                     ArticleReference.url(URL(string: data["url"] as! String)!) :
                     ArticleReference.slug(data["slug"] as! String)
             )
+        case "share":
+            let data = ShareData(message.data as! [String: Any])
+            var activityItems: [Any] = [data.url]
+            if let subject = data.subject {
+                activityItems.append(subject)
+            }
+            let activityViewController = UIActivityViewController(
+                activityItems: activityItems,
+                applicationActivities: nil
+            )
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            activityViewController.excludedActivityTypes = [
+                UIActivity.ActivityType(rawValue: "it.reallyread.mobile.share-extension")
+            ]
+            present(activityViewController, animated: true, completion: nil)
         default:
             return
         }
