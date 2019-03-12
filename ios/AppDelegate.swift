@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let commentsURL = URL(
                     string: url.absoluteString.replacingOccurrences(
                         of: "^(https?://[^/]+)/read/(.+)",
-                        with: "$1/articles/$2",
+                        with: "$1/comments/$2",
                         options: [.regularExpression, .caseInsensitive]
                     )
                 )!
