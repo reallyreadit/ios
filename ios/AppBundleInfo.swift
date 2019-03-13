@@ -12,6 +12,7 @@ struct AppBundleInfo {
             .trimmingCharacters(in: ["/"])
     )!
     public static let webServerURL = URL(
-        string: Bundle.main.infoDictionary!["RRITWebServerURL"] as! String
+        string: (Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)
+            .trimmingCharacters(in: ["/"])
     )!
 }
