@@ -147,14 +147,12 @@ class WebAppViewController:
             let activityViewController = UIActivityViewController(
                 activityItems: [
                     data.url,
-                    ShareDataStringSource(data)
+                    ShareDataStringSource(data),
+                    ShareBlockerSource()
                 ],
                 applicationActivities: nil
             )
             activityViewController.popoverPresentationController?.sourceView = self.view
-            activityViewController.excludedActivityTypes = [
-                UIActivity.ActivityType(rawValue: "it.reallyread.mobile.share-extension")
-            ]
             present(activityViewController, animated: true, completion: nil)
         default:
             return
