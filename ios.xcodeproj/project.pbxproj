@@ -79,6 +79,7 @@
 		1F8768C02239C04B002B5D16 /* ShareDataStringSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */; };
 		1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C12239CD70002B5D16 /* EmailShareData.swift */; };
 		1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */; };
+		1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */; };
 		1FDBBC7422109CED00E03051 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* Script.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -169,6 +170,7 @@
 		1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataStringSource.swift; sourceTree = "<group>"; };
 		1F8768C12239CD70002B5D16 /* EmailShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailShareData.swift; sourceTree = "<group>"; };
 		1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBlockerSource.swift; sourceTree = "<group>"; };
+		1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataURLSource.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */,
 				1F8768B92231AC0D002B5D16 /* ShareData.swift */,
 				1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */,
+				1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */,
 				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 			);
 			path = ViewControllers;
@@ -526,6 +529,7 @@
 				1FDBBC8522173D9400E03051 /* Rating.swift in Sources */,
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
+				1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */,
 				1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */,
 				1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */,
 				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,

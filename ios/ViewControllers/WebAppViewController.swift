@@ -146,7 +146,7 @@ class WebAppViewController:
             let data = ShareData(message.data as! [String: Any])
             let activityViewController = UIActivityViewController(
                 activityItems: [
-                    data.url,
+                    ShareDataURLSource(data),
                     ShareDataStringSource(data),
                     ShareBlockerSource()
                 ],
