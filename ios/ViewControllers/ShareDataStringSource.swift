@@ -15,6 +15,9 @@ class ShareDataStringSource: NSObject, UIActivityItemSource {
         _ activityViewController: UIActivityViewController,
         itemForActivityType activityType: UIActivity.ActivityType?
     ) -> Any? {
+        if (activityType == .copyToPasteboard || activityType == .message) {
+            return ""
+        }
         if (activityType == .mail) {
             return data.email.body
         }
