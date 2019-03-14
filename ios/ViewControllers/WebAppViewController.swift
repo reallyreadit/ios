@@ -144,12 +144,11 @@ class WebAppViewController:
             )
         case "share":
             let data = ShareData(message.data as! [String: Any])
-            var activityItems: [Any] = [data.url]
-            if let subject = data.subject {
-                activityItems.append(subject)
-            }
             let activityViewController = UIActivityViewController(
-                activityItems: activityItems,
+                activityItems: [
+                    data.url,
+                    ShareDataStringSource(data)
+                ],
                 applicationActivities: nil
             )
             activityViewController.popoverPresentationController?.sourceView = self.view

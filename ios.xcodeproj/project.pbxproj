@@ -76,6 +76,8 @@
 		1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B722318B54002B5D16 /* AppBundleInfo.swift */; };
 		1F8768BA2231AC0D002B5D16 /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B92231AC0D002B5D16 /* ShareData.swift */; };
 		1F8768BC22381137002B5D16 /* ClipboardReferrer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768BB22381137002B5D16 /* ClipboardReferrer.swift */; };
+		1F8768C02239C04B002B5D16 /* ShareDataStringSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */; };
+		1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C12239CD70002B5D16 /* EmailShareData.swift */; };
 		1FDBBC7422109CED00E03051 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* Script.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -163,6 +165,8 @@
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B92231AC0D002B5D16 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		1F8768BB22381137002B5D16 /* ClipboardReferrer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardReferrer.swift; sourceTree = "<group>"; };
+		1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataStringSource.swift; sourceTree = "<group>"; };
+		1F8768C12239CD70002B5D16 /* EmailShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailShareData.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -257,7 +261,9 @@
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
 				1F8768BB22381137002B5D16 /* ClipboardReferrer.swift */,
+				1F8768C12239CD70002B5D16 /* EmailShareData.swift */,
 				1F8768B92231AC0D002B5D16 /* ShareData.swift */,
+				1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */,
 				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 			);
 			path = ViewControllers;
@@ -512,6 +518,7 @@
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */,
+				1F8768C02239C04B002B5D16 /* ShareDataStringSource.swift in Sources */,
 				1FDBBC8522173D9400E03051 /* Rating.swift in Sources */,
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
@@ -524,6 +531,7 @@
 				1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F8768BA2231AC0D002B5D16 /* ShareData.swift in Sources */,
 				1F19479A21EAA93B00D1599D /* MessageWebViewDelegate.swift in Sources */,
+				1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */,
 				1FDBBC7422109CED00E03051 /* Script.swift in Sources */,
 				1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */,
