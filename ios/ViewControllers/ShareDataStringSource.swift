@@ -9,7 +9,7 @@ class ShareDataStringSource: NSObject, UIActivityItemSource {
     func activityViewControllerPlaceholderItem(
         _ activityViewController: UIActivityViewController
     ) -> Any {
-        return data.url
+        return data.text
     }
     func activityViewController(
         _ activityViewController: UIActivityViewController,
@@ -22,7 +22,7 @@ class ShareDataStringSource: NSObject, UIActivityItemSource {
             let limit = 280 - 25
             return (
                 data.text.count > limit ?
-                    data.text.prefix(limit - 3) + "..." :
+                    String(data.text.prefix(limit - 3) + "...") :
                     data.text
             )
         }
