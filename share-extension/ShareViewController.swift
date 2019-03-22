@@ -216,7 +216,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                 alert.showError(withText: "Error accessing article URL")
             }
         } else {
-            alert.showError(withText: "Please sign in using the reallyread.it app")
+            alert.showError(withText: "Please sign in using the Readup app")
         }
     }
 }

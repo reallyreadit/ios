@@ -33,19 +33,12 @@
                 <key>NSIncludesSubdomains</key>
                 <true/>
             </dict>
-			<key>dev.reallyread.it</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
 		</dict>
 	</dict>
 	<key>RRITAPIServerURL</key>
-	<string>http://api.dev.reallyread.it/</string>
+    <string>http://api.dev.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
-	<string>.dev.reallyread.it</string>
+	<string>.dev.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>devSessionKey</string>
     <key>RRITClientID</key>
@@ -59,7 +52,7 @@
     <key>RRITStaticContentServerURL</key>
     <string>http://static.dev.readup.com/</string>
 	<key>RRITWebServerURL</key>
-	<string>http://dev.reallyread.it/</string>
+	<string>http://dev.readup.com/</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

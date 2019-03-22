@@ -48,9 +48,9 @@
 		<string>com.apple.share-services</string>
 	</dict>
 	<key>RRITAPIServerURL</key>
-	<string>https://api.reallyread.it/</string>
+	<string>https://api.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
-	<string>.reallyread.it</string>
+	<string>.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>sessionKey</string>
     <key>RRITClientID</key>

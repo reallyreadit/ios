@@ -23,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>RRITAPIServerURL</key>
-	<string>https://api.reallyread.it/</string>
+	<string>https://api.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
-	<string>.reallyread.it</string>
+	<string>.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>sessionKey</string>
     <key>RRITClientID</key>
@@ -39,7 +39,7 @@
     <key>RRITStaticContentServerURL</key>
     <string>https://static.readup.com/</string>
 	<key>RRITWebServerURL</key>
-	<string>https://reallyread.it/</string>
+	<string>https://readup.com/</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

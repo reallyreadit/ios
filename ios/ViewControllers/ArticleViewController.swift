@@ -52,7 +52,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         errorContent.addSubview(errorMessage)
         [
             "Check your internet connection and try again.",
-            "Please contact support@reallyread.it if this problem persists."
+            "Please contact support@readup.com if this problem persists."
         ]
         .forEach({
             line in

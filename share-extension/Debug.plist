@@ -24,7 +24,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>dev.reallyread.it</key>
+			<key>dev.readup.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
@@ -61,9 +61,9 @@
 		<string>com.apple.share-services</string>
 	</dict>
 	<key>RRITAPIServerURL</key>
-	<string>http://api.dev.reallyread.it/</string>
+	<string>http://api.dev.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
-	<string>.dev.reallyread.it</string>
+	<string>.dev.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>devSessionKey</string>
     <key>RRITClientID</key>

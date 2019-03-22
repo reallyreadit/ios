@@ -8,7 +8,7 @@ class WebAppViewController:
     WebViewContainerDelegate,
     WKHTTPCookieStoreObserver
 {
-    private let ghostWhite = UIColor(red: 248 / 255, green: 248 / 255, blue: 255 / 255, alpha: 1)
+    private let newsprint = UIColor(red: 247 / 255, green: 246 / 255, blue: 245 / 255, alpha: 1)
     private var isAuthenticated = false
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
@@ -26,15 +26,15 @@ class WebAppViewController:
         // configure webview
         webView.view.scrollView.bounces = false
         // configre the loading view
-        webViewContainer.loadingView.backgroundColor = ghostWhite
+        webViewContainer.loadingView.backgroundColor = newsprint
         // configure the error view
-        webViewContainer.errorView.backgroundColor = ghostWhite
+        webViewContainer.errorView.backgroundColor = newsprint
         let errorContent = UIView()
         errorContent.translatesAutoresizingMaskIntoConstraints = false
         webViewContainer.errorView.addSubview(errorContent)
         [
             "An error occured while loading the app.",
-            "You must be online to use reallyread.it.",
+            "You must be online to use Readup.",
             "Offline support coming soon!"
         ]
         .forEach({
@@ -84,7 +84,7 @@ class WebAppViewController:
         if webViewContainer.state == .loaded, isAuthenticated {
             view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
         } else {
-            view.backgroundColor = ghostWhite
+            view.backgroundColor = newsprint
         }
     }
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
@@ -125,7 +125,7 @@ class WebAppViewController:
     }
     override func loadView() {
         view = UIView()
-        view.backgroundColor = ghostWhite
+        view.backgroundColor = newsprint
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
