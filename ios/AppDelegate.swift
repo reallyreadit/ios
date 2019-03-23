@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
         // Override point for customization after application launch.
         // cleanup unused settings and files
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
         userDefaults.removeObject(forKey: "contentScriptLastCheck")
         userDefaults.removeObject(forKey: "contentScriptVersion")
         let containerURL = FileManager.default.containerURL(
@@ -58,6 +58,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let oldContentScriptURL = containerURL.appendingPathComponent("ContentScript.js")
         if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
             try! FileManager.default.removeItem(at: oldContentScriptURL)
+        }
+        // migrate reallyread.it cookies
+        let domainMigrationHasCompletedKey = "domainMigrationHasCompleted";
+        if (!userDefaults.bool(forKey: domainMigrationHasCompletedKey)) {
+            userDefaults.set(true, forKey: domainMigrationHasCompletedKey)
+            SharedCookieStore
+                .store
+                .cookies(for: URL(string: "https://reallyread.it/")!)?
+                .forEach({
+                    cookie in
+                    if
+                        cookie.name == SharedBundleInfo.authCookieName,
+                        var properties = cookie.properties
+                    {
+                        properties[HTTPCookiePropertyKey.domain] = SharedBundleInfo.authCookieDomain
+                        if let newCookie = HTTPCookie(properties: properties) {
+                            SharedCookieStore.setCookie(newCookie)
+                        }
+                    }
+                })
         }
         return true
     }
