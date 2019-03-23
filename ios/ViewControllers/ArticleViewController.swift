@@ -15,15 +15,15 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     var params: ArticleViewControllerParams!
     private let errorMessage = UILabel()
-    private let speechBubble: SpeechBubbleView
+    private let progressBar: ProgressBarView
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
     required init?(coder: NSCoder) {
         // init speech bubble
-        speechBubble = SpeechBubbleView(coder: coder)!
+        progressBar = ProgressBarView(coder: coder)!
         NSLayoutConstraint.activate([
-            speechBubble.widthAnchor.constraint(equalToConstant: 32),
-            speechBubble.heightAnchor.constraint(equalToConstant: 32)
+            progressBar.widthAnchor.constraint(equalToConstant: 32),
+            progressBar.heightAnchor.constraint(equalToConstant: 32)
         ])
         super.init(coder: coder)
         // init webview
@@ -127,7 +127,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                             content as String,
                             baseURL: self.articleURL
                         )
-                        self.speechBubble.setState(isLoading: true)
+                        self.progressBar.setState(isLoading: true)
                     }
                 }
             },
@@ -168,7 +168,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     if let self = self {
                         DispatchQueue.main.async {
                             self.article = result.userArticle
-                            self.speechBubble.setState(
+                            self.progressBar.setState(
                                 isLoading: false,
                                 percentComplete: result.userArticle.percentComplete,
                                 isRead: result.userArticle.isRead
@@ -196,7 +196,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     if let self = self {
                         DispatchQueue.main.async {
                             self.article = article
-                            self.speechBubble.setState(
+                            self.progressBar.setState(
                                 isLoading: false,
                                 percentComplete: article.percentComplete,
                                 isRead: article.isRead
@@ -255,16 +255,16 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     func replaceArticle(slug: String) {
         article = nil
         articleURL = nil
-        speechBubble.setState(
+        progressBar.setState(
             isLoading: false,
-            percentComplete: 0,
+            percentComplete: -1,
             isRead: false
         )
         webViewContainer.setState(.loading)
         loadArticle(slug: slug)
     }
     func setErrorState(withMessage message: String) {
-        speechBubble.setState(isLoading: false)
+        progressBar.setState(isLoading: false)
         errorMessage.text = message
         webViewContainer.setState(.error)
         setBarsVisibility(hidden: false)
@@ -272,7 +272,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     override func viewDidLoad() {
         super.viewDidLoad()
         // speech bubble
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: speechBubble)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: progressBar)
         // fetch and preprocess the article
         switch params.articleReference {
         case .slug(let slug):
