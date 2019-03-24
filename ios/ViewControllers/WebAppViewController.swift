@@ -80,6 +80,38 @@ class WebAppViewController:
     @objc private func loadWebApp() {
         loadURL(AppBundleInfo.webServerURL)
     }
+    private func migrateLegacyAuthCookie(
+        _ userDefaults: UserDefaults,
+        _ webAppURL: URL
+    ) -> Bool {
+        let domainMigrationHasCompletedKey = "domainMigrationHasCompleted";
+        if (!userDefaults.bool(forKey: domainMigrationHasCompletedKey)) {
+            userDefaults.set(true, forKey: domainMigrationHasCompletedKey)
+            if
+                let legacyAuthCookie =  SharedCookieStore.store
+                    .cookies(for: URL(string: "http://dev.reallyread.it/")!)?
+                    .first(where: { cookie in cookie.name == SharedBundleInfo.authCookieName }),
+                var cookieProperties = legacyAuthCookie.properties
+            {
+                os_log("migrateLegacyAuthCookie: found legacy auth cookie")
+                cookieProperties[HTTPCookiePropertyKey.domain] = SharedBundleInfo.authCookieDomain
+                if let newCookie = HTTPCookie(properties: cookieProperties) {
+                    os_log("migrateLegacyAuthCookie: setting new auth cookie")
+                    webView.view.configuration.websiteDataStore.httpCookieStore.setCookie(
+                        newCookie,
+                        completionHandler: {
+                            [weak self, webAppURL] in
+                            if let self = self {
+                                self.loadURL(webAppURL)
+                            }
+                        }
+                    )
+                    return true
+                }
+            }
+        }
+        return false
+    }
     private func setBackgroundColor() {
         if webViewContainer.state == .loaded, isAuthenticated {
             view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
@@ -232,6 +264,9 @@ class WebAppViewController:
                 }
             }
         }
-        loadURL(webAppURL)
+        // migrate auth cookie
+        if (!migrateLegacyAuthCookie(userDefaults, webAppURL)) {
+            loadURL(webAppURL)
+        }
     }
 }
