@@ -5,7 +5,6 @@ import os.log
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
     private var article: UserArticle!
     private var articleURL: URL!
-    private var previousPanYTranslation: CGFloat = 0.0
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
         return hideStatusBar
@@ -85,15 +84,17 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         let panYTranslation = sender.translation(in: sender.view).y
-        if panYTranslation.sign != previousPanYTranslation.sign {
-            switch panYTranslation.sign {
-            case .minus:
-                setBarsVisibility(hidden: true)
-            case .plus:
-                setBarsVisibility(hidden: false)
-            }
+        if panYTranslation < 0 && !hideStatusBar {
+            setBarsVisibility(hidden: true)
+        } else if hideStatusBar && (
+            panYTranslation > 300 ||
+            (
+                panYTranslation > 50 &&
+                sender.velocity(in: sender.view).y > 500
+            )
+        ) {
+            setBarsVisibility(hidden: false)
         }
-        previousPanYTranslation = panYTranslation
     }
     private func loadArticle(slug: String) {
         APIServer.getJson(
