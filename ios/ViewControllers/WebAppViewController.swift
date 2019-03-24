@@ -89,7 +89,7 @@ class WebAppViewController:
             userDefaults.set(true, forKey: domainMigrationHasCompletedKey)
             if
                 let legacyAuthCookie =  SharedCookieStore.store
-                    .cookies(for: URL(string: "http://dev.reallyread.it/")!)?
+                    .cookies(for: URL(string: "https://reallyread.it/")!)?
                     .first(where: { cookie in cookie.name == SharedBundleInfo.authCookieName }),
                 var cookieProperties = legacyAuthCookie.properties
             {
