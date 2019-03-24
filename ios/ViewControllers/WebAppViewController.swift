@@ -138,6 +138,13 @@ class WebAppViewController:
     }
     func loadURL(_ url: URL) {
         if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            // convert reallyread.it urls to readup.com
+            components.host = components.host?.replacingOccurrences(
+                of: "reallyread.it",
+                with: "readup.com",
+                options: [.caseInsensitive]
+            )
+            // set the client type in the query string
             let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
             if (components.queryItems == nil) {
                 components.queryItems = [clientTypeQueryItem]
@@ -145,6 +152,7 @@ class WebAppViewController:
                 components.queryItems!.removeAll(where: { item in item.name == "clientType" })
                 components.queryItems!.append(clientTypeQueryItem)
             }
+            // load the url
             if let url = components.url {
                 os_log("loadURL(_:): loading: %s", url.absoluteString)
                 webView.view.load(
