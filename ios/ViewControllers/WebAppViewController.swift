@@ -138,6 +138,10 @@ class WebAppViewController:
     }
     func loadURL(_ url: URL) {
         if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            // force https unless we're in debug mode
+            if !SharedBundleInfo.debugReader {
+                components.scheme = "https"
+            }
             // convert reallyread.it urls to readup.com
             components.host = components.host?.replacingOccurrences(
                 of: "reallyread.it",
