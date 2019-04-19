@@ -160,33 +160,6 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
-        case "parseResult":
-            APIServer.postJson(
-                path: "/Extension/GetUserArticle",
-                data: PageParseResult(contentScriptData: message.data as! [String: Any]),
-                onSuccess: {
-                    [weak self] (result: ArticleLookupResult) in
-                    if let self = self {
-                        DispatchQueue.main.async {
-                            self.article = result.userArticle
-                            self.progressBar.setState(
-                                isLoading: false,
-                                percentComplete: result.userArticle.percentComplete,
-                                isRead: result.userArticle.isRead
-                            )
-                            self.webView.sendResponse(data: result, callbackId: callbackId!)
-                        }
-                    }
-                },
-                onError: {
-                    [weak self] _ in
-                    if let self = self {
-                        DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error loading reading progress.")
-                        }
-                    }
-                }
-            )
         case "commitReadState":
             let event = CommitReadStateEvent(message.data as! [String: Any])
             APIServer.postJson(
@@ -221,6 +194,78 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     }
                 }
             )
+        case "getComments":
+            APIServer.getJson(
+                path: "/Articles/ListComments",
+                queryItems: URLQueryItem(name: "slug", value: message.data as? String),
+                onSuccess: {
+                    [weak self] (comments: [CommentThread]) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(data: comments, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    _ in os_log("error fetching comments")
+                }
+            )
+        case "parseResult":
+            APIServer.postJson(
+                path: "/Extension/GetUserArticle",
+                data: PageParseResult(contentScriptData: message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (result: ArticleLookupResult) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.article = result.userArticle
+                            self.progressBar.setState(
+                                isLoading: false,
+                                percentComplete: result.userArticle.percentComplete,
+                                isRead: result.userArticle.isRead
+                            )
+                            self.webView.sendResponse(data: result, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error loading reading progress.")
+                        }
+                    }
+                }
+            )
+        case "postComment":
+            APIServer.postJson(
+                path: "/Articles/PostComment",
+                data: PostCommentForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (comment: CommentThread) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.article.commentCount += 1
+                            self.params.onArticleUpdated(
+                                ArticleUpdatedEvent(
+                                    article: self.article,
+                                    isCompletionCommit: false
+                                )
+                            )
+                            self.params.onCommentPosted(comment)
+                            self.webView.sendResponse(data: comment, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error posting comment.")
+                        }
+                    }
+                }
+            )
         case "rateArticle":
             APIServer.postJson(
                 path: "/Articles/Rate",
@@ -249,6 +294,8 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     }
                 }
             )
+        case "share":
+            presentActivityViewController(data: ShareData(message.data as! [String: Any]))
         default:
             return
         }

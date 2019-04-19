@@ -187,17 +187,7 @@ class WebAppViewController:
                     ArticleReference.slug(data["slug"] as! String)
             )
         case "share":
-            let data = ShareData(message.data as! [String: Any])
-            let activityViewController = UIActivityViewController(
-                activityItems: [
-                    ShareDataURLSource(data),
-                    ShareDataStringSource(data),
-                    ShareBlockerSource()
-                ],
-                applicationActivities: nil
-            )
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            present(activityViewController, animated: true, completion: nil)
+            presentActivityViewController(data: ShareData(message.data as! [String: Any]))
         default:
             return
         }
@@ -227,6 +217,15 @@ class WebAppViewController:
                 onClose: {
                     // hide navigation bar
                     self.navigationController!.setNavigationBarHidden(true, animated: true)
+                },
+                onCommentPosted: {
+                    comment in
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "commentPosted",
+                            data: comment
+                        )
+                    )
                 }
             )
         }
