@@ -3,7 +3,6 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
-    private var article: UserArticle!
     private var articleURL: URL!
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
@@ -169,7 +168,6 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     [weak self] (article: UserArticle) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.article = article
                             self.progressBar.setState(
                                 isLoading: false,
                                 percentComplete: article.percentComplete,
@@ -218,7 +216,6 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.article = result.userArticle
                             self.progressBar.setState(
                                 isLoading: false,
                                 percentComplete: result.userArticle.percentComplete,
@@ -242,18 +239,17 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 path: "/Articles/PostComment",
                 data: PostCommentForm(message.data as! [String: Any]),
                 onSuccess: {
-                    [weak self] (comment: CommentThread) in
+                    [weak self] (result: PostCommentResult) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.article.commentCount += 1
                             self.params.onArticleUpdated(
                                 ArticleUpdatedEvent(
-                                    article: self.article,
+                                    article: result.article,
                                     isCompletionCommit: false
                                 )
                             )
-                            self.params.onCommentPosted(comment)
-                            self.webView.sendResponse(data: comment, callbackId: callbackId!)
+                            self.params.onCommentPosted(result.comment)
+                            self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
                 },
@@ -271,17 +267,16 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 path: "/Articles/Rate",
                 data: ArticleRatingForm(message.data as! [String: Any]),
                 onSuccess: {
-                    [weak self] (rating: Rating) in
+                    [weak self] (result: RateArticleResult) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.article.ratingScore = rating.score
                             self.params.onArticleUpdated(
                                 ArticleUpdatedEvent(
-                                    article: self.article,
+                                    article: result.article,
                                     isCompletionCommit: false
                                 )
                             )
-                            self.webView.sendResponse(data: rating, callbackId: callbackId!)
+                            self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
                 },
@@ -301,7 +296,6 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         }
     }
     func replaceArticle(slug: String) {
-        article = nil
         articleURL = nil
         progressBar.setState(
             isLoading: false,
