@@ -15,6 +15,7 @@ struct UserArticle: Codable {
     var wordCount: Int
     var commentCount: Int
     var readCount: Int
+    var averageRatingScore: Double?
     var dateCreated: Date?
     var percentComplete: Double
     var isRead: Bool
