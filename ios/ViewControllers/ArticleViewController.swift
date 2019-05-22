@@ -29,7 +29,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         webView = MessageWebView(
             webViewConfig: config,
             javascriptListenerObject: "window.reallyreadit.nativeClient.reader",
-            injectedScriptName: "reader"
+            injectedScript: AppBundleInfo.readerScript
         )
         webView.delegate = self
         webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"

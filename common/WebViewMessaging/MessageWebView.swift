@@ -31,31 +31,36 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
     init(
         webViewConfig: WKWebViewConfiguration,
         javascriptListenerObject: String,
-        injectedScriptName: String? = nil
+        injectedScript: WebViewScript? = nil
     ) {
         self.javascriptListenerObject = javascriptListenerObject
         super.init()
         // add self as webview event listener
         webViewConfig.userContentController.add(self, name: messageHandlerKey)
         // configure injected script
-        if let injectedScriptName = injectedScriptName {
+        if let injectedScript = injectedScript {
             var scriptSource: String?
             if
+                let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread"),
+                let downloadedFileVersion = SemanticVersion(
+                    fromVersionString: userDefaults.string(forKey: "scriptVersion:" + injectedScript.name)
+                ),
+                downloadedFileVersion.compareTo(injectedScript.bundledVersion) > 0,
                 let containerURL = FileManager.default.containerURL(
                     forSecurityApplicationGroupIdentifier: "group.it.reallyread"
                 ),
                 let fileContent = try? String(
-                    contentsOf: containerURL.appendingPathComponent(injectedScriptName + ".js")
+                    contentsOf: containerURL.appendingPathComponent(injectedScript.name + ".js")
                 )
             {
-                os_log("MessageWebView: loading script from file: %s", injectedScriptName)
+                os_log("MessageWebView: loading script from file: %s", injectedScript.name)
                 scriptSource = fileContent
             } else if
                 let fileContent = try? String(
-                    contentsOf: Bundle.main.url(forResource: injectedScriptName, withExtension: "js")!
+                    contentsOf: Bundle.main.url(forResource: injectedScript.name, withExtension: "js")!
                 )
             {
-                os_log("MessageWebView: loading script from bundle: %s", injectedScriptName)
+                os_log("MessageWebView: loading script from bundle: %s", injectedScript.name)
                 scriptSource = fileContent
             }
             if scriptSource != nil {
@@ -67,7 +72,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
                     )
                 )
             } else {
-                os_log("MessageWebView: error loading script: %s", injectedScriptName)
+                os_log("MessageWebView: error loading script: %s", injectedScript.name)
             }
         }
         // create webview with configuration

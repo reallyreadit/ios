@@ -70,5 +70,7 @@
     <string>ios/share-extension</string>
 	<key>RRITDebugReader</key>
 	<true/>
+    <key>RRITShareExtensionScriptVersion</key>
+    <string>2.0.0</string>
 </dict>
 </plist>

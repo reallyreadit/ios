@@ -1,6 +1,11 @@
 import Foundation
 
 struct SemanticVersion {
+    static func greatest(_ version: SemanticVersion, _ otherVersions: SemanticVersion?...) -> SemanticVersion {
+        return ([version] + otherVersions.compactMap({ $0 }))
+            .sorted(by: { a, b in a.compareTo(b) < 0 })
+            .last!
+    }
     init?(fromFileName fileName: String?) {
         if fileName == nil {
             return nil
@@ -59,5 +64,17 @@ struct SemanticVersion {
             )
         }
         return false
+    }
+    func compareTo(_ version: SemanticVersion) -> Int {
+        if (self.major != version.major) {
+            return self.major - version.major;
+        }
+        if (self.minor != version.minor) {
+            return self.minor - version.minor;
+        }
+        if (self.patch != version.patch) {
+            return self.patch - version.patch;
+        }
+        return 0;
     }
 }

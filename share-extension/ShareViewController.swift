@@ -19,7 +19,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         webView = MessageWebView(
             webViewConfig: config,
             javascriptListenerObject: "window.reallyreadit.nativeClient.shareExtension",
-            injectedScriptName: "share-extension"
+            injectedScript: SharedBundleInfo.shareExtensionScript
         )
         webView.delegate = self
         // configure alert

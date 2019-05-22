@@ -1,31 +1,21 @@
 import Foundation
 import os.log
 
-private let scripts = [
-    Script(
-        bundledVersion: AppBundleInfo.readerScriptVersion,
-        name: "reader"
-    ),
-    Script(
-        bundledVersion: AppBundleInfo.shareExtensionScriptVersion,
-        name: "share-extension"
-    )
-]
 struct ScriptUpdater {
     static func updateScripts() {
         let now = Date()
         let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        for script in scripts {
+        for script in [AppBundleInfo.readerScript, SharedBundleInfo.shareExtensionScript] {
             let lastUpdateCheckUserDefaultsKey = "scriptLastUpdateCheck:" + script.name
             let lastUpdateCheck = userDefaults.object(forKey: lastUpdateCheckUserDefaultsKey) as? Date
             os_log("ScriptUpdater: %s: %s", lastUpdateCheckUserDefaultsKey, lastUpdateCheck?.description ?? "nil")
             if lastUpdateCheck == nil || now.timeIntervalSince(lastUpdateCheck!) >= 4 * 60 * 60 {
-                let currentVersionUserDefaultsKey = "scriptVersion:" + script.name
-                let currentVersion = (
+                let currentDownloadedVersionUserDefaultsKey = "scriptVersion:" + script.name
+                let currentVersion = SemanticVersion.greatest(
+                    script.bundledVersion,
                     SemanticVersion(
-                        fromVersionString: userDefaults.string(forKey: currentVersionUserDefaultsKey)
-                    ) ??
-                    script.bundledVersion
+                        fromVersionString: userDefaults.string(forKey: currentDownloadedVersionUserDefaultsKey)
+                    )
                 )
                 os_log("ScriptUpdater: checking latest version, current version: %s", currentVersion.description)
                 URLSession
@@ -70,7 +60,7 @@ struct ScriptUpdater {
                                                         try data.write(
                                                             to: containerURL.appendingPathComponent("\(script.name).js")
                                                         )
-                                                        userDefaults.set(newVersion.description, forKey: currentVersionUserDefaultsKey)
+                                                        userDefaults.set(newVersion.description, forKey: currentDownloadedVersionUserDefaultsKey)
                                                     }
                                                     catch let error {
                                                         os_log("ScriptUpdater: error saving file: %s", error.localizedDescription)

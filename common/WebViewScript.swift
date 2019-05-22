@@ -1,6 +1,6 @@
 import Foundation
 
-struct Script {
+struct WebViewScript {
     let bundledVersion: SemanticVersion
     let name: String
 }
