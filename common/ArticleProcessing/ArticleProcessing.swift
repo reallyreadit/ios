@@ -12,6 +12,10 @@ private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
             replaceValue: ""
         ),
         HTMLTagReplacement(
+            searchValue: "<style\\b[^<]*(?:(?!</style>)<[^<]*)*</style>",
+            replaceValue: ""
+        ),
+        HTMLTagReplacement(
             searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>",
             replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"
         ),
