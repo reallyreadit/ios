@@ -8,6 +8,7 @@ class WebAppViewController:
     WebViewContainerDelegate,
     WKHTTPCookieStoreObserver
 {
+    private var hasCalledWebViewLoad = false
     private let newsprint = UIColor(red: 247 / 255, green: 246 / 255, blue: 245 / 255, alpha: 1)
     private var isAuthenticated = false
     private var webView: MessageWebView!
@@ -81,10 +82,10 @@ class WebAppViewController:
         loadURL(AppBundleInfo.webServerURL)
     }
     private func migrateLegacyAuthCookie(
-        _ userDefaults: UserDefaults,
         _ webAppURL: URL
     ) -> Bool {
         let domainMigrationHasCompletedKey = "domainMigrationHasCompleted";
+        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
         if (!userDefaults.bool(forKey: domainMigrationHasCompletedKey)) {
             userDefaults.set(true, forKey: domainMigrationHasCompletedKey)
             if
@@ -102,7 +103,13 @@ class WebAppViewController:
                         completionHandler: {
                             [weak self, webAppURL] in
                             if let self = self {
-                                self.loadURL(webAppURL)
+                                os_log("loadURL(_:): loading: %s", webAppURL.absoluteString)
+                                self.webView.view.load(
+                                    URLRequest(
+                                        url: webAppURL
+                                    )
+                                )
+                                self.hasCalledWebViewLoad = true
                             }
                         }
                     )
@@ -111,6 +118,31 @@ class WebAppViewController:
             }
         }
         return false
+    }
+    private func prepareURL(_ url: URL) -> URL? {
+        if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            // force https unless we're in debug mode
+            if !SharedBundleInfo.debugReader {
+                components.scheme = "https"
+            }
+            // convert reallyread.it urls to readup.com
+            components.host = components.host?.replacingOccurrences(
+                of: "reallyread.it",
+                with: "readup.com",
+                options: [.caseInsensitive]
+            )
+            // set the client type in the query string
+            let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
+            if (components.queryItems == nil) {
+                components.queryItems = [clientTypeQueryItem]
+            } else {
+                components.queryItems!.removeAll(where: { item in item.name == "clientType" })
+                components.queryItems!.append(clientTypeQueryItem)
+            }
+            // return the url
+            return components.url
+        }
+        return nil
     }
     private func setBackgroundColor() {
         if webViewContainer.state == .loaded, isAuthenticated {
@@ -137,34 +169,17 @@ class WebAppViewController:
         })
     }
     func loadURL(_ url: URL) {
-        if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
-            // force https unless we're in debug mode
-            if !SharedBundleInfo.debugReader {
-                components.scheme = "https"
-            }
-            // convert reallyread.it urls to readup.com
-            components.host = components.host?.replacingOccurrences(
-                of: "reallyread.it",
-                with: "readup.com",
-                options: [.caseInsensitive]
-            )
-            // set the client type in the query string
-            let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
-            if (components.queryItems == nil) {
-                components.queryItems = [clientTypeQueryItem]
-            } else {
-                components.queryItems!.removeAll(where: { item in item.name == "clientType" })
-                components.queryItems!.append(clientTypeQueryItem)
-            }
-            // load the url
-            if let url = components.url {
-                os_log("loadURL(_:): loading: %s", url.absoluteString)
-                webView.view.load(
-                    URLRequest(
-                        url: url
-                    )
+        // prepare the url
+        let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
+        // domain migration
+        if (!migrateLegacyAuthCookie(preparedURL)) {
+            os_log("loadURL(_:): loading: %s", preparedURL.absoluteString)
+            webView.view.load(
+                URLRequest(
+                    url: preparedURL
                 )
-            }
+            )
+            self.hasCalledWebViewLoad = true
         }
     }
     override func loadView() {
@@ -249,35 +264,9 @@ class WebAppViewController:
             webViewContainer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webViewContainer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        // load the webview
-        var webAppURL = AppBundleInfo.webServerURL
-        // check for clipboard referrer
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        let appHasLaunchedUserDefaultsKey = "appHasLaunched";
-        if !userDefaults.bool(forKey: appHasLaunchedUserDefaultsKey) {
-            userDefaults.set(true, forKey: appHasLaunchedUserDefaultsKey)
-            let referrerKey = "com.readup.nativeClientClipboardReferrer:"
-            if
-                let referrerString = UIPasteboard.general.strings?.first(where: {
-                    string in string.starts(with: referrerKey)
-                 }),
-                let jsonData = referrerString
-                    .replacingOccurrences(of: referrerKey, with: "")
-                    .data(using: .utf8)
-            {
-                let decoder = JSONDecoder.init()
-                decoder.dateDecodingStrategy = .millisecondsSince1970
-                if
-                    let referrer = try? decoder.decode(ClipboardReferrer.self, from: jsonData),
-                    referrer.timestamp.timeIntervalSinceNow > -30 * 60
-                {
-                   webAppURL.appendPathComponent(referrer.path)
-                }
-            }
-        }
-        // migrate auth cookie
-        if (!migrateLegacyAuthCookie(userDefaults, webAppURL)) {
-            loadURL(webAppURL)
+        // check loading state
+        if (!hasCalledWebViewLoad) {
+            loadWebApp()
         }
     }
 }

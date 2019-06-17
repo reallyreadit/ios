@@ -59,6 +59,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
             try! FileManager.default.removeItem(at: oldContentScriptURL)
         }
+        // check for clipboard referrer
+        let appHasLaunchedUserDefaultsKey = "appHasLaunched";
+        if !userDefaults.bool(forKey: appHasLaunchedUserDefaultsKey) {
+            userDefaults.set(true, forKey: appHasLaunchedUserDefaultsKey)
+            let referrerKey = "com.readup.nativeClientClipboardReferrer:"
+            if
+                let referrerString = UIPasteboard.general.strings?.first(where: {
+                    string in string.starts(with: referrerKey)
+                }),
+                let jsonData = referrerString
+                    .replacingOccurrences(of: referrerKey, with: "")
+                    .data(using: .utf8)
+            {
+                let decoder = JSONDecoder.init()
+                decoder.dateDecodingStrategy = .millisecondsSince1970
+                if
+                    let referrer = try? decoder.decode(ClipboardReferrer.self, from: jsonData),
+                    referrer.timestamp.timeIntervalSinceNow > -30 * 60
+                {
+                    let _ = loadURL(AppBundleInfo.webServerURL.appendingPathComponent(referrer.path))
+                }
+            }
+        }
         return true
     }
     
