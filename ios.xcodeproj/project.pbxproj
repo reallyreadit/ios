@@ -65,6 +65,8 @@
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
+		1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
+		1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
 		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
@@ -172,6 +174,7 @@
 		1F19479E21EAAA9100D1599D /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
 		1F1947A021EAAF7200D1599D /* HTMLTagReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTagReplacement.swift; sourceTree = "<group>"; };
 		1F1947B521EAB3E600D1599D /* WebViewContainerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerDelegate.swift; sourceTree = "<group>"; };
+		1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardBadge.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +301,7 @@
 				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
 				1F8768D422692B7F002B5D16 /* CommentThread.swift */,
 				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
+				1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */,
 				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
 				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
 				1F8768D122692AB8002B5D16 /* PostCommentForm.swift */,
@@ -559,6 +563,7 @@
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1FDBBC8222173CAF00E03051 /* ArticleRatingForm.swift in Sources */,
+				1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
 				1F13B4ED21D2ABA300EE6927 /* UserArticle.swift in Sources */,
@@ -589,6 +594,7 @@
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */,
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
+				1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F8768D922693700002B5D16 /* UserAccount.swift in Sources */,
 				1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,

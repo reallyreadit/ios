@@ -8,6 +8,7 @@ struct CommentThread: Codable {
     let articleTitle: String
     let articleSlug: String
     let userAccount: String
+    let badge: LeaderboardBadge
     let parentCommentId: String?
     let dateRead: Date?
     let children: [CommentThread]
