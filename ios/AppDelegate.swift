@@ -76,9 +76,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 decoder.dateDecodingStrategy = .millisecondsSince1970
                 if
                     let referrer = try? decoder.decode(ClipboardReferrer.self, from: jsonData),
-                    referrer.timestamp.timeIntervalSinceNow > -30 * 60
+                    var components = URLComponents(
+                        url: (
+                            referrer.timestamp.timeIntervalSinceNow > -30 * 60 ?
+                                AppBundleInfo.webServerURL.appendingPathComponent(referrer.path) :
+                                AppBundleInfo.webServerURL
+                        ),
+                        resolvingAgainstBaseURL: true
+                    )
                 {
-                    let _ = loadURL(AppBundleInfo.webServerURL.appendingPathComponent(referrer.path))
+                    
+                    var queryItems = [URLQueryItem]()
+                    if let marketingScreenVariant = referrer.marketingScreenVariant {
+                        queryItems.append(
+                            URLQueryItem(
+                                name: "marketingScreenVariant",
+                                value: String(marketingScreenVariant)
+                            )
+                        )
+                    }
+                    if let referrerURL = referrer.referrerURL {
+                        queryItems.append(
+                            URLQueryItem(
+                                name: "referrerUrl",
+                                value: referrerURL
+                            )
+                        )
+                    }
+                    if queryItems.count > 0 {
+                        components.queryItems = queryItems
+                    }
+                    if let url = components.url {
+                        let _ = loadURL(url)
+                    }
                 }
             }
         }
