@@ -264,6 +264,8 @@ class WebAppViewController:
             webViewContainer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webViewContainer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        // trigger cookie change to set auth state
+        cookiesDidChange(in: webView.view.configuration.websiteDataStore.httpCookieStore)
         // check loading state
         if (!hasCalledWebViewLoad) {
             loadWebApp()
