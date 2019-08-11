@@ -41,6 +41,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         self.url = url
         ArticleProcessing.fetchArticle(
             url: url,
+            mode: .shareExtension,
             onSuccess: {
                 [weak self] content in
                 if

@@ -1,40 +1,40 @@
 import Foundation
 import WebKit
 
-private func createTagReplacements(forURL url: URL) -> [HTMLTagReplacement] {
-    return [
-        HTMLTagReplacement(
-            searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])application/ld\\+json\\1))*>[^<]*(?:(?!</script>)<[^<]*)*</script>",
-            replaceValue: ""
-        ),
-        HTMLTagReplacement(
-            searchValue: "<iframe\\b[^<]*(?:(?!</iframe>)<[^<]*)*</iframe>",
-            replaceValue: ""
-        ),
-        HTMLTagReplacement(
-            searchValue: "<style\\b[^<]*(?:(?!</style>)<[^<]*)*</style>",
-            replaceValue: ""
-        ),
-        HTMLTagReplacement(
-            searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>",
-            replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"
-        ),
-        HTMLTagReplacement(
-            searchValue: "<img\\s([^>]*)>",
-            replaceValue: "<img data-rrit-base-url='\(url.absoluteString)' $1>"),
-        HTMLTagReplacement(
-            searchValue: "<img([^>]*)\\ssrc=(['\"])((?:(?!\\2).)*)\\2([^>]*)>",
-            replaceValue: "<img$1 data-rrit-src=$2$3$2$4>"
-        ),
-        HTMLTagReplacement(
-            searchValue: "<img([^>]*)\\ssrcset=(['\"])((?:(?!\\2).)*)\\2([^>]*)>",
-            replaceValue: "<img$1 data-rrit-srcset=$2$3$2$4>"
-        )
-    ]
-}
+private let viewportMetaTagReplacement = HTMLTagReplacement(
+    searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>",
+    replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"
+)
+// this replacement should be called first since the local replacement
+// looks at the type to avoid reprocessing and losing the src data
+private let remoteScriptDisablingTagReplacement = HTMLTagReplacement(
+    searchValue: "<script\\b[^>]*\\bsrc=(['\"])([^'\"]+)\\1[^>]*>[^<]*(?:(?!</script>)<[^<]*)*</script>",
+    replaceValue: "<script type=\"text/x-readup-disabled-javascript\" data-src=\"$2\"></script>"
+)
+private let localScriptDisablingTagReplacement = HTMLTagReplacement(
+    searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])(application/(ld\\+)?json|text/x-readup-disabled-javascript)\\1))*>([^<]*(?:(?!</script>)<[^<]*)*)</script>",
+    replaceValue: "<script type=\"text/x-readup-disabled-javascript\">$4</script>"
+)
+private let iframeRemovalTagReplacement = HTMLTagReplacement(
+    searchValue: "<iframe\\b[^<]*(?:(?!</iframe>)<[^<]*)*</iframe>",
+    replaceValue: ""
+)
+private let inlineStyleRemovalTagReplacement = HTMLTagReplacement(
+    searchValue: "<style\\b[^<]*(?:(?!</style>)<[^<]*)*</style>",
+    replaceValue: ""
+)
+private let linkedStyleRemovalTagReplacement = HTMLTagReplacement(
+    searchValue: "<link\\b[^>]*\\brel=(['\"])stylesheet\\1[^>]*>",
+    replaceValue: ""
+)
+private let imageRemovalTagReplacement = HTMLTagReplacement(
+    searchValue: "<img\\b[^>]*>",
+    replaceValue: ""
+)
 struct ArticleProcessing {
     static func fetchArticle(
         url: URL,
+        mode: ArticleProcessingMode,
         onSuccess: @escaping (_: NSMutableString) -> Void,
         onError: @escaping () -> Void
     ) {
@@ -69,8 +69,21 @@ struct ArticleProcessing {
                         let data = data,
                         let stringData = NSMutableString(data: data, encoding: String.Encoding.utf8.rawValue)
                     {
-                        
-                        createTagReplacements(forURL: url).forEach({ replacement in
+                        var tagReplacements = [
+                            // remote scripts must be disabled first!
+                            remoteScriptDisablingTagReplacement,
+                            localScriptDisablingTagReplacement,
+                            iframeRemovalTagReplacement,
+                            inlineStyleRemovalTagReplacement,
+                            linkedStyleRemovalTagReplacement
+                        ]
+                        switch mode {
+                        case .reader:
+                            tagReplacements += [viewportMetaTagReplacement]
+                        case .shareExtension:
+                            tagReplacements += [imageRemovalTagReplacement]
+                        }
+                        tagReplacements.forEach({ replacement in
                             stringData.replaceOccurrences(
                                 of: replacement.searchValue,
                                 with: replacement.replaceValue,

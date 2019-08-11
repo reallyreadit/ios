@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.5</string>
+	<string>4.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -33,9 +33,9 @@
 	<key>RRITDebugReader</key>
 	<false/>
     <key>RRITReaderScriptVersion</key>
-    <string>3.2.1</string>
+    <string>4.0.0</string>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>2.0.1</string>
+    <string>3.0.0</string>
     <key>RRITStaticContentServerURL</key>
     <string>https://static.readup.com/</string>
 	<key>RRITWebServerURL</key>

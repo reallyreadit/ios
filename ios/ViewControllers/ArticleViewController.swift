@@ -119,6 +119,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         articleURL = url
         ArticleProcessing.fetchArticle(
             url: url,
+            mode: .reader,
             onSuccess: {
                 [weak self] content in
                 if let self = self {
@@ -234,6 +235,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     }
                 }
             )
+            webViewContainer.setState(.loaded)
         case "postComment":
             APIServer.postJson(
                 path: "/Articles/PostComment",
