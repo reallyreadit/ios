@@ -10,7 +10,6 @@ struct CommentThread: Codable {
     let userAccount: String
     let badge: LeaderboardBadge
     let parentCommentId: String?
-    let dateRead: Date?
     let children: [CommentThread]
     let maxDate: Date
 }

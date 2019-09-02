@@ -220,6 +220,15 @@ class WebAppViewController:
             // set view controller params
             destination.params = ArticleViewControllerParams(
                 articleReference: articleReference,
+                onArticlePosted: {
+                    post in
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "articlePosted",
+                            data: post
+                        )
+                    )
+                },
                 onArticleUpdated: {
                     event in
                     self.webView.sendMessage(

@@ -3,7 +3,7 @@ import WebKit
 
 private let viewportMetaTagReplacement = HTMLTagReplacement(
     searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>",
-    replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"
+    replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover\">"
 )
 // this replacement should be called first since the local replacement
 // looks at the type to avoid reprocessing and losing the src data

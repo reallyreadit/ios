@@ -1,6 +1,6 @@
 import Foundation
 
 struct ArticleUpdatedEvent: Codable {
-    let article: UserArticle
+    let article: Article
     let isCompletionCommit: Bool
 }

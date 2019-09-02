@@ -1,6 +1,6 @@
 import Foundation
 
 struct PostCommentResult: Codable {
-    let article: UserArticle
+    let article: Article
     let comment: CommentThread
 }

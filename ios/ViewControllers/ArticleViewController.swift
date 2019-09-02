@@ -100,7 +100,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
             path: "/Articles/Details",
             queryItems: URLQueryItem(name: "slug", value: slug),
             onSuccess: {
-                [weak self] (article: UserArticle) in
+                [weak self] (article: Article) in
                 if let self = self {
                     self.loadArticle(url: URL(string: article.url)!)
                 }
@@ -166,7 +166,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 path: "/Extension/CommitReadState",
                 data: event.commitData,
                 onSuccess: {
-                    [weak self] (article: UserArticle) in
+                    [weak self] (article: Article) in
                     if let self = self {
                         DispatchQueue.main.async {
                             self.progressBar.setState(
@@ -236,6 +236,51 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 }
             )
             webViewContainer.setState(.loaded)
+        case "postArticle":
+            APIServer.postJson(
+                path: "/Social/Post",
+                data: PostForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (post: Post) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.params.onArticlePosted(post)
+                            self.params.onArticleUpdated(
+                                ArticleUpdatedEvent(
+                                    article: post.article,
+                                    isCompletionCommit: false
+                                )
+                            )
+                            if let postComment = post.comment {
+                                self.params.onCommentPosted(
+                                    CommentThread(
+                                        id: postComment.id,
+                                        dateCreated: post.date,
+                                        text: postComment.text,
+                                        articleId: post.article.id,
+                                        articleTitle: post.article.title,
+                                        articleSlug: post.article.slug,
+                                        userAccount: post.userName,
+                                        badge: post.badge,
+                                        parentCommentId: nil,
+                                        children: [],
+                                        maxDate: post.date
+                                    )
+                                )
+                            }
+                            self.webView.sendResponse(data: post, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error rating article.")
+                        }
+                    }
+                }
+            )
         case "postComment":
             APIServer.postJson(
                 path: "/Articles/PostComment",
@@ -260,33 +305,6 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     if let self = self {
                         DispatchQueue.main.async {
                             self.setErrorState(withMessage: "Error posting comment.")
-                        }
-                    }
-                }
-            )
-        case "rateArticle":
-            APIServer.postJson(
-                path: "/Articles/Rate",
-                data: ArticleRatingForm(message.data as! [String: Any]),
-                onSuccess: {
-                    [weak self] (result: RateArticleResult) in
-                    if let self = self {
-                        DispatchQueue.main.async {
-                            self.params.onArticleUpdated(
-                                ArticleUpdatedEvent(
-                                    article: result.article,
-                                    isCompletionCommit: false
-                                )
-                            )
-                            self.webView.sendResponse(data: result, callbackId: callbackId!)
-                        }
-                    }
-                },
-                onError: {
-                    [weak self] _ in
-                    if let self = self {
-                        DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error rating article.")
                         }
                     }
                 }

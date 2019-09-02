@@ -1,7 +1,7 @@
 import Foundation
 
 struct ArticleLookupResult: Codable {
-    let userArticle: UserArticle
+    let userArticle: Article
     let userPage: UserPage
     let user: UserAccount
 }
