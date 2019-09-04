@@ -71,6 +71,6 @@
 	<key>RRITDebugReader</key>
 	<true/>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>3.0.2</string>
+    <string>3.0.3</string>
 </dict>
 </plist>
