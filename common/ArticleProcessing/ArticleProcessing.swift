@@ -31,6 +31,10 @@ private let imageRemovalTagReplacement = HTMLTagReplacement(
     searchValue: "<img\\b[^>]*>",
     replaceValue: ""
 )
+private let stringEncodings = [
+    String.Encoding.utf8,
+    String.Encoding.isoLatin1
+]
 struct ArticleProcessing {
     static func fetchArticle(
         url: URL,
@@ -66,32 +70,42 @@ struct ArticleProcessing {
                         error == nil,
                         let httpResponse = response as? HTTPURLResponse,
                         (200...299).contains(httpResponse.statusCode),
-                        let data = data,
-                        let stringData = NSMutableString(data: data, encoding: String.Encoding.utf8.rawValue)
+                        let data = data
                     {
-                        var tagReplacements = [
-                            // remote scripts must be disabled first!
-                            remoteScriptDisablingTagReplacement,
-                            localScriptDisablingTagReplacement,
-                            iframeRemovalTagReplacement,
-                            inlineStyleRemovalTagReplacement,
-                            linkedStyleRemovalTagReplacement
-                        ]
-                        switch mode {
-                        case .reader:
-                            tagReplacements += [viewportMetaTagReplacement]
-                        case .shareExtension:
-                            tagReplacements += [imageRemovalTagReplacement]
+                        var stringData: NSMutableString?
+                        for var encoding in stringEncodings {
+                            stringData = NSMutableString(data: data, encoding: encoding.rawValue)
+                            if stringData != nil {
+                                break
+                            }
                         }
-                        tagReplacements.forEach({ replacement in
-                            stringData.replaceOccurrences(
-                                of: replacement.searchValue,
-                                with: replacement.replaceValue,
-                                options: [.regularExpression, .caseInsensitive],
-                                range: NSRange(location: 0, length: stringData.length)
-                            )
-                        })
-                        onSuccess(stringData)
+                        if let stringData = stringData {
+                            var tagReplacements = [
+                                // remote scripts must be disabled first!
+                                remoteScriptDisablingTagReplacement,
+                                localScriptDisablingTagReplacement,
+                                iframeRemovalTagReplacement,
+                                inlineStyleRemovalTagReplacement,
+                                linkedStyleRemovalTagReplacement
+                            ]
+                            switch mode {
+                            case .reader:
+                                tagReplacements += [viewportMetaTagReplacement]
+                            case .shareExtension:
+                                tagReplacements += [imageRemovalTagReplacement]
+                            }
+                            tagReplacements.forEach({ replacement in
+                                stringData.replaceOccurrences(
+                                    of: replacement.searchValue,
+                                    with: replacement.replaceValue,
+                                    options: [.regularExpression, .caseInsensitive],
+                                    range: NSRange(location: 0, length: stringData.length)
+                                )
+                            })
+                            onSuccess(stringData)
+                        } else {
+                            onError()
+                        }
                     } else {
                         onError()
                     }
