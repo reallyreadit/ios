@@ -33,9 +33,9 @@
 	<key>RRITDebugReader</key>
 	<false/>
     <key>RRITReaderScriptVersion</key>
-    <string>5.0.4</string>
+    <string>5.0.5</string>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>3.0.4</string>
+    <string>3.0.5</string>
     <key>RRITStaticContentServerURL</key>
     <string>https://static.readup.com/</string>
 	<key>RRITWebServerURL</key>
