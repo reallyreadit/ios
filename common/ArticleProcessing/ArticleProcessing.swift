@@ -73,7 +73,7 @@ struct ArticleProcessing {
                         let data = data
                     {
                         var stringData: NSMutableString?
-                        for var encoding in stringEncodings {
+                        for encoding in stringEncodings {
                             stringData = NSMutableString(data: data, encoding: encoding.rawValue)
                             if stringData != nil {
                                 break
