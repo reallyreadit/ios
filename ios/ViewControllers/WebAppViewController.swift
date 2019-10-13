@@ -5,8 +5,7 @@ import os.log
 class WebAppViewController:
     UIViewController,
     MessageWebViewDelegate,
-    WebViewContainerDelegate,
-    WKHTTPCookieStoreObserver
+    WebViewContainerDelegate
 {
     private var hasCalledWebViewLoad = false
     private let newsprint = UIColor(red: 247 / 255, green: 246 / 255, blue: 245 / 255, alpha: 1)
@@ -15,10 +14,8 @@ class WebAppViewController:
     private var webViewContainer: WebViewContainer!
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        let config = WKWebViewConfiguration()
-        config.websiteDataStore.httpCookieStore.add(self)
         webView = MessageWebView(
-            webViewConfig: config,
+            webViewConfig: WKWebViewConfiguration(),
             javascriptListenerObject: "window.reallyreadit.app"
         )
         webView.delegate = self
@@ -81,44 +78,6 @@ class WebAppViewController:
     @objc private func loadWebApp() {
         loadURL(AppBundleInfo.webServerURL)
     }
-    private func migrateLegacyAuthCookie(
-        _ webAppURL: URL
-    ) -> Bool {
-        let domainMigrationHasCompletedKey = "domainMigrationHasCompleted";
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        if (!userDefaults.bool(forKey: domainMigrationHasCompletedKey)) {
-            userDefaults.set(true, forKey: domainMigrationHasCompletedKey)
-            if
-                let legacyAuthCookie =  SharedCookieStore.store
-                    .cookies(for: URL(string: "https://reallyread.it/")!)?
-                    .first(where: { cookie in cookie.name == SharedBundleInfo.authCookieName }),
-                var cookieProperties = legacyAuthCookie.properties
-            {
-                os_log("migrateLegacyAuthCookie: found legacy auth cookie")
-                cookieProperties[HTTPCookiePropertyKey.domain] = SharedBundleInfo.authCookieDomain
-                if let newCookie = HTTPCookie(properties: cookieProperties) {
-                    os_log("migrateLegacyAuthCookie: setting new auth cookie")
-                    webView.view.configuration.websiteDataStore.httpCookieStore.setCookie(
-                        newCookie,
-                        completionHandler: {
-                            [weak self, webAppURL] in
-                            if let self = self {
-                                os_log("loadURL(_:): loading: %s", webAppURL.absoluteString)
-                                self.webView.view.load(
-                                    URLRequest(
-                                        url: webAppURL
-                                    )
-                                )
-                                self.hasCalledWebViewLoad = true
-                            }
-                        }
-                    )
-                    return true
-                }
-            }
-        }
-        return false
-    }
     private func prepareURL(_ url: URL) -> URL? {
         if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
             // force https unless we're in debug mode
@@ -151,16 +110,16 @@ class WebAppViewController:
             view.backgroundColor = newsprint
         }
     }
-    func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        cookieStore.getAllCookies({
+    func syncAuthCookie() {
+        webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies({
             cookies in
             // check for webview cookie
             if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
-                os_log("cookiesDidChange(in:): authenticated")
+                os_log("syncAuthCookie: authenticated")
                 self.isAuthenticated = true
                 SharedCookieStore.setCookie(authCookie)
             } else {
-                os_log("cookiesDidChange(in:): unauthenticated")
+                os_log("syncAuthCookie: unauthenticated")
                 self.isAuthenticated = false
                 SharedCookieStore.clearAuthCookies()
             }
@@ -169,18 +128,14 @@ class WebAppViewController:
         })
     }
     func loadURL(_ url: URL) {
-        // prepare the url
         let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
-        // domain migration
-        if (!migrateLegacyAuthCookie(preparedURL)) {
-            os_log("loadURL(_:): loading: %s", preparedURL.absoluteString)
-            webView.view.load(
-                URLRequest(
-                    url: preparedURL
-                )
+        os_log("loadURL(_:): loading: %s", preparedURL.absoluteString)
+        webView.view.load(
+            URLRequest(
+                url: preparedURL
             )
-            self.hasCalledWebViewLoad = true
-        }
+        )
+        self.hasCalledWebViewLoad = true
     }
     override func loadView() {
         view = UIView()
@@ -203,6 +158,8 @@ class WebAppViewController:
             )
         case "share":
             presentActivityViewController(data: ShareData(message.data as! [String: Any]))
+        case "syncAuthCookie":
+            syncAuthCookie()
         default:
             return
         }
@@ -273,8 +230,6 @@ class WebAppViewController:
             webViewContainer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webViewContainer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        // trigger cookie change to set auth state
-        cookiesDidChange(in: webView.view.configuration.websiteDataStore.httpCookieStore)
         // check loading state
         if (!hasCalledWebViewLoad) {
             loadWebApp()
