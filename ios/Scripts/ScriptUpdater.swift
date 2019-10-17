@@ -4,24 +4,29 @@ import os.log
 struct ScriptUpdater {
     static func updateScripts() {
         let now = Date()
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
         for script in [AppBundleInfo.readerScript, SharedBundleInfo.shareExtensionScript] {
-            let lastUpdateCheckUserDefaultsKey = "scriptLastUpdateCheck:" + script.name
-            let lastUpdateCheck = userDefaults.object(forKey: lastUpdateCheckUserDefaultsKey) as? Date
-            os_log("ScriptUpdater: %s: %s", lastUpdateCheckUserDefaultsKey, lastUpdateCheck?.description ?? "nil")
+            let lastUpdateCheck = LocalStorage.getLastUpdateCheckForScript(name: script.name)
+            os_log(
+                "[scripts] last update check for %s: %s",
+                script.name,
+                lastUpdateCheck?.description ?? "nil"
+            )
             if lastUpdateCheck == nil || now.timeIntervalSince(lastUpdateCheck!) >= 4 * 60 * 60 {
-                let currentDownloadedVersionUserDefaultsKey = "scriptVersion:" + script.name
                 let currentVersion = SemanticVersion.greatest(
                     script.bundledVersion,
-                    SemanticVersion(
-                        fromVersionString: userDefaults.string(forKey: currentDownloadedVersionUserDefaultsKey)
-                    )
+                    LocalStorage.getVersionForScript(name: script.name)
                 )
-                os_log("ScriptUpdater: checking latest version, current version: %s", currentVersion.description)
+                os_log(
+                    "[scripts] checking latest version for %s, current version: %s",
+                    script.name,
+                    currentVersion.description
+                )
                 URLSession
                     .shared
                     .dataTask(
-                        with: AppBundleInfo.staticContentServerURL.appendingPathComponent("/native-client/\(script.name).txt"),
+                        with: AppBundleInfo.staticContentServerURL.appendingPathComponent(
+                            "/native-client/\(script.name).txt"
+                        ),
                         completionHandler: {
                             data, response, error in
                             if
@@ -31,7 +36,7 @@ struct ScriptUpdater {
                                 let data = data,
                                 let text = String(data: data, encoding: .utf8)
                             {
-                                userDefaults.set(now, forKey: lastUpdateCheckUserDefaultsKey)
+                                LocalStorage.setLastUpdateCheckForScript(name: script.name, date: now)
                                 if
                                     let newVersionFileName = text
                                         .split(separator: "\n")
@@ -42,7 +47,9 @@ struct ScriptUpdater {
                                 {
                                     URLSession.shared
                                         .dataTask(
-                                            with: AppBundleInfo.staticContentServerURL.appendingPathComponent("/native-client/\(script.name)/\(newVersionFileName)"),
+                                            with: AppBundleInfo.staticContentServerURL.appendingPathComponent(
+                                                "/native-client/\(script.name)/\(newVersionFileName)"
+                                            ),
                                             completionHandler: {
                                                 data, response, error in
                                                 if
@@ -55,27 +62,42 @@ struct ScriptUpdater {
                                                     )
                                                 {
                                                     let newVersion = SemanticVersion(fromFileName: String(newVersionFileName))!
-                                                    os_log("ScriptUpdater: upgrading to version %s", newVersion.description)
+                                                    os_log(
+                                                        "[scripts] upgrading %s to version %s",
+                                                        script.name,
+                                                        newVersion.description
+                                                    )
                                                     do {
                                                         try data.write(
-                                                            to: containerURL.appendingPathComponent("\(script.name).js")
+                                                            to: containerURL.appendingPathComponent(
+                                                                "\(script.name).js"
+                                                            )
                                                         )
-                                                        userDefaults.set(newVersion.description, forKey: currentDownloadedVersionUserDefaultsKey)
+                                                        LocalStorage.setVersionForScript(
+                                                            name: script.name,
+                                                            version: newVersion
+                                                        )
                                                     }
                                                     catch let error {
-                                                        os_log("ScriptUpdater: error saving file: %s", error.localizedDescription)
+                                                        os_log(
+                                                            "[scripts] error saving file: %s",
+                                                            error.localizedDescription
+                                                        )
                                                     }
                                                 } else {
-                                                    os_log("ScriptUpdater: error downloading latest version")
+                                                    os_log(
+                                                        "[scripts] error downloading latest version of %s",
+                                                        script.name
+                                                    )
                                                 }
                                             }
                                         )
                                         .resume()
                                 } else {
-                                    os_log("ScriptUpdater: up to date")
+                                    os_log("[scripts] %s up to date", script.name)
                                 }
                             } else {
-                                os_log("ScriptUpdater: error checking latest version")
+                                os_log("[scripts] error checking latest version of %s", script.name)
                             }
                         }
                     )

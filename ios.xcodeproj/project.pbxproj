@@ -72,6 +72,15 @@
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
 		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
+		1F71E9E123560DCA000F869D /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E023560DCA000F869D /* LocalStorage.swift */; };
+		1F71E9E223560DCA000F869D /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E023560DCA000F869D /* LocalStorage.swift */; };
+		1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */; };
+		1F71E9E52356177E000F869D /* DeviceRegistrationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */; };
+		1F71E9E723563049000F869D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E623563049000F869D /* NotificationService.swift */; };
+		1F71E9EA235676F8000F869D /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E9235676F8000F869D /* DeviceInfo.swift */; };
+		1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E9235676F8000F869D /* DeviceInfo.swift */; };
+		1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */; };
+		1F71E9EE23578148000F869D /* PushAuthDenailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -182,6 +191,11 @@
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
+		1F71E9E023560DCA000F869D /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRegistrationForm.swift; sourceTree = "<group>"; };
+		1F71E9E623563049000F869D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1F71E9E9235676F8000F869D /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
@@ -269,6 +283,7 @@
 				1F19473A21E105C100D1599D /* ios.entitlements */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
 				1F13B4C321CB167500EE6927 /* Main.storyboard */,
+				1F71E9E623563049000F869D /* NotificationService.swift */,
 				1FDBBC7C221229B500E03051 /* reader.js */,
 				1F19476821E5552900D1599D /* Release.plist */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
@@ -307,6 +322,8 @@
 				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
 				1F8768D422692B7F002B5D16 /* CommentThread.swift */,
 				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
+				1F71E9E9235676F8000F869D /* DeviceInfo.swift */,
+				1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */,
 				1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */,
 				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
 				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
@@ -315,6 +332,7 @@
 				1F8768D122692AB8002B5D16 /* PostCommentForm.swift */,
 				1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */,
 				1FC0D61B231AD29500E4DD9A /* PostForm.swift */,
+				1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */,
 				1FDBBC8422173D9400E03051 /* Rating.swift */,
 				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
 				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
@@ -368,6 +386,7 @@
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19479321EA9C1900D1599D /* APIServer.swift */,
+				1F71E9E023560DCA000F869D /* LocalStorage.swift */,
 				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
 				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
 				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
@@ -535,10 +554,12 @@
 				1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */,
 				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
+				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
 				1F8768D822693700002B5D16 /* UserAccount.swift in Sources */,
 				1F19479F21EAAA9100D1599D /* WebViewContainer.swift in Sources */,
+				1F71E9E123560DCA000F869D /* LocalStorage.swift in Sources */,
 				1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */,
 				1F8768BC22381137002B5D16 /* ClipboardReferrer.swift in Sources */,
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
@@ -573,7 +594,10 @@
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
+				1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
+				1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */,
 				1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
+				1F71E9EA235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
@@ -596,10 +620,12 @@
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
 				1F1947AF21EAB0FA00D1599D /* ResponseEnvelope.swift in Sources */,
+				1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F1947A921EAB0FA00D1599D /* ArticleProcessing.swift in Sources */,
 				1F1947B221EAB0FA00D1599D /* MessageWebView.swift in Sources */,
 				1F1947AD21EAB0FA00D1599D /* Message.swift in Sources */,
 				1F1947BA21EAC5A800D1599D /* ArticleLookupResult.swift in Sources */,
+				1F71E9EE23578148000F869D /* PushAuthDenailForm.swift in Sources */,
 				1FDBBC8622173D9400E03051 /* Rating.swift in Sources */,
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */,
@@ -611,6 +637,7 @@
 				1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
+				1F71E9E52356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
 				1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */,
@@ -625,6 +652,7 @@
 				1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */,
 				1F1947B921EAC5A800D1599D /* Article.swift in Sources */,
 				1F8768D622692B7F002B5D16 /* CommentThread.swift in Sources */,
+				1F71E9E223560DCA000F869D /* LocalStorage.swift in Sources */,
 				1F19477221E8255900D1599D /* ShareViewController.swift in Sources */,
 				1F1947B421EAB0FA00D1599D /* APIServer.swift in Sources */,
 			);

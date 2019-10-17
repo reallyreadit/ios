@@ -2,6 +2,14 @@ import UIKit
 import WebKit
 import os.log
 
+private func getDeviceInfo() -> DeviceInfo {
+    return DeviceInfo(
+        appVersion: SharedBundleInfo.version.description,
+        installationId: UIDevice.current.identifierForVendor?.uuidString,
+        name: UIDevice.current.name,
+        token: LocalStorage.getNotificationToken()
+    )
+}
 class WebAppViewController:
     UIViewController,
     MessageWebViewDelegate,
@@ -110,23 +118,6 @@ class WebAppViewController:
             view.backgroundColor = newsprint
         }
     }
-    func syncAuthCookie() {
-        webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies({
-            cookies in
-            // check for webview cookie
-            if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
-                os_log("syncAuthCookie: authenticated")
-                self.isAuthenticated = true
-                SharedCookieStore.setCookie(authCookie)
-            } else {
-                os_log("syncAuthCookie: unauthenticated")
-                self.isAuthenticated = false
-                SharedCookieStore.clearAuthCookies()
-            }
-            // set the background color
-            self.setBackgroundColor()
-        })
-    }
     func loadURL(_ url: URL) {
         let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
         os_log("loadURL(_:): loading: %s", preparedURL.absoluteString)
@@ -143,9 +134,9 @@ class WebAppViewController:
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
-        case "getVersion":
+        case "getDeviceInfo":
             self.webView.sendResponse(
-                data: SharedBundleInfo.version.description,
+                data: getDeviceInfo(),
                 callbackId: callbackId!
             )
         case "readArticle":
@@ -158,8 +149,32 @@ class WebAppViewController:
             )
         case "share":
             presentActivityViewController(data: ShareData(message.data as! [String: Any]))
+        // called on initial load and then every sign in/out event
         case "syncAuthCookie":
-            syncAuthCookie()
+            webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies {
+                cookies in
+                // check for webview cookie
+                if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
+                    os_log("[authentication] authenticated")
+                    self.isAuthenticated = true
+                    SharedCookieStore.setCookie(authCookie)
+                    // check notification settings
+                    UNUserNotificationCenter
+                        .current()
+                        .getNotificationSettings {
+                            settings in
+                            if settings.authorizationStatus == .notDetermined {
+                                NotificationService.requestAuthorization()
+                            }
+                        }
+                } else {
+                    os_log("[authentication] unauthenticated")
+                    self.isAuthenticated = false
+                    SharedCookieStore.clearAuthCookies()
+                }
+                // set the background color
+                self.setBackgroundColor()
+            }
         default:
             return
         }
@@ -215,6 +230,14 @@ class WebAppViewController:
         performSegue(
             withIdentifier: "readArticle",
             sender: ArticleReference.slug(slug)
+        )
+    }
+    func updateDeviceInfo() {
+        webView.sendMessage(
+            message: Message(
+                type: "deviceInfoUpdated",
+                data: getDeviceInfo()
+            )
         )
     }
     override func viewDidLoad() {

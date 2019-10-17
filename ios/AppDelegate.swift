@@ -1,14 +1,34 @@
 import UIKit
+import UserNotifications
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-
+    
+    private func getNaviationController() -> UINavigationController? {
+        return window?.rootViewController as? UINavigationController
+    }
+    private func getWebAppViewController() -> WebAppViewController? {
+        if let navigationController = getNaviationController() {
+            return getWebAppViewController(
+                navigationController: navigationController
+            )
+        }
+        return nil
+    }
+    private func getWebAppViewController(
+        navigationController: UINavigationController
+    ) -> WebAppViewController? {
+        return navigationController.viewControllers[0] as? WebAppViewController
+    }
     private func loadURL(_ url: URL) -> Bool {
         if
-            let navigationController = window?.rootViewController as? UINavigationController,
-            let webAppViewController = navigationController.viewControllers[0] as? WebAppViewController
+            let navigationController = getNaviationController(),
+            let webAppViewController = getWebAppViewController(
+                navigationController: navigationController
+            )
         {
             if (
                 url.path.starts(with: "/read") &&
@@ -49,9 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // cleanup unused settings and files
-        let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
-        userDefaults.removeObject(forKey: "contentScriptLastCheck")
-        userDefaults.removeObject(forKey: "contentScriptVersion")
+        LocalStorage.clean()
         let containerURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.it.reallyread"
         )!
@@ -59,10 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FileManager.default.isDeletableFile(atPath: oldContentScriptURL.absoluteString) {
             try! FileManager.default.removeItem(at: oldContentScriptURL)
         }
-        // check for clipboard referrer
-        let appHasLaunchedUserDefaultsKey = "appHasLaunched";
-        if !userDefaults.bool(forKey: appHasLaunchedUserDefaultsKey) {
-            userDefaults.set(true, forKey: appHasLaunchedUserDefaultsKey)
+        // check for clipboard referrer on initial launch
+        if !LocalStorage.hasAppLaunched() {
+            LocalStorage.registerInitialAppLaunch()
             let referrerKey = "com.readup.nativeClientClipboardReferrer:"
             if
                 let referrerString = UIPasteboard.general.strings?.first(where: {
@@ -112,6 +129,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+        // check for new notification token
+        UNUserNotificationCenter
+            .current()
+            .getNotificationSettings {
+                settings in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
+        // check if notification token needs to be sent
+        if
+            !LocalStorage.hasNotificationTokenBeenSent(),
+            let token = LocalStorage.getNotificationToken(),
+            SharedCookieStore.isAuthenticated()
+        {
+            NotificationService.sendToken(token)
+        }
         return true
     }
     
@@ -158,6 +194,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        let token = deviceToken.reduce("", { $0 + String(format: "%02x", $1) })
+        os_log("[notifications] registered with token: %s", token)
+        if token != LocalStorage.getNotificationToken() {
+            os_log("[notifications] token changed")
+            // update local storage
+            LocalStorage.setNotificationToken(token)
+            LocalStorage.setNotificationTokenSent(false)
+            // update web app
+            if let webAppViewController = getWebAppViewController() {
+                webAppViewController.updateDeviceInfo()
+            }
+            // send if authenticated
+            if SharedCookieStore.isAuthenticated() {
+                NotificationService.sendToken(token)
+            }
+        }
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        os_log("[notifications] registration error: %s", error.localizedDescription)
     }
 
 }

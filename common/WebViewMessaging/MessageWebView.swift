@@ -41,10 +41,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
         if let injectedScript = injectedScript {
             var scriptSource: String?
             if
-                let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread"),
-                let downloadedFileVersion = SemanticVersion(
-                    fromVersionString: userDefaults.string(forKey: "scriptVersion:" + injectedScript.name)
-                ),
+                let downloadedFileVersion = LocalStorage.getVersionForScript(name: injectedScript.name),
                 downloadedFileVersion.compareTo(injectedScript.bundledVersion) > 0,
                 let containerURL = FileManager.default.containerURL(
                     forSecurityApplicationGroupIdentifier: "group.it.reallyread"
