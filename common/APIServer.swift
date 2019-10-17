@@ -35,10 +35,6 @@ private func logError(
     _ response: URLResponse?,
     _ responseData: Data?,
     _ error: Error?
-private func sendRequest(
-    request: URLRequest,
-    onSuccess: @escaping () -> Void,
-    onError: @escaping (_: Error?) -> Void
 ) {
     var content = "request debug description:\n" + request.debugDescription
     if
@@ -66,6 +62,13 @@ private func sendRequest(
     logRequest.httpBody = content.data(using: .utf8)
     URLSession.shared
         .dataTask(with: logRequest)
+        .resume()
+}
+private func sendRequest(
+    request: URLRequest,
+    onSuccess: @escaping () -> Void,
+    onError: @escaping (_: Error?) -> Void
+) {
     urlSession
         .dataTask(
             with: request,
@@ -78,6 +81,7 @@ private func sendRequest(
                 {
                     onSuccess()
                 } else {
+                    logError(request, response, data, error)
                     onError(error)
                 }
             }
