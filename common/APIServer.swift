@@ -13,6 +13,40 @@ private let urlSession: URLSession = {
 private func createURL(fromPath path: String) -> URL {
     return SharedBundleInfo.apiServerURL.appendingPathComponent(path)
 }
+private func logError(
+    _ request: URLRequest,
+    _ response: URLResponse?,
+    _ responseData: Data?,
+    _ error: Error?
+) {
+    var content = "request debug description:\n" + request.debugDescription
+    if
+        let reqBody = request.httpBody,
+        let reqBodyString = String(data: reqBody, encoding: .utf8)
+    {
+        content += "\n\nrequest body:\n" + reqBodyString
+    }
+    if let response = response {
+        content += "\n\nresponse debug description:\n" + response.debugDescription
+    }
+    if
+        let responseData = responseData,
+        let responseString = String(data: responseData, encoding: .utf8)
+    {
+        content += "\n\nresponse body:\n" + responseString
+    }
+    if let error = error {
+        content += "\n\nerror:\n" + error.localizedDescription
+    }
+    var logRequest = URLRequest(url: createURL(fromPath: "/Analytics/ClientErrorReport"))
+    logRequest.httpMethod = "POST"
+    logRequest.addValue(clientHeaderValue, forHTTPHeaderField: "X-Readup-Client")
+    logRequest.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+    logRequest.httpBody = content.data(using: .utf8)
+    URLSession.shared
+        .dataTask(with: logRequest)
+        .resume()
+}
 private func sendRequest<TResult: Decodable>(
     request: URLRequest,
     onSuccess: @escaping (_: TResult) -> Void,
@@ -37,9 +71,11 @@ private func sendRequest<TResult: Decodable>(
                         let result = try decoder.decode(TResult.self, from: data)
                         onSuccess(result)
                     } catch let error {
+                        logError(request, response, data, error)
                         onError(error)
                     }
                 } else {
+                    logError(request, response, data, error)
                     onError(error)
                 }
             }
