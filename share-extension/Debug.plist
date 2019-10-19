@@ -78,6 +78,6 @@
 	<key>RRITDebugReader</key>
 	<true/>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>3.0.7</string>
+    <string>3.0.8</string>
 </dict>
 </plist>
