@@ -33,7 +33,7 @@
 	<key>RRITDebugReader</key>
 	<false/>
     <key>RRITReaderScriptVersion</key>
-    <string>5.0.8</string>
+    <string>5.0.9</string>
     <key>RRITShareExtensionScriptVersion</key>
     <string>3.0.8</string>
     <key>RRITStaticContentServerURL</key>
