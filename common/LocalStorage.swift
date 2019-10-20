@@ -2,6 +2,7 @@ import Foundation
 
 private enum LocalStorageKey: String {
     case appHasLaunched = "appHasLaunched"
+    case extensionNewStarCount = "extensionNewStarCount"
     case notificationToken = "notificationToken"
     case notificationTokenSent = "notificationTokenSent"
     case scriptLastUpdateCheck = "scriptLastUpdateCheck:"
@@ -13,6 +14,9 @@ struct LocalStorage {
         userDefaults.removeObject(forKey: "contentScriptLastCheck")
         userDefaults.removeObject(forKey: "contentScriptVersion")
         userDefaults.removeObject(forKey: "domainMigrationHasCompleted")
+    }
+    static func getExtensionNewStarCount() -> Int {
+        return userDefaults.integer(forKey: LocalStorageKey.extensionNewStarCount.rawValue)
     }
     static func getLastUpdateCheckForScript(name: String) -> Date? {
         return userDefaults.object(forKey: LocalStorageKey.scriptLastUpdateCheck.rawValue + name) as? Date
@@ -35,6 +39,9 @@ struct LocalStorage {
     }
     static func registerInitialAppLaunch() {
         userDefaults.set(true, forKey: LocalStorageKey.appHasLaunched.rawValue)
+    }
+    static func setExtensionNewStarCount(count: Int) {
+        userDefaults.set(count, forKey: LocalStorageKey.extensionNewStarCount.rawValue)
     }
     static func setLastUpdateCheckForScript(name: String, date: Date) {
         userDefaults.set(date, forKey: LocalStorageKey.scriptLastUpdateCheck.rawValue + name)

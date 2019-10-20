@@ -3,9 +3,11 @@ import UserNotifications
 import os.log
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelegate {
     
     var window: UIWindow?
+    
+    private let notificationService = NotificationService()
     
     private func getNaviationController() -> UINavigationController? {
         return window?.rootViewController as? UINavigationController
@@ -69,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // cleanup unused settings and files
+        os_log("[lifecycle] didFinishLaunchingWithOptions")
         LocalStorage.clean()
         let containerURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.it.reallyread"
@@ -129,6 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+        // set up notification delegates
+        notificationService.delegate = self
+        UNUserNotificationCenter.current().delegate = notificationService
         // check for new notification token
         UNUserNotificationCenter
             .current()
@@ -156,6 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
     ) -> Bool {
+        os_log("[lifecycle] continue user activity")
         if
             userActivity.activityType == NSUserActivityTypeBrowsingWeb,
             let url = userActivity.webpageURL
@@ -170,30 +177,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
+        os_log("[lifecycle] open url")
         return loadURL(url)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        os_log("[lifecycle] willResignActive")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        os_log("[lifecycle] didEnterBackground")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        os_log("[lifecycle] willEnterForeground")
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        os_log("[lifecycle] didBecomeActive")
+        // update scripts
         ScriptUpdater.updateScripts()
+        // update web app with new star count
+        let newStarCount = LocalStorage.getExtensionNewStarCount()
+        LocalStorage.setExtensionNewStarCount(count: 0)
+        if let webAppViewController = getWebAppViewController() {
+            webAppViewController.signalDidBecomeActive(
+                event: AppActivationEvent(
+                    badgeCount: application.applicationIconBadgeNumber,
+                    newStarCount: newStarCount
+                )
+            )
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        os_log("[lifecycle] willTerminate")
     }
     
     func application(
@@ -223,6 +248,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
         os_log("[notifications] registration error: %s", error.localizedDescription)
+    }
+    
+    func onAlertStatusReceived(status: AlertStatus) {
+        // update web app
+        if let webAppViewController = getWebAppViewController() {
+            webAppViewController.updateAlertStatus(status)
+        }
     }
 
 }

@@ -111,6 +111,9 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                             self.alert.showError(withText: "Article saved")
                         }
                     }
+                    LocalStorage.setExtensionNewStarCount(
+                        count: LocalStorage.getExtensionNewStarCount() + 1
+                    )
                 },
                 onError: {
                     [weak self] _ in

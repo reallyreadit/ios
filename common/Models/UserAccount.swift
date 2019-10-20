@@ -1,19 +1,32 @@
 import Foundation
 
 struct UserAccount: Codable {
+    init(serializedUser: [String: Any]) {
+        id = serializedUser["id"] as! Int
+        name = serializedUser["name"] as! String
+        email = serializedUser["email"] as! String
+        dateCreated = parseDate(
+            fromIso8601DotNetCoreString: serializedUser["dateCreated"] as! String
+        )!
+        role = UserAccountRole.init(rawValue: serializedUser["role"] as! Int)!
+        timeZoneId = serializedUser["timeZoneId"] as? Int
+        isEmailConfirmed = serializedUser["isEmailConfirmed"] as! Bool
+        aotdAlert = serializedUser["aotdAlert"] as! Bool
+        replyAlertCount = serializedUser["replyAlertCount"] as! Int
+        loopbackAlertCount = serializedUser["loopbackAlertCount"] as! Int
+        postAlertCount = serializedUser["postAlertCount"] as! Int
+        followerAlertCount = serializedUser["followerAlertCount"] as! Int
+    }
     let id: Int
     let name: String
     let email: String
-    let receiveReplyEmailNotifications: Bool
-    let receiveReplyDesktopNotifications: Bool
-    let lastNewReplyAck: Date
-    let lastNewReplyDesktopNotification: Date
     let dateCreated: Date
     let role: UserAccountRole
-    let receiveWebsiteUpdates: Bool
-    let receiveSuggestedReadings: Bool
-    let isEmailConfirmed: Bool
     let timeZoneId: Int?
-    let timeZoneName: String?
-    let timeZoneDisplayName: String?
+    let isEmailConfirmed: Bool
+    let aotdAlert: Bool
+    let replyAlertCount: Int
+    let loopbackAlertCount: Int
+    let postAlertCount: Int
+    let followerAlertCount: Int
 }

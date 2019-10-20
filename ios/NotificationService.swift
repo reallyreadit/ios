@@ -35,7 +35,7 @@ private func handleAuthorizationRequestResponse(
         os_log("[notifications] auth request error: %s", error.localizedDescription)
     }
 }
-struct NotificationService {
+class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static func requestAuthorization() {
         os_log("[notifications] settings not determined, requesting authorization")
         // .providesAppNotificationSettings only available in iOS >= 12
@@ -77,5 +77,17 @@ struct NotificationService {
         } else {
             os_log("[notifications] failed to get vendor id")
         }
+    }
+    weak var delegate: NotificationServiceDelegate?
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        os_log("[notifications] notification received")
+        if let serializedAlertStatus = notification.request.content.userInfo["alertStatus"] as? [String: Any] {
+            delegate?.onAlertStatusReceived(status: AlertStatus(serialized: serializedAlertStatus))
+        }
+        completionHandler([])
     }
 }

@@ -81,6 +81,8 @@
 		1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E9235676F8000F869D /* DeviceInfo.swift */; };
 		1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */; };
 		1F71E9EE23578148000F869D /* PushAuthDenailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */; };
+		1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
+		1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -104,6 +106,9 @@
 		1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DA2269390D002B5D16 /* UserAccountRole.swift */; };
 		1F8768DE2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
 		1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
+		1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
+		1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
+		1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D619231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
@@ -196,6 +201,7 @@
 		1F71E9E623563049000F869D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		1F71E9E9235676F8000F869D /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
+		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
@@ -211,6 +217,8 @@
 		1F8768D722693700002B5D16 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		1F8768DA2269390D002B5D16 /* UserAccountRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRole.swift; sourceTree = "<group>"; };
 		1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentResult.swift; sourceTree = "<group>"; };
+		1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatus.swift; sourceTree = "<group>"; };
+		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
 		1FC0D615231AD1C200E4DD9A /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		1FC0D618231AD23100E4DD9A /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1FC0D61B231AD29500E4DD9A /* PostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostForm.swift; sourceTree = "<group>"; };
@@ -284,6 +292,7 @@
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
 				1F13B4C321CB167500EE6927 /* Main.storyboard */,
 				1F71E9E623563049000F869D /* NotificationService.swift */,
+				1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */,
 				1FDBBC7C221229B500E03051 /* reader.js */,
 				1F19476821E5552900D1599D /* Release.plist */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
@@ -315,6 +324,8 @@
 		1F13B4E921D2AA9500EE6927 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */,
+				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
 				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
@@ -551,6 +562,8 @@
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
 				1F8768D0225F9EA4002B5D16 /* UIViewControllerExtension.swift in Sources */,
 				1F8768D222692AB8002B5D16 /* PostCommentForm.swift in Sources */,
+				1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */,
+				1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */,
 				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
@@ -596,6 +609,7 @@
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */,
+				1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */,
 				1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
 				1F71E9EA235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
@@ -618,6 +632,7 @@
 				1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F8768D322692AB8002B5D16 /* PostCommentForm.swift in Sources */,
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
+				1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
 				1F1947AF21EAB0FA00D1599D /* ResponseEnvelope.swift in Sources */,
 				1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */,
@@ -636,6 +651,7 @@
 				1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */,
 				1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
+				1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
 				1F71E9E52356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,

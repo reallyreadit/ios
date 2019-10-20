@@ -151,28 +151,61 @@ class WebAppViewController:
             presentActivityViewController(data: ShareData(message.data as! [String: Any]))
         // called on initial load and then every sign in/out event
         case "syncAuthCookie":
+            let user: UserAccount?
+            if let serializedUser = message.data as? [String: Any] {
+                user = UserAccount(serializedUser: serializedUser)
+            } else {
+                user = nil
+            }
             webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies {
                 cookies in
                 // check for webview cookie
+                let isAuthenticated: Bool
                 if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
                     os_log("[authentication] authenticated")
-                    self.isAuthenticated = true
+                    isAuthenticated = true
                     SharedCookieStore.setCookie(authCookie)
-                    // check notification settings
-                    UNUserNotificationCenter
-                        .current()
-                        .getNotificationSettings {
-                            settings in
-                            if settings.authorizationStatus == .notDetermined {
-                                NotificationService.requestAuthorization()
-                            }
-                        }
                 } else {
                     os_log("[authentication] unauthenticated")
-                    self.isAuthenticated = false
+                    isAuthenticated = false
                     SharedCookieStore.clearAuthCookies()
                 }
+                // check notification settings
+                UNUserNotificationCenter
+                    .current()
+                    .getNotificationSettings {
+                        settings in
+                        if settings.authorizationStatus == .notDetermined {
+                            if isAuthenticated {
+                                NotificationService.requestAuthorization()
+                            }
+                        } else if settings.authorizationStatus == .authorized {
+                            if isAuthenticated {
+                                if let user = user {
+                                    os_log("[authentication] syncing user alerts to badge number")
+                                    DispatchQueue.main.async {
+                                        UIApplication.shared.applicationIconBadgeNumber = (
+                                            (user.aotdAlert ? 1 : 0) +
+                                            user.followerAlertCount +
+                                            user.loopbackAlertCount +
+                                            user.postAlertCount +
+                                            user.replyAlertCount
+                                        )
+                                    }
+                                }
+                            } else {
+                                os_log("[authentication] clearing badge number and notifications")
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.applicationIconBadgeNumber = 0
+                                }
+                                UNUserNotificationCenter
+                                    .current()
+                                    .removeAllDeliveredNotifications()
+                            }
+                        }
+                    }
                 // set the background color
+                self.isAuthenticated = isAuthenticated
                 self.setBackgroundColor()
             }
         default:
@@ -230,6 +263,22 @@ class WebAppViewController:
         performSegue(
             withIdentifier: "readArticle",
             sender: ArticleReference.slug(slug)
+        )
+    }
+    func signalDidBecomeActive(event: AppActivationEvent) {
+        webView.sendMessage(
+            message: Message(
+                type: "didBecomeActive",
+                data: event
+            )
+        )
+    }
+    func updateAlertStatus(_ status: AlertStatus) {
+        webView.sendMessage(
+            message: Message(
+                type: "alertStatusUpdated",
+                data: status
+            )
         )
     }
     func updateDeviceInfo() {
