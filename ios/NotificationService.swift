@@ -88,6 +88,6 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         if let serializedAlertStatus = notification.request.content.userInfo["alertStatus"] as? [String: Any] {
             delegate?.onAlertStatusReceived(status: AlertStatus(serialized: serializedAlertStatus))
         }
-        completionHandler([])
+        completionHandler(.badge)
     }
 }
