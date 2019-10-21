@@ -182,25 +182,14 @@ class WebAppViewController:
                         } else if settings.authorizationStatus == .authorized {
                             if isAuthenticated {
                                 if let user = user {
-                                    os_log("[authentication] syncing user alerts to badge number")
                                     DispatchQueue.main.async {
-                                        UIApplication.shared.applicationIconBadgeNumber = (
-                                            (user.aotdAlert ? 1 : 0) +
-                                            user.followerAlertCount +
-                                            user.loopbackAlertCount +
-                                            user.postAlertCount +
-                                            user.replyAlertCount
-                                        )
+                                        NotificationService.syncBadge(with: user)
                                     }
                                 }
                             } else {
-                                os_log("[authentication] clearing badge number and notifications")
                                 DispatchQueue.main.async {
-                                    UIApplication.shared.applicationIconBadgeNumber = 0
+                                    NotificationService.clearAlerts()
                                 }
-                                UNUserNotificationCenter
-                                    .current()
-                                    .removeAllDeliveredNotifications()
                             }
                         }
                     }

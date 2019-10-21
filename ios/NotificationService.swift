@@ -36,6 +36,15 @@ private func handleAuthorizationRequestResponse(
     }
 }
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
+    static func clearAlerts() {
+        os_log("[notifications] clearing badge number and notifications")
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        // setting the badge to 0 removes delivered alerts but it's not specified
+        // in the docs so we're explicitly removing them just to be safe
+        UNUserNotificationCenter
+            .current()
+            .removeAllDeliveredNotifications()
+    }
     static func requestAuthorization() {
         os_log("[notifications] settings not determined, requesting authorization")
         // .providesAppNotificationSettings only available in iOS >= 12
@@ -66,8 +75,12 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                     token: token
                 ),
                 onSuccess: {
+                    (user: UserAccount) in
                     os_log("[notifications] token sent")
                     LocalStorage.setNotificationTokenSent(true)
+                    DispatchQueue.main.async {
+                        NotificationService.syncBadge(with: user)
+                    }
                 },
                 onError: {
                     error in
@@ -77,6 +90,16 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         } else {
             os_log("[notifications] failed to get vendor id")
         }
+    }
+    static func syncBadge(with user: UserAccount) {
+        os_log("[notifications] syncing badge number to user alerts")
+        UIApplication.shared.applicationIconBadgeNumber = (
+            (user.aotdAlert ? 1 : 0) +
+            user.followerAlertCount +
+            user.loopbackAlertCount +
+            user.postAlertCount +
+            user.replyAlertCount
+        )
     }
     weak var delegate: NotificationServiceDelegate?
     func userNotificationCenter(
