@@ -88,6 +88,9 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         if let serializedAlertStatus = notification.request.content.userInfo["alertStatus"] as? [String: Any] {
             delegate?.onAlertStatusReceived(status: AlertStatus(serialized: serializedAlertStatus))
         }
+        if let clearedNotificationIds = notification.request.content.userInfo["clearedNotificationIds"] as? [String] {
+            center.removeDeliveredNotifications(withIdentifiers: clearedNotificationIds)
+        }
         completionHandler(.badge)
     }
 }
