@@ -36,6 +36,8 @@ private func handleAuthorizationRequestResponse(
     }
 }
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
+    static let replyableCategoryId = "replyable"
+    static let replyActionId = "reply"
     static func clearAlerts() {
         os_log("[notifications] clearing badge number and notifications")
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -115,5 +117,59 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             center.removeDeliveredNotifications(withIdentifiers: clearedNotificationIds)
         }
         completionHandler(.badge)
+    }
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        os_log("[notifications] received notification interaction: %s", response.actionIdentifier)
+        // don't update the alert status from this method
+        // actions that modify the alert status will trigger an additional
+        // badge-only notification and we don't want this stale alert state to arrive
+        // after that message
+        switch response.actionIdentifier {
+        case UNNotificationDefaultActionIdentifier:
+            if
+                let urlString = response.notification.request.content.userInfo["url"] as? String,
+                let url = URL(string: urlString)
+            {
+                os_log("[notifications] viewing notification")
+                delegate?.onViewNotification(url: url)
+                APIServer.postJson(
+                    path: "/Notifications/PushView",
+                    data: PushViewForm(
+                        receiptId: response.notification.request.identifier,
+                        url: url.absoluteString
+                    ),
+                    onSuccess: { },
+                    onError: { error in }
+                )
+            }
+        case NotificationService.replyActionId:
+            if let textResponse = response as? UNTextInputNotificationResponse {
+                os_log("[notifications] replying to notification")
+                APIServer.postJson(
+                    path: "/Notifications/PushReply",
+                    data: PushReplyForm(
+                        receiptId: response.notification.request.identifier,
+                        text: textResponse.userText
+                    ),
+                    onSuccess: { },
+                    onError: { error in }
+                )
+            }
+        default:
+            // don't handle dismiss action
+            break
+        }
+        completionHandler()
+    }
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        openSettingsFor notification: UNNotification?
+    ) {
+        os_log("[notifications] displaying settings")
+        delegate?.onViewSettings()
     }
 }

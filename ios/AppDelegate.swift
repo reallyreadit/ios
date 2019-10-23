@@ -135,6 +135,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // set up notification delegates
         notificationService.delegate = self
         UNUserNotificationCenter.current().delegate = notificationService
+        // register notification categories
+        UNUserNotificationCenter
+            .current()
+            .setNotificationCategories([
+                UNNotificationCategory(
+                    identifier: NotificationService.replyableCategoryId,
+                    actions: [
+                        UNTextInputNotificationAction(
+                            identifier: NotificationService.replyActionId,
+                            title: "Reply",
+                            options: []
+                        )
+                    ],
+                    intentIdentifiers: [],
+                    options: []
+                )
+            ])
         // check for new notification token
         UNUserNotificationCenter
             .current()
@@ -255,6 +272,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         if let webAppViewController = getWebAppViewController() {
             webAppViewController.updateAlertStatus(status)
         }
+    }
+    
+    func onViewNotification(url: URL) {
+        let _ = loadURL(url)
+    }
+    
+    func onViewSettings() {
+        let _ = loadURL(AppBundleInfo.webServerURL.appendingPathComponent("/settings"))
     }
 
 }

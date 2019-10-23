@@ -109,6 +109,10 @@
 		1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */; };
+		1FA91D0A235FAA2100E3EDE2 /* PushViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */; };
+		1FA91D0B235FAA2100E3EDE2 /* PushViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */; };
+		1FA91D0D235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
+		1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D619231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
@@ -219,6 +223,8 @@
 		1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentResult.swift; sourceTree = "<group>"; };
 		1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatus.swift; sourceTree = "<group>"; };
 		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
+		1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewForm.swift; sourceTree = "<group>"; };
+		1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushReplyForm.swift; sourceTree = "<group>"; };
 		1FC0D615231AD1C200E4DD9A /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		1FC0D618231AD23100E4DD9A /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1FC0D61B231AD29500E4DD9A /* PostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostForm.swift; sourceTree = "<group>"; };
@@ -343,6 +349,8 @@
 				1F8768D122692AB8002B5D16 /* PostCommentForm.swift */,
 				1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */,
 				1FC0D61B231AD29500E4DD9A /* PostForm.swift */,
+				1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */,
+				1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */,
 				1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */,
 				1FDBBC8422173D9400E03051 /* Rating.swift */,
 				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
@@ -604,6 +612,7 @@
 				1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */,
 				1F19479421EA9C1900D1599D /* APIServer.swift in Sources */,
 				1F1947A121EAAF7200D1599D /* HTMLTagReplacement.swift in Sources */,
+				1FA91D0D235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
@@ -616,6 +625,7 @@
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
 				1F13B4ED21D2ABA300EE6927 /* Article.swift in Sources */,
+				1FA91D0A235FAA2100E3EDE2 /* PushViewForm.swift in Sources */,
 				1F1947B621EAB3E600D1599D /* WebViewContainerDelegate.swift in Sources */,
 				1F19472121DF006B00D1599D /* ResponseEnvelope.swift in Sources */,
 				1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */,
@@ -633,6 +643,7 @@
 				1F8768D322692AB8002B5D16 /* PostCommentForm.swift in Sources */,
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
 				1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */,
+				1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
 				1F1947AF21EAB0FA00D1599D /* ResponseEnvelope.swift in Sources */,
 				1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */,
@@ -658,6 +669,7 @@
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
 				1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */,
 				1F1947B021EAB0FA00D1599D /* ResponseCallback.swift in Sources */,
+				1FA91D0B235FAA2100E3EDE2 /* PushViewForm.swift in Sources */,
 				1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */,
 				1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
