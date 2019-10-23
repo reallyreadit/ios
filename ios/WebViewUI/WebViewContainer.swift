@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import os.log
 
 class WebViewContainer: NSObject, WKNavigationDelegate {
     weak var delegate: WebViewContainerDelegate?
@@ -68,18 +69,22 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         }
     }
     func webView(_: WKWebView, didFail: WKNavigation!, withError: Error) {
+        os_log("[webview-nav] failed: %s", withError.localizedDescription)
         setState(.error)
         delegate?.onStateChange(state: .error)
     }
     func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        os_log("[webview-nav] failed provisional: %s", withError.localizedDescription)
         setState(.error)
         delegate?.onStateChange(state: .error)
     }
     func webView(_: WKWebView, didFinish: WKNavigation!) {
+        os_log("[webview-nav] finished: %s", didFinish.debugDescription)
         setState(.loaded)
         delegate?.onStateChange(state: .loaded)
     }
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        os_log("[webview-nav] started: %s", didStartProvisionalNavigation.debugDescription)
         setState(.loading)
         delegate?.onStateChange(state: .loading)
     }
