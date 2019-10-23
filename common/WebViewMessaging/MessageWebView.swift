@@ -50,14 +50,14 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
                     contentsOf: containerURL.appendingPathComponent(injectedScript.name + ".js")
                 )
             {
-                os_log("MessageWebView: loading script from file: %s", injectedScript.name)
+                os_log("[webview-msg] loading script from file: %s", injectedScript.name)
                 scriptSource = fileContent
             } else if
                 let fileContent = try? String(
                     contentsOf: Bundle.main.url(forResource: injectedScript.name, withExtension: "js")!
                 )
             {
-                os_log("MessageWebView: loading script from bundle: %s", injectedScript.name)
+                os_log("[webview-msg] loading script from bundle: %s", injectedScript.name)
                 scriptSource = fileContent
             }
             if scriptSource != nil {
@@ -69,7 +69,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
                     )
                 )
             } else {
-                os_log("MessageWebView: error loading script: %s", injectedScript.name)
+                os_log("[webview-msg] error loading script: %s", injectedScript.name)
             }
         }
         // create webview with configuration
@@ -84,6 +84,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
         )
     }
     func sendMessage<T: Codable>(message: Message<T>, responseCallback: ((_: Any?) -> Void)? = nil) {
+        os_log("[webview-msg] sending message: %s", message.type)
         var callbackId: Int?
         if responseCallback != nil {
             callbackId = (
@@ -97,6 +98,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
         view.evaluateJavaScript("\(javascriptListenerObject).postMessage('\(envelope)');")
     }
     func sendResponse<T: Codable>(data: T, callbackId: Int) {
+        os_log("[webview-msg] sending response for callback: %d", callbackId)
         let envelope = jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
         view.evaluateJavaScript("\(javascriptListenerObject).sendResponse('\(envelope)');")
     }
@@ -112,14 +114,17 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
                 let id = envelope["id"] as? Int,
                 let callbackIndex = responseCallbacks.firstIndex(where: { callback in callback.id == id })
             {
+                os_log("[webview-msg] received response for callback: %d", id)
                 responseCallbacks[callbackIndex].function(message)
                 responseCallbacks.remove(at: callbackIndex)
             } else {
+                let delegateMessage = (
+                    type: message["type"] as! String,
+                    data: message["data"]
+                )
+                os_log("[webview-msg] received message: %s", delegateMessage.type)
                 delegate?.onMessage(
-                    message: (
-                        type: message["type"] as! String,
-                        data: message["data"]
-                    ),
+                    message: delegateMessage,
                     callbackId: envelope["callbackId"] as? Int
                 )
             }
