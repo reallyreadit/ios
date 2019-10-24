@@ -6,6 +6,26 @@ private let appleNewsURLRegex = try! NSRegularExpression(
     pattern: "<a\\b[^>]*href=(['\"])(?<url>(?:(?!\\1).)*)\\1[^>]*>\\s*click\\s+here\\s*</a>",
     options: .caseInsensitive
 )
+private func findFirstItemProvider(
+    in context: NSExtensionContext?,
+    for identifier: String
+) -> NSItemProvider? {
+    return context?
+        .inputItems
+        .reduce([NSItemProvider](), {
+            urlAttachments, item in
+            if
+                let item = item as? NSExtensionItem,
+                let attachments = item.attachments
+            {
+                return urlAttachments + attachments.filter({
+                    attachment in attachment.hasItemConformingToTypeIdentifier(identifier)
+                })
+            }
+            return urlAttachments
+        })
+        .first
+}
 class ShareViewController: UIViewController, MessageWebViewDelegate {
     private var alert: AlertViewController!
     private var hasParsedPage = false
@@ -84,6 +104,56 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
             }
         )
     }
+    private func processUrl(_ url: URL) {
+        self.alert.showLoadingMessage(withText: "Loading article")
+        if url.absoluteString.starts(with: "https://apple.news/") {
+            URLSession
+                .shared
+                .dataTask(
+                    with: URLRequest(url: url),
+                    completionHandler: {
+                        [weak self] (data, response, error) in
+                        if
+                            let self = self,
+                            !self.isCancelled,
+                            error == nil,
+                            let httpResponse = response as? HTTPURLResponse,
+                            (200...299).contains(httpResponse.statusCode),
+                            let data = data,
+                            let stringData = String(data: data, encoding: .utf8),
+                            let match = appleNewsURLRegex.firstMatch(
+                                in: stringData,
+                                options: [],
+                                range: NSRange(
+                                    stringData.startIndex...,
+                                    in: stringData
+                                )
+                            ),
+                            let urlMatchRange = Range(
+                                match.range(withName: "url"),
+                                in: stringData
+                            ),
+                            let url = URL(string: String(stringData[urlMatchRange]))
+                        {
+                            DispatchQueue.main.async {
+                                self.loadArticle(url: url)
+                            }
+                        }
+                        else if
+                            let self = self,
+                            !self.isCancelled
+                        {
+                            DispatchQueue.main.async {
+                                self.alert.showError(withText: "Error locating publisher URL")
+                            }
+                        }
+                    }
+                )
+                .resume()
+        } else {
+            self.loadArticle(url: url)
+        }
+    }
     override func loadView() {
         view = UIView()
     }
@@ -137,24 +207,10 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
     override func viewDidLoad() {
         // check for auth cookie
         if SharedCookieStore.isAuthenticated() {
-            // try to find the url
-            if
-                let urlAttachment = extensionContext?
-                    .inputItems
-                    .reduce([NSItemProvider](), {
-                        urlAttachments, item in
-                        if
-                            let item = item as? NSExtensionItem,
-                            let attachments = item.attachments
-                        {
-                            return urlAttachments + attachments.filter({
-                                attachment in attachment.hasItemConformingToTypeIdentifier("public.url")
-                            })
-                        }
-                        return urlAttachments
-                    })
-                    .first
-            {
+            // check urls first and fall back to text
+            // it seems like iOS 13+ might automatically parse text to URLs
+            // but earlier versions definitely do not and must be parsed manually
+            if let urlAttachment = findFirstItemProvider(in: extensionContext, for: "public.url") {
                 urlAttachment.loadItem(
                     forTypeIdentifier: "public.url",
                     options: nil,
@@ -162,56 +218,33 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                         [weak self] value, error in
                         if
                             let self = self,
-                            !self.isCancelled,
-                            let url = value as? URL
+                            !self.isCancelled
                         {
-                            self.alert.showLoadingMessage(withText: "Loading article")
-                            if url.absoluteString.starts(with: "https://apple.news/") {
-                                URLSession
-                                    .shared
-                                    .dataTask(
-                                        with: URLRequest(url: url),
-                                        completionHandler: {
-                                            [weak self] (data, response, error) in
-                                            if
-                                                let self = self,
-                                                !self.isCancelled,
-                                                error == nil,
-                                                let httpResponse = response as? HTTPURLResponse,
-                                                (200...299).contains(httpResponse.statusCode),
-                                                let data = data,
-                                                let stringData = String(data: data, encoding: .utf8),
-                                                let match = appleNewsURLRegex.firstMatch(
-                                                    in: stringData,
-                                                    options: [],
-                                                    range: NSRange(
-                                                        stringData.startIndex...,
-                                                        in: stringData
-                                                    )
-                                                ),
-                                                let urlMatchRange = Range(
-                                                    match.range(withName: "url"),
-                                                    in: stringData
-                                                ),
-                                                let url = URL(string: String(stringData[urlMatchRange]))
-                                            {
-                                                DispatchQueue.main.async {
-                                                    self.loadArticle(url: url)
-                                                }
-                                            }
-                                            else if
-                                                let self = self,
-                                                !self.isCancelled
-                                            {
-                                                DispatchQueue.main.async {
-                                                    self.alert.showError(withText: "Error locating publisher URL")
-                                                }
-                                            }
-                                        }
-                                    )
-                                    .resume()
+                            if let url = value as? URL {
+                                self.processUrl(url)
                             } else {
-                                self.loadArticle(url: url)
+                                self.alert.showError(withText: "Error accessing article URL")
+                            }
+                        }
+                    }
+                )
+            } else if let textAttachment = findFirstItemProvider(in: extensionContext, for: "public.text") {
+                textAttachment.loadItem(
+                    forTypeIdentifier: "public.text",
+                    options: nil,
+                    completionHandler: {
+                        [weak self] value, error in
+                        if
+                            let self = self,
+                            !self.isCancelled
+                        {
+                            if
+                                let text = value as? String,
+                                let url = URL(string: text)
+                            {
+                                self.processUrl(url)
+                            } else {
+                                self.alert.showError(withText: "Error accessing article URL")
                             }
                         }
                     }
