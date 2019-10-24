@@ -1,7 +1,7 @@
 import Foundation
 
 struct UserAccount: Codable {
-    init(serializedUser: [String: Any]) {
+    init?(serializedUser: [String: Any]) {
         id = serializedUser["id"] as! Int
         name = serializedUser["name"] as! String
         email = serializedUser["email"] as! String
