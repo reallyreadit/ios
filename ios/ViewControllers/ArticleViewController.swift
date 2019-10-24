@@ -4,6 +4,7 @@ import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
     private var articleURL: URL!
+    private var commitErrorCount = 0
     private var hasParsedPage = false
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
@@ -181,6 +182,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 onSuccess: {
                     [weak self] (article: Article) in
                     if let self = self {
+                        self.commitErrorCount = 0
                         DispatchQueue.main.async {
                             self.progressBar.setState(
                                 isLoading: false,
@@ -200,8 +202,12 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 onError: {
                     [weak self] _ in
                     if let self = self {
-                        DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error saving reading progress.")
+                        if self.commitErrorCount > 5 {
+                            DispatchQueue.main.async {
+                                self.setErrorState(withMessage: "Error saving reading progress.")
+                            }
+                        } else {
+                            self.commitErrorCount += 1
                         }
                     }
                 }
@@ -331,6 +337,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     func replaceArticle(slug: String) {
         articleURL = nil
+        commitErrorCount = 0
         hasParsedPage = false
         progressBar.setState(
             isLoading: false,
