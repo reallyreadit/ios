@@ -6,7 +6,7 @@ private let clientHeaderValue = (
     SharedBundleInfo.version.description
 )
 private let urlSession: URLSession = {
-    let config = URLSessionConfiguration.default
+    var config = URLSessionConfiguration.default
     config.httpCookieStorage = SharedCookieStore.store
     return URLSession(configuration: config)
 }()
