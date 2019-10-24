@@ -4,6 +4,7 @@ import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
     private var articleURL: URL!
+    private var hasParsedPage = false
     private var hideStatusBar = false
     override var prefersStatusBarHidden: Bool {
         return hideStatusBar
@@ -130,6 +131,18 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                         )
                         self.progressBar.setState(isLoading: true)
                     }
+                    DispatchQueue.main.asyncAfter(
+                        deadline: .now() + .seconds(30),
+                        execute: {
+                            [weak self] in
+                            if
+                                let self = self,
+                                !self.hasParsedPage
+                            {
+                                self.setErrorState(withMessage: "Error parsing article.")
+                            }
+                        }
+                    )
                 }
             },
             onError: {
@@ -210,6 +223,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 }
             )
         case "parseResult":
+            hasParsedPage = true
             APIServer.postJson(
                 path: "/Extension/GetUserArticle",
                 data: PageParseResult(contentScriptData: message.data as! [String: Any]),
@@ -317,6 +331,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
     }
     func replaceArticle(slug: String) {
         articleURL = nil
+        hasParsedPage = false
         progressBar.setState(
             isLoading: false,
             percentComplete: -1,
