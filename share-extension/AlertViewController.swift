@@ -19,7 +19,11 @@ class AlertViewController: UIViewController {
         
         let dialog = UIView()
         dialog.translatesAutoresizingMaskIntoConstraints = false
-        dialog.backgroundColor = .white
+        if #available(iOSApplicationExtension 13.0, *) {
+            dialog.backgroundColor = .secondarySystemBackground
+        } else {
+            dialog.backgroundColor = .white
+        }
         dialog.layer.cornerRadius = 8.0
         view.addSubview(dialog)
         NSLayoutConstraint.activate([
@@ -52,7 +56,11 @@ class AlertViewController: UIViewController {
         ])
         
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.color = .gray
+        if #available(iOSApplicationExtension 13.0, *) {
+            // indicator color chosen automatically
+        } else {
+            indicator.color = .gray
+        }
         indicator.startAnimating()
         content.addSubview(indicator)
         NSLayoutConstraint.activate([
@@ -82,7 +90,11 @@ class AlertViewController: UIViewController {
         
         let hr = UIView()
         hr.translatesAutoresizingMaskIntoConstraints = false
-        hr.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        if #available(iOSApplicationExtension 13.0, *) {
+            hr.backgroundColor = .separator
+        } else {
+            hr.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        }
         dialog.addSubview(hr)
         NSLayoutConstraint.activate([
             hr.heightAnchor.constraint(equalToConstant: 1),

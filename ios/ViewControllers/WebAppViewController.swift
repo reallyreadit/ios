@@ -46,6 +46,12 @@ class WebAppViewController:
     private var isAuthenticated = false
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        }
+        return .default
+    }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         webView = MessageWebView(
