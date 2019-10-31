@@ -10,7 +10,7 @@ struct SemanticVersion {
         if fileName == nil {
             return nil
         }
-        let versionRegex = try! NSRegularExpression(pattern: "\\d\\.\\d\\.\\d")
+        let versionRegex = try! NSRegularExpression(pattern: "\\d+\\.\\d+\\.\\d+")
         if
             let match = versionRegex.firstMatch(
                 in: fileName!,
