@@ -5,11 +5,6 @@ private let clientHeaderValue = (
     "@" +
     SharedBundleInfo.version.description
 )
-private let urlSession: URLSession = {
-    var config = URLSessionConfiguration.default
-    config.httpCookieStorage = SharedCookieStore.store
-    return URLSession(configuration: config)
-}()
 private func createPostRequest<TData: Encodable>(
     path: String,
     data: TData?
@@ -64,65 +59,71 @@ private func logError(
         .dataTask(with: logRequest)
         .resume()
 }
-private func sendRequest(
-    request: URLRequest,
-    onSuccess: @escaping () -> Void,
-    onError: @escaping (_: Error?) -> Void
-) {
-    urlSession
-        .dataTask(
-            with: request,
-            completionHandler: {
-                (data, response, error) in
-                if
-                    error == nil,
-                    let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode)
-                {
-                    onSuccess()
-                } else {
-                    logError(request, response, data, error)
-                    onError(error)
-                }
-            }
-        )
-        .resume()
-}
-private func sendRequest<TResult: Decodable>(
-    request: URLRequest,
-    onSuccess: @escaping (_: TResult) -> Void,
-    onError: @escaping (_: Error?) -> Void
-) {
-    urlSession
-        .dataTask(
-            with: request,
-            completionHandler: {
-                (data, response, error) in
-                if
-                    error == nil,
-                    let httpResponse = response as? HTTPURLResponse,
-                    (200...299).contains(httpResponse.statusCode),
-                    let data = data
-                {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601DotNetCore
-                    do {
-                        let result = try decoder.decode(TResult.self, from: data)
-                        onSuccess(result)
-                    } catch let error {
+struct APIServerURLSession {
+    private let urlSession: URLSession
+    init() {
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = SharedCookieStore.store
+        urlSession = URLSession(configuration: config)
+    }
+    private func sendRequest(
+        request: URLRequest,
+        onSuccess: @escaping () -> Void,
+        onError: @escaping (_: Error?) -> Void
+    ) {
+        urlSession
+            .dataTask(
+                with: request,
+                completionHandler: {
+                    (data, response, error) in
+                    if
+                        error == nil,
+                        let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode)
+                    {
+                        onSuccess()
+                    } else {
                         logError(request, response, data, error)
                         onError(error)
                     }
-                } else {
-                    logError(request, response, data, error)
-                    onError(error)
                 }
-            }
-        )
-        .resume()
-}
-struct APIServer {
-    static func getJson<TResult: Decodable>(
+            )
+            .resume()
+    }
+    private func sendRequest<TResult: Decodable>(
+        request: URLRequest,
+        onSuccess: @escaping (_: TResult) -> Void,
+        onError: @escaping (_: Error?) -> Void
+    ) {
+        urlSession
+            .dataTask(
+                with: request,
+                completionHandler: {
+                    (data, response, error) in
+                    if
+                        error == nil,
+                        let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode),
+                        let data = data
+                    {
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .iso8601DotNetCore
+                        do {
+                            let result = try decoder.decode(TResult.self, from: data)
+                            onSuccess(result)
+                        } catch let error {
+                            logError(request, response, data, error)
+                            onError(error)
+                        }
+                    } else {
+                        logError(request, response, data, error)
+                        onError(error)
+                    }
+                }
+            )
+            .resume()
+    }
+    func getJson<TResult: Decodable>(
         path: String,
         queryItems: URLQueryItem...,
         onSuccess: @escaping (_: TResult) -> Void,
@@ -146,7 +147,7 @@ struct APIServer {
             onError: onError
         )
     }
-    static func postJson<TData: Encodable>(
+    func postJson<TData: Encodable>(
         path: String,
         data: TData?,
         onSuccess: @escaping () -> Void,
@@ -161,7 +162,7 @@ struct APIServer {
             onError: onError
         )
     }
-    static func postJson<TData: Encodable, TResult: Decodable>(
+    func postJson<TData: Encodable, TResult: Decodable>(
         path: String,
         data: TData?,
         onSuccess: @escaping (_: TResult) -> Void,

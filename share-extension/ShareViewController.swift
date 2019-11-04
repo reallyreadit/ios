@@ -28,6 +28,7 @@ private func findFirstItemProvider(
 }
 class ShareViewController: UIViewController, MessageWebViewDelegate {
     private var alert: AlertViewController!
+    private let apiServer = APIServerURLSession()
     private var hasParsedPage = false
     private var isCancelled = false
     private var url: URL?
@@ -165,7 +166,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         case "parseResult":
             hasParsedPage = true
             alert.showLoadingMessage(withText: "Saving article")
-            APIServer.postJson(
+            apiServer.postJson(
                 path: "/Extension/GetUserArticle",
                 data: PageParseResult(
                     contentScriptData: message.data as! [String: Any],

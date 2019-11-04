@@ -3,6 +3,7 @@ import WebKit
 import os.log
 
 class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
+    private let apiServer = APIServerURLSession()
     private var articleURL: URL!
     private var commitErrorCount = 0
     private var hasParsedPage = false
@@ -98,7 +99,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         }
     }
     private func loadArticle(slug: String) {
-        APIServer.getJson(
+        apiServer.getJson(
             path: "/Articles/Details",
             queryItems: URLQueryItem(name: "slug", value: slug),
             onSuccess: {
@@ -176,7 +177,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         switch message.type {
         case "commitReadState":
             let event = CommitReadStateEvent(message.data as! [String: Any])
-            APIServer.postJson(
+            apiServer.postJson(
                 path: "/Extension/CommitReadState",
                 data: event.commitData,
                 onSuccess: {
@@ -213,7 +214,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 }
             )
         case "getComments":
-            APIServer.getJson(
+            apiServer.getJson(
                 path: "/Articles/ListComments",
                 queryItems: URLQueryItem(name: "slug", value: message.data as? String),
                 onSuccess: {
@@ -230,7 +231,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
             )
         case "parseResult":
             hasParsedPage = true
-            APIServer.postJson(
+            apiServer.postJson(
                 path: "/Extension/GetUserArticle",
                 data: PageParseResult(contentScriptData: message.data as! [String: Any]),
                 onSuccess: {
@@ -257,7 +258,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
             )
             webViewContainer.setState(.loaded)
         case "postArticle":
-            APIServer.postJson(
+            apiServer.postJson(
                 path: "/Social/Post",
                 data: PostForm(message.data as! [String: Any]),
                 onSuccess: {
@@ -302,7 +303,7 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                 }
             )
         case "postComment":
-            APIServer.postJson(
+            apiServer.postJson(
                 path: "/Articles/PostComment",
                 data: PostCommentForm(message.data as! [String: Any]),
                 onSuccess: {

@@ -13,23 +13,24 @@ private func handleAuthorizationRequestResponse(
             UIApplication.shared.registerForRemoteNotifications()
         }
     } else {
-        APIServer.postJson(
-            path: "/Notifications/PushAuthDenial",
-            data: PushAuthDenialForm(
-                installationId: UIDevice.current.identifierForVendor?.uuidString,
-                deviceName: UIDevice.current.name
-            ),
-            onSuccess: {
-                os_log("[notifications] auth request denial sent successfully")
-            },
-            onError: {
-                error in
-                os_log(
-                    "[notifications] error sending auth request denial: %s",
-                    error?.localizedDescription ?? ""
-                )
-            }
-        )
+        APIServerURLSession()
+            .postJson(
+                path: "/Notifications/PushAuthDenial",
+                data: PushAuthDenialForm(
+                    installationId: UIDevice.current.identifierForVendor?.uuidString,
+                    deviceName: UIDevice.current.name
+                ),
+                onSuccess: {
+                    os_log("[notifications] auth request denial sent successfully")
+                },
+                onError: {
+                    error in
+                    os_log(
+                        "[notifications] error sending auth request denial: %s",
+                        error?.localizedDescription ?? ""
+                    )
+                }
+            )
     }
     if let error = error {
         os_log("[notifications] auth request error: %s", error.localizedDescription)
@@ -69,26 +70,27 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static func sendToken(_ token: String) {
         os_log("[notifications] sending token")
         if let vendorId = UIDevice.current.identifierForVendor {
-            APIServer.postJson(
-                path: "/Notifications/DeviceRegistration",
-                data: DeviceRegistrationForm(
-                    installationId: vendorId.uuidString,
-                    name: UIDevice.current.name,
-                    token: token
-                ),
-                onSuccess: {
-                    (user: UserAccount) in
-                    os_log("[notifications] token sent")
-                    LocalStorage.setNotificationTokenSent(true)
-                    DispatchQueue.main.async {
-                        NotificationService.syncBadge(with: user)
+            APIServerURLSession()
+                .postJson(
+                    path: "/Notifications/DeviceRegistration",
+                    data: DeviceRegistrationForm(
+                        installationId: vendorId.uuidString,
+                        name: UIDevice.current.name,
+                        token: token
+                    ),
+                    onSuccess: {
+                        (user: UserAccount) in
+                        os_log("[notifications] token sent")
+                        LocalStorage.setNotificationTokenSent(true)
+                        DispatchQueue.main.async {
+                            NotificationService.syncBadge(with: user)
+                        }
+                    },
+                    onError: {
+                        error in
+                        os_log("[notifications] error sending token: %s", error?.localizedDescription ?? "")
                     }
-                },
-                onError: {
-                    error in
-                    os_log("[notifications] error sending token: %s", error?.localizedDescription ?? "")
-                }
-            )
+                )
         } else {
             os_log("[notifications] failed to get vendor id")
         }
@@ -136,28 +138,30 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             {
                 os_log("[notifications] viewing notification")
                 delegate?.onViewNotification(url: url)
-                APIServer.postJson(
-                    path: "/Notifications/PushView",
-                    data: PushViewForm(
-                        receiptId: response.notification.request.identifier,
-                        url: url.absoluteString
-                    ),
-                    onSuccess: { },
-                    onError: { error in }
-                )
+                APIServerURLSession()
+                    .postJson(
+                        path: "/Notifications/PushView",
+                        data: PushViewForm(
+                            receiptId: response.notification.request.identifier,
+                            url: url.absoluteString
+                        ),
+                        onSuccess: { },
+                        onError: { error in }
+                    )
             }
         case NotificationService.replyActionId:
             if let textResponse = response as? UNTextInputNotificationResponse {
                 os_log("[notifications] replying to notification")
-                APIServer.postJson(
-                    path: "/Notifications/PushReply",
-                    data: PushReplyForm(
-                        receiptId: response.notification.request.identifier,
-                        text: textResponse.userText
-                    ),
-                    onSuccess: { },
-                    onError: { error in }
-                )
+                APIServerURLSession()
+                    .postJson(
+                        path: "/Notifications/PushReply",
+                        data: PushReplyForm(
+                            receiptId: response.notification.request.identifier,
+                            text: textResponse.userText
+                        ),
+                        onSuccess: { },
+                        onError: { error in }
+                    )
             }
         default:
             // don't handle dismiss action
