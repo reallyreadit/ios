@@ -22,6 +22,9 @@ private func prepareURL(_ url: URL) -> URL? {
             with: "readup.com",
             options: [.caseInsensitive]
         )
+        if components.host != AppBundleInfo.webServerURL.host {
+            return nil
+        }
         // set the client type in the query string
         let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
         if (components.queryItems == nil) {
@@ -128,7 +131,7 @@ class WebAppViewController:
     func loadURL(_ url: URL) {
         let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
         os_log("[webapp] load url: %s", preparedURL.absoluteString)
-        if hasEstablishedCommunication && !(preparedURL.host?.starts(with: "api.") ?? false) {
+        if hasEstablishedCommunication {
             webView.sendMessage(
                 message: Message(
                     type: "loadUrl",
