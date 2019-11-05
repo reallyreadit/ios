@@ -63,7 +63,7 @@ struct APIServerURLSession {
     private let urlSession: URLSession
     init() {
         let config = URLSessionConfiguration.default
-        config.httpCookieStorage = SharedCookieStore.store
+        config.httpCookieStorage = SharedCookieStore.getStore()
         urlSession = URLSession(configuration: config)
     }
     private func sendRequest(
