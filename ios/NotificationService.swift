@@ -145,9 +145,16 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                             receiptId: response.notification.request.identifier,
                             url: url.absoluteString
                         ),
-                        onSuccess: { },
-                        onError: { error in }
+                        onSuccess: {
+                            completionHandler()
+                        },
+                        onError: {
+                            error in
+                            completionHandler()
+                        }
                     )
+            } else {
+                completionHandler()
             }
         case NotificationService.replyActionId:
             if let textResponse = response as? UNTextInputNotificationResponse {
@@ -159,15 +166,22 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                             receiptId: response.notification.request.identifier,
                             text: textResponse.userText
                         ),
-                        onSuccess: { },
-                        onError: { error in }
+                        onSuccess: {
+                            completionHandler()
+                        },
+                        onError: {
+                            error in
+                            completionHandler()
+                        }
                     )
+            } else {
+                completionHandler()
             }
         default:
             // don't handle dismiss action
+            completionHandler()
             break
         }
-        completionHandler()
     }
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
