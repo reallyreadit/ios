@@ -6,4 +6,5 @@ struct ArticleViewControllerParams {
     let onArticleUpdated: (_: ArticleUpdatedEvent) -> Void
     let onClose: () -> Void
     let onCommentPosted: (_: CommentThread) -> Void
+    let onCommentUpdated: (_: CommentThread) -> Void
 }

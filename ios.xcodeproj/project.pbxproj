@@ -72,6 +72,16 @@
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
 		1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
 		1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEC220115710002C6FB /* SharedCookieStore.swift */; };
+		1F5B32C0238B1BC50060B693 /* ArticleFlair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */; };
+		1F5B32C1238B1BC50060B693 /* ArticleFlair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */; };
+		1F5B32C3238B1C3E0060B693 /* CommentAddendum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C2238B1C3E0060B693 /* CommentAddendum.swift */; };
+		1F5B32C4238B1C3E0060B693 /* CommentAddendum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C2238B1C3E0060B693 /* CommentAddendum.swift */; };
+		1F5B32C6238B1D590060B693 /* CommentAddendumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C5238B1D590060B693 /* CommentAddendumForm.swift */; };
+		1F5B32C7238B1D590060B693 /* CommentAddendumForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C5238B1D590060B693 /* CommentAddendumForm.swift */; };
+		1F5B32C9238B1DA30060B693 /* CommentRevisionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C8238B1DA30060B693 /* CommentRevisionForm.swift */; };
+		1F5B32CA238B1DA30060B693 /* CommentRevisionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32C8238B1DA30060B693 /* CommentRevisionForm.swift */; };
+		1F5B32CC238B1DC80060B693 /* CommentDeletionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32CB238B1DC80060B693 /* CommentDeletionForm.swift */; };
+		1F5B32CD238B1DC80060B693 /* CommentDeletionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B32CB238B1DC80060B693 /* CommentDeletionForm.swift */; };
 		1F71E9E123560DCA000F869D /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E023560DCA000F869D /* LocalStorage.swift */; };
 		1F71E9E223560DCA000F869D /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E023560DCA000F869D /* LocalStorage.swift */; };
 		1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */; };
@@ -96,8 +106,8 @@
 		1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */; };
 		1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */; };
 		1F8768D0225F9EA4002B5D16 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768CF225F9EA4002B5D16 /* UIViewControllerExtension.swift */; };
-		1F8768D222692AB8002B5D16 /* PostCommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* PostCommentForm.swift */; };
-		1F8768D322692AB8002B5D16 /* PostCommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* PostCommentForm.swift */; };
+		1F8768D222692AB8002B5D16 /* CommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* CommentForm.swift */; };
+		1F8768D322692AB8002B5D16 /* CommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* CommentForm.swift */; };
 		1F8768D522692B7F002B5D16 /* CommentThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D422692B7F002B5D16 /* CommentThread.swift */; };
 		1F8768D622692B7F002B5D16 /* CommentThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D422692B7F002B5D16 /* CommentThread.swift */; };
 		1F8768D822693700002B5D16 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D722693700002B5D16 /* UserAccount.swift */; };
@@ -200,6 +210,11 @@
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
+		1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFlair.swift; sourceTree = "<group>"; };
+		1F5B32C2238B1C3E0060B693 /* CommentAddendum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAddendum.swift; sourceTree = "<group>"; };
+		1F5B32C5238B1D590060B693 /* CommentAddendumForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAddendumForm.swift; sourceTree = "<group>"; };
+		1F5B32C8238B1DA30060B693 /* CommentRevisionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRevisionForm.swift; sourceTree = "<group>"; };
+		1F5B32CB238B1DC80060B693 /* CommentDeletionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDeletionForm.swift; sourceTree = "<group>"; };
 		1F71E9E023560DCA000F869D /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRegistrationForm.swift; sourceTree = "<group>"; };
 		1F71E9E623563049000F869D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -216,7 +231,7 @@
 		1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBlockerSource.swift; sourceTree = "<group>"; };
 		1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataURLSource.swift; sourceTree = "<group>"; };
 		1F8768CF225F9EA4002B5D16 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		1F8768D122692AB8002B5D16 /* PostCommentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentForm.swift; sourceTree = "<group>"; };
+		1F8768D122692AB8002B5D16 /* CommentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentForm.swift; sourceTree = "<group>"; };
 		1F8768D422692B7F002B5D16 /* CommentThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentThread.swift; sourceTree = "<group>"; };
 		1F8768D722693700002B5D16 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		1F8768DA2269390D002B5D16 /* UserAccountRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRole.swift; sourceTree = "<group>"; };
@@ -333,10 +348,16 @@
 				1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */,
 				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
+				1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
 				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
 				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
 				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
+				1F5B32C2238B1C3E0060B693 /* CommentAddendum.swift */,
+				1F5B32C5238B1D590060B693 /* CommentAddendumForm.swift */,
+				1F5B32CB238B1DC80060B693 /* CommentDeletionForm.swift */,
+				1F8768D122692AB8002B5D16 /* CommentForm.swift */,
+				1F5B32C8238B1DA30060B693 /* CommentRevisionForm.swift */,
 				1F8768D422692B7F002B5D16 /* CommentThread.swift */,
 				1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */,
 				1F71E9E9235676F8000F869D /* DeviceInfo.swift */,
@@ -346,7 +367,6 @@
 				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
 				1FC0D618231AD23100E4DD9A /* Post.swift */,
 				1FC0D615231AD1C200E4DD9A /* PostComment.swift */,
-				1F8768D122692AB8002B5D16 /* PostCommentForm.swift */,
 				1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */,
 				1FC0D61B231AD29500E4DD9A /* PostForm.swift */,
 				1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */,
@@ -569,7 +589,7 @@
 				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
 				1F8768D0225F9EA4002B5D16 /* UIViewControllerExtension.swift in Sources */,
-				1F8768D222692AB8002B5D16 /* PostCommentForm.swift in Sources */,
+				1F8768D222692AB8002B5D16 /* CommentForm.swift in Sources */,
 				1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */,
@@ -579,11 +599,13 @@
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
 				1F8768D822693700002B5D16 /* UserAccount.swift in Sources */,
+				1F5B32CC238B1DC80060B693 /* CommentDeletionForm.swift in Sources */,
 				1F19479F21EAAA9100D1599D /* WebViewContainer.swift in Sources */,
 				1F71E9E123560DCA000F869D /* LocalStorage.swift in Sources */,
 				1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */,
 				1F8768BC22381137002B5D16 /* ClipboardReferrer.swift in Sources */,
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
+				1F5B32C9238B1DA30060B693 /* CommentRevisionForm.swift in Sources */,
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F8768D522692B7F002B5D16 /* CommentThread.swift in Sources */,
 				1F8768DE2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
@@ -593,6 +615,7 @@
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
 				1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */,
+				1F5B32C3238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
 				1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */,
 				1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */,
 				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,
@@ -611,9 +634,11 @@
 				1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */,
 				1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */,
 				1F19479421EA9C1900D1599D /* APIServerURLSession.swift in Sources */,
+				1F5B32C0238B1BC50060B693 /* ArticleFlair.swift in Sources */,
 				1F1947A121EAAF7200D1599D /* HTMLTagReplacement.swift in Sources */,
 				1FA91D0D235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
+				1F5B32C6238B1D590060B693 /* CommentAddendumForm.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
@@ -640,8 +665,9 @@
 				1F1947AA21EAB0FA00D1599D /* HTMLTagReplacement.swift in Sources */,
 				1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */,
-				1F8768D322692AB8002B5D16 /* PostCommentForm.swift in Sources */,
+				1F8768D322692AB8002B5D16 /* CommentForm.swift in Sources */,
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
+				1F5B32C1238B1BC50060B693 /* ArticleFlair.swift in Sources */,
 				1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
@@ -649,14 +675,17 @@
 				1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F1947A921EAB0FA00D1599D /* ArticleProcessing.swift in Sources */,
 				1F1947B221EAB0FA00D1599D /* MessageWebView.swift in Sources */,
+				1F5B32CD238B1DC80060B693 /* CommentDeletionForm.swift in Sources */,
 				1F1947AD21EAB0FA00D1599D /* Message.swift in Sources */,
 				1F1947BA21EAC5A800D1599D /* ArticleLookupResult.swift in Sources */,
 				1F71E9EE23578148000F869D /* PushAuthDenailForm.swift in Sources */,
 				1FDBBC8622173D9400E03051 /* Rating.swift in Sources */,
+				1F5B32C7238B1D590060B693 /* CommentAddendumForm.swift in Sources */,
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */,
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
 				1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
+				1F5B32C4238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
 				1F8768D922693700002B5D16 /* UserAccount.swift in Sources */,
 				1FC0D61D231AD29500E4DD9A /* PostForm.swift in Sources */,
 				1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */,
@@ -664,6 +693,7 @@
 				1F1947BD21EAC5A800D1599D /* SourceParseResult.swift in Sources */,
 				1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
+				1F5B32CA238B1DA30060B693 /* CommentRevisionForm.swift in Sources */,
 				1F71E9E52356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,

@@ -6,4 +6,7 @@ struct Post: Codable {
     let badge: LeaderboardBadge
     let article: Article
     let comment: PostComment?
+    let silentPostId: String?
+    let dateDeleted: Date?
+    let hasAlert: Bool
 }

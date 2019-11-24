@@ -267,6 +267,15 @@ class WebAppViewController:
                             data: comment
                         )
                     )
+                },
+                onCommentUpdated: {
+                    comment in
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "commentUpdated",
+                            data: comment
+                        )
+                    )
                 }
             )
         }

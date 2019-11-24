@@ -213,9 +213,31 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     }
                 }
             )
+        case "deleteComment":
+            apiServer.postJson(
+                path: "/Social/CommentDeletion",
+                data: CommentDeletionForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (comment: CommentThread) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.params.onCommentUpdated(comment)
+                            self.webView.sendResponse(data: comment, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error posting comment addendum.")
+                        }
+                    }
+                }
+            )
         case "getComments":
             apiServer.getJson(
-                path: "/Articles/ListComments",
+                path: "/Social/Comments",
                 queryItems: URLQueryItem(name: "slug", value: message.data as? String),
                 onSuccess: {
                     [weak self] (comments: [CommentThread]) in
@@ -278,12 +300,14 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                                         id: postComment.id,
                                         dateCreated: post.date,
                                         text: postComment.text,
+                                        addenda: postComment.addenda,
                                         articleId: post.article.id,
                                         articleTitle: post.article.title,
                                         articleSlug: post.article.slug,
                                         userAccount: post.userName,
                                         badge: post.badge,
                                         parentCommentId: nil,
+                                        dateDeleted: post.dateDeleted,
                                         children: [],
                                         maxDate: post.date
                                     )
@@ -304,8 +328,8 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
             )
         case "postComment":
             apiServer.postJson(
-                path: "/Articles/PostComment",
-                data: PostCommentForm(message.data as! [String: Any]),
+                path: "/Social/Comment",
+                data: CommentForm(message.data as! [String: Any]),
                 onSuccess: {
                     [weak self] (result: PostCommentResult) in
                     if let self = self {
@@ -326,6 +350,50 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     if let self = self {
                         DispatchQueue.main.async {
                             self.setErrorState(withMessage: "Error posting comment.")
+                        }
+                    }
+                }
+            )
+        case "postCommentAddendum":
+            apiServer.postJson(
+                path: "/Social/CommentAddendum",
+                data: CommentAddendumForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (comment: CommentThread) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.params.onCommentUpdated(comment)
+                            self.webView.sendResponse(data: comment, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error posting comment addendum.")
+                        }
+                    }
+                }
+            )
+        case "postCommentRevision":
+            apiServer.postJson(
+                path: "/Social/CommentRevision",
+                data: CommentRevisionForm(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (comment: CommentThread) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.params.onCommentUpdated(comment)
+                            self.webView.sendResponse(data: comment, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error posting comment addendum.")
                         }
                     }
                 }
