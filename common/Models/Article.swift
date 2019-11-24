@@ -21,6 +21,11 @@ struct Article: Codable {
     let isRead: Bool
     let dateStarred: Date?
     let ratingScore: Int?
-    let datePosted: Date?
+    let datesPosted: [Date]
+    let hotScore: Int
+    let hotVelocity: Int
+    let ratingCount: Int
+    let firstPoster: String?
+    let flair: ArticleFlair?
     let proofToken: String?
 }
