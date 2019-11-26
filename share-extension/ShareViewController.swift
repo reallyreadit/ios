@@ -2,10 +2,16 @@ import UIKit
 import Social
 import WebKit
 
-private let appleNewsURLRegex = try! NSRegularExpression(
-    pattern: "<a\\b[^>]*href=(['\"])(?<url>(?:(?!\\1).)*)\\1[^>]*>\\s*click\\s+here\\s*</a>",
-    options: .caseInsensitive
-)
+private let redirectSites = [
+    "news.google.com": try! NSRegularExpression(
+        pattern: "<noscript>.*<a\\b[^>]*href=(['\"])(?<url>(?:(?!\\1).)*)\\1[^>]*>.*</noscript>",
+        options: .caseInsensitive
+    ),
+    "apple.news": try! NSRegularExpression(
+        pattern: "<a\\b[^>]*href=(['\"])(?<url>(?:(?!\\1).)*)\\1[^>]*>\\s*click\\s+here\\s*</a>",
+        options: .caseInsensitive
+    )
+]
 private func findFirstItemProvider(
     in context: NSExtensionContext?,
     for identifier: String
@@ -107,7 +113,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
     }
     private func processUrl(_ url: URL) {
         self.alert.showLoadingMessage(withText: "Loading article")
-        if url.absoluteString.starts(with: "https://apple.news/") {
+        if let redirectRegex = redirectSites[url.host!] {
             URLSession
                 .shared
                 .dataTask(
@@ -122,7 +128,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                             (200...299).contains(httpResponse.statusCode),
                             let data = data,
                             let stringData = String(data: data, encoding: .utf8),
-                            let match = appleNewsURLRegex.firstMatch(
+                            let match = redirectRegex.firstMatch(
                                 in: stringData,
                                 options: [],
                                 range: NSRange(
