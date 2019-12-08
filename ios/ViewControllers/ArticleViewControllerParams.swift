@@ -7,4 +7,5 @@ struct ArticleViewControllerParams {
     let onClose: () -> Void
     let onCommentPosted: (_: CommentThread) -> Void
     let onCommentUpdated: (_: CommentThread) -> Void
+    let onNavTo: (_: URL) -> Void
 }

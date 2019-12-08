@@ -1,8 +1,14 @@
 import UIKit
 import WebKit
+import SafariServices
 import os.log
 
-class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGestureRecognizerDelegate {
+class ArticleViewController:
+    UIViewController,
+    MessageWebViewDelegate,
+    UIGestureRecognizerDelegate,
+    SFSafariViewControllerDelegate
+{
     private let apiServer = APIServerURLSession()
     private var articleURL: URL!
     private var commitErrorCount = 0
@@ -251,6 +257,15 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     _ in os_log("error fetching comments")
                 }
             )
+        case "navTo":
+            if let url = URL(string: message.data as! String) {
+                params.onNavTo(url)
+                navigationController?.popViewController(animated: true)
+            }
+        case "openExternalUrl":
+            if let url = URL(string: message.data as! String) {
+                presentSafariViewController(url: url, delegate: self)
+            }
         case "parseResult":
             hasParsedPage = true
             apiServer.postJson(
@@ -398,6 +413,8 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
                     }
                 }
             )
+        case "readArticle":
+            replaceArticle(slug: message.data as! String)
         case "share":
             presentActivityViewController(data: ShareData(message.data as! [String: Any]))
         default:
@@ -415,6 +432,9 @@ class ArticleViewController: UIViewController, MessageWebViewDelegate, UIGesture
         )
         webViewContainer.setState(.loading)
         loadArticle(slug: slug)
+    }
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true)
     }
     func setErrorState(withMessage message: String) {
         progressBar.setState(isLoading: false)

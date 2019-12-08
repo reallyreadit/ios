@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import SafariServices
 import os.log
 
 private func getDeviceInfo() -> DeviceInfo {
@@ -41,7 +42,8 @@ private func prepareURL(_ url: URL) -> URL? {
 class WebAppViewController:
     UIViewController,
     MessageWebViewDelegate,
-    WebViewContainerDelegate
+    WebViewContainerDelegate,
+    SFSafariViewControllerDelegate
 {
     private var hasCalledWebViewLoad = false
     private var hasEstablishedCommunication = false
@@ -159,6 +161,10 @@ class WebAppViewController:
                 data: getDeviceInfo(),
                 callbackId: callbackId!
             )
+        case "openExternalUrl":
+            if let url = URL(string: message.data as! String) {
+                presentSafariViewController(url: url, delegate: self)
+            }
         case "readArticle":
             let data = message.data as! [String: Any]
             performSegue(
@@ -276,6 +282,10 @@ class WebAppViewController:
                             data: comment
                         )
                     )
+                },
+                onNavTo: {
+                    url in
+                    self.loadURL(url)
                 }
             )
         }
@@ -285,6 +295,9 @@ class WebAppViewController:
             withIdentifier: "readArticle",
             sender: ArticleReference.slug(slug)
         )
+    }
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true)
     }
     func signalDidBecomeActive(event: AppActivationEvent) {
         webView.sendMessage(
