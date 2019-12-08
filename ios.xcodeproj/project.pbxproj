@@ -93,6 +93,7 @@
 		1F71E9EE23578148000F869D /* PushAuthDenailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */; };
 		1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
 		1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
+		1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -105,7 +106,7 @@
 		1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C12239CD70002B5D16 /* EmailShareData.swift */; };
 		1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */; };
 		1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */; };
-		1F8768D0225F9EA4002B5D16 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768CF225F9EA4002B5D16 /* UIViewControllerExtension.swift */; };
+		1F8768D0225F9EA4002B5D16 /* SharingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768CF225F9EA4002B5D16 /* SharingExtensions.swift */; };
 		1F8768D222692AB8002B5D16 /* CommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* CommentForm.swift */; };
 		1F8768D322692AB8002B5D16 /* CommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D122692AB8002B5D16 /* CommentForm.swift */; };
 		1F8768D522692B7F002B5D16 /* CommentThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768D422692B7F002B5D16 /* CommentThread.swift */; };
@@ -221,6 +222,7 @@
 		1F71E9E9235676F8000F869D /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
+		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
@@ -230,7 +232,7 @@
 		1F8768C12239CD70002B5D16 /* EmailShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailShareData.swift; sourceTree = "<group>"; };
 		1F8768C3223AE0B0002B5D16 /* ShareBlockerSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBlockerSource.swift; sourceTree = "<group>"; };
 		1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataURLSource.swift; sourceTree = "<group>"; };
-		1F8768CF225F9EA4002B5D16 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		1F8768CF225F9EA4002B5D16 /* SharingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingExtensions.swift; sourceTree = "<group>"; };
 		1F8768D122692AB8002B5D16 /* CommentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentForm.swift; sourceTree = "<group>"; };
 		1F8768D422692B7F002B5D16 /* CommentThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentThread.swift; sourceTree = "<group>"; };
 		1F8768D722693700002B5D16 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 		1F13B4D421CC334400EE6927 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1F755A41239C4B5200124191 /* SafariViewController */,
 				1F8768CE225F9E84002B5D16 /* Sharing */,
 				1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */,
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
@@ -454,6 +457,14 @@
 			path = WebViewUI;
 			sourceTree = "<group>";
 		};
+		1F755A41239C4B5200124191 /* SafariViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */,
+			);
+			path = SafariViewController;
+			sourceTree = "<group>";
+		};
 		1F8768CE225F9E84002B5D16 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,7 +473,7 @@
 				1F8768B92231AC0D002B5D16 /* ShareData.swift */,
 				1F8768BF2239C04B002B5D16 /* ShareDataStringSource.swift */,
 				1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */,
-				1F8768CF225F9EA4002B5D16 /* UIViewControllerExtension.swift */,
+				1F8768CF225F9EA4002B5D16 /* SharingExtensions.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -588,7 +599,7 @@
 			files = (
 				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
-				1F8768D0225F9EA4002B5D16 /* UIViewControllerExtension.swift in Sources */,
+				1F8768D0225F9EA4002B5D16 /* SharingExtensions.swift in Sources */,
 				1F8768D222692AB8002B5D16 /* CommentForm.swift in Sources */,
 				1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
@@ -598,6 +609,7 @@
 				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
+				1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */,
 				1F8768D822693700002B5D16 /* UserAccount.swift in Sources */,
 				1F5B32CC238B1DC80060B693 /* CommentDeletionForm.swift in Sources */,
 				1F19479F21EAAA9100D1599D /* WebViewContainer.swift in Sources */,
