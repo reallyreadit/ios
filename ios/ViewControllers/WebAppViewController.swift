@@ -327,6 +327,10 @@ class WebAppViewController:
         super.viewDidLoad()
         // hide the navigation bar
         navigationController!.setNavigationBarHidden(true, animated: false)
+        // force the navigation controller to light mode
+        if #available(iOS 13.0, *) {
+            navigationController!.overrideUserInterfaceStyle = .light
+        }
         // add the webview container as a subview
         view.addSubview(webViewContainer.view)
         webViewContainer.view.translatesAutoresizingMaskIntoConstraints = false

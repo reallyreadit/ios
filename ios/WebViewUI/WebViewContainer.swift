@@ -23,11 +23,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         ])
         // configure the loading view
         let indicator = UIActivityIndicatorView()
-        if #available(iOS 13.0, *) {
-            // indicator color chosen automatically
-        } else {
-            indicator.color = .gray
-        }
+        indicator.color = .gray
         indicator.startAnimating()
         loadingView.addSubview(indicator)
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -36,11 +32,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
             indicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor)
         ])
         // add loading view to container
-        if #available(iOS 13.0, *) {
-            loadingView.backgroundColor = .systemBackground
-        } else {
-            loadingView.backgroundColor = .white
-        }
+        loadingView.backgroundColor = .white
         view.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -50,11 +42,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         // add error view to container
-        if #available(iOS 13.0, *) {
-            errorView.backgroundColor = .systemBackground
-        } else {
-            errorView.backgroundColor = .white
-        }
+        errorView.backgroundColor = .white
         view.addSubview(errorView)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
