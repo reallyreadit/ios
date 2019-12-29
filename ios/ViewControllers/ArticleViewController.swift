@@ -135,7 +135,17 @@ class ArticleViewController:
                     DispatchQueue.main.async {
                         self.webView.view.loadHTMLString(
                             content as String,
-                            baseURL: self.articleURL
+                            baseURL: (
+                                SharedBundleInfo.debugReader ?
+                                    self.articleURL :
+                                    URL(
+                                        string: self.articleURL.absoluteString.replacingOccurrences(
+                                            of: "^http:",
+                                            with: "https:",
+                                            options: [.regularExpression, .caseInsensitive]
+                                        )
+                                    )!
+                            )
                         )
                         self.progressBar.setState(isLoading: true)
                     }
