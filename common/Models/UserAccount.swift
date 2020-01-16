@@ -16,6 +16,7 @@ struct UserAccount: Codable {
         loopbackAlertCount = serializedUser["loopbackAlertCount"] as! Int
         postAlertCount = serializedUser["postAlertCount"] as! Int
         followerAlertCount = serializedUser["followerAlertCount"] as! Int
+        isPasswordSet = serializedUser["isPasswordSet"] as! Bool
     }
     let id: Int
     let name: String
@@ -29,4 +30,5 @@ struct UserAccount: Codable {
     let loopbackAlertCount: Int
     let postAlertCount: Int
     let followerAlertCount: Int
+    let isPasswordSet: Bool
 }
