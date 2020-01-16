@@ -11,7 +11,7 @@ struct ScriptUpdater {
                 script.name,
                 lastUpdateCheck?.description ?? "nil"
             )
-            if lastUpdateCheck == nil || now.timeIntervalSince(lastUpdateCheck!) >= 4 * 60 * 60 {
+            if lastUpdateCheck == nil || now.timeIntervalSince(lastUpdateCheck!) >= 20 * 60 {
                 let currentVersion = SemanticVersion.greatest(
                     script.bundledVersion,
                     LocalStorage.getVersionForScript(name: script.name)
