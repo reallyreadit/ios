@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 import SafariServices
 import os.log
+import AuthenticationServices
 
 private func getDeviceInfo() -> DeviceInfo {
     return DeviceInfo(
@@ -43,7 +44,9 @@ class WebAppViewController:
     UIViewController,
     MessageWebViewDelegate,
     WebViewContainerDelegate,
-    SFSafariViewControllerDelegate
+    SFSafariViewControllerDelegate,
+    ASAuthorizationControllerDelegate,
+    ASAuthorizationControllerPresentationContextProviding
 {
     private var hasCalledWebViewLoad = false
     private var hasEstablishedCommunication = false
@@ -130,6 +133,85 @@ class WebAppViewController:
             view.backgroundColor = newsprint
         }
     }
+    @available(iOS 13.0, *)
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
+        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let realUserStatusString: String
+            switch (credential.realUserStatus) {
+            case .likelyReal:
+                realUserStatusString = "likelyReal"
+            case .unsupported:
+                realUserStatusString = "unsupported"
+            case .unknown:
+                fallthrough
+            default:
+                realUserStatusString = "unknown"
+            }
+            webView.sendMessage(
+                message: Message(
+                    type: "authenticateAppleIdCredential",
+                    data: [
+                        "authorizationCode": (
+                            credential.authorizationCode != nil ?
+                                String(
+                                    data: credential.authorizationCode!,
+                                    encoding: .utf8
+                                ) :
+                                nil
+                        ),
+                        "email": credential.email,
+                        "identityToken": (
+                            credential.identityToken != nil ?
+                                String(
+                                    data: credential.identityToken!,
+                                    encoding: .utf8
+                                ) :
+                                nil
+                        ),
+                        "realUserStatus": realUserStatusString,
+                        "user": credential.user
+                    ]
+                )
+            )
+        }
+    }
+    @available(iOS 13.0, *)
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithError error: Error
+    ) {
+        let errorMessage: String?
+        if let authError = error as? ASAuthorizationError {
+            switch (authError.code) {
+            case .canceled:
+                errorMessage = nil
+            case .failed:
+                errorMessage = "Authentication request failed."
+            case .invalidResponse:
+                errorMessage = "Invalid authentication response."
+            case .notHandled:
+                errorMessage = "Authentication request not handled."
+            case .unknown:
+                fallthrough
+            default:
+                errorMessage = "An unknown error occurred."
+            }
+        } else {
+            errorMessage = error.localizedDescription
+        }
+        if let errorMessage = errorMessage {
+            let alert = UIAlertController(
+                title: "Error",
+                message: errorMessage,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alert, animated: true)
+        }
+    }
     func loadURL(_ url: URL) {
         let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
         os_log("[webapp] load url: %s", preparedURL.absoluteString)
@@ -173,6 +255,25 @@ class WebAppViewController:
                     ArticleReference.url(URL(string: data["url"] as! String)!) :
                     ArticleReference.slug(data["slug"] as! String)
             )
+        case "requestAppleIdCredential":
+            if #available(iOS 13.0, *) {
+                let appleIDProvider = ASAuthorizationAppleIDProvider()
+                let request = appleIDProvider.createRequest()
+                request.requestedScopes = [.email]
+                
+                let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                authorizationController.delegate = self
+                authorizationController.presentationContextProvider = self
+                authorizationController.performRequests()
+            } else {
+                let alert = UIAlertController(
+                    title: "Not Supported",
+                    message: "iOS 13 or greater is required to use this feature.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alert, animated: true)
+            }
         case "share":
             presentActivityViewController(data: ShareData(message.data as! [String: Any]))
         // called on initial load and then every sign in/out event
@@ -289,6 +390,10 @@ class WebAppViewController:
                 }
             )
         }
+    }
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
     func readArticle(slug: String) {
         performSegue(
