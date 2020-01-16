@@ -94,38 +94,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             {
                 let decoder = JSONDecoder.init()
                 decoder.dateDecodingStrategy = .millisecondsSince1970
+                let encoder = JSONEncoder.init()
                 if
                     let referrer = try? decoder.decode(ClipboardReferrer.self, from: jsonData),
                     var components = URLComponents(
                         url: (
                             referrer.timestamp.timeIntervalSinceNow > -30 * 60 ?
-                                AppBundleInfo.webServerURL.appendingPathComponent(referrer.path) :
+                                AppBundleInfo.webServerURL.appendingPathComponent(referrer.currentPath) :
                                 AppBundleInfo.webServerURL
                         ),
                         resolvingAgainstBaseURL: true
-                    )
+                    ),
+                    let appReferral = try? encoder.encode([
+                        "action": referrer.action,
+                        "initialPath": referrer.initialPath,
+                        "marketingVariant": String(referrer.marketingVariant),
+                        "referrerUrl": referrer.referrerURL
+                    ])
                 {
-                    
-                    var queryItems = [URLQueryItem]()
-                    if let marketingScreenVariant = referrer.marketingScreenVariant {
-                        queryItems.append(
-                            URLQueryItem(
-                                name: "marketingScreenVariant",
-                                value: String(marketingScreenVariant)
+                    components.queryItems = [
+                        URLQueryItem(
+                            name: "appReferral",
+                            value: String(
+                                data: appReferral,
+                                encoding: .utf8
                             )
                         )
-                    }
-                    if let referrerURL = referrer.referrerURL {
-                        queryItems.append(
-                            URLQueryItem(
-                                name: "referrerUrl",
-                                value: referrerURL
-                            )
-                        )
-                    }
-                    if queryItems.count > 0 {
-                        components.queryItems = queryItems
-                    }
+                    ]
                     if let url = components.url {
                         let _ = loadURL(url)
                     }
