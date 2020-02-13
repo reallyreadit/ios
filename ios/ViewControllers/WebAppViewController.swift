@@ -24,7 +24,7 @@ private func prepareURL(_ url: URL) -> URL? {
             with: "readup.com",
             options: [.caseInsensitive]
         )
-        if components.host != AppBundleInfo.webServerURL.host {
+        if components.host != SharedBundleInfo.webServerURL.host {
             return nil
         }
         // set the client type in the query string
@@ -124,7 +124,7 @@ class WebAppViewController:
         ])
     }
     @objc private func loadWebApp() {
-        loadURL(AppBundleInfo.webServerURL)
+        loadURL(SharedBundleInfo.webServerURL)
     }
     private func setBackgroundColor() {
         if webViewContainer.state == .loaded, isAuthenticated {
@@ -213,7 +213,7 @@ class WebAppViewController:
         }
     }
     func loadURL(_ url: URL) {
-        let preparedURL = prepareURL(url) ?? AppBundleInfo.webServerURL
+        let preparedURL = prepareURL(url) ?? SharedBundleInfo.webServerURL
         os_log("[webapp] load url: %s", preparedURL.absoluteString)
         if hasEstablishedCommunication {
             webView.sendMessage(
@@ -274,8 +274,53 @@ class WebAppViewController:
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
                 self.present(alert, animated: true)
             }
+        case "requestNotificationAuthorization":
+            UNUserNotificationCenter
+                .current()
+                .getNotificationSettings {
+                    settings in
+                    if settings.authorizationStatus == .notDetermined {
+                        NotificationService.requestAuthorization() {
+                            granted in
+                            DispatchQueue.main.async {
+                                self.webView.sendResponse(
+                                    data: granted ?
+                                        NotificationAuthorizationRequestResult.granted :
+                                        NotificationAuthorizationRequestResult.denied,
+                                    callbackId: callbackId!
+                                )
+                            }
+                        }
+                    } else {
+                        let result: NotificationAuthorizationRequestResult
+                        if settings.authorizationStatus == .authorized {
+                            result = .previouslyGranted
+                        } else {
+                            result = .previouslyDenied
+                        }
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(
+                                data: result,
+                                callbackId: callbackId!
+                            )
+                        }
+                    }
+                }
         case "share":
-            presentActivityViewController(data: ShareData(message.data as! [String: Any]))
+            presentActivityViewController(
+                data: ShareData(message.data as! [String: Any]),
+                completionHandler: {
+                    result in
+                    if let callbackId = callbackId {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(
+                                data: result,
+                                callbackId: callbackId
+                            )
+                        }
+                    }
+                }
+            )
         // called on initial load and then every sign in/out event
         case "syncAuthCookie":
             let user: UserAccount?
@@ -302,11 +347,7 @@ class WebAppViewController:
                     .current()
                     .getNotificationSettings {
                         settings in
-                        if settings.authorizationStatus == .notDetermined {
-                            if isAuthenticated {
-                                NotificationService.requestAuthorization()
-                            }
-                        } else if settings.authorizationStatus == .authorized {
+                        if settings.authorizationStatus == .authorized {
                             if isAuthenticated {
                                 if let user = user {
                                     DispatchQueue.main.async {

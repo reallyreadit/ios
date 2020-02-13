@@ -11,8 +11,4 @@ struct AppBundleInfo {
         string: (Bundle.main.infoDictionary!["RRITStaticContentServerURL"] as! String)
             .trimmingCharacters(in: ["/"])
     )!
-    public static let webServerURL = URL(
-        string: (Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)
-            .trimmingCharacters(in: ["/"])
-    )!
 }

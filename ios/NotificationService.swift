@@ -5,7 +5,8 @@ import UserNotifications
 
 private func handleAuthorizationRequestResponse(
     granted: Bool,
-    error: Error?
+    error: Error?,
+    completionHandler: (_: Bool) -> Void
 ) {
     os_log("[notifications] auth request result: %d", granted)
     if granted {
@@ -35,6 +36,7 @@ private func handleAuthorizationRequestResponse(
     if let error = error {
         os_log("[notifications] auth request error: %s", error.localizedDescription)
     }
+    completionHandler(granted)
 }
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static let replyableCategoryId = "replyable"
@@ -48,7 +50,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             .current()
             .removeAllDeliveredNotifications()
     }
-    static func requestAuthorization() {
+    static func requestAuthorization(completionHandler: @escaping (_: Bool) -> Void) {
         os_log("[notifications] settings not determined, requesting authorization")
         // .providesAppNotificationSettings only available in iOS >= 12
         if #available(iOS 12.0, *) {
@@ -56,14 +58,28 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                 .current()
                 .requestAuthorization(
                     options: [.alert, .badge, .providesAppNotificationSettings],
-                    completionHandler: handleAuthorizationRequestResponse
+                    completionHandler: {
+                        granted, error in
+                        handleAuthorizationRequestResponse(
+                            granted: granted,
+                            error: error,
+                            completionHandler: completionHandler
+                        )
+                    }
                 )
         } else {
             UNUserNotificationCenter
                 .current()
                 .requestAuthorization(
                     options: [.alert, .badge],
-                    completionHandler: handleAuthorizationRequestResponse
+                    completionHandler: {
+                        granted, error in
+                        handleAuthorizationRequestResponse(
+                            granted: granted,
+                            error: error,
+                            completionHandler: completionHandler
+                        )
+                    }
                 )
         }
     }

@@ -22,12 +22,13 @@ class ShareDataStringSource: NSObject, UIActivityItemSource {
             return data.email.body
         }
         if (activityType == .postToTwitter) {
-            let limit = 280 - 25
-            return (
+            let limit = 280 - 25 - 32
+            let tweetText = (
                 data.text.count > limit ?
                     String(data.text.prefix(limit - 3) + "...") :
                     data.text
             )
+            return tweetText + " #ReadOnReadup via @ReadupDotCom"
         }
         return data.text
     }

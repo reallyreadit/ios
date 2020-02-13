@@ -112,6 +112,10 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         )
     }
     private func processUrl(_ url: URL) {
+        if url.host == SharedBundleInfo.webServerURL.host {
+            self.alert.showError(withText: "Use this button to import articles from other apps to Readup.")
+            return
+        }
         self.alert.showLoadingMessage(withText: "Loading article")
         if let redirectRegex = redirectSites[url.host!] {
             URLSession

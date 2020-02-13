@@ -100,8 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                     var components = URLComponents(
                         url: (
                             referrer.timestamp.timeIntervalSinceNow > -30 * 60 ?
-                                AppBundleInfo.webServerURL.appendingPathComponent(referrer.currentPath) :
-                                AppBundleInfo.webServerURL
+                                SharedBundleInfo.webServerURL.appendingPathComponent(referrer.currentPath) :
+                                SharedBundleInfo.webServerURL
                         ),
                         resolvingAgainstBaseURL: true
                     ),
@@ -274,7 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     }
     
     func onViewSettings() {
-        let _ = loadURL(AppBundleInfo.webServerURL.appendingPathComponent("/settings"))
+        let _ = loadURL(SharedBundleInfo.webServerURL.appendingPathComponent("/settings"))
     }
 
 }

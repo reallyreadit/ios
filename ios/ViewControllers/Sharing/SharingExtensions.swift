@@ -1,16 +1,51 @@
 import Foundation
 import UIKit
+import os.log
 
 extension UIViewController {
-    func presentActivityViewController(data: ShareData) {
+    func presentActivityViewController(
+        data: ShareData,
+        completionHandler: @escaping (_: ShareResult) -> Void
+    ) {
+        os_log("[sharing] presenting UIActivityViewController")
         let activityViewController = UIActivityViewController(
             activityItems: [
                 ShareDataURLSource(data),
-                ShareDataStringSource(data),
-                ShareBlockerSource()
+                ShareDataStringSource(data)
             ],
             applicationActivities: nil
         )
+        // this doesn't work for some reason but maybe it'll be fixed in future updates
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.init(rawValue: "it.reallyread.mobile.share-extension")
+        ]
+        activityViewController.completionWithItemsHandler = {
+            activityType, completed, returnedItems, activityError in
+            os_log("[sharing] activity type: %s, completed: %d", activityType?.rawValue ?? "", completed)
+            if let error = activityError {
+                os_log("[sharing] activity error: %s", error.localizedDescription)
+            }
+            let result = ShareResult(
+                id: UUID(),
+                action: data.action ?? "",
+                activityType: activityType?.rawValue ?? "",
+                completed: completed,
+                error: activityError?.localizedDescription
+            )
+            APIServerURLSession()
+                .postJson(
+                    path: "/Analytics/Share",
+                    data: result,
+                    onSuccess: {
+                        os_log("[sharing] analytics sent successfully")
+                    },
+                    onError: {
+                        error in
+                        os_log("[sharing] error sending analytics: %s", error?.localizedDescription ?? "")
+                    }
+                )
+            completionHandler(result)
+        }
         activityViewController.popoverPresentationController?.sourceView = self.view
         present(activityViewController, animated: true, completion: nil)
     }

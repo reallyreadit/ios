@@ -22,4 +22,8 @@ struct SharedBundleInfo {
             (Bundle.main.infoDictionary!["CFBundleVersion"] as! String)
         )
     )!
+    public static let webServerURL = URL(
+        string: (Bundle.main.infoDictionary!["RRITWebServerURL"] as! String)
+            .trimmingCharacters(in: ["/"])
+    )!
 }

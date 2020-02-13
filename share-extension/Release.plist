@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Add to Starred List</string>
+	<string>Import</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.4</string>
+	<string>5.5</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSExtension</key>
@@ -40,12 +40,7 @@
                             $attachment,
                             ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
                         ).@count >= 1
-                    ) AND
-                    SUBQUERY (
-                        $extensionItem.attachments,
-                        $attachment,
-                        ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "it.reallyread.share"
-                    ).@count == 0
+                    )
                 ).@count >= 1
             </string>
 		</dict>
@@ -66,5 +61,7 @@
 	<false/>
     <key>RRITShareExtensionScriptVersion</key>
     <string>3.0.13</string>
+    <key>RRITWebServerURL</key>
+    <string>https://readup.com/</string>
 </dict>
 </plist>

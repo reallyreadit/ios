@@ -426,7 +426,20 @@ class ArticleViewController:
         case "readArticle":
             replaceArticle(slug: message.data as! String)
         case "share":
-            presentActivityViewController(data: ShareData(message.data as! [String: Any]))
+            presentActivityViewController(
+                data: ShareData(message.data as! [String: Any]),
+                completionHandler: {
+                    result in
+                    if let callbackId = callbackId {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(
+                                data: result,
+                                callbackId: callbackId
+                            )
+                        }
+                    }
+                }
+            )
         default:
             return
         }

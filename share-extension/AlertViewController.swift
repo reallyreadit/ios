@@ -35,7 +35,7 @@ class AlertViewController: UIViewController {
         
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.text = "Add Article to Starred List"
+        title.text = "Import Article to Readup"
         title.textAlignment = .center
         title.font = UIFont.boldSystemFont(ofSize: title.font.pointSize)
         dialog.addSubview(title)
