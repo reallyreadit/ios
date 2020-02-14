@@ -133,6 +133,53 @@ class WebAppViewController:
             view.backgroundColor = newsprint
         }
     }
+    private func signIn(user: UserAccount, eventType: SignInEventType) {
+        os_log("[webapp] authenticated")
+        // set authentication variable
+        isAuthenticated = true
+        // sync auth cookie from webview to shared storage
+        webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies {
+            cookies in
+            if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
+                SharedCookieStore.setCookie(authCookie)
+            }
+        }
+        // check notification settings
+        UNUserNotificationCenter
+            .current()
+            .getNotificationSettings {
+                settings in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        NotificationService.syncBadge(with: user)
+                    }
+                } else if settings.authorizationStatus == .notDetermined && eventType == .existingUser {
+                    NotificationService.requestAuthorization()
+                }
+            }
+        // set the background color
+        setBackgroundColor()
+    }
+    private func signOut() {
+        os_log("[webapp] unauthenticated")
+        // set authentication variable
+        isAuthenticated = false
+        // clear auth cookie from shared storage
+        SharedCookieStore.clearAuthCookies()
+        // check notification settings
+        UNUserNotificationCenter
+            .current()
+            .getNotificationSettings {
+                settings in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        NotificationService.clearAlerts()
+                    }
+                }
+            }
+        // set the background color
+        setBackgroundColor()
+    }
     @available(iOS 13.0, *)
     func authorizationController(
         controller: ASAuthorizationController,
@@ -243,6 +290,18 @@ class WebAppViewController:
                 data: getDeviceInfo(),
                 callbackId: callbackId!
             )
+        case "initialize":
+            hasEstablishedCommunication = true
+            let initEvent = InitializationEvent(serializedEvent: message.data as! [String: Any])!
+            if let user = initEvent.user {
+                signIn(user: user, eventType: .existingUser)
+            } else {
+                signOut()
+            }
+            webView.sendResponse(
+                data: getDeviceInfo(),
+                callbackId: callbackId!
+            )
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
                 presentSafariViewController(url: url, delegate: self)
@@ -321,50 +380,11 @@ class WebAppViewController:
                     }
                 }
             )
-        // called on initial load and then every sign in/out event
-        case "syncAuthCookie":
-            let user: UserAccount?
-            if let serializedUser = message.data as? [String: Any] {
-                user = UserAccount(serializedUser: serializedUser)
-            } else {
-                user = nil
-            }
-            webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies {
-                cookies in
-                // check for webview cookie
-                let isAuthenticated: Bool
-                if let authCookie = cookies.first(where: SharedCookieStore.authCookieMatchPredicate) {
-                    os_log("[webapp] authenticated")
-                    isAuthenticated = true
-                    SharedCookieStore.setCookie(authCookie)
-                } else {
-                    os_log("[webapp] unauthenticated")
-                    isAuthenticated = false
-                    SharedCookieStore.clearAuthCookies()
-                }
-                // check notification settings
-                UNUserNotificationCenter
-                    .current()
-                    .getNotificationSettings {
-                        settings in
-                        if settings.authorizationStatus == .authorized {
-                            if isAuthenticated {
-                                if let user = user {
-                                    DispatchQueue.main.async {
-                                        NotificationService.syncBadge(with: user)
-                                    }
-                                }
-                            } else {
-                                DispatchQueue.main.async {
-                                    NotificationService.clearAlerts()
-                                }
-                            }
-                        }
-                    }
-                // set the background color
-                self.isAuthenticated = isAuthenticated
-                self.setBackgroundColor()
-            }
+        case "signIn":
+            let signInEvent = SignInEvent(serializedEvent: message.data as! [String: Any])!
+            signIn(user: signInEvent.user, eventType: signInEvent.eventType)
+        case "signOut":
+            signOut()
         default:
             return
         }

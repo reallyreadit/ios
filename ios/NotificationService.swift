@@ -6,7 +6,7 @@ import UserNotifications
 private func handleAuthorizationRequestResponse(
     granted: Bool,
     error: Error?,
-    completionHandler: (_: Bool) -> Void
+    completionHandler: ((_: Bool) -> Void)?
 ) {
     os_log("[notifications] auth request result: %d", granted)
     if granted {
@@ -36,7 +36,9 @@ private func handleAuthorizationRequestResponse(
     if let error = error {
         os_log("[notifications] auth request error: %s", error.localizedDescription)
     }
-    completionHandler(granted)
+    if let completionHandler = completionHandler {
+        completionHandler(granted)
+    }
 }
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static let replyableCategoryId = "replyable"
@@ -50,7 +52,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             .current()
             .removeAllDeliveredNotifications()
     }
-    static func requestAuthorization(completionHandler: @escaping (_: Bool) -> Void) {
+    static func requestAuthorization(completionHandler: ((_: Bool) -> Void)? = nil) {
         os_log("[notifications] settings not determined, requesting authorization")
         // .providesAppNotificationSettings only available in iOS >= 12
         if #available(iOS 12.0, *) {
