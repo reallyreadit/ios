@@ -16,6 +16,10 @@
 		1F09E6D623F74E3200967828 /* SignInEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6D423F74E3200967828 /* SignInEvent.swift */; };
 		1F09E6D823F74E7400967828 /* InitializationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6D723F74E7400967828 /* InitializationEvent.swift */; };
 		1F09E6D923F74E7400967828 /* InitializationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6D723F74E7400967828 /* InitializationEvent.swift */; };
+		1F09E6DB23F84BD800967828 /* NotificationAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6DA23F84BD800967828 /* NotificationAuthorizationStatus.swift */; };
+		1F09E6DC23F84BD800967828 /* NotificationAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6DA23F84BD800967828 /* NotificationAuthorizationStatus.swift */; };
+		1F09E6DE23F84CA600967828 /* SignInEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */; };
+		1F09E6DF23F84CA600967828 /* SignInEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */; };
 		1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12E66721D6A1B4001553F9 /* ProgressBarView.swift */; };
 		1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4BF21CB167500EE6927 /* AppDelegate.swift */; };
 		1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C321CB167500EE6927 /* Main.storyboard */; };
@@ -178,6 +182,8 @@
 		1F09E6D123F74DD300967828 /* SignInEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEventType.swift; sourceTree = "<group>"; };
 		1F09E6D423F74E3200967828 /* SignInEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEvent.swift; sourceTree = "<group>"; };
 		1F09E6D723F74E7400967828 /* InitializationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationEvent.swift; sourceTree = "<group>"; };
+		1F09E6DA23F84BD800967828 /* NotificationAuthorizationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthorizationStatus.swift; sourceTree = "<group>"; };
+		1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEventResponse.swift; sourceTree = "<group>"; };
 		1F12E66721D6A1B4001553F9 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -382,6 +388,7 @@
 				1F09E6D723F74E7400967828 /* InitializationEvent.swift */,
 				1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */,
 				1F09E6C523F3024500967828 /* NotificationAuthorizationRequestResult.swift */,
+				1F09E6DA23F84BD800967828 /* NotificationAuthorizationStatus.swift */,
 				1F13B4F821D2B5E700EE6927 /* PageLinkParseResult.swift */,
 				1F13B4F021D2B48200EE6927 /* PageParseResult.swift */,
 				1FC0D618231AD23100E4DD9A /* Post.swift */,
@@ -394,6 +401,7 @@
 				1FDBBC8422173D9400E03051 /* Rating.swift */,
 				1F13B4FA21D2D04900EE6927 /* ReadStateCommitData.swift */,
 				1F09E6D423F74E3200967828 /* SignInEvent.swift */,
+				1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */,
 				1F09E6D123F74DD300967828 /* SignInEventType.swift */,
 				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
 				1F8768D722693700002B5D16 /* UserAccount.swift */,
@@ -680,10 +688,12 @@
 				1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */,
 				1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */,
 				1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
+				1F09E6DE23F84CA600967828 /* SignInEventResponse.swift in Sources */,
 				1F71E9EA235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,
 				1F13B4F921D2B5E700EE6927 /* PageLinkParseResult.swift in Sources */,
+				1F09E6DB23F84BD800967828 /* NotificationAuthorizationStatus.swift in Sources */,
 				1F13B4ED21D2ABA300EE6927 /* Article.swift in Sources */,
 				1FA91D0A235FAA2100E3EDE2 /* PushViewForm.swift in Sources */,
 				1F1947B621EAB3E600D1599D /* WebViewContainerDelegate.swift in Sources */,
@@ -742,7 +752,9 @@
 				1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
 				1F09E6D623F74E3200967828 /* SignInEvent.swift in Sources */,
 				1FC0D61A231AD23100E4DD9A /* Post.swift in Sources */,
+				1F09E6DC23F84BD800967828 /* NotificationAuthorizationStatus.swift in Sources */,
 				1F1947B721EABB0400D1599D /* DateDecodingStrategy.swift in Sources */,
+				1F09E6DF23F84CA600967828 /* SignInEventResponse.swift in Sources */,
 				1F1947B321EAB0FA00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1F7870712295B88A003493DE /* WebViewScript.swift in Sources */,
 				1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */,

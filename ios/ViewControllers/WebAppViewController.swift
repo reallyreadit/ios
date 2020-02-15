@@ -133,7 +133,11 @@ class WebAppViewController:
             view.backgroundColor = newsprint
         }
     }
-    private func signIn(user: UserAccount, eventType: SignInEventType) {
+    private func signIn(
+        user: UserAccount,
+        eventType: SignInEventType,
+        completionHandler: ((_: NotificationAuthorizationStatus) -> Void)? = nil
+    ) {
         os_log("[webapp] authenticated")
         // set authentication variable
         isAuthenticated = true
@@ -153,8 +157,24 @@ class WebAppViewController:
                     DispatchQueue.main.async {
                         NotificationService.syncBadge(with: user)
                     }
-                } else if settings.authorizationStatus == .notDetermined && eventType == .existingUser {
-                    NotificationService.requestAuthorization()
+                }
+                if let completionHandler = completionHandler {
+                    // map system enum to our own since we're relying on
+                    // the serialized numeric values being stable
+                    let status: NotificationAuthorizationStatus
+                    switch settings.authorizationStatus {
+                    case .authorized:
+                        status = .authorized
+                    case .denied:
+                        status = .denied
+                    case .notDetermined:
+                        status = .notDetermined
+                    case.provisional:
+                        status = .provisional
+                    default:
+                        status = .unknown
+                    }
+                    completionHandler(status)
                 }
             }
         // set the background color
@@ -382,7 +402,21 @@ class WebAppViewController:
             )
         case "signIn":
             let signInEvent = SignInEvent(serializedEvent: message.data as! [String: Any])!
-            signIn(user: signInEvent.user, eventType: signInEvent.eventType)
+            signIn(
+                user: signInEvent.user,
+                eventType: signInEvent.eventType,
+                completionHandler: {
+                    notificationAuthorizationStatus in
+                    DispatchQueue.main.async {
+                        self.webView.sendResponse(
+                            data: SignInEventResponse(
+                                notificationAuthorizationStatus: notificationAuthorizationStatus
+                            ),
+                            callbackId: callbackId!
+                        )
+                    }
+                }
+            )
         case "signOut":
             signOut()
         default:
