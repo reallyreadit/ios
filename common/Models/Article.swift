@@ -23,9 +23,9 @@ struct Article: Codable {
     let ratingScore: Int?
     let datesPosted: [Date]
     let hotScore: Int
-    let hotVelocity: Int
     let ratingCount: Int
     let firstPoster: String?
     let flair: ArticleFlair?
+    let aotdContenderRank: Int
     let proofToken: String?
 }
