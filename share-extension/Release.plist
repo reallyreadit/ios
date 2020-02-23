@@ -60,7 +60,7 @@
 	<key>RRITDebugReader</key>
 	<false/>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>3.0.13</string>
+    <string>3.0.14</string>
     <key>RRITWebServerURL</key>
     <string>https://readup.com/</string>
 </dict>
