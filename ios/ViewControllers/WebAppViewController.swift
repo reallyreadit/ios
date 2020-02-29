@@ -46,12 +46,14 @@ class WebAppViewController:
     WebViewContainerDelegate,
     SFSafariViewControllerDelegate,
     ASAuthorizationControllerDelegate,
-    ASAuthorizationControllerPresentationContextProviding
+    ASAuthorizationControllerPresentationContextProviding,
+    ASWebAuthenticationPresentationContextProviding
 {
     private var hasCalledWebViewLoad = false
     private var hasEstablishedCommunication = false
     private let newsprint = UIColor(red: 247 / 255, green: 246 / 255, blue: 245 / 255, alpha: 1)
     private var isAuthenticated = false
+    private var webAuthSession: NSObject?
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -385,6 +387,58 @@ class WebAppViewController:
                         }
                     }
                 }
+        case "requestWebAuthentication":
+            let request = WebAuthRequest(serializedRequest: message.data as! [String: Any])
+            if #available(iOS 13.0, *) {
+                let session = ASWebAuthenticationSession(
+                    url: request.authURL,
+                    callbackURLScheme: request.callbackScheme
+                ) {
+                    callbackURL, error in
+                    let errorString: String?
+                    if let error = error {
+                        if let authError = error as? ASWebAuthenticationSessionError {
+                            switch (authError.code) {
+                            case .canceledLogin:
+                                errorString = "Cancelled"
+                            case .presentationContextInvalid:
+                                errorString = "PresentationContextInvalid"
+                            case .presentationContextNotProvided:
+                                errorString = "PresentationContextNotProvided"
+                            @unknown default:
+                                errorString = "Unknown"
+                            }
+                        } else {
+                            errorString = "Unknown"
+                        }
+                    } else {
+                        errorString = nil
+                    }
+                    DispatchQueue.main.async {
+                        self.webView.sendResponse(
+                            data: WebAuthResponse(
+                                callbackURL: callbackURL,
+                                error: errorString
+                            ),
+                            callbackId: callbackId!
+                        )
+                        self.webAuthSession = nil
+                    }
+                }
+                // the session will be deallocated immediately unless we hold on to the reference
+                // this workaround is required unless we target iOS >= 13
+                webAuthSession = session
+                session.presentationContextProvider = self
+                session.start()
+            } else {
+                webView.sendResponse(
+                    data: WebAuthResponse(
+                        callbackURL: nil,
+                        error: "Unsupported"
+                    ),
+                    callbackId: callbackId!
+                )
+            }
         case "share":
             presentActivityViewController(
                 data: ShareData(message.data as! [String: Any]),
@@ -489,6 +543,10 @@ class WebAppViewController:
     @available(iOS 13.0, *)
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
+    }
+    @available(iOS 13.0, *)
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
     }
     func readArticle(slug: String) {
         performSegue(
