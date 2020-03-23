@@ -589,6 +589,8 @@ class WebAppViewController:
         if #available(iOS 13.0, *) {
             navigationController!.overrideUserInterfaceStyle = .light
         }
+        // disable swipe back gesture (window.webkit is undefined after beginning the gesture)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // add the webview container as a subview
         view.addSubview(webViewContainer.view)
         webViewContainer.view.translatesAutoresizingMaskIntoConstraints = false
