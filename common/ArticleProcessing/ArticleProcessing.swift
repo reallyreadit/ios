@@ -55,13 +55,13 @@ struct ArticleProcessing {
                     )!
             )
         )
-        request.httpShouldHandleCookies = false
         request.setValue(
             "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'",
             forHTTPHeaderField: "User-Agent"
         )
-        URLSession
-            .shared
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.httpCookieStorage = TempHTTPCookieStorage()
+        URLSession(configuration: sessionConfig)
             .dataTask(
                 with: request,
                 completionHandler: {

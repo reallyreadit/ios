@@ -154,6 +154,8 @@
 		1FDBBC7D221229B500E03051 /* reader.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7C221229B500E03051 /* reader.js */; };
 		1FDBBC8522173D9400E03051 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC8422173D9400E03051 /* Rating.swift */; };
 		1FDBBC8622173D9400E03051 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC8422173D9400E03051 /* Rating.swift */; };
+		1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */; };
+		1FEFD0CB244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,6 +279,7 @@
 		1FDBBC7A2210E31300E03051 /* share-extension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "share-extension.js"; sourceTree = "<group>"; };
 		1FDBBC7C221229B500E03051 /* reader.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reader.js; sourceTree = "<group>"; };
 		1FDBBC8422173D9400E03051 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHTTPCookieStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,6 +469,7 @@
 				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
 				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
 				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
+				1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */,
 				1FDBBC7322109CED00E03051 /* WebViewScript.swift */,
 			);
 			path = common;
@@ -675,6 +679,7 @@
 				1F53AAED220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F8768BA2231AC0D002B5D16 /* ShareData.swift in Sources */,
 				1F19479A21EAA93B00D1599D /* MessageWebViewDelegate.swift in Sources */,
+				1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */,
 				1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */,
 				1F09E6C623F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */,
@@ -761,6 +766,7 @@
 				1F09E6E22409E3F400967828 /* WebAuthRequest.swift in Sources */,
 				1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
+				1FEFD0CB244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F09E6D623F74E3200967828 /* SignInEvent.swift in Sources */,
 				1FC0D61A231AD23100E4DD9A /* Post.swift in Sources */,
 				1F09E6E52409E5F700967828 /* WebAuthResponse.swift in Sources */,
