@@ -5,12 +5,18 @@ private let clientHeaderValue = (
     "@" +
     SharedBundleInfo.version.description
 )
+private func createPostRequest(
+    path: String
+) -> URLRequest {
+    var request = createRequest(url: createURL(fromPath: path))
+    request.httpMethod = "POST"
+    return request
+}
 private func createPostRequest<TData: Encodable>(
     path: String,
     data: TData?
 ) -> URLRequest {
-    var request = createRequest(url: createURL(fromPath: path))
-    request.httpMethod = "POST"
+    var request = createPostRequest(path: path)
     if data != nil {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(data)
@@ -157,6 +163,19 @@ struct APIServerURLSession {
             request: createPostRequest(
                 path: path,
                 data: data
+            ),
+            onSuccess: onSuccess,
+            onError: onError
+        )
+    }
+    func postJson<TResult: Decodable>(
+        path: String,
+        onSuccess: @escaping (_: TResult) -> Void,
+        onError: @escaping (_: Error?) -> Void
+    ) {
+        sendRequest(
+            request: createPostRequest(
+                path: path
             ),
             onSuccess: onSuccess,
             onError: onError

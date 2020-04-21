@@ -2,15 +2,16 @@ import UIKit
 import WebKit
 import SafariServices
 import os.log
+import AuthenticationServices
 
 class ArticleViewController:
     UIViewController,
     MessageWebViewDelegate,
     UIGestureRecognizerDelegate,
-    SFSafariViewControllerDelegate
+    SFSafariViewControllerDelegate,
+    ASWebAuthenticationPresentationContextProviding
 {
     private let apiServer = APIServerURLSession()
-    private var articleURL: URL!
     private var commitErrorCount = 0
     private var hasParsedPage = false
     private var hideStatusBar = false
@@ -25,6 +26,7 @@ class ArticleViewController:
     private let progressBar: ProgressBarView
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
+    private var webAuthSession: NSObject?
     required init?(coder: NSCoder) {
         // init speech bubble
         progressBar = ProgressBarView(coder: coder)!
@@ -125,7 +127,6 @@ class ArticleViewController:
         )
     }
     private func loadArticle(url: URL) {
-        articleURL = url
         ArticleProcessing.fetchArticle(
             url: url,
             mode: .reader,
@@ -137,9 +138,9 @@ class ArticleViewController:
                             content as String,
                             baseURL: (
                                 SharedBundleInfo.debugReader ?
-                                    self.articleURL :
+                                    url :
                                     URL(
-                                        string: self.articleURL.absoluteString.replacingOccurrences(
+                                        string: url.absoluteString.replacingOccurrences(
                                             of: "^http:",
                                             with: "https:",
                                             options: [.regularExpression, .caseInsensitive]
@@ -271,6 +272,30 @@ class ArticleViewController:
             if let url = URL(string: message.data as! String) {
                 params.onNavTo(url)
                 navigationController?.popViewController(animated: true)
+            }
+        case "linkTwitterAccount":
+            if let credentials = TwitterCredentialLinkForm(serializedForm: message.data as! [String: Any]) {
+                apiServer.postJson(
+                    path: "/Auth/TwitterLink",
+                    data: credentials,
+                    onSuccess: {
+                        [weak self] (association: AuthServiceAccountAssociation) in
+                        if let self = self {
+                            DispatchQueue.main.async {
+                                self.params.onAuthServiceAccountLinked(association)
+                                self.webView.sendResponse(data: association, callbackId: callbackId!)
+                            }
+                        }
+                    },
+                    onError: {
+                        [weak self] _ in
+                        if let self = self {
+                            DispatchQueue.main.async {
+                                self.setErrorState(withMessage: "Error linking Twitter account.")
+                            }
+                        }
+                    }
+                )
             }
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
@@ -425,6 +450,59 @@ class ArticleViewController:
             )
         case "readArticle":
             replaceArticle(slug: message.data as! String)
+        case "requestTwitterWebViewRequestToken":
+            apiServer.postJson(
+                path: "/Auth/TwitterWebViewRequest",
+                onSuccess: {
+                    [weak self] (token: TwitterRequestToken) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(data: token, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error requesting Twitter token.")
+                        }
+                    }
+                }
+            )
+        case "requestWebAuthentication":
+            let request = WebAuthRequest(serializedRequest: message.data as! [String: Any])
+            if #available(iOS 13.0, *) {
+                let session = ASWebAuthenticationSession(
+                    url: request.authURL,
+                    callbackURLScheme: request.callbackScheme
+                ) {
+                    callbackURL, error in
+                    DispatchQueue.main.async {
+                        self.webView.sendResponse(
+                            data: WebAuthResponse(
+                                callbackURL: callbackURL,
+                                error: error
+                            ),
+                            callbackId: callbackId!
+                        )
+                        self.webAuthSession = nil
+                    }
+                }
+                // the session will be deallocated immediately unless we hold on to the reference
+                // this workaround is required unless we target iOS >= 13
+                webAuthSession = session
+                session.presentationContextProvider = self
+                session.start()
+            } else {
+                webView.sendResponse(
+                    data: WebAuthResponse(
+                        callbackURL: nil,
+                        error: "Unsupported"
+                    ),
+                    callbackId: callbackId!
+                )
+            }
         case "share":
             presentActivityViewController(
                 data: ShareData(message.data as! [String: Any]),
@@ -444,8 +522,11 @@ class ArticleViewController:
             return
         }
     }
+    @available(iOS 13.0, *)
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
+    }
     func replaceArticle(slug: String) {
-        articleURL = nil
         commitErrorCount = 0
         hasParsedPage = false
         progressBar.setState(

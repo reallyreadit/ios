@@ -395,30 +395,11 @@ class WebAppViewController:
                     callbackURLScheme: request.callbackScheme
                 ) {
                     callbackURL, error in
-                    let errorString: String?
-                    if let error = error {
-                        if let authError = error as? ASWebAuthenticationSessionError {
-                            switch (authError.code) {
-                            case .canceledLogin:
-                                errorString = "Cancelled"
-                            case .presentationContextInvalid:
-                                errorString = "PresentationContextInvalid"
-                            case .presentationContextNotProvided:
-                                errorString = "PresentationContextNotProvided"
-                            @unknown default:
-                                errorString = "Unknown"
-                            }
-                        } else {
-                            errorString = "Unknown"
-                        }
-                    } else {
-                        errorString = nil
-                    }
                     DispatchQueue.main.async {
                         self.webView.sendResponse(
                             data: WebAuthResponse(
                                 callbackURL: callbackURL,
-                                error: errorString
+                                error: error
                             ),
                             callbackId: callbackId!
                         )
@@ -508,6 +489,15 @@ class WebAppViewController:
                         message: Message(
                             type: "articleUpdated",
                             data: event
+                        )
+                    )
+                },
+                onAuthServiceAccountLinked: {
+                    association in
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "authServiceAccountLinked",
+                            data: association
                         )
                     )
                 },
