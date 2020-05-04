@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                 )!
                 if navigationController.viewControllers.count == 1 {
                     webAppViewController.loadURL(commentsURL)
-                    webAppViewController.readArticle(slug: slug)
+                    webAppViewController.readArticle(reference: .slug(slug))
                     return true
                 } else if
                     navigationController.viewControllers.count == 2,
@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                 }
             } else {
                 if navigationController.viewControllers.count > 1 {
-                    navigationController.popToRootViewController(animated: true)
+                    navigationController.dismiss(animated: true)
                 }
                 webAppViewController.loadURL(url)
                 return true

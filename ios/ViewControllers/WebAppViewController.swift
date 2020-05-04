@@ -51,8 +51,6 @@ class WebAppViewController:
 {
     private var hasCalledWebViewLoad = false
     private var hasEstablishedCommunication = false
-    private let newsprint = UIColor(red: 247 / 255, green: 246 / 255, blue: 245 / 255, alpha: 1)
-    private var isAuthenticated = false
     private var webAuthSession: NSObject?
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
@@ -73,10 +71,6 @@ class WebAppViewController:
         webViewContainer.delegate = self
         // configure webview
         webView.view.scrollView.bounces = false
-        // configre the loading view
-        webViewContainer.loadingView.backgroundColor = newsprint
-        // configure the error view
-        webViewContainer.errorView.backgroundColor = newsprint
         let errorContent = UIView()
         errorContent.translatesAutoresizingMaskIntoConstraints = false
         webViewContainer.errorView.addSubview(errorContent)
@@ -128,21 +122,12 @@ class WebAppViewController:
     @objc private func loadWebApp() {
         loadURL(SharedBundleInfo.webServerURL)
     }
-    private func setBackgroundColor() {
-        if webViewContainer.state == .loaded, isAuthenticated {
-            view.backgroundColor = UIColor(red: 234 / 255, green: 234 / 255, blue: 234 / 255, alpha: 1)
-        } else {
-            view.backgroundColor = newsprint
-        }
-    }
     private func signIn(
         user: UserAccount,
         eventType: SignInEventType,
         completionHandler: ((_: NotificationAuthorizationStatus) -> Void)? = nil
     ) {
         os_log("[webapp] authenticated")
-        // set authentication variable
-        isAuthenticated = true
         // sync auth cookie from webview to shared storage
         webView.view.configuration.websiteDataStore.httpCookieStore.getAllCookies {
             cookies in
@@ -179,13 +164,9 @@ class WebAppViewController:
                     completionHandler(status)
                 }
             }
-        // set the background color
-        setBackgroundColor()
     }
     private func signOut() {
         os_log("[webapp] unauthenticated")
-        // set authentication variable
-        isAuthenticated = false
         // clear auth cookie from shared storage
         SharedCookieStore.clearAuthCookies()
         // check notification settings
@@ -199,8 +180,6 @@ class WebAppViewController:
                     }
                 }
             }
-        // set the background color
-        setBackgroundColor()
     }
     @available(iOS 13.0, *)
     func authorizationController(
@@ -301,8 +280,7 @@ class WebAppViewController:
         self.hasCalledWebViewLoad = true
     }
     override func loadView() {
-        view = UIView()
-        view.backgroundColor = newsprint
+        view = webViewContainer.view
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
@@ -330,9 +308,8 @@ class WebAppViewController:
             }
         case "readArticle":
             let data = message.data as! [String: Any]
-            performSegue(
-                withIdentifier: "readArticle",
-                sender: data.keys.contains("url") ?
+            readArticle(
+                reference: data.keys.contains("url") ?
                     ArticleReference.url(URL(string: data["url"] as! String)!) :
                     ArticleReference.slug(data["slug"] as! String)
             )
@@ -459,21 +436,22 @@ class WebAppViewController:
         }
     }
     func onStateChange(state: WebViewContainerState) {
-        setBackgroundColor()
         if (state == .loading) {
             hasEstablishedCommunication = false
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if
-            let destination = segue.destination as? ArticleViewController,
-            let articleReference = sender as? ArticleReference
-        {
-            // show navigation bar
-            navigationController!.setNavigationBarHidden(false, animated: true)
-            // set view controller params
-            destination.params = ArticleViewControllerParams(
-                articleReference: articleReference,
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    @available(iOS 13.0, *)
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
+    }
+    func readArticle(reference: ArticleReference) {
+        let controller = ArticleViewController(
+            params: ArticleViewControllerParams(
+                articleReference: reference,
                 onArticlePosted: {
                     post in
                     self.webView.sendMessage(
@@ -502,8 +480,7 @@ class WebAppViewController:
                     )
                 },
                 onClose: {
-                    // hide navigation bar
-                    self.navigationController!.setNavigationBarHidden(true, animated: true)
+                    self.navigationController!.dismiss(animated: true)
                 },
                 onCommentPosted: {
                     comment in
@@ -525,24 +502,16 @@ class WebAppViewController:
                 },
                 onNavTo: {
                     url in
+                    self.navigationController!.dismiss(animated: true)
                     self.loadURL(url)
                 }
             )
-        }
-    }
-    @available(iOS 13.0, *)
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-    @available(iOS 13.0, *)
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return view.window!
-    }
-    func readArticle(slug: String) {
-        performSegue(
-            withIdentifier: "readArticle",
-            sender: ArticleReference.slug(slug)
         )
+        // set view params
+        controller.modalPresentationStyle = .fullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        // present
+        navigationController!.present(controller, animated: true)
     }
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismiss(animated: true)
@@ -573,23 +542,8 @@ class WebAppViewController:
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // hide the navigation bar
-        navigationController!.setNavigationBarHidden(true, animated: false)
-        // force the navigation controller to light mode
-        if #available(iOS 13.0, *) {
-            navigationController!.overrideUserInterfaceStyle = .light
-        }
         // disable swipe back gesture (window.webkit is undefined after beginning the gesture)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        // add the webview container as a subview
-        view.addSubview(webViewContainer.view)
-        webViewContainer.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            webViewContainer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webViewContainer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webViewContainer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webViewContainer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
         // check loading state
         if (!hasCalledWebViewLoad) {
             loadWebApp()

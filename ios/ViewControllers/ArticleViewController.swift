@@ -7,34 +7,27 @@ import AuthenticationServices
 class ArticleViewController:
     UIViewController,
     MessageWebViewDelegate,
-    UIGestureRecognizerDelegate,
     SFSafariViewControllerDelegate,
     ASWebAuthenticationPresentationContextProviding
 {
     private let apiServer = APIServerURLSession()
     private var commitErrorCount = 0
     private var hasParsedPage = false
-    private var hideStatusBar = false
+    private var isStatusBarVisible = true
     override var prefersStatusBarHidden: Bool {
-        return hideStatusBar
+        return !isStatusBarVisible
     }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
     }
-    var params: ArticleViewControllerParams!
+    private let params: ArticleViewControllerParams
     private let errorMessage = UILabel()
-    private let progressBar: ProgressBarView
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
     private var webAuthSession: NSObject?
-    required init?(coder: NSCoder) {
-        // init speech bubble
-        progressBar = ProgressBarView(coder: coder)!
-        NSLayoutConstraint.activate([
-            progressBar.widthAnchor.constraint(equalToConstant: 32),
-            progressBar.heightAnchor.constraint(equalToConstant: 32)
-        ])
-        super.init(coder: coder)
+    init(params: ArticleViewControllerParams) {
+        self.params = params
+        super.init(nibName: nil, bundle: nil)
         // init webview
         let config = WKWebViewConfiguration()
         webView = MessageWebView(
@@ -44,12 +37,6 @@ class ArticleViewController:
         )
         webView.delegate = self
         webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
-        let panGestureRecognizer = UIPanGestureRecognizer(
-            target: self,
-            action: #selector(handlePanGesture(_:))
-        )
-        panGestureRecognizer.delegate = self
-        webView.view.addGestureRecognizer(panGestureRecognizer)
         webViewContainer = WebViewContainer(webView: webView.view)
         // configure the error view
         let errorContent = UIView()
@@ -81,6 +68,11 @@ class ArticleViewController:
                 label.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
             ])
         })
+        let backButton = UIButton(type: .system)
+        backButton.setTitle("Go Back", for: .normal)
+        backButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        errorContent.addSubview(backButton)
         NSLayoutConstraint.activate([
             errorContent.centerYAnchor.constraint(equalTo: webViewContainer.errorView.centerYAnchor),
             errorContent.topAnchor.constraint(equalTo: errorContent.subviews[0].topAnchor),
@@ -89,22 +81,19 @@ class ArticleViewController:
             errorContent.trailingAnchor.constraint(equalTo: webViewContainer.errorView.trailingAnchor),
             errorMessage.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
             errorMessage.leadingAnchor.constraint(greaterThanOrEqualTo: errorContent.leadingAnchor, constant: 8),
-            errorMessage.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8)
+            errorMessage.trailingAnchor.constraint(lessThanOrEqualTo: errorContent.trailingAnchor, constant: 8),
+            backButton.centerXAnchor.constraint(equalTo: errorContent.centerXAnchor),
+            backButton.topAnchor.constraint(
+                equalTo: errorContent.subviews[errorContent.subviews.count - 2].bottomAnchor,
+                constant: 8
+            )
         ])
     }
-    @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        let panYTranslation = sender.translation(in: sender.view).y
-        if panYTranslation < 0 && !hideStatusBar {
-            setBarsVisibility(hidden: true)
-        } else if hideStatusBar && (
-            panYTranslation > 300 ||
-            (
-                panYTranslation > 50 &&
-                sender.velocity(in: sender.view).y > 500
-            )
-        ) {
-            setBarsVisibility(hidden: false)
-        }
+    required init?(coder: NSCoder) {
+        return nil
+    }
+    @objc private func close() {
+        params.onClose()
     }
     private func loadArticle(slug: String) {
         apiServer.getJson(
@@ -148,7 +137,6 @@ class ArticleViewController:
                                     )!
                             )
                         )
-                        self.progressBar.setState(isLoading: true)
                     }
                     DispatchQueue.main.asyncAfter(
                         deadline: .now() + .seconds(30),
@@ -174,18 +162,14 @@ class ArticleViewController:
             }
         )
     }
-    private func setBarsVisibility(hidden: Bool) {
-        hideStatusBar = hidden
-        navigationController!.setNavigationBarHidden(hidden, animated: true)
+    private func setStatusBarVisibility(isVisible: Bool) {
+        if isStatusBarVisible == isVisible {
+            return
+        }
+        isStatusBarVisible = isVisible
         UIView.animate(withDuration: 0.25) {
             self.setNeedsStatusBarAppearanceUpdate()
         }
-    }
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
-        return true
     }
     override func loadView() {
         view = webViewContainer.view
@@ -202,11 +186,6 @@ class ArticleViewController:
                     if let self = self {
                         self.commitErrorCount = 0
                         DispatchQueue.main.async {
-                            self.progressBar.setState(
-                                isLoading: false,
-                                percentComplete: article.percentComplete,
-                                isRead: article.isRead
-                            )
                             self.params.onArticleUpdated(
                                 ArticleUpdatedEvent(
                                     article: article,
@@ -268,10 +247,11 @@ class ArticleViewController:
                     _ in os_log("error fetching comments")
                 }
             )
+        case "navBack":
+            close()
         case "navTo":
             if let url = URL(string: message.data as! String) {
                 params.onNavTo(url)
-                navigationController?.popViewController(animated: true)
             }
         case "linkTwitterAccount":
             if let credentials = TwitterCredentialLinkForm(serializedForm: message.data as! [String: Any]) {
@@ -310,11 +290,6 @@ class ArticleViewController:
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.progressBar.setState(
-                                isLoading: false,
-                                percentComplete: result.userArticle.percentComplete,
-                                isRead: result.userArticle.isRead
-                            )
                             self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
@@ -443,7 +418,7 @@ class ArticleViewController:
                     [weak self] _ in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error posting comment addendum.")
+                            self.setErrorState(withMessage: "Error posting comment revision.")
                         }
                     }
                 }
@@ -503,6 +478,10 @@ class ArticleViewController:
                     callbackId: callbackId!
                 )
             }
+        case "setStatusBarVisibility":
+            if let isVisible = message.data as? Bool {
+                setStatusBarVisibility(isVisible: isVisible)
+            }
         case "share":
             presentActivityViewController(
                 data: ShareData(message.data as! [String: Any]),
@@ -529,11 +508,6 @@ class ArticleViewController:
     func replaceArticle(slug: String) {
         commitErrorCount = 0
         hasParsedPage = false
-        progressBar.setState(
-            isLoading: false,
-            percentComplete: -1,
-            isRead: false
-        )
         webViewContainer.setState(.loading)
         loadArticle(slug: slug)
     }
@@ -541,15 +515,12 @@ class ArticleViewController:
         dismiss(animated: true)
     }
     func setErrorState(withMessage message: String) {
-        progressBar.setState(isLoading: false)
         errorMessage.text = message
         webViewContainer.setState(.error)
-        setBarsVisibility(hidden: false)
+        setStatusBarVisibility(isVisible: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // speech bubble
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: progressBar)
         // fetch and preprocess the article
         switch params.articleReference {
         case .slug(let slug):
@@ -564,14 +535,7 @@ class ArticleViewController:
             // clean up webview
             webView.dispose()
             // show status bar with animation
-            if hideStatusBar {
-                hideStatusBar = false
-                UIView.animate(withDuration: 0.25) {
-                    self.setNeedsStatusBarAppearanceUpdate()
-                }
-            }
-            // call onClose
-            params.onClose()
+            setStatusBarVisibility(isVisible: true)
         }
     }
 }

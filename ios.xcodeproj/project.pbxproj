@@ -24,7 +24,6 @@
 		1F09E6E22409E3F400967828 /* WebAuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6E02409E3F400967828 /* WebAuthRequest.swift */; };
 		1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6E32409E5F700967828 /* WebAuthResponse.swift */; };
 		1F09E6E52409E5F700967828 /* WebAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6E32409E5F700967828 /* WebAuthResponse.swift */; };
-		1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12E66721D6A1B4001553F9 /* ProgressBarView.swift */; };
 		1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4BF21CB167500EE6927 /* AppDelegate.swift */; };
 		1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C321CB167500EE6927 /* Main.storyboard */; };
 		1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C621CB167700EE6927 /* Assets.xcassets */; };
@@ -200,7 +199,6 @@
 		1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEventResponse.swift; sourceTree = "<group>"; };
 		1F09E6E02409E3F400967828 /* WebAuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthRequest.swift; sourceTree = "<group>"; };
 		1F09E6E32409E5F700967828 /* WebAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthResponse.swift; sourceTree = "<group>"; };
-		1F12E66721D6A1B4001553F9 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F13B4C421CB167500EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -314,14 +312,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F12E66421D6A16B001553F9 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1F12E66721D6A1B4001553F9 /* ProgressBarView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		1F13B4B321CB167500EE6927 = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				1F13B4D421CC334400EE6927 /* ViewControllers */,
-				1F12E66421D6A16B001553F9 /* Views */,
 				1F19479D21EAAA6E00D1599D /* WebViewUI */,
 				1F8768B722318B54002B5D16 /* AppBundleInfo.swift */,
 				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
@@ -659,7 +648,6 @@
 				1F71E9F0235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F9D8F64244CFDA400466895 /* TwitterCredentialLinkForm.swift in Sources */,
-				1F12E66821D6A1B4001553F9 /* ProgressBarView.swift in Sources */,
 				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
 				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
