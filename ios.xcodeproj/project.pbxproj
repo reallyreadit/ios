@@ -112,6 +112,10 @@
 		1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
+		1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
+		1F83DEA124606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
+		1F83DEA72463303F008561FF /* FadeInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DEA62463303F008561FF /* FadeInAnimator.swift */; };
+		1F83DEA924633302008561FF /* FadeOutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DEA824633302008561FF /* FadeOutAnimator.swift */; };
 		1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
 		1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
 		1F8768B622318829002B5D16 /* SharedBundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768B422318829002B5D16 /* SharedBundleInfo.swift */; };
@@ -258,6 +262,9 @@
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleIssueReportRequest.swift; sourceTree = "<group>"; };
+		1F83DEA62463303F008561FF /* FadeInAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInAnimator.swift; sourceTree = "<group>"; };
+		1F83DEA824633302008561FF /* FadeOutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOutAnimator.swift; sourceTree = "<group>"; };
 		1F8768B422318829002B5D16 /* SharedBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B722318B54002B5D16 /* AppBundleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleInfo.swift; sourceTree = "<group>"; };
 		1F8768B92231AC0D002B5D16 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
@@ -370,6 +377,8 @@
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
 				1F8768BB22381137002B5D16 /* ClipboardReferrer.swift */,
+				1F83DEA62463303F008561FF /* FadeInAnimator.swift */,
+				1F83DEA824633302008561FF /* FadeOutAnimator.swift */,
 				1F13B4D721CC667D00EE6927 /* WebAppViewController.swift */,
 			);
 			path = ViewControllers;
@@ -382,6 +391,7 @@
 				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
 				1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */,
+				1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
 				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
 				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
@@ -653,6 +663,8 @@
 				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
+				1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */,
+				1F83DEA924633302008561FF /* FadeOutAnimator.swift in Sources */,
 				1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */,
 				1F8768D822693700002B5D16 /* UserAccount.swift in Sources */,
 				1F5B32CC238B1DC80060B693 /* CommentDeletionForm.swift in Sources */,
@@ -665,6 +677,7 @@
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F8768D522692B7F002B5D16 /* CommentThread.swift in Sources */,
 				1F8768DE2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
+				1F83DEA72463303F008561FF /* FadeInAnimator.swift in Sources */,
 				1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */,
 				1F8768C02239C04B002B5D16 /* ShareDataStringSource.swift in Sources */,
 				1FDBBC8522173D9400E03051 /* Rating.swift in Sources */,
@@ -758,6 +771,7 @@
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
 				1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F5B32C4238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
+				1F83DEA124606250008561FF /* ArticleIssueReportRequest.swift in Sources */,
 				1F8768D922693700002B5D16 /* UserAccount.swift in Sources */,
 				1F9D8F65244CFDA400466895 /* TwitterCredentialLinkForm.swift in Sources */,
 				1FC0D61D231AD29500E4DD9A /* PostForm.swift in Sources */,

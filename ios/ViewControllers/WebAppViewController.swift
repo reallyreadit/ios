@@ -42,6 +42,7 @@ private func prepareURL(_ url: URL) -> URL? {
 }
 class WebAppViewController:
     UIViewController,
+    UIViewControllerTransitioningDelegate,
     MessageWebViewDelegate,
     WebViewContainerDelegate,
     SFSafariViewControllerDelegate,
@@ -180,6 +181,20 @@ class WebAppViewController:
                     }
                 }
             }
+    }
+    func animationController(
+        forDismissed dismissed: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning?
+    {
+      return FadeOutAnimator()
+    }
+
+    func animationController(
+      forPresented presented: UIViewController,
+      presenting: UIViewController, source: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning?
+    {
+      return FadeInAnimator()
     }
     @available(iOS 13.0, *)
     func authorizationController(
@@ -508,8 +523,9 @@ class WebAppViewController:
             )
         )
         // set view params
-        controller.modalPresentationStyle = .fullScreen
-        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .custom
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.transitioningDelegate = self
         // present
         navigationController!.present(controller, animated: true)
     }
