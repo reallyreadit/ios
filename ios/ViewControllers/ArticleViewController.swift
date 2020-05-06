@@ -425,6 +425,13 @@ class ArticleViewController:
             )
         case "readArticle":
             replaceArticle(slug: message.data as! String)
+        case "reportArticleIssue":
+            apiServer.postJson(
+                path: "/Analytics/ArticleIssueReport",
+                data: ArticleIssueReportRequest(message.data as! [String: Any]),
+                onSuccess: { },
+                onError: { _ in }
+            )
         case "requestTwitterWebViewRequestToken":
             apiServer.postJson(
                 path: "/Auth/TwitterWebViewRequest",
