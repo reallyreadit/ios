@@ -17,6 +17,12 @@ class ArticleViewController:
     override var prefersStatusBarHidden: Bool {
         return !isStatusBarVisible
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        }
+        return .default
+    }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .slide
     }
