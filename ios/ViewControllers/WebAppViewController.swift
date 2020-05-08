@@ -61,8 +61,8 @@ class WebAppViewController:
         }
         return .default
     }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    init() {
+        super.init(nibName: nil, bundle: nil)
         webView = MessageWebView(
             webViewConfig: WKWebViewConfiguration(),
             javascriptListenerObject: "window.reallyreadit.app"
@@ -119,6 +119,9 @@ class WebAppViewController:
                 constant: 8
             )
         ])
+    }
+    required init?(coder: NSCoder) {
+        return nil
     }
     @objc private func loadWebApp() {
         loadURL(SharedBundleInfo.webServerURL)
@@ -495,7 +498,7 @@ class WebAppViewController:
                     )
                 },
                 onClose: {
-                    self.navigationController!.dismiss(animated: true)
+                    self.dismiss(animated: true)
                 },
                 onCommentPosted: {
                     comment in
@@ -517,7 +520,7 @@ class WebAppViewController:
                 },
                 onNavTo: {
                     url in
-                    self.navigationController!.dismiss(animated: true)
+                    self.dismiss(animated: true)
                     self.loadURL(url)
                 }
             )
@@ -526,8 +529,7 @@ class WebAppViewController:
         controller.modalPresentationStyle = .custom
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.transitioningDelegate = self
-        // present
-        navigationController!.present(controller, animated: true)
+        present(controller, animated: true)
     }
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismiss(animated: true)
@@ -558,8 +560,6 @@ class WebAppViewController:
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // disable swipe back gesture (window.webkit is undefined after beginning the gesture)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // check loading state
         if (!hasCalledWebViewLoad) {
             loadWebApp()

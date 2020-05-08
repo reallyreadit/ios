@@ -9,28 +9,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     
     private let notificationService = NotificationService()
     
-    private func getNaviationController() -> UINavigationController? {
-        return window?.rootViewController as? UINavigationController
-    }
-    private func getWebAppViewController() -> WebAppViewController? {
-        if let navigationController = getNaviationController() {
-            return getWebAppViewController(
-                navigationController: navigationController
-            )
-        }
-        return nil
-    }
-    private func getWebAppViewController(
-        navigationController: UINavigationController
-    ) -> WebAppViewController? {
-        return navigationController.viewControllers[0] as? WebAppViewController
-    }
     private func loadURL(_ url: URL) -> Bool {
         if
-            let navigationController = getNaviationController(),
-            let webAppViewController = getWebAppViewController(
-                navigationController: navigationController
-            )
+            let webAppViewController = window?.rootViewController as? WebAppViewController
         {
             if (
                 url.path.starts(with: "/read") &&
@@ -45,22 +26,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                         options: [.regularExpression, .caseInsensitive]
                     )
                 )!
-                if navigationController.viewControllers.count == 1 {
+                if webAppViewController.presentedViewController == nil {
+                    os_log("[app-delegate] entering reader mode for article: %s", slug)
                     webAppViewController.loadURL(commentsURL)
                     webAppViewController.readArticle(reference: .slug(slug))
                     return true
                 } else if
-                    navigationController.viewControllers.count == 2,
-                    let articleViewController = navigationController.viewControllers[1] as? ArticleViewController
+                    let articleViewController = webAppViewController.presentedViewController as? ArticleViewController
                 {
+                    os_log("[app-delegate] updating reader mode for article: %s", slug)
                     webAppViewController.loadURL(commentsURL)
                     articleViewController.replaceArticle(slug: slug)
                     return true
                 }
             } else {
-                if navigationController.viewControllers.count > 1 {
-                    navigationController.dismiss(animated: true)
+                if webAppViewController.presentedViewController != nil {
+                    os_log("[app-delegate] dismissing presented view controller")
+                    webAppViewController.dismiss(animated: true)
                 }
+                os_log("[app-delegate] loading url: %s", url.absoluteString)
                 webAppViewController.loadURL(url)
                 return true
             }
@@ -68,10 +52,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         return false
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         // Override point for customization after application launch.
-        // cleanup unused settings and files
         os_log("[lifecycle] didFinishLaunchingWithOptions")
+        // set up the view
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = WebAppViewController()
+        window?.makeKeyAndVisible()
+        // cleanup unused settings and files
         LocalStorage.clean()
         let containerURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.it.reallyread"
@@ -218,7 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // update web app with new star count
         let newStarCount = LocalStorage.getExtensionNewStarCount()
         LocalStorage.setExtensionNewStarCount(count: 0)
-        if let webAppViewController = getWebAppViewController() {
+        if let webAppViewController = window?.rootViewController as? WebAppViewController {
             webAppViewController.signalDidBecomeActive(
                 event: AppActivationEvent(
                     badgeCount: application.applicationIconBadgeNumber,
@@ -245,7 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             LocalStorage.setNotificationToken(token)
             LocalStorage.setNotificationTokenSent(false)
             // update web app
-            if let webAppViewController = getWebAppViewController() {
+            if let webAppViewController = window?.rootViewController as? WebAppViewController {
                 webAppViewController.updateDeviceInfo()
             }
             // send if authenticated
@@ -264,7 +255,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     
     func onAlertStatusReceived(status: AlertStatus) {
         // update web app
-        if let webAppViewController = getWebAppViewController() {
+        if let webAppViewController = window?.rootViewController as? WebAppViewController {
             webAppViewController.updateAlertStatus(status)
         }
     }

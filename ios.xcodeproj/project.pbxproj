@@ -25,7 +25,6 @@
 		1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6E32409E5F700967828 /* WebAuthResponse.swift */; };
 		1F09E6E52409E5F700967828 /* WebAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6E32409E5F700967828 /* WebAuthResponse.swift */; };
 		1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13B4BF21CB167500EE6927 /* AppDelegate.swift */; };
-		1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C321CB167500EE6927 /* Main.storyboard */; };
 		1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C621CB167700EE6927 /* Assets.xcassets */; };
 		1F13B4CA21CB167700EE6927 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */; };
 		1F13B4D321CC117300EE6927 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
@@ -205,7 +204,6 @@
 		1F09E6E32409E5F700967828 /* WebAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthResponse.swift; sourceTree = "<group>"; };
 		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F13B4C421CB167500EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F13B4C621CB167700EE6927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F13B4C921CB167700EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F13B4D221CC117300EE6927 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -350,7 +348,6 @@
 				1F19476721E5552900D1599D /* Debug.plist */,
 				1F19473A21E105C100D1599D /* ios.entitlements */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
-				1F13B4C321CB167500EE6927 /* Main.storyboard */,
 				1F71E9E623563049000F869D /* NotificationService.swift */,
 				1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */,
 				1FDBBC7C221229B500E03051 /* reader.js */,
@@ -630,7 +627,6 @@
 			files = (
 				1F13B4CA21CB167700EE6927 /* LaunchScreen.storyboard in Resources */,
 				1F13B4C721CB167700EE6927 /* Assets.xcassets in Resources */,
-				1F13B4C521CB167500EE6927 /* Main.storyboard in Resources */,
 				1FDBBC7D221229B500E03051 /* reader.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,14 +819,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1F13B4C321CB167500EE6927 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1F13B4C421CB167500EE6927 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
