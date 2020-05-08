@@ -14,26 +14,29 @@ class FadeOutAnimator:
     func animateTransition(
         using transitionContext: UIViewControllerContextTransitioning
     ) {
-        let containerView = transitionContext.containerView
-        let fromView = transitionContext.view(forKey: .from)!
-        containerView.addSubview(fromView)
-        let fadeView = UIView()
-        fadeView.frame = CGRect(origin: .zero, size: UIScreen.main.bounds.size)
-        fadeView.alpha = 0
-        fadeView.backgroundColor = .white
-        containerView.addSubview(fadeView)
+        let overlay = UIView()
+        overlay.alpha = 0
+        overlay.backgroundColor = .white
+        transitionContext.containerView.addSubview(overlay)
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            overlay.leadingAnchor.constraint(equalTo: transitionContext.containerView.leadingAnchor),
+            overlay.trailingAnchor.constraint(equalTo: transitionContext.containerView.trailingAnchor),
+            overlay.topAnchor.constraint(equalTo: transitionContext.containerView.topAnchor),
+            overlay.bottomAnchor.constraint(equalTo: transitionContext.containerView.bottomAnchor)
+        ])
         UIView.animate(
             withDuration: duration / 2,
             animations: {
-                fadeView.alpha = 1
+                overlay.alpha = 1
             },
             completion: {
                 _ in
-                fromView.alpha = 0
+                transitionContext.view(forKey: .from)!.alpha = 0
                 UIView.animate(
                     withDuration: self.duration / 2,
                     animations: {
-                        fadeView.alpha = 0
+                        overlay.alpha = 0
                     },
                     completion: {
                         _ in
