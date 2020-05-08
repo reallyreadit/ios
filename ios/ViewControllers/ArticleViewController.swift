@@ -43,6 +43,7 @@ class ArticleViewController:
         )
         webView.delegate = self
         webView.view.customUserAgent = "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'"
+        webView.view.scrollView.bouncesZoom = false
         webViewContainer = WebViewContainer(webView: webView.view)
         // configure the error view
         let errorContent = UIView()
