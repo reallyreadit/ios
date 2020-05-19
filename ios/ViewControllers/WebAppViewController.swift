@@ -86,6 +86,7 @@ class WebAppViewController:
             label.text = line
             label.numberOfLines = 0
             label.textAlignment = .center
+            label.textColor = .darkText
             label.translatesAutoresizingMaskIntoConstraints = false
             errorContent.addSubview(label)
             NSLayoutConstraint.activate([
@@ -104,6 +105,7 @@ class WebAppViewController:
         })
         let reloadButton = UIButton(type: .system)
         reloadButton.setTitle("Try Again", for: .normal)
+        reloadButton.setTitleColor(.systemBlue, for: .normal)
         reloadButton.addTarget(self, action: #selector(loadWebApp), for: .touchUpInside)
         reloadButton.translatesAutoresizingMaskIntoConstraints = false
         errorContent.addSubview(reloadButton)

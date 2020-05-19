@@ -63,6 +63,7 @@ class ArticleViewController:
             label.text = line
             label.numberOfLines = 0
             label.textAlignment = .center
+            label.textColor = .darkText
             label.translatesAutoresizingMaskIntoConstraints = false
             errorContent.addSubview(label)
             NSLayoutConstraint.activate([
@@ -77,6 +78,7 @@ class ArticleViewController:
         })
         let backButton = UIButton(type: .system)
         backButton.setTitle("Go Back", for: .normal)
+        backButton.setTitleColor(.systemBlue, for: .normal)
         backButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         errorContent.addSubview(backButton)
