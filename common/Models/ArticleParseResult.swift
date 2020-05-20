@@ -36,6 +36,7 @@ struct ArticleParseResult: Codable {
         } else {
             pageLinks = [PageLinkParseResult]()
         }
+        imageUrl = data["imageUrl"] as? String
     }
     let title: String
     let source: SourceParseResult?
@@ -46,4 +47,5 @@ struct ArticleParseResult: Codable {
     let description: String?
     let tags: [String]
     let pageLinks: [PageLinkParseResult]
+    let imageUrl: String?
 }
