@@ -20,19 +20,6 @@
 	<string>5.12</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>dev.readup.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -63,18 +50,16 @@
 		<string>com.apple.share-services</string>
 	</dict>
 	<key>RRITAPIServerURL</key>
-	<string>http://api.dev.readup.com/</string>
+	<string>https://api.dev.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
 	<string>.dev.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>devSessionKey</string>
     <key>RRITClientID</key>
     <string>ios/share-extension</string>
-	<key>RRITDebugReader</key>
-	<true/>
     <key>RRITShareExtensionScriptVersion</key>
     <string>4.0.1</string>
     <key>RRITWebServerURL</key>
-    <string>http://dev.readup.com/</string>
+    <string>https://dev.readup.com/</string>
 </dict>
 </plist>

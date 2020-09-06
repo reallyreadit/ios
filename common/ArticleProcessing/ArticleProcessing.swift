@@ -44,15 +44,13 @@ struct ArticleProcessing {
     ) {
         var request = URLRequest(
             url: (
-                SharedBundleInfo.debugReader ?
-                    url :
-                    URL(
-                        string: url.absoluteString.replacingOccurrences(
-                            of: "^http:",
-                            with: "https:",
-                            options: [.regularExpression, .caseInsensitive]
-                        )
-                    )!
+                URL(
+                    string: url.absoluteString.replacingOccurrences(
+                        of: "^http:",
+                        with: "https:",
+                        options: [.regularExpression, .caseInsensitive]
+                    )
+                )!
             )
         )
         request.setValue(

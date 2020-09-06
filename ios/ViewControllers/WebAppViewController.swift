@@ -14,10 +14,8 @@ private func getDeviceInfo() -> DeviceInfo {
 }
 private func prepareURL(_ url: URL) -> URL? {
     if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
-        // force https unless we're in debug mode
-        if !SharedBundleInfo.debugReader {
-            components.scheme = "https"
-        }
+        // force https
+        components.scheme = "https"
         // convert reallyread.it urls to readup.com
         components.host = components.host?.replacingOccurrences(
             of: "reallyread.it",

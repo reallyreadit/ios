@@ -30,8 +30,6 @@
 	<string>sessionKey</string>
     <key>RRITClientID</key>
     <string>ios/app</string>
-	<key>RRITDebugReader</key>
-	<false/>
     <key>RRITReaderScriptVersion</key>
     <string>10.0.1</string>
     <key>RRITShareExtensionScriptVersion</key>

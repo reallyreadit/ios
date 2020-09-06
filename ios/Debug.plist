@@ -22,37 +22,22 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-            <key>dev.readup.com</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-            </dict>
-		</dict>
-	</dict>
 	<key>RRITAPIServerURL</key>
-    <string>http://api.dev.readup.com/</string>
+    <string>https://api.dev.readup.com/</string>
 	<key>RRITAuthCookieDomain</key>
 	<string>.dev.readup.com</string>
 	<key>RRITAuthCookieName</key>
 	<string>devSessionKey</string>
     <key>RRITClientID</key>
     <string>ios/app</string>
-	<key>RRITDebugReader</key>
-	<true/>
     <key>RRITReaderScriptVersion</key>
     <string>10.0.1</string>
     <key>RRITShareExtensionScriptVersion</key>
     <string>4.0.1</string>
     <key>RRITStaticContentServerURL</key>
-    <string>http://static.dev.readup.com/</string>
+    <string>https://static.dev.readup.com/</string>
 	<key>RRITWebServerURL</key>
-	<string>http://dev.readup.com/</string>
+	<string>https://dev.readup.com/</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiresFullScreen</key>
