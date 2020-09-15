@@ -7,19 +7,19 @@ import AuthenticationServices
 class ArticleViewController:
     UIViewController,
     MessageWebViewDelegate,
-    SFSafariViewControllerDelegate,
     ASWebAuthenticationPresentationContextProviding
 {
     private let apiServer = APIServerURLSession()
     private var commitErrorCount = 0
+    private var displayTheme: DisplayTheme!
     private var hasParsedPage = false
     private var isStatusBarVisible = true
     override var prefersStatusBarHidden: Bool {
         return !isStatusBarVisible
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
+        if displayTheme == .dark {
+            return .lightContent
         }
         return .default
     }
@@ -34,6 +34,11 @@ class ArticleViewController:
     init(params: ArticleViewControllerParams) {
         self.params = params
         super.init(nibName: nil, bundle: nil)
+        // set theme
+        displayTheme = DisplayPreferenceService.resolveDisplayTheme(
+            traits: traitCollection,
+            preference: LocalStorage.getDisplayPreference()
+        )
         // init webview
         let config = WKWebViewConfiguration()
         webView = MessageWebView(
@@ -63,7 +68,6 @@ class ArticleViewController:
             label.text = line
             label.numberOfLines = 0
             label.textAlignment = .center
-            label.textColor = .darkText
             label.translatesAutoresizingMaskIntoConstraints = false
             errorContent.addSubview(label)
             NSLayoutConstraint.activate([
@@ -97,6 +101,8 @@ class ArticleViewController:
                 constant: 8
             )
         ])
+        // theme webview
+        webViewContainer.setDisplayTheme(theme: displayTheme)
     }
     required init?(coder: NSCoder) {
         return nil
@@ -178,11 +184,41 @@ class ArticleViewController:
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }
+    private func updateDisplayPreference(preference: DisplayPreference) {
+        displayTheme = DisplayPreferenceService.resolveDisplayTheme(traits: traitCollection, preference: preference)
+        setNeedsStatusBarAppearanceUpdate()
+        webViewContainer.setDisplayTheme(theme: displayTheme)
+    }
     override func loadView() {
         view = webViewContainer.view
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
+        case "changeDisplayPreference":
+            let preference = DisplayPreference(serializedPreference: message.data as! [String: Any])!
+            LocalStorage.setDisplayPreference(preference: preference)
+            updateDisplayPreference(preference: preference)
+            params.onDisplayPreferenceChanged(preference)
+            apiServer.postJson(
+                path: "/UserAccounts/DisplayPreference",
+                data: preference,
+                onSuccess: {
+                    [weak self] (preference: DisplayPreference) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(data: preference, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error saving display preference.")
+                        }
+                    }
+                }
+            )
         case "commitReadState":
             let event = CommitReadStateEvent(message.data as! [String: Any])
             apiServer.postJson(
@@ -254,6 +290,41 @@ class ArticleViewController:
                     _ in os_log("error fetching comments")
                 }
             )
+        case "getDisplayPreference":
+            webView.sendResponse(
+                data: LocalStorage.getDisplayPreference(),
+                callbackId: callbackId!
+            )
+            apiServer.getJson(
+                path: "/UserAccounts/DisplayPreference",
+                onSuccess: {
+                    [weak self] (preference: DisplayPreference) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            if
+                                let storedPreference = LocalStorage.getDisplayPreference(),
+                                storedPreference.hideLinks == preference.hideLinks,
+                                storedPreference.textSize == preference.textSize,
+                                storedPreference.theme == preference.theme
+                            {
+                                return
+                            }
+                            LocalStorage.setDisplayPreference(preference: preference)
+                            self.updateDisplayPreference(preference: preference)
+                            self.webView.sendMessage(
+                                message: Message(
+                                    type: "displayPreferenceChanged",
+                                    data: preference
+                                )
+                            )
+                            self.params.onDisplayPreferenceChanged(preference)
+                        }
+                    }
+                },
+                onError: {
+                    _ in os_log("error fetching display preference")
+                }
+            )
         case "navBack":
             close()
         case "navTo":
@@ -286,7 +357,7 @@ class ArticleViewController:
             }
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
-                presentSafariViewController(url: url, delegate: self)
+                presentSafariViewController(url: url, theme: displayTheme)
             }
         case "parseResult":
             hasParsedPage = true
@@ -499,6 +570,7 @@ class ArticleViewController:
         case "share":
             presentActivityViewController(
                 data: ShareData(message.data as! [String: Any]),
+                theme: displayTheme,
                 completionHandler: {
                     result in
                     if let callbackId = callbackId {
@@ -524,9 +596,6 @@ class ArticleViewController:
         hasParsedPage = false
         webViewContainer.setState(.loading)
         loadArticle(slug: slug)
-    }
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismiss(animated: true)
     }
     func setErrorState(withMessage message: String) {
         errorMessage.text = message

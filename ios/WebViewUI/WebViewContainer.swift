@@ -21,6 +21,8 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        // configure background colors
+        webView.isOpaque = false
         // configure the loading view
         let indicator = UIActivityIndicatorView()
         indicator.color = .gray
@@ -32,7 +34,6 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
             indicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor)
         ])
         // add loading view to container
-        loadingView.backgroundColor = .white
         view.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -42,7 +43,6 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         // add error view to container
-        errorView.backgroundColor = .white
         view.addSubview(errorView)
         errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -53,6 +53,21 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         ])
         // set loading state
         setState(.loading)
+    }
+    private func setDisplayThemeForLabels(view: UIView, theme: DisplayTheme) {
+        for subView in view.subviews {
+            if let label = subView as? UILabel {
+                DisplayPreferenceService.setTextColor(label: label, theme: theme)
+            } else {
+                setDisplayThemeForLabels(view: subView, theme: theme)
+            }
+        }
+    }
+    func setDisplayTheme(theme: DisplayTheme) {
+        DisplayPreferenceService.setBackgroundColor(view: view, theme: theme)
+        DisplayPreferenceService.setBackgroundColor(view: loadingView, theme: theme)
+        DisplayPreferenceService.setBackgroundColor(view: errorView, theme: theme)
+        setDisplayThemeForLabels(view: view, theme: theme)
     }
     func setState(_ state: WebViewContainerState) {
         self.state = state

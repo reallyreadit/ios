@@ -1,7 +1,9 @@
 import Foundation
+import UIKit
 
 private enum LocalStorageKey: String {
     case appHasLaunched = "appHasLaunched"
+    case displayPreference = "displayPreference"
     case extensionNewStarCount = "extensionNewStarCount"
     case notificationToken = "notificationToken"
     case notificationTokenSent = "notificationTokenSent"
@@ -14,6 +16,16 @@ struct LocalStorage {
         userDefaults.removeObject(forKey: "contentScriptLastCheck")
         userDefaults.removeObject(forKey: "contentScriptVersion")
         userDefaults.removeObject(forKey: "domainMigrationHasCompleted")
+    }
+    static func getDisplayPreference() -> DisplayPreference? {
+        let decoder = JSONDecoder.init()
+        if
+            let encodedPreference = userDefaults.data(forKey: LocalStorageKey.displayPreference.rawValue),
+            let preference = try? decoder.decode(DisplayPreference.self, from: encodedPreference)
+        {
+            return preference
+        }
+        return nil
     }
     static func getExtensionNewStarCount() -> Int {
         return userDefaults.integer(forKey: LocalStorageKey.extensionNewStarCount.rawValue)
@@ -39,6 +51,15 @@ struct LocalStorage {
     }
     static func registerInitialAppLaunch() {
         userDefaults.set(true, forKey: LocalStorageKey.appHasLaunched.rawValue)
+    }
+    static func removeDisplayPreference() {
+        userDefaults.removeObject(forKey: LocalStorageKey.displayPreference.rawValue)
+    }
+    static func setDisplayPreference(preference: DisplayPreference) {
+        let encoder = JSONEncoder.init()
+        if let encodedPreference = try? encoder.encode(preference) {
+            userDefaults.set(encodedPreference, forKey: LocalStorageKey.displayPreference.rawValue)
+        }
     }
     static func setExtensionNewStarCount(count: Int) {
         userDefaults.set(count, forKey: LocalStorageKey.extensionNewStarCount.rawValue)

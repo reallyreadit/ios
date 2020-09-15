@@ -6,6 +6,10 @@ class FadeOutAnimator:
     UIViewControllerAnimatedTransitioning
 {
     private let duration = 0.7
+    private let theme: DisplayTheme
+    init(theme: DisplayTheme) {
+        self.theme = theme
+    }
     func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?
     ) -> TimeInterval {
@@ -16,7 +20,7 @@ class FadeOutAnimator:
     ) {
         let overlay = UIView()
         overlay.alpha = 0
-        overlay.backgroundColor = .white
+        DisplayPreferenceService.setBackgroundColor(view: overlay, theme: theme)
         transitionContext.containerView.addSubview(overlay)
         overlay.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

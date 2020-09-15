@@ -5,6 +5,7 @@ import os.log
 extension UIViewController {
     func presentActivityViewController(
         data: ShareData,
+        theme: DisplayTheme,
         completionHandler: @escaping (_: ShareResult) -> Void
     ) {
         os_log("[sharing] presenting UIActivityViewController")
@@ -47,6 +48,14 @@ extension UIViewController {
             completionHandler(result)
         }
         activityViewController.popoverPresentationController?.sourceView = self.view
+        activityViewController.modalPresentationStyle = .overCurrentContext
+        if #available(iOS 13.0, *) {
+            activityViewController.overrideUserInterfaceStyle = (
+                theme == .dark ?
+                    .dark :
+                    .light
+            )
+        }
         present(activityViewController, animated: true, completion: nil)
     }
 }

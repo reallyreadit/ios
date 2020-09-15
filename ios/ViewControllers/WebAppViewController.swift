@@ -43,24 +43,30 @@ class WebAppViewController:
     UIViewControllerTransitioningDelegate,
     MessageWebViewDelegate,
     WebViewContainerDelegate,
-    SFSafariViewControllerDelegate,
     ASAuthorizationControllerDelegate,
     ASAuthorizationControllerPresentationContextProviding,
     ASWebAuthenticationPresentationContextProviding
 {
+    private var displayTheme: DisplayTheme!
     private var hasCalledWebViewLoad = false
     private var hasEstablishedCommunication = false
     private var webAuthSession: NSObject?
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
+        if displayTheme == .dark {
+            return .lightContent
         }
         return .default
     }
     init() {
         super.init(nibName: nil, bundle: nil)
+        // set theme
+        displayTheme = DisplayPreferenceService.resolveDisplayTheme(
+            traits: traitCollection,
+            preference: LocalStorage.getDisplayPreference()
+        )
+        // init webview
         webView = MessageWebView(
             webViewConfig: WKWebViewConfiguration(),
             javascriptListenerObject: "window.reallyreadit.app"
@@ -84,7 +90,6 @@ class WebAppViewController:
             label.text = line
             label.numberOfLines = 0
             label.textAlignment = .center
-            label.textColor = .darkText
             label.translatesAutoresizingMaskIntoConstraints = false
             errorContent.addSubview(label)
             NSLayoutConstraint.activate([
@@ -119,6 +124,8 @@ class WebAppViewController:
                 constant: 8
             )
         ])
+        // theme webview
+        webViewContainer.setDisplayTheme(theme: displayTheme)
     }
     required init?(coder: NSCoder) {
         return nil
@@ -184,12 +191,20 @@ class WebAppViewController:
                     }
                 }
             }
+        // clear display preference
+        LocalStorage.removeDisplayPreference()
+        updateDisplayPreference(preference: nil)
+    }
+    private func updateDisplayPreference(preference: DisplayPreference?) {
+        displayTheme = DisplayPreferenceService.resolveDisplayTheme(traits: traitCollection, preference: preference)
+        setNeedsStatusBarAppearanceUpdate()
+        webViewContainer.setDisplayTheme(theme: displayTheme)
     }
     func animationController(
         forDismissed dismissed: UIViewController
     ) -> UIViewControllerAnimatedTransitioning?
     {
-      return FadeOutAnimator()
+        return FadeOutAnimator(theme: displayTheme)
     }
 
     func animationController(
@@ -197,7 +212,7 @@ class WebAppViewController:
       presenting: UIViewController, source: UIViewController
     ) -> UIViewControllerAnimatedTransitioning?
     {
-      return FadeInAnimator()
+        return FadeInAnimator(theme: displayTheme)
     }
     @available(iOS 13.0, *)
     func authorizationController(
@@ -302,6 +317,10 @@ class WebAppViewController:
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
+        case "displayPreferenceChanged":
+            let preference = DisplayPreference(serializedPreference: message.data as! [String: Any])!
+            LocalStorage.setDisplayPreference(preference: preference)
+            updateDisplayPreference(preference: preference)
         case "getDeviceInfo":
             hasEstablishedCommunication = true
             webView.sendResponse(
@@ -322,7 +341,7 @@ class WebAppViewController:
             )
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
-                presentSafariViewController(url: url, delegate: self)
+                presentSafariViewController(url: url, theme: displayTheme)
             }
         case "readArticle":
             let data = message.data as! [String: Any]
@@ -418,6 +437,7 @@ class WebAppViewController:
         case "share":
             presentActivityViewController(
                 data: ShareData(message.data as! [String: Any]),
+                theme: displayTheme,
                 completionHandler: {
                     result in
                     if let callbackId = callbackId {
@@ -518,6 +538,16 @@ class WebAppViewController:
                         )
                     )
                 },
+                onDisplayPreferenceChanged: {
+                    preference in
+                    self.updateDisplayPreference(preference: preference)
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "displayPreferenceChanged",
+                            data: preference
+                        )
+                    )
+                },
                 onNavTo: {
                     url in
                     self.dismiss(animated: true)
@@ -530,9 +560,6 @@ class WebAppViewController:
         controller.modalPresentationCapturesStatusBarAppearance = true
         controller.transitioningDelegate = self
         present(controller, animated: true)
-    }
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismiss(animated: true)
     }
     func signalDidBecomeActive(event: AppActivationEvent) {
         webView.sendMessage(
