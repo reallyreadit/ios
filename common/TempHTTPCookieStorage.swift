@@ -17,6 +17,11 @@ class TempHTTPCookieStorage : HTTPCookieStorage {
         _ cookies: [HTTPCookie],
         for task: URLSessionTask
     ) {
+        storeCookies(cookies)
+    }
+    func storeCookies(
+        _ cookies: [HTTPCookie]
+    ) {
         tempCookies.append(contentsOf: cookies)
     }
 }
