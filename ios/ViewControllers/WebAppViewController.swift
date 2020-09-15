@@ -57,6 +57,9 @@ class WebAppViewController:
         if displayTheme == .dark {
             return .lightContent
         }
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        }
         return .default
     }
     init() {
