@@ -59,6 +59,44 @@ struct ArticleProcessing {
         )
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.httpCookieStorage = TempHTTPCookieStorage()
+        if
+            url.host == "www.npr.org" || url.host == "npr.org",
+            let tempCookieStorage = sessionConfig.httpCookieStorage as? TempHTTPCookieStorage,
+            let trackingChoiceCookie = HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: url.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "trackingChoice",
+                    HTTPCookiePropertyKey.value: "true"
+                ]
+            ),
+            let choiceVersionCookie = HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: url.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "choiceVersion",
+                    HTTPCookiePropertyKey.value: "1"
+                ]
+            ),
+            let dateOfChoiceCookie = HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: url.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "dateOfChoice",
+                    HTTPCookiePropertyKey.value: String(
+                        Int(
+                            Date().timeIntervalSince1970 * 1000
+                        )
+                    )
+                ]
+            )
+        {
+            tempCookieStorage.storeCookies([
+                trackingChoiceCookie,
+                choiceVersionCookie,
+                dateOfChoiceCookie
+            ])
+        }
         URLSession(configuration: sessionConfig)
             .dataTask(
                 with: request,
