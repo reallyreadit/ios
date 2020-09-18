@@ -31,7 +31,7 @@
     <key>RRITClientID</key>
     <string>ios/app</string>
     <key>RRITReaderScriptVersion</key>
-    <string>11.0.0</string>
+    <string>11.0.1</string>
     <key>RRITShareExtensionScriptVersion</key>
     <string>4.0.1</string>
     <key>RRITStaticContentServerURL</key>
