@@ -10,6 +10,10 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
     let view = UIView()
     init(webView: WKWebView) {
         super.init()
+        var titlebarInset = CGFloat(0)
+        #if targetEnvironment(macCatalyst)
+        titlebarInset = CGFloat(30)
+        #endif
         // assign self as navigation delegate
         webView.navigationDelegate = self
         // add webview to container
@@ -18,7 +22,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: titlebarInset),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         // configure background colors
@@ -39,7 +43,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         NSLayoutConstraint.activate([
             loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor, constant: titlebarInset),
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         // add error view to container
@@ -48,7 +52,7 @@ class WebViewContainer: NSObject, WKNavigationDelegate {
         NSLayoutConstraint.activate([
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            errorView.topAnchor.constraint(equalTo: view.topAnchor),
+            errorView.topAnchor.constraint(equalTo: view.topAnchor, constant: titlebarInset),
             errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         // set loading state
