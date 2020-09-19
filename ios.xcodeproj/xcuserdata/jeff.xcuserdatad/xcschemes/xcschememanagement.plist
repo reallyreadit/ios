@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>safari-extension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>share-extension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>1F19476E21E8255900D1599D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FACDAB725164639006B7E64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
