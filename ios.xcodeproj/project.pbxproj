@@ -158,14 +158,6 @@
 		1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
 		1FACDABA25164639006B7E64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACDAB925164639006B7E64 /* Cocoa.framework */; };
 		1FACDABD25164639006B7E64 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */; };
-		1FACDAC025164639006B7E64 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDABF25164639006B7E64 /* _locales */; };
-		1FACDAC225164639006B7E64 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDAC125164639006B7E64 /* images */; };
-		1FACDAC425164639006B7E64 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDAC325164639006B7E64 /* manifest.json */; };
-		1FACDAC625164639006B7E64 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDAC525164639006B7E64 /* background.js */; };
-		1FACDAC825164639006B7E64 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDAC725164639006B7E64 /* content.js */; };
-		1FACDACA25164639006B7E64 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDAC925164639006B7E64 /* popup.html */; };
-		1FACDACC25164639006B7E64 /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDACB25164639006B7E64 /* popup.css */; };
-		1FACDACE25164639006B7E64 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FACDACD25164639006B7E64 /* popup.js */; };
 		1FACDAED251675C5006B7E64 /* safari-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* safari-extension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
@@ -315,14 +307,6 @@
 		1FACDAB825164639006B7E64 /* safari-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "safari-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACDAB925164639006B7E64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		1FACDABF25164639006B7E64 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
-		1FACDAC125164639006B7E64 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
-		1FACDAC325164639006B7E64 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
-		1FACDAC525164639006B7E64 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
-		1FACDAC725164639006B7E64 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
-		1FACDAC925164639006B7E64 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
-		1FACDACB25164639006B7E64 /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
-		1FACDACD25164639006B7E64 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
 		1FACDACF25164639006B7E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FACDAD025164639006B7E64 /* safari_extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = safari_extension.entitlements; sourceTree = "<group>"; };
 		1FC0D615231AD1C200E4DD9A /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
@@ -597,14 +581,6 @@
 		1FACDABE25164639006B7E64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1FACDABF25164639006B7E64 /* _locales */,
-				1FACDAC125164639006B7E64 /* images */,
-				1FACDAC325164639006B7E64 /* manifest.json */,
-				1FACDAC525164639006B7E64 /* background.js */,
-				1FACDAC725164639006B7E64 /* content.js */,
-				1FACDAC925164639006B7E64 /* popup.html */,
-				1FACDACB25164639006B7E64 /* popup.css */,
-				1FACDACD25164639006B7E64 /* popup.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -746,14 +722,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FACDAC625164639006B7E64 /* background.js in Resources */,
-				1FACDACC25164639006B7E64 /* popup.css in Resources */,
-				1FACDACA25164639006B7E64 /* popup.html in Resources */,
-				1FACDAC225164639006B7E64 /* images in Resources */,
-				1FACDAC425164639006B7E64 /* manifest.json in Resources */,
-				1FACDAC025164639006B7E64 /* _locales in Resources */,
-				1FACDAC825164639006B7E64 /* content.js in Resources */,
-				1FACDACE25164639006B7E64 /* popup.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
