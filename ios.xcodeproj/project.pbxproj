@@ -384,7 +384,7 @@
 				1F80948A2517DC52006E8536 /* appkit-bridge */,
 				1F19478621EA747E00D1599D /* common */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
-				1F13B4BE21CB167500EE6927 /* ios */,
+				1F13B4BE21CB167500EE6927 /* ios-app */,
 				1F13B4BD21CB167500EE6927 /* Products */,
 				1FACDABB25164639006B7E64 /* safari-extension */,
 				1F19477021E8255900D1599D /* share-extension */,
@@ -402,7 +402,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1F13B4BE21CB167500EE6927 /* ios */ = {
+		1F13B4BE21CB167500EE6927 /* ios-app */ = {
 			isa = PBXGroup;
 			children = (
 				1F13B4D421CC334400EE6927 /* ViewControllers */,
@@ -420,7 +420,7 @@
 				1F19476821E5552900D1599D /* Release.plist */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
 			);
-			path = ios;
+			path = "ios-app";
 			sourceTree = "<group>";
 		};
 		1F13B4D121CC117300EE6927 /* Frameworks */ = {
