@@ -1,6 +1,6 @@
 import Foundation
 
-struct DisplayPreference: Codable {
+struct DisplayPreference: Codable, Equatable {
     init?(serializedPreference: [String: Any]) {
         hideLinks = serializedPreference["hideLinks"] as! Bool
         textSize = serializedPreference["textSize"] as! Int

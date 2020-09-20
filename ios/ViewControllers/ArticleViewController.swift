@@ -309,9 +309,7 @@ class ArticleViewController:
                             }
                             if
                                 let storedPreference = LocalStorage.getDisplayPreference(),
-                                storedPreference.hideLinks == preference.hideLinks,
-                                storedPreference.textSize == preference.textSize,
-                                storedPreference.theme == preference.theme
+                                storedPreference == preference
                             {
                                 return
                             }
