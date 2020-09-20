@@ -143,6 +143,10 @@
 		1F8768DE2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
 		1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
 		1F9CB58D2517EC7C00ED09BD /* AppkitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */; };
+		1F9CB59B2517FC0500ED09BD /* content-scripts in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CB5972517FC0500ED09BD /* content-scripts */; };
+		1F9CB59C2517FC0500ED09BD /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CB5982517FC0500ED09BD /* icons */; };
+		1F9CB59D2517FC0500ED09BD /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CB5992517FC0500ED09BD /* manifest.json */; };
+		1F9CB59E2517FC0500ED09BD /* event-page in Resources */ = {isa = PBXBuildFile; fileRef = 1F9CB59A2517FC0500ED09BD /* event-page */; };
 		1F9D8F61244CCC7500466895 /* TwitterRequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */; };
 		1F9D8F62244CCC7500466895 /* TwitterRequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */; };
 		1F9D8F64244CFDA400466895 /* TwitterCredentialLinkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */; };
@@ -310,6 +314,10 @@
 		1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentResult.swift; sourceTree = "<group>"; };
 		1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppkitBridge.m; sourceTree = "<group>"; };
 		1F9CB5922517EC9000ED09BD /* AppkitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppkitBridge.h; sourceTree = "<group>"; };
+		1F9CB5972517FC0500ED09BD /* content-scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "content-scripts"; sourceTree = "<group>"; };
+		1F9CB5982517FC0500ED09BD /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
+		1F9CB5992517FC0500ED09BD /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		1F9CB59A2517FC0500ED09BD /* event-page */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "event-page"; sourceTree = "<group>"; };
 		1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterRequestToken.swift; sourceTree = "<group>"; };
 		1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCredentialLinkForm.swift; sourceTree = "<group>"; };
 		1F9D8F66244CFF0400466895 /* AuthServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProvider.swift; sourceTree = "<group>"; };
@@ -614,6 +622,10 @@
 		1FACDABE25164639006B7E64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F9CB5972517FC0500ED09BD /* content-scripts */,
+				1F9CB59A2517FC0500ED09BD /* event-page */,
+				1F9CB5982517FC0500ED09BD /* icons */,
+				1F9CB5992517FC0500ED09BD /* manifest.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -785,6 +797,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9CB59B2517FC0500ED09BD /* content-scripts in Resources */,
+				1F9CB59D2517FC0500ED09BD /* manifest.json in Resources */,
+				1F9CB59E2517FC0500ED09BD /* event-page in Resources */,
+				1F9CB59C2517FC0500ED09BD /* icons in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

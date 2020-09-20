@@ -31,5 +31,7 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 reallyread.it, inc. All rights reserved.</string>
+    <key>RRITExtensionVersion</key>
+    <string>4.1.0</string>
 </dict>
 </plist>
