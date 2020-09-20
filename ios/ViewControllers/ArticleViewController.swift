@@ -301,9 +301,12 @@ class ArticleViewController:
             apiServer.getJson(
                 path: "/UserAccounts/DisplayPreference",
                 onSuccess: {
-                    [weak self] (preference: DisplayPreference) in
+                    [weak self] (preference: DisplayPreference?) in
                     if let self = self {
                         DispatchQueue.main.async {
+                            guard let preference = preference else {
+                                return
+                            }
                             if
                                 let storedPreference = LocalStorage.getDisplayPreference(),
                                 storedPreference.hideLinks == preference.hideLinks,
