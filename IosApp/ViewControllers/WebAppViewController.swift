@@ -602,7 +602,7 @@ class WebAppViewController:
         guard let appBundleUrl = Bundle.main.builtInPlugInsURL else {
             return
         }
-        let helperBundleUrl = appBundleUrl.appendingPathComponent("appkit-bridge.bundle")
+        let helperBundleUrl = appBundleUrl.appendingPathComponent("AppkitBridge.bundle")
         guard let bundle = Bundle(url: helperBundleUrl) else {
             return
         }

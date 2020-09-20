@@ -50,7 +50,7 @@
 		1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19476521E4033200D1599D /* WebViewContainerState.swift */; };
 		1F19477221E8255900D1599D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19477121E8255900D1599D /* ShareViewController.swift */; };
 		1F19477521E8255900D1599D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F19477321E8255900D1599D /* MainInterface.storyboard */; };
-		1F19477921E8255900D1599D /* share-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* share-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479021EA98AC00D1599D /* ArticleProcessing.swift */; };
 		1F19479421EA9C1900D1599D /* APIServerURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479321EA9C1900D1599D /* APIServerURLSession.swift */; };
 		1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479621EAA42E00D1599D /* MessageWebView.swift */; };
@@ -115,7 +115,7 @@
 		1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
 		1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
-		1F8094932517DCE5006E8536 /* appkit-bridge.bundle in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F8094892517DC52006E8536 /* appkit-bridge.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F8094932517DCE5006E8536 /* AppkitBridge.bundle in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F8094892517DC52006E8536 /* AppkitBridge.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
 		1F83DEA124606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
@@ -164,7 +164,7 @@
 		1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
 		1FACDABA25164639006B7E64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACDAB925164639006B7E64 /* Cocoa.framework */; };
 		1FACDABD25164639006B7E64 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */; };
-		1FACDAED251675C5006B7E64 /* safari-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* safari-extension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* SafariExtension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D619231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
@@ -213,9 +213,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1FACDAED251675C5006B7E64 /* safari-extension.appex in Embed App Extensions */,
-				1F8094932517DCE5006E8536 /* appkit-bridge.bundle in Embed App Extensions */,
-				1F19477921E8255900D1599D /* share-extension.appex in Embed App Extensions */,
+				1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed App Extensions */,
+				1F8094932517DCE5006E8536 /* AppkitBridge.bundle in Embed App Extensions */,
+				1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +232,7 @@
 		1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEventResponse.swift; sourceTree = "<group>"; };
 		1F09E6E02409E3F400967828 /* WebAuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthRequest.swift; sourceTree = "<group>"; };
 		1F09E6E32409E5F700967828 /* WebAuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthResponse.swift; sourceTree = "<group>"; };
-		1F13B4BC21CB167500EE6927 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F13B4BC21CB167500EE6927 /* Readup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Readup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F13B4BF21CB167500EE6927 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F13B4C621CB167700EE6927 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F13B4C921CB167700EE6927 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -256,16 +256,16 @@
 		1F19472021DF006B00D1599D /* ResponseEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseEnvelope.swift; sourceTree = "<group>"; };
 		1F19472221DF007A00D1599D /* ResponseCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCallback.swift; sourceTree = "<group>"; };
 		1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUpdatedEvent.swift; sourceTree = "<group>"; };
-		1F19473A21E105C100D1599D /* ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ios.entitlements; sourceTree = "<group>"; };
+		1F19473A21E105C100D1599D /* IosApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IosApp.entitlements; sourceTree = "<group>"; };
 		1F19476521E4033200D1599D /* WebViewContainerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerState.swift; sourceTree = "<group>"; };
 		1F19476721E5552900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		1F19476821E5552900D1599D /* Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
-		1F19476F21E8255900D1599D /* share-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "share-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F19476F21E8255900D1599D /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F19477121E8255900D1599D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		1F19477421E8255900D1599D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		1F19477E21E90C2900D1599D /* Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 		1F19477F21E90C2900D1599D /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
-		1F19478221E9545D00D1599D /* share-extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "share-extension.entitlements"; sourceTree = "<group>"; };
+		1F19478221E9545D00D1599D /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		1F19479021EA98AC00D1599D /* ArticleProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessing.swift; sourceTree = "<group>"; };
 		1F19479321EA9C1900D1599D /* APIServerURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerURLSession.swift; sourceTree = "<group>"; };
 		1F19479621EAA42E00D1599D /* MessageWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWebView.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
-		1F8094892517DC52006E8536 /* appkit-bridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "appkit-bridge.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F8094892517DC52006E8536 /* AppkitBridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppkitBridge.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F80948B2517DC52006E8536 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleIssueReportRequest.swift; sourceTree = "<group>"; };
@@ -326,11 +326,11 @@
 		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
 		1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewForm.swift; sourceTree = "<group>"; };
 		1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushReplyForm.swift; sourceTree = "<group>"; };
-		1FACDAB825164639006B7E64 /* safari-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "safari-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FACDAB825164639006B7E64 /* SafariExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SafariExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACDAB925164639006B7E64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		1FACDACF25164639006B7E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FACDAD025164639006B7E64 /* safari_extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = safari_extension.entitlements; sourceTree = "<group>"; };
+		1FACDAD025164639006B7E64 /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
 		1FC0D615231AD1C200E4DD9A /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		1FC0D618231AD23100E4DD9A /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1FC0D61B231AD29500E4DD9A /* PostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostForm.swift; sourceTree = "<group>"; };
@@ -381,28 +381,28 @@
 		1F13B4B321CB167500EE6927 = {
 			isa = PBXGroup;
 			children = (
-				1F80948A2517DC52006E8536 /* appkit-bridge */,
-				1F19478621EA747E00D1599D /* common */,
+				1F80948A2517DC52006E8536 /* AppkitBridge */,
+				1F19478621EA747E00D1599D /* Common */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
-				1F13B4BE21CB167500EE6927 /* ios-app */,
+				1F13B4BE21CB167500EE6927 /* IosApp */,
 				1F13B4BD21CB167500EE6927 /* Products */,
-				1FACDABB25164639006B7E64 /* safari-extension */,
-				1F19477021E8255900D1599D /* share-extension */,
+				1FACDABB25164639006B7E64 /* SafariExtension */,
+				1F19477021E8255900D1599D /* ShareExtension */,
 			);
 			sourceTree = "<group>";
 		};
 		1F13B4BD21CB167500EE6927 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F13B4BC21CB167500EE6927 /* ios.app */,
-				1F19476F21E8255900D1599D /* share-extension.appex */,
-				1FACDAB825164639006B7E64 /* safari-extension.appex */,
-				1F8094892517DC52006E8536 /* appkit-bridge.bundle */,
+				1F13B4BC21CB167500EE6927 /* Readup.app */,
+				1F19476F21E8255900D1599D /* ShareExtension.appex */,
+				1FACDAB825164639006B7E64 /* SafariExtension.appex */,
+				1F8094892517DC52006E8536 /* AppkitBridge.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1F13B4BE21CB167500EE6927 /* ios-app */ = {
+		1F13B4BE21CB167500EE6927 /* IosApp */ = {
 			isa = PBXGroup;
 			children = (
 				1F13B4D421CC334400EE6927 /* ViewControllers */,
@@ -412,7 +412,7 @@
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
 				1F19476721E5552900D1599D /* Debug.plist */,
 				1F5FB908250FF74800DABE16 /* DisplayPreferenceService.swift */,
-				1F19473A21E105C100D1599D /* ios.entitlements */,
+				1F19473A21E105C100D1599D /* IosApp.entitlements */,
 				1F13B4C821CB167700EE6927 /* LaunchScreen.storyboard */,
 				1F71E9E623563049000F869D /* NotificationService.swift */,
 				1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */,
@@ -420,7 +420,7 @@
 				1F19476821E5552900D1599D /* Release.plist */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
 			);
-			path = "ios-app";
+			path = IosApp;
 			sourceTree = "<group>";
 		};
 		1F13B4D121CC117300EE6927 /* Frameworks */ = {
@@ -524,7 +524,7 @@
 			path = WebViewMessaging;
 			sourceTree = "<group>";
 		};
-		1F19477021E8255900D1599D /* share-extension */ = {
+		1F19477021E8255900D1599D /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
 				1F80C94C21ED53AF0060819F /* AlertViewController.swift */,
@@ -532,13 +532,13 @@
 				1F19477321E8255900D1599D /* MainInterface.storyboard */,
 				1F19477E21E90C2900D1599D /* Release.plist */,
 				1FDBBC7A2210E31300E03051 /* share-extension.js */,
-				1F19478221E9545D00D1599D /* share-extension.entitlements */,
+				1F19478221E9545D00D1599D /* ShareExtension.entitlements */,
 				1F19477121E8255900D1599D /* ShareViewController.swift */,
 			);
-			path = "share-extension";
+			path = ShareExtension;
 			sourceTree = "<group>";
 		};
-		1F19478621EA747E00D1599D /* common */ = {
+		1F19478621EA747E00D1599D /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				1F19478F21EA7BC500D1599D /* ArticleProcessing */,
@@ -553,7 +553,7 @@
 				1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */,
 				1FDBBC7322109CED00E03051 /* WebViewScript.swift */,
 			);
-			path = common;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		1F19478F21EA7BC500D1599D /* ArticleProcessing */ = {
@@ -584,14 +584,14 @@
 			path = SafariViewController;
 			sourceTree = "<group>";
 		};
-		1F80948A2517DC52006E8536 /* appkit-bridge */ = {
+		1F80948A2517DC52006E8536 /* AppkitBridge */ = {
 			isa = PBXGroup;
 			children = (
 				1F9CB5922517EC9000ED09BD /* AppkitBridge.h */,
 				1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */,
 				1F80948B2517DC52006E8536 /* Info.plist */,
 			);
-			path = "appkit-bridge";
+			path = AppkitBridge;
 			sourceTree = "<group>";
 		};
 		1F8768CE225F9E84002B5D16 /* Sharing */ = {
@@ -608,15 +608,15 @@
 			path = Sharing;
 			sourceTree = "<group>";
 		};
-		1FACDABB25164639006B7E64 /* safari-extension */ = {
+		1FACDABB25164639006B7E64 /* SafariExtension */ = {
 			isa = PBXGroup;
 			children = (
 				1FACDABE25164639006B7E64 /* Resources */,
 				1FACDACF25164639006B7E64 /* Info.plist */,
-				1FACDAD025164639006B7E64 /* safari_extension.entitlements */,
+				1FACDAD025164639006B7E64 /* SafariExtension.entitlements */,
 				1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */,
 			);
-			path = "safari-extension";
+			path = SafariExtension;
 			sourceTree = "<group>";
 		};
 		1FACDABE25164639006B7E64 /* Resources */ = {
@@ -633,9 +633,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F13B4BB21CB167500EE6927 /* ios */ = {
+		1F13B4BB21CB167500EE6927 /* Readup */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "ios" */;
+			buildConfigurationList = 1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "Readup" */;
 			buildPhases = (
 				1F13B4B821CB167500EE6927 /* Sources */,
 				1F13B4B921CB167500EE6927 /* Frameworks */,
@@ -649,14 +649,14 @@
 				1FACDAEF251675C5006B7E64 /* PBXTargetDependency */,
 				1F8094952517DCE5006E8536 /* PBXTargetDependency */,
 			);
-			name = ios;
+			name = Readup;
 			productName = ios;
-			productReference = 1F13B4BC21CB167500EE6927 /* ios.app */;
+			productReference = 1F13B4BC21CB167500EE6927 /* Readup.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1F19476E21E8255900D1599D /* share-extension */ = {
+		1F19476E21E8255900D1599D /* ShareExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F19477A21E8255900D1599D /* Build configuration list for PBXNativeTarget "share-extension" */;
+			buildConfigurationList = 1F19477A21E8255900D1599D /* Build configuration list for PBXNativeTarget "ShareExtension" */;
 			buildPhases = (
 				1F19476B21E8255900D1599D /* Sources */,
 				1F19476C21E8255900D1599D /* Frameworks */,
@@ -666,14 +666,14 @@
 			);
 			dependencies = (
 			);
-			name = "share-extension";
+			name = ShareExtension;
 			productName = "share-extension";
-			productReference = 1F19476F21E8255900D1599D /* share-extension.appex */;
+			productReference = 1F19476F21E8255900D1599D /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		1F8094882517DC52006E8536 /* appkit-bridge */ = {
+		1F8094882517DC52006E8536 /* AppkitBridge */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "appkit-bridge" */;
+			buildConfigurationList = 1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "AppkitBridge" */;
 			buildPhases = (
 				1F8094852517DC52006E8536 /* Sources */,
 				1F8094862517DC52006E8536 /* Frameworks */,
@@ -683,14 +683,14 @@
 			);
 			dependencies = (
 			);
-			name = "appkit-bridge";
+			name = AppkitBridge;
 			productName = "appkit-bridge";
-			productReference = 1F8094892517DC52006E8536 /* appkit-bridge.bundle */;
+			productReference = 1F8094892517DC52006E8536 /* AppkitBridge.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		1FACDAB725164639006B7E64 /* safari-extension */ = {
+		1FACDAB725164639006B7E64 /* SafariExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1FACDAD325164639006B7E64 /* Build configuration list for PBXNativeTarget "safari-extension" */;
+			buildConfigurationList = 1FACDAD325164639006B7E64 /* Build configuration list for PBXNativeTarget "SafariExtension" */;
 			buildPhases = (
 				1FACDAB425164639006B7E64 /* Sources */,
 				1FACDAB525164639006B7E64 /* Frameworks */,
@@ -700,9 +700,9 @@
 			);
 			dependencies = (
 			);
-			name = "safari-extension";
+			name = SafariExtension;
 			productName = "safari-extension";
-			productReference = 1FACDAB825164639006B7E64 /* safari-extension.appex */;
+			productReference = 1FACDAB825164639006B7E64 /* SafariExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -745,7 +745,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1F13B4B721CB167500EE6927 /* Build configuration list for PBXProject "ios" */;
+			buildConfigurationList = 1F13B4B721CB167500EE6927 /* Build configuration list for PBXProject "Readup" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -758,10 +758,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1F13B4BB21CB167500EE6927 /* ios */,
-				1F19476E21E8255900D1599D /* share-extension */,
-				1FACDAB725164639006B7E64 /* safari-extension */,
-				1F8094882517DC52006E8536 /* appkit-bridge */,
+				1F13B4BB21CB167500EE6927 /* Readup */,
+				1F19476E21E8255900D1599D /* ShareExtension */,
+				1FACDAB725164639006B7E64 /* SafariExtension */,
+				1F8094882517DC52006E8536 /* AppkitBridge */,
 			);
 		};
 /* End PBXProject section */
@@ -998,19 +998,19 @@
 /* Begin PBXTargetDependency section */
 		1F19477821E8255900D1599D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1F19476E21E8255900D1599D /* share-extension */;
+			target = 1F19476E21E8255900D1599D /* ShareExtension */;
 			targetProxy = 1F19477721E8255900D1599D /* PBXContainerItemProxy */;
 		};
 		1F8094952517DCE5006E8536 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = maccatalyst;
-			target = 1F8094882517DC52006E8536 /* appkit-bridge */;
+			target = 1F8094882517DC52006E8536 /* AppkitBridge */;
 			targetProxy = 1F8094942517DCE5006E8536 /* PBXContainerItemProxy */;
 		};
 		1FACDAEF251675C5006B7E64 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = maccatalyst;
-			target = 1FACDAB725164639006B7E64 /* safari-extension */;
+			target = 1FACDAB725164639006B7E64 /* SafariExtension */;
 			targetProxy = 1FACDAEE251675C5006B7E64 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1158,11 +1158,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ios/ios.entitlements;
+				CODE_SIGN_ENTITLEMENTS = IosApp/IosApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ios/Debug.plist;
+				INFOPLIST_FILE = IosApp/Debug.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1181,11 +1181,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ios/ios.entitlements;
+				CODE_SIGN_ENTITLEMENTS = IosApp/IosApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ios/Release.plist;
+				INFOPLIST_FILE = IosApp/Release.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1202,10 +1202,10 @@
 		1F19477B21E8255900D1599D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "share-extension/share-extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "share-extension/Debug.plist";
+				INFOPLIST_FILE = ShareExtension/Debug.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1223,10 +1223,10 @@
 		1F19477C21E8255900D1599D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "share-extension/share-extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "share-extension/Release.plist";
+				INFOPLIST_FILE = ShareExtension/Release.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1249,7 +1249,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "appkit-bridge/Info.plist";
+				INFOPLIST_FILE = AppkitBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1276,7 +1276,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
-				INFOPLIST_FILE = "appkit-bridge/Info.plist";
+				INFOPLIST_FILE = AppkitBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1297,11 +1297,11 @@
 		1FACDAD125164639006B7E64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "safari-extension/safari_extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "safari-extension/Info.plist";
+				INFOPLIST_FILE = SafariExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1319,11 +1319,11 @@
 		1FACDAD225164639006B7E64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "safari-extension/safari_extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "safari-extension/Info.plist";
+				INFOPLIST_FILE = SafariExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1341,7 +1341,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F13B4B721CB167500EE6927 /* Build configuration list for PBXProject "ios" */ = {
+		1F13B4B721CB167500EE6927 /* Build configuration list for PBXProject "Readup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F13B4CC21CB167700EE6927 /* Debug */,
@@ -1350,7 +1350,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "ios" */ = {
+		1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "Readup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F13B4CF21CB167700EE6927 /* Debug */,
@@ -1359,7 +1359,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F19477A21E8255900D1599D /* Build configuration list for PBXNativeTarget "share-extension" */ = {
+		1F19477A21E8255900D1599D /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F19477B21E8255900D1599D /* Debug */,
@@ -1368,7 +1368,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "appkit-bridge" */ = {
+		1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "AppkitBridge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F80948D2517DC52006E8536 /* Debug */,
@@ -1377,7 +1377,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1FACDAD325164639006B7E64 /* Build configuration list for PBXNativeTarget "safari-extension" */ = {
+		1FACDAD325164639006B7E64 /* Build configuration list for PBXNativeTarget "SafariExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1FACDAD125164639006B7E64 /* Debug */,

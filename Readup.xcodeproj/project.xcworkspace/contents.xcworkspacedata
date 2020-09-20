@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ios.xcodeproj">
+      location = "self:/Users/jeff/repos/reallyreadit/ios/Readup.xcodeproj">
    </FileRef>
 </Workspace>

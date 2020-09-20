@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1200"
-   version = "1.3">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +15,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1F19476E21E8255900D1599D"
+               BuildableName = "ShareExtension.appex"
+               BlueprintName = "ShareExtension"
+               ReferencedContainer = "container:Readup.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "1F13B4BB21CB167500EE6927"
-               BuildableName = "ios.app"
-               BlueprintName = "ios"
-               ReferencedContainer = "container:ios.xcodeproj">
+               BuildableName = "Readup.app"
+               BlueprintName = "Readup"
+               ReferencedContainer = "container:Readup.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F13B4BB21CB167500EE6927"
-            BuildableName = "ios.app"
-            BlueprintName = "ios"
-            ReferencedContainer = "container:ios.xcodeproj">
+            BlueprintIdentifier = "1F19476E21E8255900D1599D"
+            BuildableName = "ShareExtension.appex"
+            BlueprintName = "ShareExtension"
+            ReferencedContainer = "container:Readup.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -41,39 +56,46 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "com.apple.mobilesafari"
+         RemotePath = "/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 11.2.simruntime/Contents/Resources/RuntimeRoot/Applications/MobileSafari.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F13B4BB21CB167500EE6927"
-            BuildableName = "ios.app"
-            BlueprintName = "ios"
-            ReferencedContainer = "container:ios.xcodeproj">
+            BuildableName = "Readup.app"
+            BlueprintName = "Readup"
+            ReferencedContainer = "container:Readup.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F13B4BB21CB167500EE6927"
-            BuildableName = "ios.app"
-            BlueprintName = "ios"
-            ReferencedContainer = "container:ios.xcodeproj">
+            BuildableName = "Readup.app"
+            BlueprintName = "Readup"
+            ReferencedContainer = "container:Readup.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
