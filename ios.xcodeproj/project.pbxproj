@@ -115,6 +115,7 @@
 		1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
 		1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
+		1F8094932517DCE5006E8536 /* appkit-bridge.bundle in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F8094892517DC52006E8536 /* appkit-bridge.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
 		1F83DEA124606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
@@ -141,6 +142,7 @@
 		1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DA2269390D002B5D16 /* UserAccountRole.swift */; };
 		1F8768DE2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
 		1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */; };
+		1F9CB58D2517EC7C00ED09BD /* AppkitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */; };
 		1F9D8F61244CCC7500466895 /* TwitterRequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */; };
 		1F9D8F62244CCC7500466895 /* TwitterRequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */; };
 		1F9D8F64244CFDA400466895 /* TwitterCredentialLinkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */; };
@@ -184,6 +186,13 @@
 			remoteGlobalIDString = 1F19476E21E8255900D1599D;
 			remoteInfo = "share-extension";
 		};
+		1F8094942517DCE5006E8536 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F13B4B421CB167500EE6927 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F8094882517DC52006E8536;
+			remoteInfo = "appkit-bridge";
+		};
 		1FACDAEE251675C5006B7E64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F13B4B421CB167500EE6927 /* Project object */;
@@ -201,6 +210,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				1FACDAED251675C5006B7E64 /* safari-extension.appex in Embed App Extensions */,
+				1F8094932517DCE5006E8536 /* appkit-bridge.bundle in Embed App Extensions */,
 				1F19477921E8255900D1599D /* share-extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -278,6 +288,8 @@
 		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
+		1F8094892517DC52006E8536 /* appkit-bridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "appkit-bridge.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F80948B2517DC52006E8536 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleIssueReportRequest.swift; sourceTree = "<group>"; };
 		1F83DEA62463303F008561FF /* FadeInAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInAnimator.swift; sourceTree = "<group>"; };
@@ -296,6 +308,8 @@
 		1F8768D722693700002B5D16 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		1F8768DA2269390D002B5D16 /* UserAccountRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRole.swift; sourceTree = "<group>"; };
 		1F8768DD2270C4B5002B5D16 /* PostCommentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentResult.swift; sourceTree = "<group>"; };
+		1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppkitBridge.m; sourceTree = "<group>"; };
+		1F9CB5922517EC9000ED09BD /* AppkitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppkitBridge.h; sourceTree = "<group>"; };
 		1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterRequestToken.swift; sourceTree = "<group>"; };
 		1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCredentialLinkForm.swift; sourceTree = "<group>"; };
 		1F9D8F66244CFF0400466895 /* AuthServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProvider.swift; sourceTree = "<group>"; };
@@ -338,6 +352,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1F8094862517DC52006E8536 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FACDAB525164639006B7E64 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,6 +373,7 @@
 		1F13B4B321CB167500EE6927 = {
 			isa = PBXGroup;
 			children = (
+				1F80948A2517DC52006E8536 /* appkit-bridge */,
 				1F19478621EA747E00D1599D /* common */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
 				1F13B4BE21CB167500EE6927 /* ios */,
@@ -367,6 +389,7 @@
 				1F13B4BC21CB167500EE6927 /* ios.app */,
 				1F19476F21E8255900D1599D /* share-extension.appex */,
 				1FACDAB825164639006B7E64 /* safari-extension.appex */,
+				1F8094892517DC52006E8536 /* appkit-bridge.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -553,6 +576,16 @@
 			path = SafariViewController;
 			sourceTree = "<group>";
 		};
+		1F80948A2517DC52006E8536 /* appkit-bridge */ = {
+			isa = PBXGroup;
+			children = (
+				1F9CB5922517EC9000ED09BD /* AppkitBridge.h */,
+				1F9CB58C2517EC7C00ED09BD /* AppkitBridge.m */,
+				1F80948B2517DC52006E8536 /* Info.plist */,
+			);
+			path = "appkit-bridge";
+			sourceTree = "<group>";
+		};
 		1F8768CE225F9E84002B5D16 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +635,7 @@
 			dependencies = (
 				1F19477821E8255900D1599D /* PBXTargetDependency */,
 				1FACDAEF251675C5006B7E64 /* PBXTargetDependency */,
+				1F8094952517DCE5006E8536 /* PBXTargetDependency */,
 			);
 			name = ios;
 			productName = ios;
@@ -624,6 +658,23 @@
 			productName = "share-extension";
 			productReference = 1F19476F21E8255900D1599D /* share-extension.appex */;
 			productType = "com.apple.product-type.app-extension";
+		};
+		1F8094882517DC52006E8536 /* appkit-bridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "appkit-bridge" */;
+			buildPhases = (
+				1F8094852517DC52006E8536 /* Sources */,
+				1F8094862517DC52006E8536 /* Frameworks */,
+				1F8094872517DC52006E8536 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "appkit-bridge";
+			productName = "appkit-bridge";
+			productReference = 1F8094892517DC52006E8536 /* appkit-bridge.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 		1FACDAB725164639006B7E64 /* safari-extension */ = {
 			isa = PBXNativeTarget;
@@ -673,6 +724,10 @@
 							};
 						};
 					};
+					1F8094882517DC52006E8536 = {
+						CreatedOnToolsVersion = 12.0;
+						LastSwiftMigration = 1200;
+					};
 					1FACDAB725164639006B7E64 = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -694,6 +749,7 @@
 				1F13B4BB21CB167500EE6927 /* ios */,
 				1F19476E21E8255900D1599D /* share-extension */,
 				1FACDAB725164639006B7E64 /* safari-extension */,
+				1F8094882517DC52006E8536 /* appkit-bridge */,
 			);
 		};
 /* End PBXProject section */
@@ -715,6 +771,13 @@
 			files = (
 				1FDBBC7B2210E31300E03051 /* share-extension.js in Resources */,
 				1F19477521E8255900D1599D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F8094872517DC52006E8536 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,6 +961,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1F8094852517DC52006E8536 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F9CB58D2517EC7C00ED09BD /* AppkitBridge.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FACDAB425164639006B7E64 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -913,6 +984,12 @@
 			isa = PBXTargetDependency;
 			target = 1F19476E21E8255900D1599D /* share-extension */;
 			targetProxy = 1F19477721E8255900D1599D /* PBXContainerItemProxy */;
+		};
+		1F8094952517DCE5006E8536 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
+			target = 1F8094882517DC52006E8536 /* appkit-bridge */;
+			targetProxy = 1F8094942517DCE5006E8536 /* PBXContainerItemProxy */;
 		};
 		1FACDAEF251675C5006B7E64 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1148,6 +1225,59 @@
 			};
 			name = Release;
 		};
+		1F80948D2517DC52006E8536 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				INFOPLIST_FILE = "appkit-bridge/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.appkit-bridge";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1F80948E2517DC52006E8536 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				INFOPLIST_FILE = "appkit-bridge/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.appkit-bridge";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		1FACDAD125164639006B7E64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1218,6 +1348,15 @@
 			buildConfigurations = (
 				1F19477B21E8255900D1599D /* Debug */,
 				1F19477C21E8255900D1599D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F80948C2517DC52006E8536 /* Build configuration list for PBXNativeTarget "appkit-bridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F80948D2517DC52006E8536 /* Debug */,
+				1F80948E2517DC52006E8536 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
