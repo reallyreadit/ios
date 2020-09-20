@@ -353,10 +353,10 @@
 			isa = PBXGroup;
 			children = (
 				1F19478621EA747E00D1599D /* common */,
-				1FACDABB25164639006B7E64 /* safari-extension */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
 				1F13B4BE21CB167500EE6927 /* ios */,
 				1F13B4BD21CB167500EE6927 /* Products */,
+				1FACDABB25164639006B7E64 /* safari-extension */,
 				1F19477021E8255900D1599D /* share-extension */,
 			);
 			sourceTree = "<group>";
@@ -570,10 +570,10 @@
 		1FACDABB25164639006B7E64 /* safari-extension */ = {
 			isa = PBXGroup;
 			children = (
-				1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */,
+				1FACDABE25164639006B7E64 /* Resources */,
 				1FACDACF25164639006B7E64 /* Info.plist */,
 				1FACDAD025164639006B7E64 /* safari_extension.entitlements */,
-				1FACDABE25164639006B7E64 /* Resources */,
+				1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */,
 			);
 			path = "safari-extension";
 			sourceTree = "<group>";
