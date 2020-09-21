@@ -650,7 +650,7 @@
 				1F8094952517DCE5006E8536 /* PBXTargetDependency */,
 			);
 			name = Readup;
-			productName = ios;
+			productName = Readup;
 			productReference = 1F13B4BC21CB167500EE6927 /* Readup.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -667,7 +667,7 @@
 			dependencies = (
 			);
 			name = ShareExtension;
-			productName = "share-extension";
+			productName = ShareExtension;
 			productReference = 1F19476F21E8255900D1599D /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
@@ -684,7 +684,7 @@
 			dependencies = (
 			);
 			name = AppkitBridge;
-			productName = "appkit-bridge";
+			productName = AppkitBridge;
 			productReference = 1F8094892517DC52006E8536 /* AppkitBridge.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
@@ -701,7 +701,7 @@
 			dependencies = (
 			);
 			name = SafariExtension;
-			productName = "safari-extension";
+			productName = SafariExtension;
 			productReference = 1FACDAB825164639006B7E64 /* SafariExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
