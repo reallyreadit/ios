@@ -39,8 +39,8 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
     private var isCancelled = false
     private var url: URL?
     private var webView: MessageWebView!
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
         // configure webview
         let config = WKWebViewConfiguration()
         webView = MessageWebView(
@@ -63,6 +63,9 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                 )
             }
         )
+    }
+    required init?(coder aDecoder: NSCoder) {
+        return nil
     }
     private func loadArticle(url: URL) {
         self.url = url
