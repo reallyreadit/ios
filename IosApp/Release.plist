@@ -20,6 +20,8 @@
     <string>6.1</string>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <string>NO</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.social-networking</string>
 	<key>LSRequiresIPhoneOS</key>
