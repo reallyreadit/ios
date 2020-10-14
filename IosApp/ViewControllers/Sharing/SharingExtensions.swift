@@ -33,18 +33,6 @@ extension UIViewController {
                 completed: completed,
                 error: activityError?.localizedDescription
             )
-            APIServerURLSession()
-                .postJson(
-                    path: "/Analytics/Share",
-                    data: result,
-                    onSuccess: {
-                        os_log("[sharing] analytics sent successfully")
-                    },
-                    onError: {
-                        error in
-                        os_log("[sharing] error sending analytics: %s", error?.localizedDescription ?? "")
-                    }
-                )
             completionHandler(result)
         }
         activityViewController.popoverPresentationController?.sourceView = self.view
