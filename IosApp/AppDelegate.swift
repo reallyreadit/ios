@@ -12,6 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     private let notificationService = NotificationService()
     
     private func checkForClipboardReferrer() {
+        #if targetEnvironment(macCatalyst)
+        os_log("[app-delegate] clipboard referrer not supported in mac catalyst")
+        #else
         os_log("[app-delegate] checking UIPasteboard for referrer")
         if #available(iOS 14.0, *) {
             os_log("[app-delegate] querying UIPasteboard metadata for referrer")
@@ -54,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                 os_log("[app-delegate] no UIPasteboard string found")
             }
         }
+        #endif
     }
     
     private func processClipboardReferrer(_ referrerUrlString: String) {
