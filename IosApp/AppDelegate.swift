@@ -7,7 +7,109 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     
     var window: UIWindow?
     
+    private let appReferralQueryStringKey = "appReferral"
+    
     private let notificationService = NotificationService()
+    
+    private func checkForClipboardReferrer() {
+        os_log("[app-delegate] checking UIPasteboard for referrer")
+        if #available(iOS 14.0, *) {
+            os_log("[app-delegate] querying UIPasteboard metadata for referrer")
+            let webURLPattern = UIPasteboard.DetectionPattern.probableWebURL
+            UIPasteboard.general.detectPatterns(
+                for: [webURLPattern],
+                completionHandler: {
+                    result in
+                    if
+                        let patterns = try? result.get(),
+                        patterns.contains(webURLPattern)
+                    {
+                        os_log("[app-delegate] UIPasteboard referrer probableWebURL detected")
+                        UIPasteboard.general.detectValues(
+                            for: [webURLPattern],
+                            completionHandler: {
+                                result in
+                                if
+                                    let values = try? result.get(),
+                                    let urlString = values[webURLPattern] as? String
+                                {
+                                    self.processClipboardReferrer(urlString)
+                                } else {
+                                    os_log("[app-delegate] could not read UIPasteboard probableWebURL")
+                                }
+                            }
+                        )
+                    } else {
+                        os_log("[app-delegate] UIPasteboard referrer probableWebURL not detected")
+                    }
+                }
+            )
+        } else {
+            os_log("[app-delegate] reading UIPasteboard string for referrer")
+            if
+                let referrerString = UIPasteboard.general.strings?.first
+            {
+                processClipboardReferrer(referrerString)
+            } else {
+                os_log("[app-delegate] no UIPasteboard string found")
+            }
+        }
+    }
+    
+    private func processClipboardReferrer(_ referrerUrlString: String) {
+        os_log("[app-delegate] attempting to process UIPasteboard referrer")
+        let encoder = JSONEncoder.init()
+        let decoder = JSONDecoder.init()
+        decoder.dateDecodingStrategy = .millisecondsSince1970
+        if
+            let referrerURL = URLComponents(string: referrerUrlString),
+            (
+                referrerURL.scheme == SharedBundleInfo.webServerURL.scheme &&
+                referrerURL.host == SharedBundleInfo.webServerURL.host &&
+                referrerURL.path == "/"
+            ),
+            let referrerQueryItem = referrerURL.queryItems?.first(
+                where: {
+                    queryItem in
+                    queryItem.name == self.appReferralQueryStringKey
+                }
+            ),
+            let referrerQueryValue = referrerQueryItem.value,
+            let referrerQueryData = referrerQueryValue.data(using: .utf8),
+            let referrer = try? decoder.decode(ClipboardReferrer.self, from: referrerQueryData),
+            var components = URLComponents(
+                url: (
+                    referrer.timestamp.timeIntervalSinceNow > -30 * 60 ?
+                        SharedBundleInfo.webServerURL.appendingPathComponent(referrer.currentPath) :
+                        SharedBundleInfo.webServerURL
+                ),
+                resolvingAgainstBaseURL: true
+            ),
+            let appReferral = try? encoder.encode([
+                "action": referrer.action,
+                "initialPath": referrer.initialPath,
+                "referrerUrl": referrer.referrerURL
+            ])
+        {
+            os_log("[app-delegate] processed UIPasteboard referrer successfully")
+            components.queryItems = [
+                URLQueryItem(
+                    name: appReferralQueryStringKey,
+                    value: String(
+                        data: appReferral,
+                        encoding: .utf8
+                    )
+                )
+            ]
+            if let url = components.url {
+                DispatchQueue.main.async {
+                    let _ = self.loadURL(url)
+                }
+            }
+        } else {
+            os_log("[app-delegate] invalid UIPasteboard referrer")
+        }
+    }
     
     private func loadURL(_ url: URL) -> Bool {
         if
@@ -74,49 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // check for clipboard referrer on initial launch
         if !LocalStorage.hasAppLaunched() {
             LocalStorage.registerInitialAppLaunch()
-            let referrerKey = "com.readup.nativeClientClipboardReferrer:"
-            if
-                let referrerString = UIPasteboard.general.strings?.first(where: {
-                    string in string.starts(with: referrerKey)
-                }),
-                let jsonData = referrerString
-                    .replacingOccurrences(of: referrerKey, with: "")
-                    .data(using: .utf8)
-            {
-                let decoder = JSONDecoder.init()
-                decoder.dateDecodingStrategy = .millisecondsSince1970
-                let encoder = JSONEncoder.init()
-                if
-                    let referrer = try? decoder.decode(ClipboardReferrer.self, from: jsonData),
-                    var components = URLComponents(
-                        url: (
-                            referrer.timestamp.timeIntervalSinceNow > -30 * 60 ?
-                                SharedBundleInfo.webServerURL.appendingPathComponent(referrer.currentPath) :
-                                SharedBundleInfo.webServerURL
-                        ),
-                        resolvingAgainstBaseURL: true
-                    ),
-                    let appReferral = try? encoder.encode([
-                        "action": referrer.action,
-                        "initialPath": referrer.initialPath,
-                        "marketingVariant": String(referrer.marketingVariant),
-                        "referrerUrl": referrer.referrerURL
-                    ])
-                {
-                    components.queryItems = [
-                        URLQueryItem(
-                            name: "appReferral",
-                            value: String(
-                                data: appReferral,
-                                encoding: .utf8
-                            )
-                        )
-                    ]
-                    if let url = components.url {
-                        let _ = loadURL(url)
-                    }
-                }
-            }
+            checkForClipboardReferrer()
         }
         // set up notification delegates
         notificationService.delegate = self
