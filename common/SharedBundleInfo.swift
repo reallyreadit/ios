@@ -16,9 +16,7 @@ struct SharedBundleInfo {
     )
     public static let version = SemanticVersion(
         fromVersionString: (
-            (Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String) +
-            "." +
-            (Bundle.main.infoDictionary!["CFBundleVersion"] as! String)
+            Bundle.main.infoDictionary!["CFBundleVersion"] as! String
         )
     )!
     public static let webServerURL = URL(
