@@ -709,7 +709,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "reallyread.it, inc.";
 				TargetAttributes = {
 					1F13B4BB21CB167500EE6927 = {
@@ -1288,6 +1288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1310,6 +1311,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
