@@ -42,6 +42,7 @@ struct ArticleProcessing {
         onSuccess: @escaping (_: NSMutableString) -> Void,
         onError: @escaping () -> Void
     ) {
+        // enforce https
         var request = URLRequest(
             url: (
                 URL(
@@ -53,12 +54,15 @@ struct ArticleProcessing {
                 )!
             )
         )
+        // use desktop user agent
         request.setValue(
             "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'",
             forHTTPHeaderField: "User-Agent"
         )
+        // use TempHTTPCookieStorage
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.httpCookieStorage = TempHTTPCookieStorage()
+        // special host handling
         if
             url.host == "www.npr.org" || url.host == "npr.org",
             let tempCookieStorage = sessionConfig.httpCookieStorage as? TempHTTPCookieStorage,
@@ -97,6 +101,15 @@ struct ArticleProcessing {
                 dateOfChoiceCookie
             ])
         }
+        if
+            url.host == "www.wsj.com" || url.host == "wsj.com"
+        {
+            request.setValue(
+                "https://drudgereport.com/",
+                forHTTPHeaderField: "Referer"
+            )
+        }
+        // initiate request
         URLSession(configuration: sessionConfig)
             .dataTask(
                 with: request,
