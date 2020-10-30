@@ -164,11 +164,11 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                             url: url.absoluteString
                         ),
                         onSuccess: {
-                            completionHandler()
+                            DispatchQueue.main.async(execute: completionHandler)
                         },
                         onError: {
                             error in
-                            completionHandler()
+                            DispatchQueue.main.async(execute: completionHandler)
                         }
                     )
             } else {
@@ -185,11 +185,11 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                             text: textResponse.userText
                         ),
                         onSuccess: {
-                            completionHandler()
+                            DispatchQueue.main.async(execute: completionHandler)
                         },
                         onError: {
                             error in
-                            completionHandler()
+                            DispatchQueue.main.async(execute: completionHandler)
                         }
                     )
             } else {
