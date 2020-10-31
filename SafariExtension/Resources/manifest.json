@@ -60,5 +60,5 @@
       "content-scripts/ui/images/logo.svg",
       "content-scripts/ui/images/logo-white.svg"
    ],
-   "version": "4.1.1"
+   "version": "4.2.0"
 }
