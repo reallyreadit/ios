@@ -33,9 +33,9 @@
     <key>RRITClientID</key>
     <string>ios/app</string>
     <key>RRITReaderScriptVersion</key>
-    <string>11.0.1</string>
+    <string>11.1.0</string>
     <key>RRITShareExtensionScriptVersion</key>
-    <string>4.0.1</string>
+    <string>4.0.2</string>
     <key>RRITStaticContentServerURL</key>
     <string>https://static.dev.readup.com/</string>
 	<key>RRITWebServerURL</key>
