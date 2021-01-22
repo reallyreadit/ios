@@ -1,6 +1,6 @@
 import Foundation
 
-struct CallEnvelope<T: Codable>: Codable {
+struct CallEnvelope<T: Encodable>: Encodable {
     let callbackId: Int?
     let data: T
 }

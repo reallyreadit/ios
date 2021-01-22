@@ -1,6 +1,6 @@
 import Foundation
 
-struct ResponseEnvelope<T: Codable>: Codable {
+struct ResponseEnvelope<T: Encodable>: Encodable {
     let data: T
     let id: Int
 }
