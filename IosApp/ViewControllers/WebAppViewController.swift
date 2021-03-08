@@ -349,6 +349,10 @@ class WebAppViewController:
             if let url = URL(string: message.data as! String) {
                 presentSafariViewController(url: url, theme: displayTheme)
             }
+        case "openExternalUrlUsingSystem":
+            if let url = URL(string: message.data as! String) {
+                UIApplication.shared.open(url)
+            }
         case "readArticle":
             let data = message.data as! [String: Any]
             readArticle(
