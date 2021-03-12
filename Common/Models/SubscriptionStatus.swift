@@ -16,5 +16,7 @@ struct SubscriptionStatus: Codable {
     let invoiceId: String?
     let currentPeriodBeginDate: Date?
     let currentPeriodEndDate: Date?
+    let autoRenewEnabled: Bool?
+    let autoRenewPrice: SubscriptionPrice?
     let lastPeriodEndDate: Date?
 }
