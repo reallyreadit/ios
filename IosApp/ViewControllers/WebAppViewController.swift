@@ -665,7 +665,7 @@ class WebAppViewController:
 }
 
 extension WebAppViewController: StoreServiceDelegate {
-    func transactionCompleted(result: Result<SubscriptionValidationResponse, EnumError<TransactionError>>) {
+    func transactionCompleted(result: Result<SubscriptionValidationResponse, ProblemDetails>) {
         DispatchQueue.main.async {
             self.webView.sendMessage(
                 message: Message(

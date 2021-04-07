@@ -1,7 +1,7 @@
 import StoreKit
 import os.log
 
-typealias ProductsRequestCompletionHandler = (_: Result<SKProductsResponse, EnumError<ProductsRequestError>>) -> Void
+typealias ProductsRequestCompletionHandler = (_: Result<SKProductsResponse, ProblemDetails>) -> Void
 
 private class ProductsRequest: NSObject, SKProductsRequestDelegate {
     private var completionHandler: ProductsRequestCompletionHandler?
@@ -38,7 +38,7 @@ private class ProductsRequest: NSObject, SKProductsRequestDelegate {
     ) {
         self.completionHandler?(
             .failure(
-                EnumError(message: error.localizedDescription)
+                ProblemDetails(error)
             )
         )
     }
@@ -81,13 +81,16 @@ private class ReceiptRefreshRequest: NSObject, SKRequestDelegate {
 }
 
 protocol StoreServiceDelegate: class {
-    func transactionCompleted(result: Result<SubscriptionValidationResponse, EnumError<TransactionError>>) -> Void
+    func transactionCompleted(result: Result<SubscriptionValidationResponse, ProblemDetails>) -> Void
 }
 
-private func readLocalReceipt() -> Result<String, EnumError<ReceiptRequestError>> {
+private func readLocalReceipt() -> Result<String, ProblemDetails> {
     guard let appStoreReceiptURL = Bundle.main.appStoreReceiptURL else {
         return .failure(
-            EnumError(value: .fileURLNotFound)
+            ProblemDetails(
+                type: AppStoreErrorType.receiptNotFound,
+                title: "The receipt file could not be found."
+            )
         )
     }
     do {
@@ -97,7 +100,7 @@ private func readLocalReceipt() -> Result<String, EnumError<ReceiptRequestError>
         )
     } catch {
         return .failure(
-            EnumError(message: error.localizedDescription)
+            ProblemDetails(error)
         )
     }
 }
@@ -110,7 +113,7 @@ class StoreService: NSObject {
     private override init() {
         // singleton
     }
-    func purchase(productId: String) -> Result<Void, PurchaseError> {
+    func purchase(productId: String) -> Result<Void, ProblemDetails> {
         os_log("[store] purchasing product with id: %s", productId)
         if let product = self.products.first(
             where: { $0.productIdentifier == productId }
@@ -122,7 +125,12 @@ class StoreService: NSObject {
                 )
             return .success(())
         } else {
-            return .failure(.productNotFound)
+            return .failure(
+                ProblemDetails(
+                    type: AppStoreErrorType.productNotFound,
+                    title: "Product not found."
+                )
+            )
         }
     }
     func requestProducts(
@@ -141,13 +149,16 @@ class StoreService: NSObject {
         } else {
             completionHandler(
                 .failure(
-                    EnumError(value: .cannotMakePayments)
+                    ProblemDetails(
+                        type: AppStoreErrorType.paymentsDisallowed,
+                        title: "The account that is signed in to the App Store cannot make payments."
+                    )
                 )
             )
         }
     }
     func requestReceipt(
-        _ completionHandler: @escaping (_: Result<String, EnumError<ReceiptRequestError>>) -> Void
+        _ completionHandler: @escaping (_: Result<String, ProblemDetails>) -> Void
     ) {
         os_log("[store] requesting receipt")
         switch
@@ -183,7 +194,7 @@ class StoreService: NSObject {
                     os_log("[store] failed to request new receipt from app store")
                     completionHandler(
                         .failure(
-                            EnumError(message: error.localizedDescription)
+                            ProblemDetails(error)
                         )
                     )
                 }
@@ -247,7 +258,10 @@ extension StoreService: SKPaymentTransactionObserver {
                                     os_log("[store] failed to validate subscription")
                                     self.delegate?.transactionCompleted(
                                         result: .failure(
-                                            EnumError(value: .subscriptionValidationFailed)
+                                            ProblemDetails(
+                                                type: SubscriptionsErrorType.receiptValidationFailed,
+                                                title: "Receipt validation failed."
+                                            )
                                         )
                                     )
                                 }
@@ -255,20 +269,26 @@ extension StoreService: SKPaymentTransactionObserver {
                     case .failure:
                         self.delegate?.transactionCompleted(
                             result: .failure(
-                                EnumError(value: .receiptRequestFailed)
+                                ProblemDetails(
+                                    type: AppStoreErrorType.receiptRequestFailed,
+                                    title: "Receipt request failed."
+                                )
                             )
                         )
                     }
                 }
             } else if transaction.transactionState == .failed {
-                let error: EnumError<TransactionError>
+                let problem: ProblemDetails
                 let request: SubscriptionPurchaseFailureRequest
                 if let skError = transaction.error as? SKError {
                     switch (skError.code) {
                     case .paymentCancelled:
-                        error = EnumError(value: .cancelled)
+                        problem = ProblemDetails(
+                            type: AppStoreErrorType.purchaseCancelled,
+                            title: "Purchase cancelled."
+                        )
                     default:
-                        error = EnumError(message: skError.localizedDescription)
+                        problem = ProblemDetails(skError)
                     }
                     request = SubscriptionPurchaseFailureRequest(
                         code: skError.code.rawValue,
@@ -276,7 +296,7 @@ extension StoreService: SKPaymentTransactionObserver {
                     )
                 } else {
                     let errorMessage = transaction.error?.localizedDescription ?? "Error not assigned."
-                    error = EnumError(message: errorMessage)
+                    problem = ProblemDetails(detail: errorMessage)
                     request = SubscriptionPurchaseFailureRequest(
                         code: nil,
                         description: errorMessage
@@ -298,7 +318,7 @@ extension StoreService: SKPaymentTransactionObserver {
                         }
                     )
                 self.delegate?.transactionCompleted(
-                    result: .failure(error)
+                    result: .failure(problem)
                 )
             }
         }
