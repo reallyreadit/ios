@@ -603,6 +603,15 @@ class WebAppViewController:
                     url in
                     self.dismiss(animated: true)
                     self.loadURL(url)
+                },
+                onOpenSubscriptionPrompt: {
+                    self.dismiss(animated: true)
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "openSubscriptionPrompt",
+                            data: true
+                        )
+                    )
                 }
             )
         )

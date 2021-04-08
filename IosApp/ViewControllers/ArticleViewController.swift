@@ -363,6 +363,8 @@ class ArticleViewController:
             if let url = URL(string: message.data as! String) {
                 presentSafariViewController(url: url, theme: displayTheme)
             }
+        case "openSubscriptionPrompt":
+            params.onOpenSubscriptionPrompt()
         case "parseResult":
             hasParsedPage = true
             apiServer.postJson(
