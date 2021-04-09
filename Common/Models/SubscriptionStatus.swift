@@ -21,4 +21,5 @@ struct SubscriptionStatus: Codable {
     let autoRenewPrice: SubscriptionPrice?
     let lastPeriodEndDate: Date?
     let lastPeriodRenewalGracePeriodEndDate: Date?
+    let lastPeriodDateRefunded: Date?
 }
