@@ -17,27 +17,27 @@ private func prepareURL(_ url: URL) -> URL {
     // create components from the provided url or fall back to using the web server url
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true) ??
         URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
-        // convert reallyread.it urls to readup.com
-        components.host = components.host?.replacingOccurrences(
-            of: "reallyread.it",
-            with: SharedBundleInfo.webServerURL.host!,
-            options: [.caseInsensitive]
-        )
+    // convert reallyread.it urls to readup.com
+    components.host = components.host?.replacingOccurrences(
+        of: "reallyread.it",
+        with: SharedBundleInfo.webServerURL.host!,
+        options: [.caseInsensitive]
+    )
     // verify that the host matches the web server host
-        if components.host != SharedBundleInfo.webServerURL.host {
+    if components.host != SharedBundleInfo.webServerURL.host {
         components = URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
-        }
+    }
     // force https
     components.scheme = "https"
-        // set the client type in the query string
-        let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
-        if (components.queryItems == nil) {
-            components.queryItems = [clientTypeQueryItem]
-        } else {
-            components.queryItems!.removeAll(where: { item in item.name == "clientType" })
-            components.queryItems!.append(clientTypeQueryItem)
-        }
-        // return the url
+    // set the client type in the query string
+    let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
+    if (components.queryItems == nil) {
+        components.queryItems = [clientTypeQueryItem]
+    } else {
+        components.queryItems!.removeAll(where: { item in item.name == "clientType" })
+        components.queryItems!.append(clientTypeQueryItem)
+    }
+    // return the url
     return components.url!
 }
 class WebAppViewController:
@@ -301,7 +301,7 @@ class WebAppViewController:
         }
     }
     func loadURL(_ url: URL) {
-        let preparedURL = prepareURL(url) ?? SharedBundleInfo.webServerURL
+        let preparedURL = prepareURL(url)
         os_log("[webapp] load url: %s", preparedURL.absoluteString)
         if hasEstablishedCommunication {
             webView.sendMessage(
