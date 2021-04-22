@@ -13,19 +13,22 @@ private func getDeviceInfo() -> DeviceInfo {
         token: LocalStorage.getNotificationToken()
     )
 }
-private func prepareURL(_ url: URL) -> URL? {
-    if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
-        // force https
-        components.scheme = "https"
+private func prepareURL(_ url: URL) -> URL {
+    // create components from the provided url or fall back to using the web server url
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: true) ??
+        URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
         // convert reallyread.it urls to readup.com
         components.host = components.host?.replacingOccurrences(
             of: "reallyread.it",
             with: SharedBundleInfo.webServerURL.host!,
             options: [.caseInsensitive]
         )
+    // verify that the host matches the web server host
         if components.host != SharedBundleInfo.webServerURL.host {
-            return nil
+        components = URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
         }
+    // force https
+    components.scheme = "https"
         // set the client type in the query string
         let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
         if (components.queryItems == nil) {
@@ -35,9 +38,7 @@ private func prepareURL(_ url: URL) -> URL? {
             components.queryItems!.append(clientTypeQueryItem)
         }
         // return the url
-        return components.url
-    }
-    return nil
+    return components.url!
 }
 class WebAppViewController:
     UIViewController,
