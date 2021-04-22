@@ -164,6 +164,7 @@
 		1FA52436261CBBFC00C2C24F /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
 		1FA52448261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
 		1FA52449261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
+		1FA524532631C4E100C2C24F /* ShareSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524522631C4E100C2C24F /* ShareSelection.swift */; };
 		1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */; };
@@ -350,6 +351,7 @@
 		1F9D8F69244CFF1600466895 /* AuthServiceAccountAssociation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceAccountAssociation.swift; sourceTree = "<group>"; };
 		1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetails.swift; sourceTree = "<group>"; };
 		1FA52447261E226A00C2C24F /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		1FA524522631C4E100C2C24F /* ShareSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSelection.swift; sourceTree = "<group>"; };
 		1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatus.swift; sourceTree = "<group>"; };
 		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
 		1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewForm.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */,
 				1F8768CF225F9EA4002B5D16 /* SharingExtensions.swift */,
 				1F09E6CE23F4936500967828 /* ShareResult.swift */,
+				1FA524522631C4E100C2C24F /* ShareSelection.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
 				1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */,
 				1F5B32C3238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
+				1FA524532631C4E100C2C24F /* ShareSelection.swift in Sources */,
 				1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */,
 				1F2BC6D325684C1400211134 /* SubscriptionReceipt.swift in Sources */,
 				1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */,
