@@ -2,6 +2,7 @@ import UIKit
 
 class AlertViewController: UIViewController {
     private let closeButton = UIButton(type: .system)
+    private var hasPressedCloseButton = false
     private let indicator = UIActivityIndicatorView()
     private let message = UILabel()
     private var messageIndicatorConstraint: NSLayoutConstraint!
@@ -121,6 +122,7 @@ class AlertViewController: UIViewController {
         buttonBar.addArrangedSubview(closeButton)
     }
     @objc private func close() {
+        hasPressedCloseButton = true
         onClose()
     }
     override func loadView() {
@@ -137,5 +139,10 @@ class AlertViewController: UIViewController {
         indicator.startAnimating()
         messageIndicatorConstraint.isActive = true
         closeButton.setTitle("Cancel", for: .normal)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        if (!hasPressedCloseButton) {
+            onClose()
+        }
     }
 }
