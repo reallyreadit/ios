@@ -20,7 +20,7 @@ private func prepareURL(_ url: URL) -> URL? {
         // convert reallyread.it urls to readup.com
         components.host = components.host?.replacingOccurrences(
             of: "reallyread.it",
-            with: "readup.com",
+            with: SharedBundleInfo.webServerURL.host!,
             options: [.caseInsensitive]
         )
         if components.host != SharedBundleInfo.webServerURL.host {
