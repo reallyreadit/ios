@@ -10,7 +10,7 @@ struct Article: Codable {
     let description: String?
     let aotdTimestamp: Date?
     let url: String
-    let authors: [String]
+    let articleAuthors: [ArticleAuthor]
     let tags: [String]
     let wordCount: Int
     let commentCount: Int

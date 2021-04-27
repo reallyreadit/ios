@@ -165,6 +165,8 @@
 		1FA52448261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
 		1FA52449261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
 		1FA524532631C4E100C2C24F /* ShareSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524522631C4E100C2C24F /* ShareSelection.swift */; };
+		1FA524592638615C00C2C24F /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524582638615C00C2C24F /* ArticleAuthor.swift */; };
+		1FA5245A2638615C00C2C24F /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524582638615C00C2C24F /* ArticleAuthor.swift */; };
 		1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */; };
@@ -352,6 +354,7 @@
 		1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetails.swift; sourceTree = "<group>"; };
 		1FA52447261E226A00C2C24F /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		1FA524522631C4E100C2C24F /* ShareSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSelection.swift; sourceTree = "<group>"; };
+		1FA524582638615C00C2C24F /* ArticleAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAuthor.swift; sourceTree = "<group>"; };
 		1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatus.swift; sourceTree = "<group>"; };
 		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
 		1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewForm.swift; sourceTree = "<group>"; };
@@ -494,6 +497,7 @@
 				1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */,
 				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
+				1FA524582638615C00C2C24F /* ArticleAuthor.swift */,
 				1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */,
 				1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
@@ -877,6 +881,7 @@
 				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
+				1FA524592638615C00C2C24F /* ArticleAuthor.swift in Sources */,
 				1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */,
 				1F83DEA924633302008561FF /* FadeOutAnimator.swift in Sources */,
 				1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */,
@@ -970,6 +975,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FA5245A2638615C00C2C24F /* ArticleAuthor.swift in Sources */,
 				1F1947AA21EAB0FA00D1599D /* HTMLTagReplacement.swift in Sources */,
 				1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */,
