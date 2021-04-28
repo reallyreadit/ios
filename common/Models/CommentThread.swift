@@ -13,5 +13,6 @@ struct CommentThread: Codable {
     let parentCommentId: String?
     let dateDeleted: Date?
     let children: [CommentThread]
+    let isAuthor: Bool
     let maxDate: Date
 }
