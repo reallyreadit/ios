@@ -433,6 +433,7 @@ class ArticleViewController:
                                         parentCommentId: nil,
                                         dateDeleted: post.dateDeleted,
                                         children: [],
+                                        isAuthor: false,
                                         maxDate: post.date
                                     )
                                 )
