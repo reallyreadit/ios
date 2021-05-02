@@ -80,7 +80,7 @@ private class ReceiptRefreshRequest: NSObject, SKRequestDelegate {
     }
 }
 
-protocol StoreServiceDelegate: class {
+protocol StoreServiceDelegate: AnyObject {
     func transactionCompleted(result: Result<SubscriptionValidationResponse, ProblemDetails>) -> Void
 }
 
