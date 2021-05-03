@@ -1,5 +1,5 @@
 import Foundation
 
-protocol MessageWebViewDelegate: class {
+protocol MessageWebViewDelegate: AnyObject {
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) -> Void
 }

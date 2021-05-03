@@ -79,6 +79,12 @@
 		1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19471921DEF3A700D1599D /* CommitReadStateEvent.swift */; };
 		1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F1947C721EBA49E00D1599D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F13B4D221CC117300EE6927 /* WebKit.framework */; };
+		1F2BC668256332B300211134 /* SubscriptionPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC667256332B300211134 /* SubscriptionPurchase.swift */; };
+		1F2BC69525648DC700211134 /* WebViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC69425648DC700211134 /* WebViewResult.swift */; };
+		1F2BC6BA256847DD00211134 /* WebViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC69425648DC700211134 /* WebViewResult.swift */; };
+		1F2BC6D325684C1400211134 /* SubscriptionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC6D225684C1400211134 /* SubscriptionReceipt.swift */; };
+		1F2BC7142575AA9800211134 /* SubscriptionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */; };
+		1F2BC7152575AA9800211134 /* SubscriptionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */; };
 		1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
@@ -154,6 +160,13 @@
 		1F9D8F68244CFF0400466895 /* AuthServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F66244CFF0400466895 /* AuthServiceProvider.swift */; };
 		1F9D8F6A244CFF1600466895 /* AuthServiceAccountAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F69244CFF1600466895 /* AuthServiceAccountAssociation.swift */; };
 		1F9D8F6B244CFF1600466895 /* AuthServiceAccountAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D8F69244CFF1600466895 /* AuthServiceAccountAssociation.swift */; };
+		1FA52435261CBBFC00C2C24F /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
+		1FA52436261CBBFC00C2C24F /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
+		1FA52448261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
+		1FA52449261E226A00C2C24F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
+		1FA524532631C4E100C2C24F /* ShareSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524522631C4E100C2C24F /* ShareSelection.swift */; };
+		1FA524592638615C00C2C24F /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524582638615C00C2C24F /* ArticleAuthor.swift */; };
+		1FA5245A2638615C00C2C24F /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA524582638615C00C2C24F /* ArticleAuthor.swift */; };
 		1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */; };
 		1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */; };
@@ -161,15 +174,29 @@
 		1FA91D0B235FAA2100E3EDE2 /* PushViewForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */; };
 		1FA91D0D235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
 		1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
+		1FAA57EA2576C1BA00CF936C /* SubscriptionPurchaseFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA57E92576C1BA00CF936C /* SubscriptionPurchaseFailure.swift */; };
+		1FAA57EB2576C1BA00CF936C /* SubscriptionPurchaseFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA57E92576C1BA00CF936C /* SubscriptionPurchaseFailure.swift */; };
 		1FACDABA25164639006B7E64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACDAB925164639006B7E64 /* Cocoa.framework */; };
 		1FACDABD25164639006B7E64 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */; };
 		1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* SafariExtension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1FAE4E81255C74C4006FE959 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAE4E80255C74C4006FE959 /* StoreKit.framework */; };
+		1FAE4E83255C75D5006FE959 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAE4E82255C75D5006FE959 /* StoreService.swift */; };
+		1FAE4E94255C99E9006FE959 /* SubscriptionProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAE4E93255C99E9006FE959 /* SubscriptionProducts.swift */; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D619231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
 		1FC0D61A231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
 		1FC0D61C231AD29500E4DD9A /* PostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D61B231AD29500E4DD9A /* PostForm.swift */; };
 		1FC0D61D231AD29500E4DD9A /* PostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D61B231AD29500E4DD9A /* PostForm.swift */; };
+		1FCCC61025AF5E8A00637102 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC60F25AF5E8A00637102 /* SubscriptionStatus.swift */; };
+		1FCCC61125AF5E8A00637102 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC60F25AF5E8A00637102 /* SubscriptionStatus.swift */; };
+		1FCCC61A25AF5EAD00637102 /* SubscriptionProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAE4E93255C99E9006FE959 /* SubscriptionProducts.swift */; };
+		1FCCC61F25AF5EB100637102 /* SubscriptionPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC667256332B300211134 /* SubscriptionPurchase.swift */; };
+		1FCCC62425AF5EB700637102 /* SubscriptionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC6D225684C1400211134 /* SubscriptionReceipt.swift */; };
+		1FCCC62A25AF5FB000637102 /* SubscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */; };
+		1FCCC62B25AF5FB000637102 /* SubscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */; };
+		1FCCC63125AF5FC500637102 /* SubscriptionPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */; };
+		1FCCC63225AF5FC500637102 /* SubscriptionPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */; };
 		1FDBBC7422109CED00E03051 /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -271,6 +298,10 @@
 		1F19479E21EAAA9100D1599D /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
 		1F1947A021EAAF7200D1599D /* HTMLTagReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTagReplacement.swift; sourceTree = "<group>"; };
 		1F1947B521EAB3E600D1599D /* WebViewContainerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainerDelegate.swift; sourceTree = "<group>"; };
+		1F2BC667256332B300211134 /* SubscriptionPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPurchase.swift; sourceTree = "<group>"; };
+		1F2BC69425648DC700211134 /* WebViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewResult.swift; sourceTree = "<group>"; };
+		1F2BC6D225684C1400211134 /* SubscriptionReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionReceipt.swift; sourceTree = "<group>"; };
+		1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionValidation.swift; sourceTree = "<group>"; };
 		1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardBadge.swift; sourceTree = "<group>"; };
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
@@ -320,18 +351,29 @@
 		1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCredentialLinkForm.swift; sourceTree = "<group>"; };
 		1F9D8F66244CFF0400466895 /* AuthServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProvider.swift; sourceTree = "<group>"; };
 		1F9D8F69244CFF1600466895 /* AuthServiceAccountAssociation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceAccountAssociation.swift; sourceTree = "<group>"; };
+		1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetails.swift; sourceTree = "<group>"; };
+		1FA52447261E226A00C2C24F /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		1FA524522631C4E100C2C24F /* ShareSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSelection.swift; sourceTree = "<group>"; };
+		1FA524582638615C00C2C24F /* ArticleAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAuthor.swift; sourceTree = "<group>"; };
 		1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatus.swift; sourceTree = "<group>"; };
 		1FA91D07235BC77400E3EDE2 /* NotificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceDelegate.swift; sourceTree = "<group>"; };
 		1FA91D09235FAA2100E3EDE2 /* PushViewForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewForm.swift; sourceTree = "<group>"; };
 		1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushReplyForm.swift; sourceTree = "<group>"; };
+		1FAA57E92576C1BA00CF936C /* SubscriptionPurchaseFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPurchaseFailure.swift; sourceTree = "<group>"; };
 		1FACDAB825164639006B7E64 /* SafariExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SafariExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACDAB925164639006B7E64 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		1FACDACF25164639006B7E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FACDAD025164639006B7E64 /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
+		1FAE4E80255C74C4006FE959 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1FAE4E82255C75D5006FE959 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		1FAE4E93255C99E9006FE959 /* SubscriptionProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionProducts.swift; sourceTree = "<group>"; };
 		1FC0D615231AD1C200E4DD9A /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		1FC0D618231AD23100E4DD9A /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1FC0D61B231AD29500E4DD9A /* PostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostForm.swift; sourceTree = "<group>"; };
+		1FCCC60F25AF5E8A00637102 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
+		1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionProvider.swift; sourceTree = "<group>"; };
+		1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPrice.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* WebViewScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewScript.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScriptUpdater.swift; path = Scripts/ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -347,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F13B4D321CC117300EE6927 /* WebKit.framework in Frameworks */,
+				1FAE4E81255C74C4006FE959 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +460,7 @@
 				1FDBBC7C221229B500E03051 /* reader.js */,
 				1F19476821E5552900D1599D /* Release.plist */,
 				1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */,
+				1FAE4E82255C75D5006FE959 /* StoreService.swift */,
 			);
 			path = IosApp;
 			sourceTree = "<group>";
@@ -424,6 +468,7 @@
 		1F13B4D121CC117300EE6927 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FAE4E80255C74C4006FE959 /* StoreKit.framework */,
 				1F13B4D221CC117300EE6927 /* WebKit.framework */,
 				1FACDAB925164639006B7E64 /* Cocoa.framework */,
 			);
@@ -452,6 +497,7 @@
 				1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */,
 				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
+				1FA524582638615C00C2C24F /* ArticleAuthor.swift */,
 				1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */,
 				1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
@@ -490,6 +536,14 @@
 				1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */,
 				1F09E6D123F74DD300967828 /* SignInEventType.swift */,
 				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
+				1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */,
+				1FAE4E93255C99E9006FE959 /* SubscriptionProducts.swift */,
+				1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */,
+				1F2BC667256332B300211134 /* SubscriptionPurchase.swift */,
+				1FAA57E92576C1BA00CF936C /* SubscriptionPurchaseFailure.swift */,
+				1F2BC6D225684C1400211134 /* SubscriptionReceipt.swift */,
+				1FCCC60F25AF5E8A00637102 /* SubscriptionStatus.swift */,
+				1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */,
 				1F9D8F63244CFDA400466895 /* TwitterCredentialLinkForm.swift */,
 				1F9D8F60244CCC7500466895 /* TwitterRequestToken.swift */,
 				1F8768D722693700002B5D16 /* UserAccount.swift */,
@@ -518,6 +572,7 @@
 				1F19479921EAA93B00D1599D /* MessageWebViewDelegate.swift */,
 				1F19472221DF007A00D1599D /* ResponseCallback.swift */,
 				1F19472021DF006B00D1599D /* ResponseEnvelope.swift */,
+				1F2BC69425648DC700211134 /* WebViewResult.swift */,
 			);
 			path = WebViewMessaging;
 			sourceTree = "<group>";
@@ -543,7 +598,9 @@
 				1F13B4E921D2AA9500EE6927 /* Models */,
 				1F19471B21DF003800D1599D /* WebViewMessaging */,
 				1F19479321EA9C1900D1599D /* APIServerURLSession.swift */,
+				1FA52447261E226A00C2C24F /* Errors.swift */,
 				1F71E9E023560DCA000F869D /* LocalStorage.swift */,
+				1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */,
 				1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */,
 				1F8768B422318829002B5D16 /* SharedBundleInfo.swift */,
 				1F53AAEC220115710002C6FB /* SharedCookieStore.swift */,
@@ -601,6 +658,7 @@
 				1F8768C5223AF9B6002B5D16 /* ShareDataURLSource.swift */,
 				1F8768CF225F9EA4002B5D16 /* SharingExtensions.swift */,
 				1F09E6CE23F4936500967828 /* ShareResult.swift */,
+				1FA524522631C4E100C2C24F /* ShareSelection.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -709,7 +767,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "reallyread.it, inc.";
 				TargetAttributes = {
 					1F13B4BB21CB167500EE6927 = {
@@ -808,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F13B4F521D2B5A300EE6927 /* SourceParseResult.swift in Sources */,
+				1FA52448261E226A00C2C24F /* Errors.swift in Sources */,
 				1F13B4F721D2B5DA00EE6927 /* AuthorParseResult.swift in Sources */,
 				1F8768D0225F9EA4002B5D16 /* SharingExtensions.swift in Sources */,
 				1F8768D222692AB8002B5D16 /* CommentForm.swift in Sources */,
@@ -815,11 +874,14 @@
 				1FA91D05235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F9D8F64244CFDA400466895 /* TwitterCredentialLinkForm.swift in Sources */,
 				1F5FB906250FBAE200DABE16 /* DisplayPreference.swift in Sources */,
+				1FCCC62A25AF5FB000637102 /* SubscriptionProvider.swift in Sources */,
 				1F8768B822318B54002B5D16 /* AppBundleInfo.swift in Sources */,
 				1F13B4D821CC667D00EE6927 /* WebAppViewController.swift in Sources */,
+				1F2BC69525648DC700211134 /* WebViewResult.swift in Sources */,
 				1F71E9E723563049000F869D /* NotificationService.swift in Sources */,
 				1F8768B522318829002B5D16 /* SharedBundleInfo.swift in Sources */,
 				1F8768DB2269390D002B5D16 /* UserAccountRole.swift in Sources */,
+				1FA524592638615C00C2C24F /* ArticleAuthor.swift in Sources */,
 				1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */,
 				1F83DEA924633302008561FF /* FadeOutAnimator.swift in Sources */,
 				1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */,
@@ -838,12 +900,15 @@
 				1F19471F21DF005C00D1599D /* CallEnvelope.swift in Sources */,
 				1F8768C02239C04B002B5D16 /* ShareDataStringSource.swift in Sources */,
 				1FDBBC8522173D9400E03051 /* Rating.swift in Sources */,
+				1F2BC7142575AA9800211134 /* SubscriptionValidation.swift in Sources */,
 				1F13B4F321D2B58300EE6927 /* ArticleParseResult.swift in Sources */,
 				1F9D8F67244CFF0400466895 /* AuthServiceProvider.swift in Sources */,
 				1F13B4FB21D2D04900EE6927 /* ReadStateCommitData.swift in Sources */,
 				1F8768C6223AF9B6002B5D16 /* ShareDataURLSource.swift in Sources */,
 				1F5B32C3238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
+				1FA524532631C4E100C2C24F /* ShareSelection.swift in Sources */,
 				1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */,
+				1F2BC6D325684C1400211134 /* SubscriptionReceipt.swift in Sources */,
 				1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */,
 				1F13B4EB21D2AAA900EE6927 /* UserPage.swift in Sources */,
 				1F09E6D223F74DD300967828 /* SignInEventType.swift in Sources */,
@@ -857,20 +922,24 @@
 				1F19479A21EAA93B00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */,
+				1FA52435261CBBFC00C2C24F /* ProblemDetails.swift in Sources */,
 				1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */,
 				1F09E6C623F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */,
 				1FC0D619231AD23100E4DD9A /* Post.swift in Sources */,
 				1FDBBC7422109CED00E03051 /* WebViewScript.swift in Sources */,
+				1F2BC668256332B300211134 /* SubscriptionPurchase.swift in Sources */,
 				1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F5FB903250FBAAD00DABE16 /* DisplayTheme.swift in Sources */,
 				1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */,
 				1F09E6D823F74E7400967828 /* InitializationEvent.swift in Sources */,
 				1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */,
+				1FAE4E83255C75D5006FE959 /* StoreService.swift in Sources */,
 				1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */,
 				1F19479421EA9C1900D1599D /* APIServerURLSession.swift in Sources */,
 				1F5B32C0238B1BC50060B693 /* ArticleFlair.swift in Sources */,
 				1F1947A121EAAF7200D1599D /* HTMLTagReplacement.swift in Sources */,
 				1FA91D0D235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
+				1FCCC63125AF5FC500637102 /* SubscriptionPrice.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
 				1F5B32C6238B1D590060B693 /* CommentAddendumForm.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
@@ -878,6 +947,7 @@
 				1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F71E9ED23578148000F869D /* PushAuthDenailForm.swift in Sources */,
 				1FA91D08235BC77400E3EDE2 /* NotificationServiceDelegate.swift in Sources */,
+				1FAE4E94255C99E9006FE959 /* SubscriptionProducts.swift in Sources */,
 				1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
 				1F09E6DE23F84CA600967828 /* SignInEventResponse.swift in Sources */,
 				1F5FB909250FF74800DABE16 /* DisplayPreferenceService.swift in Sources */,
@@ -889,8 +959,10 @@
 				1F9D8F61244CCC7500466895 /* TwitterRequestToken.swift in Sources */,
 				1F13B4ED21D2ABA300EE6927 /* Article.swift in Sources */,
 				1FA91D0A235FAA2100E3EDE2 /* PushViewForm.swift in Sources */,
+				1FCCC61025AF5E8A00637102 /* SubscriptionStatus.swift in Sources */,
 				1F1947B621EAB3E600D1599D /* WebViewContainerDelegate.swift in Sources */,
 				1F19472121DF006B00D1599D /* ResponseEnvelope.swift in Sources */,
+				1FAA57EA2576C1BA00CF936C /* SubscriptionPurchaseFailure.swift in Sources */,
 				1F9D8F6A244CFF1600466895 /* AuthServiceAccountAssociation.swift in Sources */,
 				1F09E6E12409E3F400967828 /* WebAuthRequest.swift in Sources */,
 				1F13B4FD21D2D0B500EE6927 /* ArticleViewControllerParams.swift in Sources */,
@@ -903,18 +975,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FA5245A2638615C00C2C24F /* ArticleAuthor.swift in Sources */,
 				1F1947AA21EAB0FA00D1599D /* HTMLTagReplacement.swift in Sources */,
 				1F1947C521EAC5A800D1599D /* CommitReadStateEvent.swift in Sources */,
 				1F53AAEE220115710002C6FB /* SharedCookieStore.swift in Sources */,
 				1F9D8F6B244CFF1600466895 /* AuthServiceAccountAssociation.swift in Sources */,
+				1FAA57EB2576C1BA00CF936C /* SubscriptionPurchaseFailure.swift in Sources */,
 				1F8768D322692AB8002B5D16 /* CommentForm.swift in Sources */,
 				1F1947BF21EAC5A800D1599D /* PageLinkParseResult.swift in Sources */,
+				1F2BC6BA256847DD00211134 /* WebViewResult.swift in Sources */,
+				1FCCC62425AF5EB700637102 /* SubscriptionReceipt.swift in Sources */,
 				1F5B32C1238B1BC50060B693 /* ArticleFlair.swift in Sources */,
 				1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */,
 				1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */,
 				1F1947B821EAC5A800D1599D /* UserPage.swift in Sources */,
+				1FCCC62B25AF5FB000637102 /* SubscriptionProvider.swift in Sources */,
 				1F1947AF21EAB0FA00D1599D /* ResponseEnvelope.swift in Sources */,
+				1F2BC7152575AA9800211134 /* SubscriptionValidation.swift in Sources */,
 				1F71E9EB235676F8000F869D /* DeviceInfo.swift in Sources */,
+				1FCCC61A25AF5EAD00637102 /* SubscriptionProducts.swift in Sources */,
 				1F1947A921EAB0FA00D1599D /* ArticleProcessing.swift in Sources */,
 				1F1947B221EAB0FA00D1599D /* MessageWebView.swift in Sources */,
 				1F5B32CD238B1DC80060B693 /* CommentDeletionForm.swift in Sources */,
@@ -928,6 +1007,7 @@
 				1F1947BB21EAC5A800D1599D /* PageParseResult.swift in Sources */,
 				1F8768DC2269390D002B5D16 /* UserAccountRole.swift in Sources */,
 				1F1947AE21EAB0FA00D1599D /* CallEnvelope.swift in Sources */,
+				1FCCC63225AF5FC500637102 /* SubscriptionPrice.swift in Sources */,
 				1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F5B32C4238B1C3E0060B693 /* CommentAddendum.swift in Sources */,
 				1F83DEA124606250008561FF /* ArticleIssueReportRequest.swift in Sources */,
@@ -942,8 +1022,10 @@
 				1FA91D06235BC54500E3EDE2 /* AlertStatus.swift in Sources */,
 				1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */,
 				1F5B32CA238B1DA30060B693 /* CommentRevisionForm.swift in Sources */,
+				1FA52449261E226A00C2C24F /* Errors.swift in Sources */,
 				1F71E9E52356177E000F869D /* DeviceRegistrationForm.swift in Sources */,
 				1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
+				1FCCC61125AF5E8A00637102 /* SubscriptionStatus.swift in Sources */,
 				1F1947BC21EAC5A800D1599D /* ArticleParseResult.swift in Sources */,
 				1F8768B3223187BB002B5D16 /* SemanticVersion.swift in Sources */,
 				1F1947B021EAB0FA00D1599D /* ResponseCallback.swift in Sources */,
@@ -957,12 +1039,14 @@
 				1FC0D61A231AD23100E4DD9A /* Post.swift in Sources */,
 				1F09E6E52409E5F700967828 /* WebAuthResponse.swift in Sources */,
 				1F09E6DC23F84BD800967828 /* NotificationAuthorizationStatus.swift in Sources */,
+				1FCCC61F25AF5EB100637102 /* SubscriptionPurchase.swift in Sources */,
 				1F1947B721EABB0400D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F09E6DF23F84CA600967828 /* SignInEventResponse.swift in Sources */,
 				1F1947B321EAB0FA00D1599D /* MessageWebViewDelegate.swift in Sources */,
 				1F7870712295B88A003493DE /* WebViewScript.swift in Sources */,
 				1F1947C021EAC5A800D1599D /* ReadStateCommitData.swift in Sources */,
 				1F5FB904250FBAAD00DABE16 /* DisplayTheme.swift in Sources */,
+				1FA52436261CBBFC00C2C24F /* ProblemDetails.swift in Sources */,
 				1F1947B921EAC5A800D1599D /* Article.swift in Sources */,
 				1F09E6D923F74E7400967828 /* InitializationEvent.swift in Sources */,
 				1F09E6D323F74DD300967828 /* SignInEventType.swift in Sources */,

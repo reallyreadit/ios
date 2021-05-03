@@ -83,7 +83,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
             forName: messageHandlerKey
         )
     }
-    func sendMessage<T: Codable>(message: Message<T>, responseCallback: ((_: Any?) -> Void)? = nil) {
+    func sendMessage<T: Encodable>(message: Message<T>, responseCallback: ((_: Any?) -> Void)? = nil) {
         os_log("[webview-msg] sending message: %s", message.type)
         var callbackId: Int?
         if responseCallback != nil {
@@ -97,7 +97,7 @@ class MessageWebView: NSObject, WKScriptMessageHandler {
         let envelope = jsonEncodeForLiteral(CallEnvelope(callbackId: callbackId, data: message))
         view.evaluateJavaScript("\(javascriptListenerObject).postMessage('\(envelope)');")
     }
-    func sendResponse<T: Codable>(data: T, callbackId: Int) {
+    func sendResponse<T: Encodable>(data: T, callbackId: Int) {
         os_log("[webview-msg] sending response for callback: %d", callbackId)
         let envelope = jsonEncodeForLiteral(ResponseEnvelope(data: data, id: callbackId))
         view.evaluateJavaScript("\(javascriptListenerObject).sendResponse('\(envelope)');")

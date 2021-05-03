@@ -1,5 +1,5 @@
 import Foundation
 
-protocol WebViewContainerDelegate: class {
+protocol WebViewContainerDelegate: AnyObject {
     func onStateChange(state: WebViewContainerState) -> Void
 }

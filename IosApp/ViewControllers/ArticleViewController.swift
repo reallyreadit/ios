@@ -238,19 +238,34 @@ class ArticleViewController:
                                     isCompletionCommit: event.isCompletionCommit
                                 )
                             )
-                            self.webView.sendResponse(data: article, callbackId: callbackId!)
+                            self.webView.sendResponse(
+                                data: WebViewResult<Article, ProblemDetails>(article),
+                                callbackId: callbackId!
+                            )
                         }
                     }
                 },
                 onError: {
-                    [weak self] _ in
+                    [weak self] error in
                     if let self = self {
-                        if self.commitErrorCount > 5 {
+                        if
+                            let problem = error as? ProblemDetails,
+                            problem.isOfType(ReadingErrorType.subscriptionRequired)
+                        {
                             DispatchQueue.main.async {
-                                self.setErrorState(withMessage: "Error saving reading progress.")
+                                self.webView.sendResponse(
+                                    data: WebViewResult<Article, ProblemDetails>(problem),
+                                    callbackId: callbackId!
+                                )
                             }
                         } else {
-                            self.commitErrorCount += 1
+                            if self.commitErrorCount > 5 {
+                                DispatchQueue.main.async {
+                                    self.setErrorState(withMessage: "Error saving reading progress.")
+                                }
+                            } else {
+                                self.commitErrorCount += 1
+                            }
                         }
                     }
                 }
@@ -363,6 +378,8 @@ class ArticleViewController:
             if let url = URL(string: message.data as! String) {
                 presentSafariViewController(url: url, theme: displayTheme)
             }
+        case "openSubscriptionPrompt":
+            params.onOpenSubscriptionPrompt()
         case "parseResult":
             hasParsedPage = true
             apiServer.postJson(
@@ -416,6 +433,7 @@ class ArticleViewController:
                                         parentCommentId: nil,
                                         dateDeleted: post.dateDeleted,
                                         children: [],
+                                        isAuthor: false,
                                         maxDate: post.date
                                     )
                                 )

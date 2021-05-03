@@ -31,6 +31,26 @@ private func createRequest(url: URL) -> URLRequest {
 private func createURL(fromPath path: String) -> URL {
     return SharedBundleInfo.apiServerURL.appendingPathComponent(path)
 }
+private func handleDataTaskError(
+    _ request: URLRequest,
+    _ data: Data?,
+    _ response: URLResponse?,
+    _ error: Error?,
+    _ completionHandler: (_: Error?) -> Void
+) {
+    if
+        let data = data,
+        let httpResponse = response as? HTTPURLResponse,
+        let contentType = httpResponse.allHeaderFields["Content-Type"] as? String,
+        contentType.starts(with: "application/problem+json"),
+        let problem = try? JSONDecoder().decode(HTTPProblemDetails.self, from: data)
+    {
+        completionHandler(problem)
+    } else {
+        logError(request, response, data, error)
+        completionHandler(error)
+    }
+}
 private func logError(
     _ request: URLRequest,
     _ response: URLResponse?,
@@ -89,8 +109,7 @@ struct APIServerURLSession {
                     {
                         onSuccess()
                     } else {
-                        logError(request, response, data, error)
-                        onError(error)
+                        handleDataTaskError(request, data, response, error, onError)
                     }
                 }
             )
@@ -122,8 +141,7 @@ struct APIServerURLSession {
                             onError(error)
                         }
                     } else {
-                        logError(request, response, data, error)
-                        onError(error)
+                        handleDataTaskError(request, data, response, error, onError)
                     }
                 }
             )

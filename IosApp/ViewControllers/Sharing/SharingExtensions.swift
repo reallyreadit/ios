@@ -36,6 +36,12 @@ extension UIViewController {
             completionHandler(result)
         }
         activityViewController.popoverPresentationController?.sourceView = self.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(
+            x: CGFloat(data.selection.x) * self.view.bounds.width,
+            y: CGFloat(data.selection.y) * self.view.bounds.height,
+            width: CGFloat(data.selection.width) * self.view.bounds.width,
+            height: CGFloat(data.selection.height) * self.view.bounds.height
+        )
         activityViewController.modalPresentationStyle = .overCurrentContext
         if #available(iOS 13.0, *) {
             activityViewController.overrideUserInterfaceStyle = (

@@ -3,6 +3,7 @@ import WebKit
 import SafariServices
 import os.log
 import AuthenticationServices
+import StoreKit
 
 private func getDeviceInfo() -> DeviceInfo {
     return DeviceInfo(
@@ -12,31 +13,32 @@ private func getDeviceInfo() -> DeviceInfo {
         token: LocalStorage.getNotificationToken()
     )
 }
-private func prepareURL(_ url: URL) -> URL? {
-    if var components = URLComponents(url: url, resolvingAgainstBaseURL: true) {
-        // force https
-        components.scheme = "https"
-        // convert reallyread.it urls to readup.com
-        components.host = components.host?.replacingOccurrences(
-            of: "reallyread.it",
-            with: "readup.com",
-            options: [.caseInsensitive]
-        )
-        if components.host != SharedBundleInfo.webServerURL.host {
-            return nil
-        }
-        // set the client type in the query string
-        let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
-        if (components.queryItems == nil) {
-            components.queryItems = [clientTypeQueryItem]
-        } else {
-            components.queryItems!.removeAll(where: { item in item.name == "clientType" })
-            components.queryItems!.append(clientTypeQueryItem)
-        }
-        // return the url
-        return components.url
+private func prepareURL(_ url: URL) -> URL {
+    // create components from the provided url or fall back to using the web server url
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: true) ??
+        URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
+    // convert reallyread.it urls to readup.com
+    components.host = components.host?.replacingOccurrences(
+        of: "reallyread.it",
+        with: SharedBundleInfo.webServerURL.host!,
+        options: [.caseInsensitive]
+    )
+    // verify that the host matches the web server host
+    if components.host != SharedBundleInfo.webServerURL.host {
+        components = URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
     }
-    return nil
+    // force https
+    components.scheme = "https"
+    // set the client type in the query string
+    let clientTypeQueryItem = URLQueryItem(name: "clientType", value: "App")
+    if (components.queryItems == nil) {
+        components.queryItems = [clientTypeQueryItem]
+    } else {
+        components.queryItems!.removeAll(where: { item in item.name == "clientType" })
+        components.queryItems!.append(clientTypeQueryItem)
+    }
+    // return the url
+    return components.url!
 }
 class WebAppViewController:
     UIViewController,
@@ -129,6 +131,8 @@ class WebAppViewController:
         ])
         // theme webview
         webViewContainer.setDisplayTheme(theme: displayTheme)
+        // register as store service delegate
+        StoreService.shared.delegate = self
     }
     required init?(coder: NSCoder) {
         return nil
@@ -297,7 +301,7 @@ class WebAppViewController:
         }
     }
     func loadURL(_ url: URL) {
-        let preparedURL = prepareURL(url) ?? SharedBundleInfo.webServerURL
+        let preparedURL = prepareURL(url)
         os_log("[webapp] load url: %s", preparedURL.absoluteString)
         if hasEstablishedCommunication {
             webView.sendMessage(
@@ -345,6 +349,10 @@ class WebAppViewController:
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
                 presentSafariViewController(url: url, theme: displayTheme)
+            }
+        case "openExternalUrlUsingSystem":
+            if let url = URL(string: message.data as! String) {
+                UIApplication.shared.open(url)
             }
         case "readArticle":
             let data = message.data as! [String: Any]
@@ -404,6 +412,47 @@ class WebAppViewController:
                         }
                     }
                 }
+        case "requestSubscriptionProducts":
+            let request = SubscriptionProductsRequest(serializedRequest: message.data as! [String: Any])
+            StoreService.shared.requestProducts(productIds: request.productIds) {
+                result in
+                DispatchQueue.main.async {
+                    self.webView.sendResponse(
+                        data: WebViewResult(
+                            result.map({
+                                response in SubscriptionProductsResponse(response: response)
+                            })
+                        ),
+                        callbackId: callbackId!
+                    )
+                }
+            }
+        case "requestSubscriptionPurchase":
+            let request = SubscriptionPurchaseRequest(serializedRequest: message.data as! [String: Any])
+            self.webView.sendResponse(
+                data: WebViewResult(
+                    StoreService.shared
+                        .purchase(productId: request.productId)
+                        .map({
+                            SubscriptionPurchaseResponse()
+                        })
+                ),
+                callbackId: callbackId!
+            )
+        case "requestSubscriptionReceipt":
+            StoreService.shared.requestReceipt() {
+                result in
+                DispatchQueue.main.async {
+                    self.webView.sendResponse(
+                        data: WebViewResult(
+                            result.map({
+                                receipt in SubscriptionReceiptResponse(base64EncodedReceipt: receipt)
+                            })
+                        ),
+                        callbackId: callbackId!
+                    )
+                }
+            }
         case "requestWebAuthentication":
             let request = WebAuthRequest(serializedRequest: message.data as! [String: Any])
             if #available(iOS 13.0, *) {
@@ -555,6 +604,15 @@ class WebAppViewController:
                     url in
                     self.dismiss(animated: true)
                     self.loadURL(url)
+                },
+                onOpenSubscriptionPrompt: {
+                    self.dismiss(animated: true)
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "openSubscriptionPrompt",
+                            data: true
+                        )
+                    )
                 }
             )
         )
@@ -613,5 +671,18 @@ class WebAppViewController:
         let selector = NSSelectorFromString("removeFullSizeContentViewStyleMaskFromWindows")
         object.perform(selector)
         #endif
+    }
+}
+
+extension WebAppViewController: StoreServiceDelegate {
+    func transactionCompleted(result: Result<SubscriptionValidationResponse, ProblemDetails>) {
+        DispatchQueue.main.async {
+            self.webView.sendMessage(
+                message: Message(
+                    type: "subscriptionPurchaseCompleted",
+                    data: WebViewResult(result)
+                )
+            )
+        }
     }
 }
