@@ -61,9 +61,7 @@ private class ReceiptRefreshRequest: NSObject, SKRequestDelegate {
             self.completionHandler = nil
         }
         // we might also need to keep a strong reference to the request itself
-        self.request = SKReceiptRefreshRequest()
-        self.request!.delegate = self
-        self.request!.start()
+        self.resume()
     }
     func requestDidFinish(_ request: SKRequest) {
         self.completionHandler?(
@@ -77,6 +75,18 @@ private class ReceiptRefreshRequest: NSObject, SKRequestDelegate {
         self.completionHandler?(
             .failure(error)
         )
+    }
+    func cancel() {
+        self.request?.cancel()
+        self.request = nil
+    }
+    func resume() {
+        if request != nil {
+            return
+        }
+        self.request = SKReceiptRefreshRequest()
+        self.request!.delegate = self
+        self.request!.start()
     }
 }
 
@@ -109,7 +119,7 @@ class StoreService: NSObject {
     private var products = [SKProduct]()
     static let shared = StoreService()
     weak var delegate: StoreServiceDelegate?
-    private var queue = DispatchQueue(label: "it.reallyread.mobile.StoreService")
+    private var receiptRequest: ReceiptRefreshRequest?
     private override init() {
         // singleton
     }
@@ -171,8 +181,11 @@ class StoreService: NSObject {
             )
         case .failure:
             os_log("[store] requesting new receipt from app store")
-            ReceiptRefreshRequest() {
+            self.receiptRequest = ReceiptRefreshRequest() {
                 refreshResult in
+                // Release the reference as soon as the request finishes.
+                self.receiptRequest = nil
+                // Check the request result.
                 switch refreshResult {
                 case .success:
                     os_log("[store] request for new receipt from app store succeeded")
@@ -191,16 +204,21 @@ class StoreService: NSObject {
                         )
                     }
                 case .failure(let error):
-                        os_log("[store] failed to request new receipt from app store")
-                        completionHandler(
-                            .failure(
-                                ProblemDetails(error)
-                            )
+                    os_log("[store] failed to request new receipt from app store")
+                    completionHandler(
+                        .failure(
+                            ProblemDetails(error)
                         )
-                    }
+                    )
                 }
             }
         }
+    }
+    func cancelReceiptRequest() {
+        self.receiptRequest?.cancel()
+    }
+    func resumeReceiptRequest() {
+        self.receiptRequest?.resume()
     }
 }
 
