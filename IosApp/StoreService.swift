@@ -158,7 +158,8 @@ class StoreService: NSObject {
         }
     }
     func requestReceipt(
-        _ completionHandler: @escaping (_: Result<String, ProblemDetails>) -> Void
+        _ completionHandler: @escaping (_: Result<String, ProblemDetails>) -> Void,
+        retryCount: Int = 0
     ) {
         os_log("[store] requesting receipt")
         switch
@@ -191,12 +192,23 @@ class StoreService: NSObject {
                         )
                     }
                 case .failure(let error):
-                    os_log("[store] failed to request new receipt from app store")
-                    completionHandler(
-                        .failure(
-                            ProblemDetails(error)
+                    if (retryCount < 2) {
+                        os_log("[store] scheduling retry of failed app store receipt request")
+                        DispatchQueue.main.asyncAfter(
+                            deadline: .now() + .seconds(1),
+                            execute: {
+                                os_log("[store] retrying failed app store receipt request")
+                                self.requestReceipt(completionHandler, retryCount: retryCount + 1)
+                            }
                         )
-                    )
+                    } else {
+                        os_log("[store] failed to request new receipt from app store")
+                        completionHandler(
+                            .failure(
+                                ProblemDetails(error)
+                            )
+                        )
+                    }
                 }
             }
         }
