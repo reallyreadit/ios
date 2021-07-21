@@ -5,9 +5,12 @@ class AlertViewController: UIViewController {
     private var hasPressedCloseButton = false
     private let indicator = UIActivityIndicatorView()
     private let message = UILabel()
-    private var messageIndicatorConstraint: NSLayoutConstraint!
+    private var messageDefaultConstraints: [NSLayoutConstraint]!
+    private var messageIndicatorConstraints: [NSLayoutConstraint]!
+    private var messageTipConstraints: [NSLayoutConstraint]!
     private var onClose: (() -> Void)!
     private let rootView = UIView()
+    private let tip = UILabel()
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -77,17 +80,35 @@ class AlertViewController: UIViewController {
         message.numberOfLines = 0
         content.addSubview(message)
         NSLayoutConstraint.activate([
-            message.centerYAnchor.constraint(equalTo: indicator.centerYAnchor),
             message.topAnchor.constraint(greaterThanOrEqualTo: content.topAnchor),
-            message.bottomAnchor.constraint(equalTo: content.bottomAnchor),
-            message.leadingAnchor.constraint(greaterThanOrEqualTo: content.leadingAnchor),
             message.trailingAnchor.constraint(lessThanOrEqualTo: content.trailingAnchor)
         ])
-        messageIndicatorConstraint = message.leadingAnchor.constraint(
-            equalTo: indicator.trailingAnchor,
-            constant: 8
-        )
-        messageIndicatorConstraint.isActive = true
+        messageIndicatorConstraints = [
+            message.centerYAnchor.constraint(equalTo: indicator.centerYAnchor),
+            message.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: 8)
+        ]
+        NSLayoutConstraint.activate(messageIndicatorConstraints)
+        messageTipConstraints = [
+            message.centerXAnchor.constraint(equalTo: content.centerXAnchor),
+            message.leadingAnchor.constraint(greaterThanOrEqualTo: content.leadingAnchor),
+            message.bottomAnchor.constraint(equalTo: tip.topAnchor, constant: -16)
+        ]
+        messageDefaultConstraints = [
+            message.leadingAnchor.constraint(greaterThanOrEqualTo: content.leadingAnchor),
+            message.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+        ]
+        
+        tip.translatesAutoresizingMaskIntoConstraints = false
+        tip.textAlignment = .center
+        tip.numberOfLines = 0
+        tip.lineBreakMode = .byWordWrapping
+        tip.font = UIFont.systemFont(ofSize: tip.font.pointSize * 0.8)
+        content.addSubview(tip)
+        NSLayoutConstraint.activate([
+            tip.bottomAnchor.constraint(equalTo: content.bottomAnchor),
+            tip.leadingAnchor.constraint(greaterThanOrEqualTo: content.leadingAnchor),
+            tip.trailingAnchor.constraint(lessThanOrEqualTo: content.trailingAnchor)
+        ])
         
         let hr = UIView()
         hr.translatesAutoresizingMaskIntoConstraints = false
@@ -131,14 +152,29 @@ class AlertViewController: UIViewController {
     func showError(withText text: String) {
         message.text = text
         indicator.stopAnimating()
-        messageIndicatorConstraint.isActive = false
+        tip.text = nil
+        NSLayoutConstraint.deactivate(messageIndicatorConstraints)
+        NSLayoutConstraint.deactivate(messageTipConstraints)
+        NSLayoutConstraint.activate(messageDefaultConstraints)
         closeButton.setTitle("OK", for: .normal)
     }
     func showLoadingMessage(withText text: String) {
         message.text = text
         indicator.startAnimating()
-        messageIndicatorConstraint.isActive = true
+        tip.text = nil
+        NSLayoutConstraint.deactivate(messageTipConstraints)
+        NSLayoutConstraint.deactivate(messageDefaultConstraints)
+        NSLayoutConstraint.activate(messageIndicatorConstraints)
         closeButton.setTitle("Cancel", for: .normal)
+    }
+    func showSuccess(withText text: String) {
+        message.text = text
+        indicator.stopAnimating()
+        tip.text = "Tip: Enable notifications to jump right into the article."
+        NSLayoutConstraint.deactivate(messageIndicatorConstraints)
+        NSLayoutConstraint.deactivate(messageDefaultConstraints)
+        NSLayoutConstraint.activate(messageTipConstraints)
+        closeButton.setTitle("OK", for: .normal)
     }
     override func viewDidDisappear(_ animated: Bool) {
         if (!hasPressedCloseButton) {
