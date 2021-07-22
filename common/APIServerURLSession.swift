@@ -5,6 +5,24 @@ private let clientHeaderValue = (
     "@" +
     SharedBundleInfo.version.description
 )
+private func createGetRequest(
+    path: String,
+    queryItems: [URLQueryItem]
+) -> URLRequest {
+    var url = createURL(fromPath: path)
+    if
+        queryItems.count > 0,
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+    {
+        if components.queryItems == nil {
+            components.queryItems = queryItems
+        } else {
+            components.queryItems!.append(contentsOf: queryItems)
+        }
+        url = components.url ?? url
+    }
+    return createRequest(url: url)
+}
 private func createPostRequest(
     path: String
 ) -> URLRequest {
@@ -147,26 +165,41 @@ struct APIServerURLSession {
             )
             .resume()
     }
+    func getContent(
+        path: String,
+        queryItems: URLQueryItem...,
+        onSuccess: @escaping (_: String) -> Void,
+        onError: @escaping (_: Error?) -> Void
+    ) {
+        let request = createGetRequest(path: path, queryItems: queryItems)
+        urlSession
+            .dataTask(
+                with: request,
+                completionHandler: {
+                    (data, response, error) in
+                    if
+                        error == nil,
+                        let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode),
+                        let data = data,
+                        let content = String(data: data, encoding: .utf8)
+                    {
+                        onSuccess(content)
+                    } else {
+                        handleDataTaskError(request, data, response, error, onError)
+                    }
+                }
+            )
+            .resume()
+    }
     func getJson<TResult: Decodable>(
         path: String,
         queryItems: URLQueryItem...,
         onSuccess: @escaping (_: TResult) -> Void,
         onError: @escaping (_: Error?) -> Void
     ) {
-        var url = createURL(fromPath: path)
-        if
-            queryItems.count > 0,
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        {
-            if components.queryItems == nil {
-                components.queryItems = queryItems
-            } else {
-                components.queryItems!.append(contentsOf: queryItems)
-            }
-            url = components.url ?? url
-        }
         sendRequest(
-            request: createRequest(url: url),
+            request: createGetRequest(path: path, queryItems: queryItems),
             onSuccess: onSuccess,
             onError: onError
         )

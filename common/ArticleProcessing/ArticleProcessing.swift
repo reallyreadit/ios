@@ -35,6 +35,41 @@ private let stringEncodings = [
     String.Encoding.utf8,
     String.Encoding.isoLatin1
 ]
+private let sslUrlErrorCodes: [URLError.Code] = [
+    .secureConnectionFailed,
+    .serverCertificateUntrusted,
+    .serverCertificateHasBadDate,
+    .serverCertificateNotYetValid,
+    .serverCertificateHasUnknownRoot
+]
+private func processArticleContent(
+    content: NSMutableString,
+    mode: ArticleProcessingMode
+) -> NSMutableString {
+    var tagReplacements = [
+        // remote scripts must be disabled first!
+        remoteScriptDisablingTagReplacement,
+        localScriptDisablingTagReplacement,
+        iframeRemovalTagReplacement,
+        inlineStyleRemovalTagReplacement,
+        linkedStyleRemovalTagReplacement
+    ]
+    switch mode {
+    case .reader:
+        tagReplacements += [viewportMetaTagReplacement]
+    case .shareExtension:
+        tagReplacements += [imageRemovalTagReplacement]
+    }
+    tagReplacements.forEach({ replacement in
+        content.replaceOccurrences(
+            of: replacement.searchValue,
+            with: replacement.replaceValue,
+            options: [.regularExpression, .caseInsensitive],
+            range: NSRange(location: 0, length: content.length)
+        )
+    })
+    return content
+}
 struct ArticleProcessing {
     static func fetchArticle(
         url: URL,
@@ -129,34 +164,38 @@ struct ArticleProcessing {
                             }
                         }
                         if let stringData = stringData {
-                            var tagReplacements = [
-                                // remote scripts must be disabled first!
-                                remoteScriptDisablingTagReplacement,
-                                localScriptDisablingTagReplacement,
-                                iframeRemovalTagReplacement,
-                                inlineStyleRemovalTagReplacement,
-                                linkedStyleRemovalTagReplacement
-                            ]
-                            switch mode {
-                            case .reader:
-                                tagReplacements += [viewportMetaTagReplacement]
-                            case .shareExtension:
-                                tagReplacements += [imageRemovalTagReplacement]
-                            }
-                            tagReplacements.forEach({ replacement in
-                                stringData.replaceOccurrences(
-                                    of: replacement.searchValue,
-                                    with: replacement.replaceValue,
-                                    options: [.regularExpression, .caseInsensitive],
-                                    range: NSRange(location: 0, length: stringData.length)
-                                )
-                            })
-                            onSuccess(stringData)
+                            onSuccess(
+                                processArticleContent(content: stringData, mode: mode)
+                            )
                         } else {
                             onError()
                         }
                     } else {
-                        onError()
+                        if
+                            let urlError = error as? URLError,
+                            sslUrlErrorCodes.contains(urlError.code)
+                        {
+                            APIServerURLSession()
+                                .getContent(
+                                    path: "/Proxy/Article",
+                                    queryItems: URLQueryItem(name: "url", value: url.absoluteString),
+                                    onSuccess: {
+                                        content in
+                                        onSuccess(
+                                            processArticleContent(
+                                                content: NSMutableString(string: content),
+                                                mode: mode
+                                            )
+                                        )
+                                    },
+                                    onError: {
+                                        _ in
+                                        onError()
+                                    }
+                                )
+                        } else {
+                            onError()
+                        }
                     }
                 }
             )
