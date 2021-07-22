@@ -203,7 +203,7 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                                     
                                     let content = UNMutableNotificationContent()
                                     content.title = result.userArticle.title
-                                    content.subtitle = "⭐️ Starred in My Reads"
+                                    content.body = "⭐️ Starred in My Reads"
                                     content.userInfo["url"] = SharedBundleInfo.webServerURL
                                         .appendingPathComponent("/read/\(slugParts[0])/\(slugParts[1])")
                                         .absoluteString
@@ -222,13 +222,13 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                                                 self.close()
                                             } else {
                                                 DispatchQueue.main.async {
-                                                    self.alert.showSuccess(withText: "Article saved")
+                                                    self.alert.showSuccess(withText: "⭐️ Starred in My Reads")
                                                 }
                                             }
                                         }
                                 } else {
                                     DispatchQueue.main.async {
-                                        self.alert.showSuccess(withText: "Article saved")
+                                        self.alert.showSuccess(withText: "⭐️ Starred in My Reads")
                                     }
                                 }
                             }
