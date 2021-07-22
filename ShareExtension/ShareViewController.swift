@@ -53,19 +53,22 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
         alert = AlertViewController(
             onClose: {
                 [weak self] in
-                self?.isCancelled = true
-                self?.dismiss(
-                    animated: true,
-                    completion: {
-                        [weak self] in
-                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                    }
-                )
+                self?.close()
             }
         )
     }
     required init?(coder aDecoder: NSCoder) {
         return nil
+    }
+    private func close() {
+        isCancelled = true
+        dismiss(
+            animated: true,
+            completion: {
+                [weak self] in
+                self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
+        )
     }
     private func loadArticle(url: URL) {
         self.url = url
@@ -186,14 +189,49 @@ class ShareViewController: UIViewController, MessageWebViewDelegate {
                     star: true
                 ),
                 onSuccess: {
-                    [weak self] (_: ArticleLookupResult) in
+                    [weak self] (result: ArticleLookupResult) in
                     if
                         let self = self,
                         !self.isCancelled
                     {
-                        DispatchQueue.main.async {
-                            self.alert.showError(withText: "Article saved")
-                        }
+                        UNUserNotificationCenter
+                            .current()
+                            .getNotificationSettings {
+                                settings in
+                                if settings.authorizationStatus == .authorized {
+                                    let slugParts = result.userArticle.slug.split(separator: "_")
+                                    
+                                    let content = UNMutableNotificationContent()
+                                    content.title = result.userArticle.title
+                                    content.body = "⭐️ Starred in My Reads"
+                                    content.userInfo["url"] = SharedBundleInfo.webServerURL
+                                        .appendingPathComponent("/read/\(slugParts[0])/\(slugParts[1])")
+                                        .absoluteString
+                                    
+                                    let request = UNNotificationRequest(
+                                        identifier: UUID().uuidString,
+                                        content: content,
+                                        trigger: nil
+                                    )
+
+                                    UNUserNotificationCenter
+                                        .current()
+                                        .add(request) {
+                                            error in
+                                            if error == nil {
+                                                self.close()
+                                            } else {
+                                                DispatchQueue.main.async {
+                                                    self.alert.showSuccess(withText: "⭐️ Starred in My Reads")
+                                                }
+                                            }
+                                        }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.alert.showSuccess(withText: "⭐️ Starred in My Reads")
+                                    }
+                                }
+                            }
                     }
                     LocalStorage.setExtensionNewStarCount(
                         count: LocalStorage.getExtensionNewStarCount() + 1
