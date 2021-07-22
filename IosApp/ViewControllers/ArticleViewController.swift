@@ -376,7 +376,29 @@ class ArticleViewController:
             }
         case "openExternalUrl":
             if let url = URL(string: message.data as! String) {
-                presentSafariViewController(url: url, theme: displayTheme)
+                presentSafariViewController(
+                    url: url,
+                    theme: displayTheme,
+                    completionHandler: nil
+                )
+            }
+        case "openExternalUrlUsingSystem":
+            if let url = URL(string: message.data as! String) {
+                UIApplication.shared.open(url)
+            }
+        case "openExternalUrlWithCompletionHandler":
+            if let url = URL(string: message.data as! String) {
+                presentSafariViewController(
+                    url: url,
+                    theme: displayTheme,
+                    completionHandler: {
+                        [weak self] in
+                        guard let self = self else {
+                            return
+                        }
+                        self.webView.sendResponse(data: ExternalURLCompletionEvent(), callbackId: callbackId!)
+                    }
+                )
             }
         case "openSubscriptionPrompt":
             params.onOpenSubscriptionPrompt()

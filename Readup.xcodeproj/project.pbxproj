@@ -197,6 +197,8 @@
 		1FCCC62B25AF5FB000637102 /* SubscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */; };
 		1FCCC63125AF5FC500637102 /* SubscriptionPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */; };
 		1FCCC63225AF5FC500637102 /* SubscriptionPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */; };
+		1FCF1D3126A9B17F009A99AC /* ExternalURLCompletionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCF1D3026A9B17F009A99AC /* ExternalURLCompletionEvent.swift */; };
+		1FCF1D3226A9B17F009A99AC /* ExternalURLCompletionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCF1D3026A9B17F009A99AC /* ExternalURLCompletionEvent.swift */; };
 		1FDBBC7422109CED00E03051 /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1FDBBC7622109CFA00E03051 /* ScriptUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */; };
 		1FDBBC7822109D0F00E03051 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */; };
@@ -374,6 +376,7 @@
 		1FCCC60F25AF5E8A00637102 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
 		1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionProvider.swift; sourceTree = "<group>"; };
 		1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPrice.swift; sourceTree = "<group>"; };
+		1FCF1D3026A9B17F009A99AC /* ExternalURLCompletionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalURLCompletionEvent.swift; sourceTree = "<group>"; };
 		1FDBBC7322109CED00E03051 /* WebViewScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewScript.swift; sourceTree = "<group>"; };
 		1FDBBC7522109CFA00E03051 /* ScriptUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScriptUpdater.swift; path = Scripts/ScriptUpdater.swift; sourceTree = "<group>"; };
 		1FDBBC7722109D0F00E03051 /* SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
@@ -517,6 +520,7 @@
 				1F71E9E32356177E000F869D /* DeviceRegistrationForm.swift */,
 				1F5FB902250FBAAD00DABE16 /* DisplayTheme.swift */,
 				1F5FB905250FBAE200DABE16 /* DisplayPreference.swift */,
+				1FCF1D3026A9B17F009A99AC /* ExternalURLCompletionEvent.swift */,
 				1F09E6D723F74E7400967828 /* InitializationEvent.swift */,
 				1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */,
 				1F09E6C523F3024500967828 /* NotificationAuthorizationRequestResult.swift */,
@@ -923,6 +927,7 @@
 				1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */,
 				1FA52435261CBBFC00C2C24F /* ProblemDetails.swift in Sources */,
+				1FCF1D3126A9B17F009A99AC /* ExternalURLCompletionEvent.swift in Sources */,
 				1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */,
 				1F09E6C623F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */,
 				1FC0D619231AD23100E4DD9A /* Post.swift in Sources */,
@@ -1033,6 +1038,7 @@
 				1F1947BE21EAC5A800D1599D /* AuthorParseResult.swift in Sources */,
 				1F09E6E22409E3F400967828 /* WebAuthRequest.swift in Sources */,
 				1F1947C621EAC5A800D1599D /* ArticleUpdatedEvent.swift in Sources */,
+				1FCF1D3226A9B17F009A99AC /* ExternalURLCompletionEvent.swift in Sources */,
 				1F8768DF2270C4B5002B5D16 /* PostCommentResult.swift in Sources */,
 				1FEFD0CB244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F09E6D623F74E3200967828 /* SignInEvent.swift in Sources */,
