@@ -33,5 +33,17 @@
 	<string>Copyright © 2020 reallyread.it, inc. All rights reserved.</string>
     <key>RRITExtensionVersion</key>
     <string>4.1.1</string>
+	<key>RRITAPIServerURL</key>
+	<string>https://api.dev.readup.com/</string>
+	<key>RRITAuthCookieDomain</key>
+	<string>.dev.readup.com</string>
+	<key>RRITAuthCookieName</key>
+	<string>devSessionKey</string>
+   <key>RRITClientID</key>
+	<string>ios/safari-extension</string>
+	<key>RRITShareExtensionScriptVersion</key>
+	<string>4.0.3</string>
+	<key>RRITWebServerURL</key>
+	<string>https://dev.readup.com/</string>
 </dict>
 </plist>
