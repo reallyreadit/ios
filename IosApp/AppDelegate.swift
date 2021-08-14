@@ -120,7 +120,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         if
             let webAppViewController = window?.rootViewController as? WebAppViewController
         {
-            if (
+            if
+                url.scheme == "readup",
+                url.host == "read",
+                let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true),
+                let articleURLQueryItem = urlComponents.queryItems?.first(where: { $0.name == "url" }),
+                let articleURL = URL(string: articleURLQueryItem.value ?? ""),
+                SharedCookieStore.isAuthenticated()
+            {
+                if webAppViewController.presentedViewController == nil {
+                    os_log("[app-delegate] entering reader mode for article: %s", articleURL.absoluteString)
+                    webAppViewController.readArticle(reference: .url(articleURL))
+                    return true
+                } else if
+                    let articleViewController = webAppViewController.presentedViewController as? ArticleViewController
+                {
+                    os_log("[app-delegate] updating reader mode for article: %s", articleURL.absoluteString)
+                    articleViewController.replaceArticle(reference: .url(articleURL))
+                    return true
+                }
+            } else if (
                 url.path.starts(with: "/read") &&
                 url.pathComponents.count == 4 &&
                 SharedCookieStore.isAuthenticated()
