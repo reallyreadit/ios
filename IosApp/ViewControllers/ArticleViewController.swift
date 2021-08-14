@@ -113,6 +113,14 @@ class ArticleViewController:
     @objc private func close() {
         params.onClose()
     }
+    private func loadArticle(reference: ArticleReference) {
+        switch reference {
+        case .slug(let slug):
+            loadArticle(slug: slug)
+        case .url(let url):
+            loadArticle(url: url)
+        }
+    }
     private func loadArticle(slug: String) {
         apiServer.getJson(
             path: "/Articles/Details",
@@ -546,7 +554,7 @@ class ArticleViewController:
                 }
             )
         case "readArticle":
-            replaceArticle(slug: message.data as! String)
+            replaceArticle(reference: .slug(message.data as! String))
         case "reportArticleIssue":
             apiServer.postJson(
                 path: "/Analytics/ArticleIssueReport",
@@ -635,11 +643,11 @@ class ArticleViewController:
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return view.window!
     }
-    func replaceArticle(slug: String) {
+    func replaceArticle(reference: ArticleReference) {
         commitErrorCount = 0
         hasParsedPage = false
         webViewContainer.setState(.loading)
-        loadArticle(slug: slug)
+        loadArticle(reference: reference)
     }
     func setErrorState(withMessage message: String) {
         errorMessage.text = message
@@ -649,12 +657,7 @@ class ArticleViewController:
     override func viewDidLoad() {
         super.viewDidLoad()
         // fetch and preprocess the article
-        switch params.articleReference {
-        case .slug(let slug):
-            loadArticle(slug: slug)
-        case .url(let url):
-            loadArticle(url: url)
-        }
+        loadArticle(reference: params.articleReference)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

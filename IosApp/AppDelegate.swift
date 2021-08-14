@@ -143,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                 {
                     os_log("[app-delegate] updating reader mode for article: %s", slug)
                     webAppViewController.loadURL(commentsURL)
-                    articleViewController.replaceArticle(slug: slug)
+                    articleViewController.replaceArticle(reference: .slug(slug))
                     return true
                 }
             } else {
