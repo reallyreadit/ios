@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F09AABD26B9B677003FC813 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09AABC26B9B677003FC813 /* main.swift */; };
 		1F09E6C623F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6C523F3024500967828 /* NotificationAuthorizationRequestResult.swift */; };
 		1F09E6C723F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6C523F3024500967828 /* NotificationAuthorizationRequestResult.swift */; };
 		1F09E6CF23F4936500967828 /* ShareResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09E6CE23F4936500967828 /* ShareResult.swift */; };
@@ -235,6 +236,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1F09AAB826B9B677003FC813 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		1F19477D21E8255900D1599D /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,6 +261,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F09AABA26B9B677003FC813 /* BrowserExtensionApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BrowserExtensionApp; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F09AABC26B9B677003FC813 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		1F09E6C523F3024500967828 /* NotificationAuthorizationRequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthorizationRequestResult.swift; sourceTree = "<group>"; };
 		1F09E6CE23F4936500967828 /* ShareResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareResult.swift; sourceTree = "<group>"; };
 		1F09E6D123F74DD300967828 /* SignInEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEventType.swift; sourceTree = "<group>"; };
@@ -387,6 +399,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F09AAB726B9B677003FC813 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F13B4B921CB167500EE6927 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -422,10 +441,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F09AABB26B9B677003FC813 /* BrowserExtensionApp */ = {
+			isa = PBXGroup;
+			children = (
+				1F09AABC26B9B677003FC813 /* main.swift */,
+			);
+			path = BrowserExtensionApp;
+			sourceTree = "<group>";
+		};
 		1F13B4B321CB167500EE6927 = {
 			isa = PBXGroup;
 			children = (
 				1F80948A2517DC52006E8536 /* AppkitBridge */,
+				1F09AABB26B9B677003FC813 /* BrowserExtensionApp */,
 				1F19478621EA747E00D1599D /* Common */,
 				1F13B4D121CC117300EE6927 /* Frameworks */,
 				1F13B4BE21CB167500EE6927 /* IosApp */,
@@ -442,6 +470,7 @@
 				1F19476F21E8255900D1599D /* ShareExtension.appex */,
 				1FACDAB825164639006B7E64 /* SafariExtension.appex */,
 				1F8094892517DC52006E8536 /* AppkitBridge.bundle */,
+				1F09AABA26B9B677003FC813 /* BrowserExtensionApp */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -692,6 +721,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F09AAB926B9B677003FC813 /* BrowserExtensionApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F09AAC026B9B677003FC813 /* Build configuration list for PBXNativeTarget "BrowserExtensionApp" */;
+			buildPhases = (
+				1F09AAB626B9B677003FC813 /* Sources */,
+				1F09AAB726B9B677003FC813 /* Frameworks */,
+				1F09AAB826B9B677003FC813 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BrowserExtensionApp;
+			productName = BrowserExtensionApp;
+			productReference = 1F09AABA26B9B677003FC813 /* BrowserExtensionApp */;
+			productType = "com.apple.product-type.tool";
+		};
 		1F13B4BB21CB167500EE6927 /* Readup */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "Readup" */;
@@ -824,6 +870,7 @@
 				1F19476E21E8255900D1599D /* ShareExtension */,
 				1FACDAB725164639006B7E64 /* SafariExtension */,
 				1F8094882517DC52006E8536 /* AppkitBridge */,
+				1F09AAB926B9B677003FC813 /* BrowserExtensionApp */,
 			);
 		};
 /* End PBXProject section */
@@ -868,6 +915,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F09AAB626B9B677003FC813 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F09AABD26B9B677003FC813 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F13B4B821CB167500EE6927 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1116,6 +1171,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F09AABE26B9B677003FC813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1F09AABF26B9B677003FC813 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRH8B2NRNT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		1F13B4CC21CB167700EE6927 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1426,6 +1507,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F09AAC026B9B677003FC813 /* Build configuration list for PBXNativeTarget "BrowserExtensionApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F09AABE26B9B677003FC813 /* Debug */,
+				1F09AABF26B9B677003FC813 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1F13B4B721CB167500EE6927 /* Build configuration list for PBXProject "Readup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
