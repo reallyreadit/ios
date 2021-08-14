@@ -40,16 +40,11 @@
    ],
    "permissions": [
       "activeTab",
-      "cookies",
-      "alarms",
       "nativeMessaging",
-      "notifications",
       "https://readup.com/*"
    ],
    "web_accessible_resources": [
       "content-scripts/alert/bundle.css",
-      "content-scripts/reader/bundle.css",
-      "content-scripts/reader/reset.css",
       "content-scripts/ui/fonts/cambria-bold.ttf",
       "content-scripts/ui/fonts/cambria-regular.ttf",
       "content-scripts/ui/fonts/museo-sans-100.ttf",
@@ -60,5 +55,5 @@
       "content-scripts/ui/images/logo.svg",
       "content-scripts/ui/images/logo-white.svg"
    ],
-   "version": "5.0.1"
+   "version": "6.0.0"
 }
