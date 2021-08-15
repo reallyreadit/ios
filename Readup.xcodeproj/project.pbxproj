@@ -760,6 +760,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F13B4CE21CB167700EE6927 /* Build configuration list for PBXNativeTarget "Readup" */;
 			buildPhases = (
+				1F39D72726C9B23D00867BD7 /* ShellScript */,
 				1F13B4B821CB167500EE6927 /* Sources */,
 				1F13B4B921CB167500EE6927 /* Frameworks */,
 				1F13B4BA21CB167500EE6927 /* Resources */,
@@ -933,6 +934,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F39D72726C9B23D00867BD7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${IS_MACCATALYST}\" = \"YES\" ]; then\n    ENTITLEMENTS_FILE=\"${TARGET_TEMP_DIR}/${FULL_PRODUCT_NAME}.xcent\"\n    \n    echo \"Inserting com.apple.security.temporary-exception.files.home-relative-path.read-write entitlement on Mac Catalyst from ${ENTITLEMENTS_FILE}\"\n    plutil -insert \"com\\.apple\\.security\\.temporary-exception\\.files\\.home-relative-path\\.read-write\" -xml \"<array><string>/Library/Application Support/Google/Chrome/NativeMessagingHosts/</string><string>/Library/Application Support/Mozilla/NativeMessagingHosts/</string></array>\" \"${ENTITLEMENTS_FILE}\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F09AAB626B9B677003FC813 /* Sources */ = {
