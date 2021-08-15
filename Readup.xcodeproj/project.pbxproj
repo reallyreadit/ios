@@ -88,6 +88,7 @@
 		1F2BC7152575AA9800211134 /* SubscriptionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */; };
 		1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
+		1F39D72626C9B1DE00867BD7 /* BrowserExtensionApp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F09AABA26B9B677003FC813 /* BrowserExtensionApp */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
@@ -219,6 +220,13 @@
 			remoteGlobalIDString = 1F19476E21E8255900D1599D;
 			remoteInfo = "share-extension";
 		};
+		1F39D72326C9B15300867BD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F13B4B421CB167500EE6927 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F09AAB926B9B677003FC813;
+			remoteInfo = BrowserExtensionApp;
+		};
 		1F8094942517DCE5006E8536 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F13B4B421CB167500EE6927 /* Project object */;
@@ -256,6 +264,16 @@
 				1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F39D72526C9B1AF00867BD7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				1F39D72626C9B1DE00867BD7 /* BrowserExtensionApp in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -746,10 +764,12 @@
 				1F13B4B921CB167500EE6927 /* Frameworks */,
 				1F13B4BA21CB167500EE6927 /* Resources */,
 				1F19477D21E8255900D1599D /* Embed App Extensions */,
+				1F39D72526C9B1AF00867BD7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1F39D72426C9B15300867BD7 /* PBXTargetDependency */,
 				1F19477821E8255900D1599D /* PBXTargetDependency */,
 				1FACDAEF251675C5006B7E64 /* PBXTargetDependency */,
 				1F8094952517DCE5006E8536 /* PBXTargetDependency */,
@@ -1145,6 +1165,12 @@
 			platformFilter = ios;
 			target = 1F19476E21E8255900D1599D /* ShareExtension */;
 			targetProxy = 1F19477721E8255900D1599D /* PBXContainerItemProxy */;
+		};
+		1F39D72426C9B15300867BD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
+			target = 1F09AAB926B9B677003FC813 /* BrowserExtensionApp */;
+			targetProxy = 1F39D72326C9B15300867BD7 /* PBXContainerItemProxy */;
 		};
 		1F8094952517DCE5006E8536 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
