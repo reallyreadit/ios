@@ -89,6 +89,7 @@
 		1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F39D72626C9B1DE00867BD7 /* BrowserExtensionApp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F09AABA26B9B677003FC813 /* BrowserExtensionApp */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1F39D72926C9B7D200867BD7 /* BrowserExtensionAppManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */; };
 		1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
@@ -335,6 +336,7 @@
 		1F2BC6D225684C1400211134 /* SubscriptionReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionReceipt.swift; sourceTree = "<group>"; };
 		1F2BC7132575AA9800211134 /* SubscriptionValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionValidation.swift; sourceTree = "<group>"; };
 		1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardBadge.swift; sourceTree = "<group>"; };
+		1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserExtensionAppManifest.swift; sourceTree = "<group>"; };
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				1F8768B722318B54002B5D16 /* AppBundleInfo.swift */,
 				1F13B4BF21CB167500EE6927 /* AppDelegate.swift */,
 				1F13B4C621CB167700EE6927 /* Assets.xcassets */,
+				1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */,
 				1F19476721E5552900D1599D /* Debug.plist */,
 				1F5FB908250FF74800DABE16 /* DisplayPreferenceService.swift */,
 				1F19473A21E105C100D1599D /* IosApp.entitlements */,
@@ -1055,6 +1058,7 @@
 				1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */,
 				1F09E6DE23F84CA600967828 /* SignInEventResponse.swift in Sources */,
 				1F5FB909250FF74800DABE16 /* DisplayPreferenceService.swift in Sources */,
+				1F39D72926C9B7D200867BD7 /* BrowserExtensionAppManifest.swift in Sources */,
 				1F71E9EA235676F8000F869D /* DeviceInfo.swift in Sources */,
 				1F2E54D122C50129002D52E6 /* LeaderboardBadge.swift in Sources */,
 				1F19471D21DF004A00D1599D /* Message.swift in Sources */,

@@ -245,6 +245,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         {
             NotificationService.sendToken(token)
         }
+        // write the browser extension app manifests only for macOS
+        #if targetEnvironment(macCatalyst)
+        writeBrowserExtensionAppManifests()
+        #endif
         return true
     }
     
