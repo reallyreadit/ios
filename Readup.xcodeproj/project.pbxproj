@@ -50,7 +50,7 @@
 		1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19476521E4033200D1599D /* WebViewContainerState.swift */; };
 		1F19477221E8255900D1599D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19477121E8255900D1599D /* ShareViewController.swift */; };
-		1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* ShareExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479021EA98AC00D1599D /* ArticleProcessing.swift */; };
 		1F19479421EA9C1900D1599D /* APIServerURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479321EA9C1900D1599D /* APIServerURLSession.swift */; };
 		1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479621EAA42E00D1599D /* MessageWebView.swift */; };
@@ -1142,6 +1142,7 @@
 /* Begin PBXTargetDependency section */
 		1F19477821E8255900D1599D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 1F19476E21E8255900D1599D /* ShareExtension */;
 			targetProxy = 1F19477721E8255900D1599D /* PBXContainerItemProxy */;
 		};
