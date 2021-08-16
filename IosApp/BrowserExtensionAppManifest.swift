@@ -68,7 +68,7 @@ func writeBrowserExtensionAppManifests() {
                 path: browserExtensionAppPath,
                 type: "stdio",
                 allowed_origins: [
-                    "chrome-extension://cnlijnhffglhbalndjbdkidmakfbpjpa/"
+                    "chrome-extension://\(AppBundleInfo.chromeExtensionID)/"
                 ]
             )
         )
@@ -94,7 +94,7 @@ func writeBrowserExtensionAppManifests() {
                 path: browserExtensionAppPath,
                 type: "stdio",
                 allowed_extensions: [
-                    "9683a93ed42b42f66ae4c36fd77ddb2af27065a9@temporary-addon"
+                    AppBundleInfo.firefoxExtensionID
                 ]
             )
         )

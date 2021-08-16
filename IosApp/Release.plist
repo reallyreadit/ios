@@ -32,8 +32,12 @@
 	<string>.readup.com</string>
 	<key>ReadupAuthCookieName</key>
 	<string>sessionKey</string>
+    <key>ReadupChromeExtensionID</key>
+    <string>mkeiglkfdfamdjehidenkklibndmljfi</string>
     <key>ReadupClientID</key>
     <string>ios/app</string>
+    <key>ReadupFirefoxExtensionID</key>
+    <string>{20f866de-c377-49f8-be05-4c16fb5afdb9}</string>
     <key>ReadupReaderScriptVersion</key>
     <string>12.1.2</string>
     <key>ReadupShareExtensionScriptVersion</key>
