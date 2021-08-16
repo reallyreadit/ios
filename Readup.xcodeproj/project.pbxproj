@@ -90,6 +90,10 @@
 		1F2E54D222C50129002D52E6 /* LeaderboardBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */; };
 		1F39D72626C9B1DE00867BD7 /* BrowserExtensionApp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F09AABA26B9B677003FC813 /* BrowserExtensionApp */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1F39D72926C9B7D200867BD7 /* BrowserExtensionAppManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */; };
+		1F39D72A26CAF66300867BD7 /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
+		1F39D72B26CAF66400867BD7 /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
+		1F39D72C26CAF66900867BD7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
+		1F39D72D26CAF66B00867BD7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
 		1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
@@ -963,6 +967,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F39D72B26CAF66400867BD7 /* ProblemDetails.swift in Sources */,
+				1F39D72D26CAF66B00867BD7 /* Errors.swift in Sources */,
 				1F09AABD26B9B677003FC813 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1178,6 +1184,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F39D72A26CAF66300867BD7 /* ProblemDetails.swift in Sources */,
+				1F39D72C26CAF66900867BD7 /* Errors.swift in Sources */,
 				1FACDABD25164639006B7E64 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
