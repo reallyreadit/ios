@@ -342,6 +342,7 @@
 		1F2E54D022C50129002D52E6 /* LeaderboardBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardBadge.swift; sourceTree = "<group>"; };
 		1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserExtensionAppManifest.swift; sourceTree = "<group>"; };
 		1F39D72E26CB232200867BD7 /* BrowserExtensionApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrowserExtensionApp.entitlements; sourceTree = "<group>"; };
+		1F39D72F26CB28E100867BD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
@@ -470,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				1F39D72E26CB232200867BD7 /* BrowserExtensionApp.entitlements */,
+				1F39D72F26CB28E100867BD7 /* Info.plist */,
 				1F09AABC26B9B677003FC813 /* main.swift */,
 			);
 			path = BrowserExtensionApp;
@@ -1240,6 +1242,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BrowserExtensionApp/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.browser-extension-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1256,6 +1259,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BrowserExtensionApp/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.browser-extension-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
