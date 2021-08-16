@@ -1241,6 +1241,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.browser-extension-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1255,6 +1256,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "it.reallyread.mobile.browser-extension-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
