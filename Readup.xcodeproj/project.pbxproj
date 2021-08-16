@@ -1240,6 +1240,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BrowserExtensionApp/BrowserExtensionApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = BrowserExtensionApp/Info.plist;
@@ -1257,6 +1258,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BrowserExtensionApp/BrowserExtensionApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = BrowserExtensionApp/Info.plist;
