@@ -52,7 +52,7 @@
     <key>ReadupFirefoxExtensionID</key>
     <string>{20f866de-c377-49f8-be05-4c16fb5afdb9}</string>
     <key>ReadupReaderScriptVersion</key>
-    <string>12.2.1</string>
+    <string>13.0.0</string>
     <key>ReadupShareExtensionScriptVersion</key>
     <string>4.0.3</string>
     <key>ReadupStaticContentServerURL</key>
