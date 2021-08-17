@@ -136,7 +136,15 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         if let clearedNotificationIds = notification.request.content.userInfo["clearedNotificationIds"] as? [String] {
             center.removeDeliveredNotifications(withIdentifiers: clearedNotificationIds)
         }
-        completionHandler(.badge)
+        // Only show a banner for local notificatons triggered by the share extension.
+        if
+            notification.request.trigger == nil,
+            #available(iOS 14.0, *)
+        {
+            completionHandler([.badge, .banner])
+        } else {
+            completionHandler(.badge)
+        }
     }
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
