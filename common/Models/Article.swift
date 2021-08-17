@@ -28,4 +28,5 @@ struct Article: Codable {
     let flair: ArticleFlair?
     let aotdContenderRank: Int
     let proofToken: String?
+    let imageUrl: String?
 }
