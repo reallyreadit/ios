@@ -635,6 +635,36 @@ class ArticleViewController:
                     }
                 }
             )
+        case "starArticle":
+            apiServer.postJson(
+                path: "/Articles/Star",
+                data: StarArticleRequest(message.data as! [String: Any]),
+                onSuccess: {
+                    [weak self] (result: Article) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.params.onArticleUpdated(
+                                ArticleUpdatedEvent(
+                                    article: result,
+                                    isCompletionCommit: false
+                                )
+                            )
+                            self.params.onArticleStarred(
+                                ArticleStarredEvent(article: result)
+                            )
+                            self.webView.sendResponse(data: result, callbackId: callbackId!)
+                        }
+                    }
+                },
+                onError: {
+                    [weak self] _ in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.setErrorState(withMessage: "Error starring article.")
+                        }
+                    }
+                }
+            )
         default:
             return
         }

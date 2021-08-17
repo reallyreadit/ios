@@ -94,6 +94,8 @@
 		1F39D72B26CAF66400867BD7 /* ProblemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52434261CBBFC00C2C24F /* ProblemDetails.swift */; };
 		1F39D72C26CAF66900867BD7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
 		1F39D72D26CAF66B00867BD7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA52447261E226A00C2C24F /* Errors.swift */; };
+		1F39D73126CC0F7500867BD7 /* StarArticleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F39D73026CC0F7500867BD7 /* StarArticleRequest.swift */; };
+		1F39D73326CC120C00867BD7 /* ArticleStarredEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F39D73226CC120C00867BD7 /* ArticleStarredEvent.swift */; };
 		1F4D985922FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F4D985A22FF0AFA009076D1 /* ArticleProcessingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */; };
 		1F53AAEB2200B9DD0002C6FB /* ArticleReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */; };
@@ -343,6 +345,8 @@
 		1F39D72826C9B7D200867BD7 /* BrowserExtensionAppManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserExtensionAppManifest.swift; sourceTree = "<group>"; };
 		1F39D72E26CB232200867BD7 /* BrowserExtensionApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrowserExtensionApp.entitlements; sourceTree = "<group>"; };
 		1F39D72F26CB28E100867BD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F39D73026CC0F7500867BD7 /* StarArticleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarArticleRequest.swift; sourceTree = "<group>"; };
+		1F39D73226CC120C00867BD7 /* ArticleStarredEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleStarredEvent.swift; sourceTree = "<group>"; };
 		1F4D985822FF0AFA009076D1 /* ArticleProcessingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProcessingMode.swift; sourceTree = "<group>"; };
 		1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReference.swift; sourceTree = "<group>"; };
 		1F53AAEC220115710002C6FB /* SharedCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCookieStore.swift; sourceTree = "<group>"; };
@@ -563,6 +567,7 @@
 				1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */,
 				1F13B4EE21D2B3DE00EE6927 /* ArticleLookupResult.swift */,
 				1F13B4F221D2B58300EE6927 /* ArticleParseResult.swift */,
+				1F39D73226CC120C00867BD7 /* ArticleStarredEvent.swift */,
 				1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */,
 				1F13B4F621D2B5DA00EE6927 /* AuthorParseResult.swift */,
 				1F9D8F69244CFF1600466895 /* AuthServiceAccountAssociation.swift */,
@@ -598,6 +603,7 @@
 				1F09E6DD23F84CA600967828 /* SignInEventResponse.swift */,
 				1F09E6D123F74DD300967828 /* SignInEventType.swift */,
 				1F13B4F421D2B5A300EE6927 /* SourceParseResult.swift */,
+				1F39D73026CC0F7500867BD7 /* StarArticleRequest.swift */,
 				1FCCC63025AF5FC500637102 /* SubscriptionPrice.swift */,
 				1FAE4E93255C99E9006FE959 /* SubscriptionProducts.swift */,
 				1FCCC62925AF5FB000637102 /* SubscriptionProvider.swift */,
@@ -1039,12 +1045,14 @@
 				1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */,
 				1F8768C22239CD70002B5D16 /* EmailShareData.swift in Sources */,
 				1FA52435261CBBFC00C2C24F /* ProblemDetails.swift in Sources */,
+				1F39D73126CC0F7500867BD7 /* StarArticleRequest.swift in Sources */,
 				1FCF1D3126A9B17F009A99AC /* ExternalURLCompletionEvent.swift in Sources */,
 				1F09E6E42409E5F700967828 /* WebAuthResponse.swift in Sources */,
 				1F09E6C623F3024500967828 /* NotificationAuthorizationRequestResult.swift in Sources */,
 				1FC0D619231AD23100E4DD9A /* Post.swift in Sources */,
 				1FDBBC7422109CED00E03051 /* WebViewScript.swift in Sources */,
 				1F2BC668256332B300211134 /* SubscriptionPurchase.swift in Sources */,
+				1F39D73326CC120C00867BD7 /* ArticleStarredEvent.swift in Sources */,
 				1F19471821DEDA0800D1599D /* DateDecodingStrategy.swift in Sources */,
 				1F5FB903250FBAAD00DABE16 /* DisplayTheme.swift in Sources */,
 				1F13B4EF21D2B3DE00EE6927 /* ArticleLookupResult.swift in Sources */,
