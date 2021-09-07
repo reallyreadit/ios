@@ -133,6 +133,8 @@
 		1F71E9F1235B54EF000F869D /* AppActivationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */; };
 		1F755A43239C4B8200124191 /* SafariViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */; };
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
+		1F7D9A9F26E801C100734DC3 /* AppPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */; };
+		1F7D9AA026E801C100734DC3 /* AppPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */; };
 		1F8094932517DCE5006E8536 /* AppkitBridge.bundle in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F8094892517DC52006E8536 /* AppkitBridge.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
@@ -369,6 +371,7 @@
 		1F71E9EC23578148000F869D /* PushAuthDenailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthDenailForm.swift; sourceTree = "<group>"; };
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
+		1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPlatform.swift; sourceTree = "<group>"; };
 		1F8094892517DC52006E8536 /* AppkitBridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppkitBridge.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F80948B2517DC52006E8536 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
@@ -561,6 +564,7 @@
 			children = (
 				1FA91D04235BC54500E3EDE2 /* AlertStatus.swift */,
 				1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */,
+				1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */,
 				1F13B4EC21D2ABA300EE6927 /* Article.swift */,
 				1FA524582638615C00C2C24F /* ArticleAuthor.swift */,
 				1F5B32BF238B1BC50060B693 /* ArticleFlair.swift */,
@@ -1013,6 +1017,7 @@
 				1F71E9E123560DCA000F869D /* LocalStorage.swift in Sources */,
 				1F8768C4223AE0B0002B5D16 /* ShareBlockerSource.swift in Sources */,
 				1F8768BC22381137002B5D16 /* ClipboardReferrer.swift in Sources */,
+				1F7D9A9F26E801C100734DC3 /* AppPlatform.swift in Sources */,
 				1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */,
 				1F5B32C9238B1DA30060B693 /* CommentRevisionForm.swift in Sources */,
 				1F19471A21DEF3A700D1599D /* CommitReadStateEvent.swift in Sources */,
@@ -1181,6 +1186,7 @@
 				1F71E9E223560DCA000F869D /* LocalStorage.swift in Sources */,
 				1F19477221E8255900D1599D /* ShareViewController.swift in Sources */,
 				1F1947B421EAB0FA00D1599D /* APIServerURLSession.swift in Sources */,
+				1F7D9AA026E801C100734DC3 /* AppPlatform.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
