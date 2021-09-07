@@ -4,6 +4,12 @@ import SafariServices
 import os.log
 import AuthenticationServices
 
+private struct ReaderScriptInitData : Encodable {
+    let appPlatform: AppPlatform
+    let appVersion: String
+    let displayPreference: DisplayPreference?
+}
+
 class ArticleViewController:
     UIViewController,
     MessageWebViewDelegate,
@@ -38,12 +44,36 @@ class ArticleViewController:
         self.params = params
         super.init(nibName: nil, bundle: nil)
         // set theme
+        let displayPreference = LocalStorage.getDisplayPreference()
         displayTheme = DisplayPreferenceService.resolveDisplayTheme(
             traits: traitCollection,
-            preference: LocalStorage.getDisplayPreference()
+            preference: displayPreference
         )
         // init webview
         let config = WKWebViewConfiguration()
+        let initData = ReaderScriptInitData(
+            appPlatform: getAppPlatform(),
+            appVersion: SharedBundleInfo.version.description,
+            displayPreference: displayPreference
+        )
+        let encoder = JSONEncoder.init()
+        let initJson = String(
+            data: try! encoder.encode([
+                "nativeClient" : [
+                    "reader": [
+                        "initData": initData
+                    ]
+                ]
+            ]),
+            encoding: .utf8
+        )!
+        config.userContentController.addUserScript(
+            WKUserScript(
+                source: "window.reallyreadit = \(initJson);",
+                injectionTime: .atDocumentStart,
+                forMainFrameOnly: true
+            )
+        )
         webView = MessageWebView(
             webViewConfig: config,
             javascriptListenerObject: "window.reallyreadit.nativeClient.reader",
