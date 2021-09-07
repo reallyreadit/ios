@@ -295,7 +295,7 @@ class ArticleViewController:
                     [weak self] _ in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error posting comment addendum.")
+                            self.setErrorState(withMessage: "Error deleting comment.")
                         }
                     }
                 }
@@ -476,7 +476,7 @@ class ArticleViewController:
                     [weak self] _ in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.setErrorState(withMessage: "Error rating article.")
+                            self.setErrorState(withMessage: "Error posting article.")
                         }
                     }
                 }
