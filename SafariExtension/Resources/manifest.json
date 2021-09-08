@@ -55,5 +55,5 @@
       "content-scripts/ui/images/logo.svg",
       "content-scripts/ui/images/logo-white.svg"
    ],
-   "version": "6.0.0"
+   "version": "6.1.0"
 }

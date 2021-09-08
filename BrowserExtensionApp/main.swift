@@ -28,6 +28,7 @@ enum IncomingMessage : Decodable {
 
 struct ReadArticleMessageData : Decodable {
     let url: URL
+    let star: Bool
 }
 
 struct OutgoingMessage : Encodable {
@@ -70,7 +71,7 @@ func sendErrorResponse(error: ProblemDetails) {
     )
 }
 
-let appVersion = "1.0.0"
+let appVersion = "1.1.0"
 
 let incomingMessageSize = FileHandle.standardInput
     .readData(ofLength: 4)
@@ -103,6 +104,11 @@ case .readArticle(let readArticleData):
     readupAppURL.queryItems = [
         URLQueryItem(name: "url", value: readArticleData.url.absoluteString)
     ]
+    if (readArticleData.star) {
+        readupAppURL.queryItems!.append(
+            URLQueryItem(name: "star", value: nil)
+        )
+    }
     // Attempt to open the app asynchronously.
     NSWorkspace.shared.open(
         readupAppURL.url!,
