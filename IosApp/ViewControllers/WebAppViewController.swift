@@ -37,6 +37,14 @@ private func prepareURL(_ url: URL) -> URL {
         components.queryItems!.removeAll(where: { item in item.name == "clientType" })
         components.queryItems!.append(clientTypeQueryItem)
     }
+    // set app platform in the query string
+    let appPlatformQueryItem = URLQueryItem(name: "appPlatform", value: getAppPlatform().rawValue)
+    components.queryItems!.removeAll(where: { item in item.name == "appPlatform" })
+    components.queryItems!.append(appPlatformQueryItem)
+    // set app version in the query string
+    let appVersionQueryItem = URLQueryItem(name: "appVersion", value: getDeviceInfo().appVersion)
+    components.queryItems!.removeAll(where: { item in item.name == "appVersion" })
+    components.queryItems!.append(appVersionQueryItem)
     // return the url
     return components.url!
 }
