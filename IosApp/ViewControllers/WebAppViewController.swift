@@ -578,6 +578,15 @@ class WebAppViewController:
                         )
                     )
                 },
+                onArticleUnstarred: {
+                    event in
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "articleUnstarred",
+                            data: event
+                        )
+                    )
+                },
                 onArticleUpdated: {
                     event in
                     self.webView.sendMessage(

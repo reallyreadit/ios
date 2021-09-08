@@ -709,6 +709,9 @@ class ArticleViewController:
                                     isCompletionCommit: false
                                 )
                             )
+                            self.params.onArticleUnstarred(
+                                ArticleStarredEvent(article: result)
+                            )
                             self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
