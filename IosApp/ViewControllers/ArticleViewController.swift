@@ -36,12 +36,14 @@ class ArticleViewController:
         return .slide
     }
     private let params: ArticleViewControllerParams
+    private var readOptions: ArticleReadOptions?
     private let errorMessage = UILabel()
     private var webView: MessageWebView!
     private var webViewContainer: WebViewContainer!
     private var webAuthSession: NSObject?
     init(params: ArticleViewControllerParams) {
         self.params = params
+        self.readOptions = params.articleReadOptions
         super.init(nibName: nil, bundle: nil)
         // set theme
         let displayPreference = LocalStorage.getDisplayPreference()
@@ -442,13 +444,22 @@ class ArticleViewController:
             params.onOpenSubscriptionPrompt()
         case "parseResult":
             hasParsedPage = true
+            let starArticle = readOptions?.star ?? false
             apiServer.postJson(
                 path: "/Extension/GetUserArticle",
-                data: PageParseResult(contentScriptData: message.data as! [String: Any]),
+                data: PageParseResult(
+                    contentScriptData: message.data as! [String: Any],
+                    star: starArticle
+                ),
                 onSuccess: {
                     [weak self] (result: ArticleLookupResult) in
                     if let self = self {
                         DispatchQueue.main.async {
+                            if (starArticle) {
+                                self.params.onArticleStarred(
+                                    ArticleStarredEvent(article: result.userArticle)
+                                )
+                            }
                             self.webView.sendResponse(data: result, callbackId: callbackId!)
                         }
                     }
@@ -730,9 +741,10 @@ class ArticleViewController:
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return view.window!
     }
-    func replaceArticle(reference: ArticleReference) {
+    func replaceArticle(reference: ArticleReference, options: ArticleReadOptions? = nil) {
         commitErrorCount = 0
         hasParsedPage = false
+        readOptions = options
         webViewContainer.setState(.loading)
         loadArticle(reference: reference)
     }

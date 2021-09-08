@@ -135,6 +135,7 @@
 		1F7870712295B88A003493DE /* WebViewScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC7322109CED00E03051 /* WebViewScript.swift */; };
 		1F7D9A9F26E801C100734DC3 /* AppPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */; };
 		1F7D9AA026E801C100734DC3 /* AppPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */; };
+		1F7D9AA226E953DF00734DC3 /* ArticleReadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D9AA126E953DF00734DC3 /* ArticleReadOptions.swift */; };
 		1F8094932517DCE5006E8536 /* AppkitBridge.bundle in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F8094892517DC52006E8536 /* AppkitBridge.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F80C94D21ED53AF0060819F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80C94C21ED53AF0060819F /* AlertViewController.swift */; };
 		1F83DEA024606250008561FF /* ArticleIssueReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F83DE9F24606250008561FF /* ArticleIssueReportRequest.swift */; };
@@ -372,6 +373,7 @@
 		1F71E9EF235B54EF000F869D /* AppActivationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActivationEvent.swift; sourceTree = "<group>"; };
 		1F755A42239C4B8200124191 /* SafariViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewControllerExtensions.swift; sourceTree = "<group>"; };
 		1F7D9A9E26E801C100734DC3 /* AppPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPlatform.swift; sourceTree = "<group>"; };
+		1F7D9AA126E953DF00734DC3 /* ArticleReadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReadOptions.swift; sourceTree = "<group>"; };
 		1F8094892517DC52006E8536 /* AppkitBridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppkitBridge.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F80948B2517DC52006E8536 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F80C94C21ED53AF0060819F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 			children = (
 				1F755A41239C4B5200124191 /* SafariViewController */,
 				1F8768CE225F9E84002B5D16 /* Sharing */,
+				1F7D9AA126E953DF00734DC3 /* ArticleReadOptions.swift */,
 				1F53AAEA2200B9DD0002C6FB /* ArticleReference.swift */,
 				1F13B4E721D2906E00EE6927 /* ArticleViewController.swift */,
 				1F13B4FC21D2D0B500EE6927 /* ArticleViewControllerParams.swift */,
@@ -1072,6 +1075,7 @@
 				1FCCC63125AF5FC500637102 /* SubscriptionPrice.swift in Sources */,
 				1F13B4C021CB167500EE6927 /* AppDelegate.swift in Sources */,
 				1F5B32C6238B1D590060B693 /* CommentAddendumForm.swift in Sources */,
+				1F7D9AA226E953DF00734DC3 /* ArticleReadOptions.swift in Sources */,
 				1F13B4F121D2B48200EE6927 /* PageParseResult.swift in Sources */,
 				1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */,
 				1F71E9E42356177E000F869D /* DeviceRegistrationForm.swift in Sources */,

@@ -564,10 +564,11 @@ class WebAppViewController:
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return view.window!
     }
-    func readArticle(reference: ArticleReference) {
+    func readArticle(reference: ArticleReference, options: ArticleReadOptions? = nil) {
         let controller = ArticleViewController(
             params: ArticleViewControllerParams(
                 articleReference: reference,
+                articleReadOptions: options,
                 onArticlePosted: {
                     post in
                     self.webView.sendMessage(

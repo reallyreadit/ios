@@ -2,6 +2,7 @@ import Foundation
 
 struct ArticleViewControllerParams {
     let articleReference: ArticleReference
+    let articleReadOptions: ArticleReadOptions?
     let onArticlePosted: (_: Post) -> Void
     let onArticleStarred: (_: ArticleStarredEvent) -> Void
     let onArticleUpdated: (_: ArticleUpdatedEvent) -> Void

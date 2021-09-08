@@ -130,7 +130,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             {
                 if webAppViewController.presentedViewController == nil {
                     os_log("[app-delegate] entering reader mode for article: %s", articleURL.absoluteString)
-                    webAppViewController.readArticle(reference: .url(articleURL))
+                    webAppViewController.readArticle(
+                        reference: .url(articleURL),
+                        options: ArticleReadOptions(
+                            star: urlComponents.queryItems?.contains(where: { $0.name == "star" }) ?? false
+                        )
+                    )
                     return true
                 } else if
                     let articleViewController = webAppViewController.presentedViewController as? ArticleViewController
