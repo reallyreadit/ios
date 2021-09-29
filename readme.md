@@ -14,11 +14,21 @@ This repository is an XCode project that contains all the targets required for t
     - `BrowserExtensionApp` (Binary Copied) The command line application that acts as the native messaging handler for the Chrome and Firefox extensions.
 ## Development Setup Guide
 ### Configuration
-Development and production configuration files are included in the repository as `.plist` files. No changes should be required as long as you're using the default `*.dev.readup.com` development domain names and `devSessionKey` authentication cookie name in your development environment.
+Development and production configuration files are included in the repository as `.plist` files. The debug configuration files assume that you're using the default `*.dev.readup.com` development domain names and `devSessionKey` authentication cookie name in your development environment. Update these values accordingly if needed but do not commit the changes to the repository.
+
+In order to test the browser extension in Chrome and Firefox you will need to set the values for the `ReadupChromeExtensionID` and `ReadupFirefoxExtensionID` key/value pairs in the `IosApp/Debug.plist` configuration file. These temporary extension IDs are unstable and should not be commited to the repository. To retrieve the extension IDs follow the instructions in the `web` repository to build and load the extension in Chrome and Firefox and copy the extension IDs from the browser's extension development interface.
 ### Development Certificates
 See https://github.com/reallyreadit/dev-env for instructions on installing the `ca.dev.reallyread.it.cer` development certificate.
 
 **TODO**: Instructions needed for using a reallyread.it Apple developer account to enable running on macOS.
+## Browser Extension Testing
+The browser extension interfaces with the Readup macOS app via a custom `readup://` URL protocol which is invoked using the extension's native messaging handler. Safari uses its own non-standard messaging handler that doesn't require any configuration. Chrome and Firefox both require a native messaging manifest file to be created in order to communicate with the native messaging CLI app.
+
+The Readup macOS app attempts to create these manifest files in the prescribed user home locations on each launch using extension ID values specified in the configuration files.
+- Chrome: https://developer.chrome.com/docs/apps/nativeMessaging/#native-messaging-host
+- Firefox: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests#native_messaging_manifests
+
+**Warning**: The production and development apps will create conflicting native messaging manifest files since they both write to the same location and use the same `name`.
 ## Production Sandbox Testing
 ### Intro
 App Store in-app purchases need to be tested on a physical device using the production Readup servers. Special Apple Sandbox accounts are used to test purchases in production without accruing charges on a real Apple account. Purchases made using a Sandbox account are recorded in the database as `sandbox` transactions and are filtered out of all reporting statistics.
