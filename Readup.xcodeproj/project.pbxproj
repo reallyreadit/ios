@@ -220,6 +220,7 @@
 		1FDBBC8622173D9400E03051 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBBC8422173D9400E03051 /* Rating.swift */; };
 		1FEFD0CA244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */; };
 		1FEFD0CB244777EC00C059AC /* TempHTTPCookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */; };
+		1FF34DE42707A6F2001625D6 /* options-page in Resources */ = {isa = PBXBuildFile; fileRef = 1FF34DE32707A6F2001625D6 /* options-page */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,6 +432,7 @@
 		1FDBBC7C221229B500E03051 /* reader.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reader.js; sourceTree = "<group>"; };
 		1FDBBC8422173D9400E03051 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		1FEFD0C9244777EC00C059AC /* TempHTTPCookieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHTTPCookieStorage.swift; sourceTree = "<group>"; };
+		1FF34DE32707A6F2001625D6 /* options-page */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "options-page"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -752,6 +754,7 @@
 		1FACDABE25164639006B7E64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1FF34DE32707A6F2001625D6 /* options-page */,
 				1F69DE49251A9F790011209C /* content-scripts */,
 				1F69DE46251A9F780011209C /* event-page */,
 				1F69DE47251A9F780011209C /* icons */,
@@ -950,6 +953,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF34DE42707A6F2001625D6 /* options-page in Resources */,
 				1F69DE4A251A9F790011209C /* event-page in Resources */,
 				1F69DE4C251A9F790011209C /* manifest.json in Resources */,
 				1F69DE4B251A9F790011209C /* icons in Resources */,
