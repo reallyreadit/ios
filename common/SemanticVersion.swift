@@ -37,10 +37,17 @@ struct SemanticVersion {
         let parts = versionString!
             .split(separator: ".")
             .map({ string in Int(string) ?? -1 })
-        if parts.count == 3 && parts.allSatisfy({ part in part >= 0 }) {
+        /**
+         I accidentally assigned a new version in AppStoreConnect using only the major and minor parts.
+         This caused an app crash when trying to parse the version string from the bundle plist, which must
+         get overwritten during processing with the version supplied in the web interface. There is no way to
+         change the version in AppStoreConnect so for now at least we must be forgiving when parsing version
+         numbers.
+         */
+        if 1...3 ~= parts.count && parts.allSatisfy({ part in part >= 0 }) {
             major = parts[0]
-            minor = parts[1]
-            patch = parts[2]
+            minor = parts.count > 1 ? parts[1] : 0
+            patch = parts.count > 2 ? parts[2] : 0
             description = "\(major).\(minor).\(patch)"
         } else {
             return nil
