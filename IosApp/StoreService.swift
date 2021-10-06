@@ -38,7 +38,7 @@ private class ProductsRequest: NSObject, SKProductsRequestDelegate {
     ) {
         self.completionHandler?(
             .failure(
-                ProblemDetails(error)
+                ProblemDetails(detail: "ProductsRequest failed with: \(error.localizedDescription)")
             )
         )
     }
@@ -110,7 +110,7 @@ private func readLocalReceipt() -> Result<String, ProblemDetails> {
         )
     } catch {
         return .failure(
-            ProblemDetails(error)
+            ProblemDetails(detail: "readLocalReceipt failed with: \(error.localizedDescription)")
         )
     }
 }
@@ -207,7 +207,7 @@ class StoreService: NSObject {
                     os_log("[store] failed to request new receipt from app store")
                     completionHandler(
                         .failure(
-                            ProblemDetails(error)
+                            ProblemDetails(detail: "ReceiptRefreshRequest failed with: \(error.localizedDescription)")
                         )
                     )
                 }
@@ -307,7 +307,7 @@ extension StoreService: SKPaymentTransactionObserver {
                             title: "Purchase cancelled."
                         )
                     default:
-                        problem = ProblemDetails(skError)
+                        problem = ProblemDetails(detail: "paymentQueue failed with code: \(skError.code) errorCode: \(skError.errorCode) \(skError.localizedDescription)")
                     }
                     request = SubscriptionPurchaseFailureRequest(
                         code: skError.code.rawValue,
