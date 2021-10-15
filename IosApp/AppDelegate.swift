@@ -255,9 +255,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         {
             NotificationService.sendToken(token)
         }
-        // write the browser extension app manifests only for macOS
+        // macOS-specific initialization
         #if targetEnvironment(macCatalyst)
+        // write the browser extension app manifests
         writeBrowserExtensionAppManifests()
+        // On macOS applicationDidBecomeActive is only called during the initial launch and when the
+        // window is restored from a hidden state. We're listening to AppKit events here in order to also
+        // call applicationDidBecomeActive when the window is focused. In order to prevent duplicate events
+        // the ignoreNextActivationEvent variable is set to true on launch and when the application is
+        // hidden since we can expect applicationDidBecomeActive to be called in those circumstances.
+        var ignoreNextActivationEvent = true
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("NSApplicationDidHideNotification"),
+            object: nil,
+            queue: nil
+        ) {
+            _ in
+            ignoreNextActivationEvent = true
+        }
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("NSApplicationDidBecomeActiveNotification"),
+            object: nil,
+            queue: nil
+        ) {
+            [weak self] _ in
+            if ignoreNextActivationEvent {
+                ignoreNextActivationEvent = false
+                return
+            }
+            self?.applicationDidBecomeActive(UIApplication.shared)
+        }
         #endif
         return true
     }
