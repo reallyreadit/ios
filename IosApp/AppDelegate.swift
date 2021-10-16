@@ -259,31 +259,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         #if targetEnvironment(macCatalyst)
         // write the browser extension app manifests
         writeBrowserExtensionAppManifests()
-        // On macOS applicationDidBecomeActive is only called during the initial launch and when the
-        // window is restored from a hidden state. We're listening to AppKit events here in order to also
-        // call applicationDidBecomeActive when the window is focused. In order to prevent duplicate events
-        // the ignoreNextActivationEvent variable is set to true on launch and when the application is
-        // hidden since we can expect applicationDidBecomeActive to be called in those circumstances.
-        var ignoreNextActivationEvent = true
-        NotificationCenter.default.addObserver(
-            forName: NSNotification.Name("NSApplicationDidHideNotification"),
-            object: nil,
-            queue: nil
-        ) {
-            _ in
-            ignoreNextActivationEvent = true
-        }
+        // Register for didBecomeActive notifications in order to support window focus events.
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name("NSApplicationDidBecomeActiveNotification"),
             object: nil,
             queue: nil
         ) {
             [weak self] _ in
-            if ignoreNextActivationEvent {
-                ignoreNextActivationEvent = false
-                return
-            }
-            self?.applicationDidBecomeActive(UIApplication.shared)
+            self?.applicationDidBecomeActive()
         }
         #endif
         return true
@@ -331,7 +314,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         os_log("[lifecycle] willEnterForeground")
     }
 
+    /**
+     This delegate method is not called when the macOS app window moves from an unfocused to a focused state. In order to support those events we're going to use NotificationCenter instead for handling app activation events on macOS.
+     */
     func applicationDidBecomeActive(_ application: UIApplication) {
+        #if !targetEnvironment(macCatalyst)
+        applicationDidBecomeActive()
+        #endif
+    }
+    
+    func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         os_log("[lifecycle] didBecomeActive")
         // update scripts
@@ -342,7 +334,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         if let webAppViewController = window?.rootViewController as? WebAppViewController {
             webAppViewController.signalDidBecomeActive(
                 event: AppActivationEvent(
-                    badgeCount: application.applicationIconBadgeNumber,
+                    badgeCount: UIApplication.shared.applicationIconBadgeNumber,
                     newStarCount: newStarCount
                 )
             )
