@@ -42,6 +42,62 @@ private let sslUrlErrorCodes: [URLError.Code] = [
     .serverCertificateNotYetValid,
     .serverCertificateHasUnknownRoot
 ]
+private typealias RequestPreProcessor = (_: inout URLRequest, _: TempHTTPCookieStorage) -> Void
+private let hostSpecificRequestPreProcessors: [ String: RequestPreProcessor ] = [
+    "npr.org": {
+        request, cookieJar in
+        cookieJar.storeCookies([
+            HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: request.url!.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "trackingChoice",
+                    HTTPCookiePropertyKey.value: "true"
+                ]
+            )!,
+            HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: request.url!.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "choiceVersion",
+                    HTTPCookiePropertyKey.value: "1"
+                ]
+            )!,
+            HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: request.url!.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "dateOfChoice",
+                    HTTPCookiePropertyKey.value: String(
+                        Int(
+                            Date().timeIntervalSince1970 * 1000
+                        )
+                    )
+                ]
+            )!
+        ])
+    },
+    "washingtonpost.com": {
+        request, cookieJar in
+        cookieJar.storeCookies([
+            HTTPCookie(
+                properties: [
+                    HTTPCookiePropertyKey.domain: request.url!.host!,
+                    HTTPCookiePropertyKey.path: "/",
+                    HTTPCookiePropertyKey.name: "wp_gdpr",
+                    HTTPCookiePropertyKey.value: "1|1"
+                ]
+            )!
+        ])
+    },
+    "wsj.com": {
+        request, cookieJar in
+        request.setValue(
+            "https://drudgereport.com/",
+            forHTTPHeaderField: "Referer"
+        )
+    }
+]
 private func processArticleContent(
     content: NSMutableString,
     mode: ArticleProcessingMode
@@ -95,54 +151,20 @@ struct ArticleProcessing {
             forHTTPHeaderField: "User-Agent"
         )
         // use TempHTTPCookieStorage
+        let cookieJar = TempHTTPCookieStorage()
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.httpCookieStorage = TempHTTPCookieStorage()
+        sessionConfig.httpCookieStorage = cookieJar
         // special host handling
         if
-            url.host == "www.npr.org" || url.host == "npr.org",
-            let tempCookieStorage = sessionConfig.httpCookieStorage as? TempHTTPCookieStorage,
-            let trackingChoiceCookie = HTTPCookie(
-                properties: [
-                    HTTPCookiePropertyKey.domain: url.host!,
-                    HTTPCookiePropertyKey.path: "/",
-                    HTTPCookiePropertyKey.name: "trackingChoice",
-                    HTTPCookiePropertyKey.value: "true"
-                ]
-            ),
-            let choiceVersionCookie = HTTPCookie(
-                properties: [
-                    HTTPCookiePropertyKey.domain: url.host!,
-                    HTTPCookiePropertyKey.path: "/",
-                    HTTPCookiePropertyKey.name: "choiceVersion",
-                    HTTPCookiePropertyKey.value: "1"
-                ]
-            ),
-            let dateOfChoiceCookie = HTTPCookie(
-                properties: [
-                    HTTPCookiePropertyKey.domain: url.host!,
-                    HTTPCookiePropertyKey.path: "/",
-                    HTTPCookiePropertyKey.name: "dateOfChoice",
-                    HTTPCookiePropertyKey.value: String(
-                        Int(
-                            Date().timeIntervalSince1970 * 1000
-                        )
-                    )
-                ]
-            )
+            let preProcessor = hostSpecificRequestPreProcessors[
+                url.host!.replacingOccurrences(
+                    of: "^www\\.",
+                    with: "",
+                    options: [.regularExpression, .caseInsensitive]
+                )
+            ]
         {
-            tempCookieStorage.storeCookies([
-                trackingChoiceCookie,
-                choiceVersionCookie,
-                dateOfChoiceCookie
-            ])
-        }
-        if
-            url.host == "www.wsj.com" || url.host == "wsj.com"
-        {
-            request.setValue(
-                "https://drudgereport.com/",
-                forHTTPHeaderField: "Referer"
-            )
+            preProcessor(&request, cookieJar)
         }
         // initiate request
         URLSession(configuration: sessionConfig)
