@@ -94,8 +94,9 @@ class ArticleViewController:
         errorMessage.translatesAutoresizingMaskIntoConstraints = false
         errorContent.addSubview(errorMessage)
         [
-            "Check your internet connection and try again.",
-            "Please contact support@readup.com if this problem persists."
+            "The article failed to load.",
+            "Please check your internet connection and try again.",
+            "Contact support@readup.com if this problem persists."
         ]
         .forEach({
             line in

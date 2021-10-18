@@ -93,9 +93,8 @@ class WebAppViewController:
         errorContent.translatesAutoresizingMaskIntoConstraints = false
         webViewContainer.errorView.addSubview(errorContent)
         [
-            "An error occured while loading the app.",
             "You must be online to use Readup.",
-            "Offline support coming soon!"
+            "Please check your internet connection and try again."
         ]
         .forEach({
             line in
