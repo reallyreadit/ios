@@ -5,15 +5,9 @@ private let viewportMetaTagReplacement = HTMLTagReplacement(
     searchValue: "<meta([^>]*)name=(['\"])viewport\\2([^>]*)>",
     replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover\">"
 )
-// this replacement should be called first since the local replacement
-// looks at the type to avoid reprocessing and losing the src data
-private let remoteScriptDisablingTagReplacement = HTMLTagReplacement(
-    searchValue: "<script\\b[^>]*\\bsrc=(['\"])([^'\"]+)\\1[^>]*>[^<]*(?:(?!</script>)<[^<]*)*</script>",
-    replaceValue: "<script type=\"text/x-readup-disabled-javascript\" data-src=\"$2\"></script>"
-)
-private let localScriptDisablingTagReplacement = HTMLTagReplacement(
-    searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])(application/(ld\\+)?json|text/x-readup-disabled-javascript)\\1))*>([^<]*(?:(?!</script>)<[^<]*)*)</script>",
-    replaceValue: "<script type=\"text/x-readup-disabled-javascript\">$4</script>"
+private let scriptRemovalTagReplacement = HTMLTagReplacement(
+    searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])application/(ld\\+)?json\\1))*>([^<]*(?:(?!</script>)<[^<]*)*)</script>",
+    replaceValue: ""
 )
 private let iframeRemovalTagReplacement = HTMLTagReplacement(
     searchValue: "<iframe\\b[^<]*(?:(?!</iframe>)<[^<]*)*</iframe>",
@@ -117,9 +111,7 @@ private func processArticleContent(
     mode: ArticleProcessingMode
 ) -> NSMutableString {
     var tagReplacements = [
-        // remote scripts must be disabled first!
-        remoteScriptDisablingTagReplacement,
-        localScriptDisablingTagReplacement,
+        scriptRemovalTagReplacement,
         iframeRemovalTagReplacement,
         inlineStyleRemovalTagReplacement,
         linkedStyleRemovalTagReplacement
