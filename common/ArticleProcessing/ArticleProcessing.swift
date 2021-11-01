@@ -2,23 +2,23 @@ import Foundation
 import WebKit
 
 private let viewportMetaTagReplacement = HTMLTagReplacement(
-    searchValue: "<meta[^>]*name=(['\"])viewport\\1[^>]*>",
+    searchValue: "<meta[^>]*name=(\\\\?)(['\"])viewport\\1\\2[^>]*>",
     replaceValue: "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover\">"
 )
 private let scriptRemovalTagReplacement = HTMLTagReplacement(
-    searchValue: "<script\\b(?:[^>](?!\\btype=(['\"])(?:application/(?:ld\\+)?json|text/template)\\1))*>[^<]*(?:(?!</script>)<[^<]*)*</script>",
+    searchValue: "<script\\b(?:[^>](?!\\btype=(\\\\?)(['\"])(?:application\\\\?/(?:ld\\+)?json|text\\\\?/template)\\1\\2))*>[^<]*(?:(?!<\\\\?/script>)<[^<]*)*<\\\\?/script>",
     replaceValue: ""
 )
 private let iframeRemovalTagReplacement = HTMLTagReplacement(
-    searchValue: "<iframe\\b[^<]*(?:(?!</iframe>)<[^<]*)*</iframe>",
+    searchValue: "<iframe\\b[^<]*(?:(?!<\\\\?/iframe>)<[^<]*)*<\\\\?/iframe>",
     replaceValue: ""
 )
 private let inlineStyleRemovalTagReplacement = HTMLTagReplacement(
-    searchValue: "<style\\b[^<]*(?:(?!</style>)<[^<]*)*</style>",
+    searchValue: "<style\\b[^<]*(?:(?!<\\\\?/style>)<[^<]*)*<\\\\?/style>",
     replaceValue: ""
 )
 private let linkedStyleRemovalTagReplacement = HTMLTagReplacement(
-    searchValue: "<link\\b[^>]*\\brel=(['\"])stylesheet\\1[^>]*>",
+    searchValue: "<link\\b[^>]*\\brel=(\\\\?)(['\"])stylesheet\\1\\2[^>]*>",
     replaceValue: ""
 )
 private let imageRemovalTagReplacement = HTMLTagReplacement(
