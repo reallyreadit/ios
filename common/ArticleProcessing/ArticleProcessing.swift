@@ -10,7 +10,7 @@ private let scriptRemovalTagReplacement = HTMLTagReplacement(
     replaceValue: ""
 )
 private let iframeRemovalTagReplacement = HTMLTagReplacement(
-    searchValue: "<iframe\\b[^<]*(?:(?!<\\\\?/iframe>)<[^<]*)*<\\\\?/iframe>",
+    searchValue: "<iframe\\b[^>]*>(?:\\s*<\\\\?/iframe>)?",
     replaceValue: ""
 )
 private let inlineStyleRemovalTagReplacement = HTMLTagReplacement(
