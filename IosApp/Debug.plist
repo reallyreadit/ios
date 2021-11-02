@@ -50,9 +50,9 @@
     <key>ReadupFirefoxExtensionID</key>
     <string></string>
 	<key>ReadupReaderScriptVersion</key>
-	<string>14.0.0</string>
+	<string>14.0.1</string>
 	<key>ReadupShareExtensionScriptVersion</key>
-	<string>4.0.3</string>
+	<string>4.0.4</string>
 	<key>ReadupStaticContentServerURL</key>
 	<string>https://static.dev.readup.com/</string>
 	<key>ReadupWebServerURL</key>

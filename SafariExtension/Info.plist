@@ -42,7 +42,7 @@
    <key>ReadupClientID</key>
 	<string>ios/safari-extension</string>
 	<key>ReadupShareExtensionScriptVersion</key>
-	<string>4.0.3</string>
+	<string>4.0.4</string>
 	<key>ReadupWebServerURL</key>
 	<string>https://dev.readup.com/</string>
 </dict>
