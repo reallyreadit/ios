@@ -118,8 +118,6 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         UIApplication.shared.applicationIconBadgeNumber = (
             (user.aotdAlert ? 1 : 0) +
             user.followerAlertCount +
-            user.loopbackAlertCount +
-            user.postAlertCount +
             user.replyAlertCount
         )
     }
