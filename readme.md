@@ -22,6 +22,10 @@ In order to test the browser extension in Chrome and Firefox you will need to se
 See https://github.com/reallyreadit/dev-env for instructions on installing the `ca.dev.reallyread.it.cer` development certificate.
 
 **TODO**: Instructions needed for using a reallyread.it Apple developer account to enable running on macOS.
+## Updating Bundled Scripts
+This repository includes the production builds of the `nativeClient/reader` and `nativeClient/shareExtension` scripts from the `web` repository. Perform the following update procedure whenever a new version of either script is available:
+1. Copy the production build of the latest `nativeClient/reader` or `nativeClient/shareExtension` script to `IosApp/reader.js` or `ShareExtension/share-extension.js` respectively.
+2. Update the `ReadupReaderScriptVersion` or `ReadupShareExtensionScriptVersion` values in all `*.plist` files.
 ## Browser Extension Testing
 The browser extension interfaces with the Readup macOS app via a custom `readup://` URL protocol which is invoked using the extension's native messaging handler. Safari uses its own non-standard messaging handler that doesn't require any configuration. Chrome and Firefox both require a native messaging manifest file to be created in order to communicate with the native messaging CLI app.
 
