@@ -58,7 +58,7 @@
     <key>ReadupClientID</key>
     <string>ios/share-extension</string>
     <key>ReadupShareExtensionScriptVersion</key>
-    <string>4.0.4</string>
+    <string>4.0.5</string>
     <key>ReadupWebServerURL</key>
     <string>https://readup.com/</string>
 </dict>
