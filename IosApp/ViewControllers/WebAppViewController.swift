@@ -3,7 +3,6 @@ import WebKit
 import SafariServices
 import os.log
 import AuthenticationServices
-import StoreKit
 
 private func getDeviceInfo() -> DeviceInfo {
     return DeviceInfo(
@@ -138,8 +137,6 @@ class WebAppViewController:
         ])
         // theme webview
         webViewContainer.setDisplayTheme(theme: displayTheme)
-        // register as store service delegate
-        StoreService.shared.delegate = self
     }
     required init?(coder: NSCoder) {
         return nil
@@ -437,47 +434,6 @@ class WebAppViewController:
                         }
                     }
                 }
-        case "requestSubscriptionProducts":
-            let request = SubscriptionProductsRequest(serializedRequest: message.data as! [String: Any])
-            StoreService.shared.requestProducts(productIds: request.productIds) {
-                result in
-                DispatchQueue.main.async {
-                    self.webView.sendResponse(
-                        data: WebViewResult(
-                            result.map({
-                                response in SubscriptionProductsResponse(response: response)
-                            })
-                        ),
-                        callbackId: callbackId!
-                    )
-                }
-            }
-        case "requestSubscriptionPurchase":
-            let request = SubscriptionPurchaseRequest(serializedRequest: message.data as! [String: Any])
-            self.webView.sendResponse(
-                data: WebViewResult(
-                    StoreService.shared
-                        .purchase(productId: request.productId)
-                        .map({
-                            SubscriptionPurchaseResponse()
-                        })
-                ),
-                callbackId: callbackId!
-            )
-        case "requestSubscriptionReceipt":
-            StoreService.shared.requestReceipt() {
-                result in
-                DispatchQueue.main.async {
-                    self.webView.sendResponse(
-                        data: WebViewResult(
-                            result.map({
-                                receipt in SubscriptionReceiptResponse(base64EncodedReceipt: receipt)
-                            })
-                        ),
-                        callbackId: callbackId!
-                    )
-                }
-            }
         case "requestWebAuthentication":
             let request = WebAuthRequest(serializedRequest: message.data as! [String: Any])
             if #available(iOS 13.0, *) {
@@ -639,15 +595,6 @@ class WebAppViewController:
                     url in
                     self.dismiss(animated: true)
                     self.loadURL(url)
-                },
-                onOpenSubscriptionPrompt: {
-                    self.dismiss(animated: true)
-                    self.webView.sendMessage(
-                        message: Message(
-                            type: "openSubscriptionPrompt",
-                            data: true
-                        )
-                    )
                 }
             )
         )
@@ -706,18 +653,5 @@ class WebAppViewController:
         let selector = NSSelectorFromString("removeFullSizeContentViewStyleMaskFromWindows")
         object.perform(selector)
         #endif
-    }
-}
-
-extension WebAppViewController: StoreServiceDelegate {
-    func transactionCompleted(result: Result<SubscriptionValidationResponse, ProblemDetails>) {
-        DispatchQueue.main.async {
-            self.webView.sendMessage(
-                message: Message(
-                    type: "subscriptionPurchaseCompleted",
-                    data: WebViewResult(result)
-                )
-            )
-        }
     }
 }

@@ -12,5 +12,4 @@ struct ArticleViewControllerParams {
     let onCommentUpdated: (_: CommentThread) -> Void
     let onDisplayPreferenceChanged: (_: DisplayPreference) -> Void
     let onNavTo: (_: URL) -> Void
-    let onOpenSubscriptionPrompt: () -> Void
 }

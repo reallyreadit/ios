@@ -18,11 +18,3 @@ enum GeneralErrorType: String {
     case
         exception = "https://docs.readup.com/errors/general/exception"
 }
-enum ReadingErrorType: String {
-    case
-        subscriptionRequired = "https://docs.readup.com/errors/reading/subscription-required"
-}
-enum SubscriptionsErrorType: String {
-    case
-        receiptValidationFailed = "https://docs.readup.com/errors/subscriptions/receipt-validation-failed"
-}

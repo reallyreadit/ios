@@ -289,24 +289,12 @@ class ArticleViewController:
                 onError: {
                     [weak self] error in
                     if let self = self {
-                        if
-                            let problem = error as? ProblemDetails,
-                            problem.isOfType(ReadingErrorType.subscriptionRequired)
-                        {
+                        if self.commitErrorCount > 5 {
                             DispatchQueue.main.async {
-                                self.webView.sendResponse(
-                                    data: WebViewResult<Article, ProblemDetails>(problem),
-                                    callbackId: callbackId!
-                                )
+                                self.setErrorState(withMessage: "Error saving reading progress.")
                             }
                         } else {
-                            if self.commitErrorCount > 5 {
-                                DispatchQueue.main.async {
-                                    self.setErrorState(withMessage: "Error saving reading progress.")
-                                }
-                            } else {
-                                self.commitErrorCount += 1
-                            }
+                            self.commitErrorCount += 1
                         }
                     }
                 }
@@ -441,8 +429,6 @@ class ArticleViewController:
                     }
                 )
             }
-        case "openSubscriptionPrompt":
-            params.onOpenSubscriptionPrompt()
         case "parseResult":
             hasParsedPage = true
             let starArticle = readOptions?.star ?? false
