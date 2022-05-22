@@ -96,7 +96,7 @@ class ArticleViewController:
         [
             "The article failed to load.",
             "Please check your internet connection and try again.",
-            "Contact support@readup.com if this problem persists."
+            "Drop us a line in our Discord if this problem persists."
         ]
         .forEach({
             line in
