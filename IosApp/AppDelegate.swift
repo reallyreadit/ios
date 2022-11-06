@@ -203,6 +203,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     ) -> Bool {
         // Override point for customization after application launch.
         os_log("[lifecycle] didFinishLaunchingWithOptions")
+        // perform domain migration if required
+        if !LocalStorage.hasDomainMigrationCompleted() {
+            SharedCookieStore.migrateAuthCookie()
+            LocalStorage.registerDomainMigration()
+        }
         // set up the view
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = WebAppViewController()
@@ -220,11 +225,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         if !LocalStorage.hasAppLaunched() {
             LocalStorage.registerInitialAppLaunch()
             checkForClipboardReferrer()
-        }
-        // perform domain migration if required
-        if !LocalStorage.hasDomainMigrationCompleted() {
-            SharedCookieStore.migrateAuthCookie()
-            LocalStorage.registerDomainMigration()
         }
         // set up notification delegates
         notificationService.delegate = self
