@@ -26,11 +26,11 @@ private func prepareURL(_ url: URL) -> URL {
     // create components from the provided url or fall back to using the web server url
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true) ??
         URLComponents(url: SharedBundleInfo.webServerURL, resolvingAgainstBaseURL: true)!
-    // convert reallyread.it urls to readup.com
+    // convert reallyread.it and readup.com urls to readup.org
     components.host = components.host?.replacingOccurrences(
-        of: "reallyread.it",
+        of: "(reallyread\\.it|readup\\.com)",
         with: SharedBundleInfo.webServerURL.host!,
-        options: [.caseInsensitive]
+        options: [.caseInsensitive, .regularExpression]
     )
     // verify that the host matches the web server host
     if components.host != SharedBundleInfo.webServerURL.host {
