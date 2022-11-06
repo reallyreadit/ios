@@ -325,11 +325,22 @@ class WebAppViewController:
                 )
             )
         } else {
-            webView.view.load(
-                URLRequest(
-                    url: preparedURL
-                )
+            // perform domain migration if required
+            let request = URLRequest(
+                url: preparedURL
             )
+            if !LocalStorage.hasDomainMigrationCompleted() {
+                if let newCookie = SharedCookieStore.migrateAuthCookie() {
+                    webView.view.configuration.websiteDataStore.httpCookieStore.setCookie(newCookie) {
+                        self.webView.view.load(request)
+                    }
+                } else {
+                    webView.view.load(request)
+                }
+                LocalStorage.registerDomainMigration()
+            } else {
+                webView.view.load(request)
+            }
         }
         self.hasCalledWebViewLoad = true
     }
