@@ -14,6 +14,7 @@ import UIKit
 private enum LocalStorageKey: String {
     case appHasLaunched = "appHasLaunched"
     case displayPreference = "displayPreference"
+    case domainMigrationHasCompleted = "domainMigrationHasCompleted"
     case extensionNewStarCount = "extensionNewStarCount"
     case notificationToken = "notificationToken"
     case notificationTokenSent = "notificationTokenSent"
@@ -25,7 +26,6 @@ struct LocalStorage {
     static func clean() {
         userDefaults.removeObject(forKey: "contentScriptLastCheck")
         userDefaults.removeObject(forKey: "contentScriptVersion")
-        userDefaults.removeObject(forKey: "domainMigrationHasCompleted")
     }
     static func getDisplayPreference() -> DisplayPreference? {
         let decoder = JSONDecoder.init()
@@ -56,8 +56,14 @@ struct LocalStorage {
     static func hasAppLaunched() -> Bool {
         return userDefaults.bool(forKey: LocalStorageKey.appHasLaunched.rawValue)
     }
+    static func hasDomainMigrationCompleted() -> Bool {
+        return userDefaults.bool(forKey: LocalStorageKey.domainMigrationHasCompleted.rawValue)
+    }
     static func hasNotificationTokenBeenSent() -> Bool {
         return userDefaults.bool(forKey: LocalStorageKey.notificationTokenSent.rawValue)
+    }
+    static func registerDomainMigration() {
+        userDefaults.set(true, forKey: LocalStorageKey.domainMigrationHasCompleted.rawValue)
     }
     static func registerInitialAppLaunch() {
         userDefaults.set(true, forKey: LocalStorageKey.appHasLaunched.rawValue)

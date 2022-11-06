@@ -33,6 +33,20 @@ struct SharedCookieStore {
     static func isAuthenticated() -> Bool {
         return getAuthCookies(in: getStore())?.count ?? 0 > 0
     }
+    static func migrateAuthCookie() {
+        let store = getStore()
+        if
+            let legacyAuthCookie = store
+                .cookies(for: URL(string: "https://readup.com/")!)?
+                .first(where: { cookie in cookie.name == SharedBundleInfo.authCookieName }),
+            var cookieProperties = legacyAuthCookie.properties
+        {
+            cookieProperties[HTTPCookiePropertyKey.domain] = SharedBundleInfo.authCookieDomain
+            if let newCookie = HTTPCookie(properties: cookieProperties) {
+                setCookie(newCookie)
+            }
+        }
+    }
     static func setCookie(_ cookie: HTTPCookie) {
         getStore().setCookie(cookie)
     }

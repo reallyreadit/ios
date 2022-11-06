@@ -221,6 +221,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             LocalStorage.registerInitialAppLaunch()
             checkForClipboardReferrer()
         }
+        // perform domain migration if required
+        if !LocalStorage.hasDomainMigrationCompleted() {
+            SharedCookieStore.migrateAuthCookie()
+            LocalStorage.registerDomainMigration()
+        }
         // set up notification delegates
         notificationService.delegate = self
         UNUserNotificationCenter.current().delegate = notificationService
