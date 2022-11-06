@@ -31,7 +31,7 @@
    "content_scripts": [
       {
          "matches": [
-            "https://readup.com/*"
+            "https://readup.org/*"
          ],
          "js": [
             "./content-scripts/web-app/bundle.js"
@@ -48,7 +48,7 @@
       "activeTab",
       "nativeMessaging",
       "storage",
-      "https://readup.com/*"
+      "https://readup.org/*"
    ],
    "web_accessible_resources": [
       "content-scripts/alert/bundle.css",
@@ -63,5 +63,5 @@
       "content-scripts/ui/images/logo-white.svg",
       "options-page/bundle.css"
    ],
-   "version": "6.2.0"
+   "version": "6.2.1"
 }
