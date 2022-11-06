@@ -50,9 +50,9 @@
         <string>$(PRODUCT_MODULE_NAME).ShareViewController</string>
 	</dict>
 	<key>ReadupAPIServerURL</key>
-	<string>https://api.readup.com/</string>
+	<string>https://api.readup.org/</string>
 	<key>ReadupAuthCookieDomain</key>
-	<string>.readup.com</string>
+	<string>.readup.org</string>
 	<key>ReadupAuthCookieName</key>
 	<string>sessionKey</string>
     <key>ReadupClientID</key>
@@ -60,6 +60,6 @@
     <key>ReadupShareExtensionScriptVersion</key>
     <string>4.0.5</string>
     <key>ReadupWebServerURL</key>
-    <string>https://readup.com/</string>
+    <string>https://readup.org/</string>
 </dict>
 </plist>

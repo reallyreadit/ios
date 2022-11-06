@@ -40,9 +40,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>ReadupAPIServerURL</key>
-	<string>https://api.readup.com/</string>
+	<string>https://api.readup.org/</string>
 	<key>ReadupAuthCookieDomain</key>
-	<string>.readup.com</string>
+	<string>.readup.org</string>
 	<key>ReadupAuthCookieName</key>
 	<string>sessionKey</string>
     <key>ReadupChromeExtensionID</key>
@@ -56,9 +56,9 @@
     <key>ReadupShareExtensionScriptVersion</key>
     <string>4.0.5</string>
     <key>ReadupStaticContentServerURL</key>
-    <string>https://static.readup.com/</string>
+    <string>https://static.readup.org/</string>
 	<key>ReadupWebServerURL</key>
-	<string>https://readup.com/</string>
+	<string>https://readup.org/</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiresFullScreen</key>

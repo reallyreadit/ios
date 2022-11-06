@@ -14,7 +14,7 @@ This repository is an XCode project that contains all the targets required for t
     - `BrowserExtensionApp` (Binary Copied) The command line application that acts as the native messaging handler for the Chrome and Firefox extensions.
 ## Development Setup Guide
 ### Configuration
-Development and production configuration files are included in the repository as `.plist` files. The debug configuration files assume that you're using the default `*.dev.readup.com` development domain names and `devSessionKey` authentication cookie name in your development environment. Update these values accordingly if needed but do not commit the changes to the repository.
+Development and production configuration files are included in the repository as `.plist` files. The debug configuration files assume that you're using the default `*.dev.readup.org` development domain names and `devSessionKey` authentication cookie name in your development environment. Update these values accordingly if needed but do not commit the changes to the repository.
 
 In order to test the browser extension in Chrome and Firefox you will need to set the values for the `ReadupChromeExtensionID` and `ReadupFirefoxExtensionID` key/value pairs in the `IosApp/Debug.plist` configuration file. These temporary extension IDs are unstable and should not be commited to the repository. To retrieve the extension IDs follow the instructions in the `web` repository to build and load the extension in Chrome and Firefox and copy the extension IDs from the browser's extension development interface. Note that for Firefox, you need to use the "Extension ID" value, _not_ the "Internal UUID".
 
@@ -45,7 +45,7 @@ As of iOS 15 Apple states the following with respect to Sandbox account testing:
 > This account will only be used for testing your in-app purchases while developing locally. Your existing App Store account will be used for TestFlight apps.
 
 However it has been observed that the Sandbox account is in fact used for TestFlight apps. An alternate method of testing involves making the following changes to the `Debug.plist` configuration files using find/replace and running the Readup app on a physical iOS device using XCode:
-- Temporarily replace all instances of `dev.readup.com` (or your local development domain suffix) with `readup.com`.
+- Temporarily replace all instances of `dev.readup.org` (or your local development domain suffix) with `readup.org`.
 - Temporarily replace all instances of `devSessionKey` (or your development authentication cookie name) with `sessionKey`.
 
 **Note**: Be sure to not commit these changes to the repository and revert all changes after testing is complete.
