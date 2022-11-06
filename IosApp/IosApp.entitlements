@@ -12,6 +12,7 @@
 	<array>
 		<string>applinks:readup.com</string>
 		<string>applinks:reallyread.it</string>
+		<string>applinks:readup.org</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
