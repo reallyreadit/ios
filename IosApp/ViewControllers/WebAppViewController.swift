@@ -572,6 +572,16 @@ class WebAppViewController:
                         )
                     )
                 },
+                onAuthenticate: {
+                    request in
+                    self.dismiss(animated: true)
+                    self.webView.sendMessage(
+                        message: Message(
+                            type: "authenticate",
+                            data: request
+                        )
+                    )
+                },
                 onAuthServiceAccountLinked: {
                     association in
                     self.webView.sendMessage(

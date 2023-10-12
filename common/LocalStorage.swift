@@ -20,6 +20,7 @@ private enum LocalStorageKey: String {
     case notificationTokenSent = "notificationTokenSent"
     case scriptLastUpdateCheck = "scriptLastUpdateCheck:"
     case scriptDownloadedVersion = "scriptVersion:"
+    case signInReminderIsDisabled = "signInReminderIsDisabled"
 }
 private let userDefaults = UserDefaults.init(suiteName: "group.it.reallyread")!
 struct LocalStorage {
@@ -62,11 +63,17 @@ struct LocalStorage {
     static func hasNotificationTokenBeenSent() -> Bool {
         return userDefaults.bool(forKey: LocalStorageKey.notificationTokenSent.rawValue)
     }
+    static func isSignInReminderDisabled() -> Bool {
+        return userDefaults.bool(forKey: LocalStorageKey.signInReminderIsDisabled.rawValue)
+    }
     static func registerDomainMigration() {
         userDefaults.set(true, forKey: LocalStorageKey.domainMigrationHasCompleted.rawValue)
     }
     static func registerInitialAppLaunch() {
         userDefaults.set(true, forKey: LocalStorageKey.appHasLaunched.rawValue)
+    }
+    static func registerSignInReminderDisabled() {
+        userDefaults.set(true, forKey: LocalStorageKey.signInReminderIsDisabled.rawValue)
     }
     static func removeDisplayPreference() {
         userDefaults.removeObject(forKey: LocalStorageKey.displayPreference.rawValue)

@@ -18,6 +18,8 @@ private struct ReaderScriptInitData : Encodable {
     let appPlatform: AppPlatform
     let appVersion: String
     let displayPreference: DisplayPreference?
+    let isAuthenticated: Bool
+    let isSignInReminderDisabled: Bool
 }
 
 class ArticleViewController:
@@ -66,7 +68,9 @@ class ArticleViewController:
         let initData = ReaderScriptInitData(
             appPlatform: getAppPlatform(),
             appVersion: SharedBundleInfo.version.description,
-            displayPreference: displayPreference
+            displayPreference: displayPreference,
+            isAuthenticated: SharedCookieStore.isAuthenticated(),
+            isSignInReminderDisabled: LocalStorage.isSignInReminderDisabled()
         )
         let encoder = JSONEncoder.init()
         let initJson = String(
@@ -248,11 +252,18 @@ class ArticleViewController:
     }
     func onMessage(message: (type: String, data: Any?), callbackId: Int?) {
         switch message.type {
+        case "authenticate":
+            params.onAuthenticate(
+                AuthenticationRequest(message.data as! [String: Any])
+            )
         case "changeDisplayPreference":
             let preference = DisplayPreference(serializedPreference: message.data as! [String: Any])!
             LocalStorage.setDisplayPreference(preference: preference)
             updateDisplayPreference(preference: preference)
             params.onDisplayPreferenceChanged(preference)
+            if !SharedCookieStore.isAuthenticated() {
+                break
+            }
             apiServer.postJson(
                 path: "/UserAccounts/DisplayPreference",
                 data: preference,
@@ -331,6 +342,8 @@ class ArticleViewController:
                     }
                 }
             )
+        case "disableSignInReminder":
+            LocalStorage.registerSignInReminderDisabled()
         case "getComments":
             apiServer.getJson(
                 path: "/Social/Comments",
@@ -441,6 +454,10 @@ class ArticleViewController:
             }
         case "parseResult":
             hasParsedPage = true
+            if !SharedCookieStore.isAuthenticated() {
+                self.webView.sendResponse(data: 0, callbackId: callbackId!)
+                break
+            }
             let starArticle = readOptions?.star ?? false
             apiServer.postJson(
                 path: "/Extension/GetUserArticle",

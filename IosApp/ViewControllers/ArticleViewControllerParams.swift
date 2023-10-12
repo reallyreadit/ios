@@ -16,6 +16,7 @@ struct ArticleViewControllerParams {
     let onArticlePosted: (_: Post) -> Void
     let onArticleStarred: (_: ArticleStarredEvent) -> Void
     let onArticleUpdated: (_: ArticleUpdatedEvent) -> Void
+    let onAuthenticate: (_: AuthenticationRequest) -> Void
     let onAuthServiceAccountLinked: (_: AuthServiceAccountAssociation) -> Void
     let onClose: () -> Void
     let onCommentPosted: (_: CommentThread) -> Void
