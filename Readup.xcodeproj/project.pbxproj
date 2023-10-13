@@ -112,7 +112,9 @@
 		1F5FB906250FBAE200DABE16 /* DisplayPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5FB905250FBAE200DABE16 /* DisplayPreference.swift */; };
 		1F5FB907250FBAE200DABE16 /* DisplayPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5FB905250FBAE200DABE16 /* DisplayPreference.swift */; };
 		1F5FB909250FF74800DABE16 /* DisplayPreferenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5FB908250FF74800DABE16 /* DisplayPreferenceService.swift */; };
-		1F69DE4A251A9F790011209C /* event-page in Resources */ = {isa = PBXBuildFile; fileRef = 1F69DE46251A9F780011209C /* event-page */; };
+		1F5FF8782AD98E7C00B8534D /* event-page in Resources */ = {isa = PBXBuildFile; fileRef = 1F5FF8772AD98E7C00B8534D /* event-page */; };
+		1F5FF87B2AD98EE000B8534D /* reader.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F5FF8792AD98EE000B8534D /* reader.html */; };
+		1F5FF87C2AD98EE000B8534D /* rules.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F5FF87A2AD98EE000B8534D /* rules.json */; };
 		1F69DE4B251A9F790011209C /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1F69DE47251A9F780011209C /* icons */; };
 		1F69DE4C251A9F790011209C /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F69DE48251A9F780011209C /* manifest.json */; };
 		1F69DE4D251A9F790011209C /* content-scripts in Resources */ = {isa = PBXBuildFile; fileRef = 1F69DE49251A9F790011209C /* content-scripts */; };
@@ -343,7 +345,9 @@
 		1F5FB902250FBAAD00DABE16 /* DisplayTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTheme.swift; sourceTree = "<group>"; };
 		1F5FB905250FBAE200DABE16 /* DisplayPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreference.swift; sourceTree = "<group>"; };
 		1F5FB908250FF74800DABE16 /* DisplayPreferenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreferenceService.swift; sourceTree = "<group>"; };
-		1F69DE46251A9F780011209C /* event-page */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "event-page"; sourceTree = "<group>"; };
+		1F5FF8772AD98E7C00B8534D /* event-page */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "event-page"; sourceTree = "<group>"; };
+		1F5FF8792AD98EE000B8534D /* reader.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = reader.html; sourceTree = "<group>"; };
+		1F5FF87A2AD98EE000B8534D /* rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
 		1F69DE47251A9F780011209C /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
 		1F69DE48251A9F780011209C /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		1F69DE49251A9F790011209C /* content-scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "content-scripts"; sourceTree = "<group>"; };
@@ -719,11 +723,13 @@
 		1FACDABE25164639006B7E64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1FF34DE32707A6F2001625D6 /* options-page */,
 				1F69DE49251A9F790011209C /* content-scripts */,
-				1F69DE46251A9F780011209C /* event-page */,
+				1F5FF8772AD98E7C00B8534D /* event-page */,
 				1F69DE47251A9F780011209C /* icons */,
+				1FF34DE32707A6F2001625D6 /* options-page */,
 				1F69DE48251A9F780011209C /* manifest.json */,
+				1F5FF8792AD98EE000B8534D /* reader.html */,
+				1F5FF87A2AD98EE000B8534D /* rules.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -918,8 +924,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5FF8782AD98E7C00B8534D /* event-page in Resources */,
+				1F5FF87B2AD98EE000B8534D /* reader.html in Resources */,
+				1F5FF87C2AD98EE000B8534D /* rules.json in Resources */,
 				1FF34DE42707A6F2001625D6 /* options-page in Resources */,
-				1F69DE4A251A9F790011209C /* event-page in Resources */,
 				1F69DE4C251A9F790011209C /* manifest.json in Resources */,
 				1F69DE4B251A9F790011209C /* icons in Resources */,
 				1F69DE4D251A9F790011209C /* content-scripts in Resources */,

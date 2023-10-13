@@ -32,7 +32,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 reallyread.it, inc. All rights reserved.</string>
 	<key>ReadupExtensionVersion</key>
-	<string>6.2.0</string>
+	<string>8.0.0</string>
 	<key>ReadupAPIServerURL</key>
 	<string>https://api.dev.readup.org/</string>
 	<key>ReadupAuthCookieDomain</key>
