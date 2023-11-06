@@ -49,7 +49,7 @@
 		1F19472721DF0F4200D1599D /* ArticleUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19472621DF0F4200D1599D /* ArticleUpdatedEvent.swift */; };
 		1F19476621E4033200D1599D /* WebViewContainerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19476521E4033200D1599D /* WebViewContainerState.swift */; };
 		1F19477221E8255900D1599D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19477121E8255900D1599D /* ShareViewController.swift */; };
-		1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* ShareExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F19477921E8255900D1599D /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1F19476F21E8255900D1599D /* ShareExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1F19479121EA98AC00D1599D /* ArticleProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479021EA98AC00D1599D /* ArticleProcessing.swift */; };
 		1F19479421EA9C1900D1599D /* APIServerURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479321EA9C1900D1599D /* APIServerURLSession.swift */; };
 		1F19479721EAA42E00D1599D /* MessageWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19479621EAA42E00D1599D /* MessageWebView.swift */; };
@@ -181,7 +181,7 @@
 		1FA91D0E235FAA2F00E3EDE2 /* PushReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA91D0C235FAA2F00E3EDE2 /* PushReplyForm.swift */; };
 		1FACDABA25164639006B7E64 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FACDAB925164639006B7E64 /* Cocoa.framework */; };
 		1FACDABD25164639006B7E64 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDABC25164639006B7E64 /* SafariWebExtensionHandler.swift */; };
-		1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* SafariExtension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1FACDAB825164639006B7E64 /* SafariExtension.appex */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FC0D616231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D617231AD1C200E4DD9A /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D615231AD1C200E4DD9A /* PostComment.swift */; };
 		1FC0D619231AD23100E4DD9A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0D618231AD23100E4DD9A /* Post.swift */; };
@@ -220,16 +220,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1F19477D21E8255900D1599D /* Embed App Extensions */ = {
+		1F19477D21E8255900D1599D /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed App Extensions */,
-				1F19477921E8255900D1599D /* ShareExtension.appex in Embed App Extensions */,
+				1FACDAED251675C5006B7E64 /* SafariExtension.appex in Embed Foundation Extensions */,
+				1F19477921E8255900D1599D /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1F39D72526C9B1AF00867BD7 /* CopyFiles */ = {
@@ -664,7 +664,7 @@
 				1F13B4B821CB167500EE6927 /* Sources */,
 				1F13B4B921CB167500EE6927 /* Frameworks */,
 				1F13B4BA21CB167500EE6927 /* Resources */,
-				1F19477D21E8255900D1599D /* Embed App Extensions */,
+				1F19477D21E8255900D1599D /* Embed Foundation Extensions */,
 				1F39D72526C9B1AF00867BD7 /* CopyFiles */,
 			);
 			buildRules = (
@@ -719,7 +719,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = "reallyread.it, inc.";
 				TargetAttributes = {
 					1F13B4BB21CB167500EE6927 = {
@@ -1083,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1139,7 +1139,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1159,7 +1159,7 @@
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = IosApp/Debug.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1183,7 +1183,7 @@
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = IosApp/Release.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1204,7 +1204,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				INFOPLIST_FILE = ShareExtension/Debug.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1227,7 +1227,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				INFOPLIST_FILE = ShareExtension/Release.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1249,6 +1249,7 @@
 				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SafariExtension/Info.plist;
@@ -1272,6 +1273,7 @@
 				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = PRH8B2NRNT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SafariExtension/Info.plist;
