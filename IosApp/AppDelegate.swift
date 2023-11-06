@@ -262,8 +262,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         }
         // macOS-specific initialization
         #if targetEnvironment(macCatalyst)
-        // write the browser extension app manifests
-        writeBrowserExtensionAppManifests()
         // Register for didBecomeActive notifications in order to support window focus events.
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name("NSApplicationDidBecomeActiveNotification"),
