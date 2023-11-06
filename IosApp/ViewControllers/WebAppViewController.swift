@@ -666,23 +666,4 @@ class WebAppViewController:
             loadWebApp()
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        // workaround for bug in WKWebView that causes it to appear under the titlebar
-        // https://stackoverflow.com/questions/60728083/top-of-wkwebviewcontent-is-clipped-under-nstoolbar-in-mac-catalyst
-        #if targetEnvironment(macCatalyst)
-        guard let appBundleUrl = Bundle.main.builtInPlugInsURL else {
-            return
-        }
-        let helperBundleUrl = appBundleUrl.appendingPathComponent("AppkitBridge.bundle")
-        guard let bundle = Bundle(url: helperBundleUrl) else {
-            return
-        }
-        bundle.load()
-        guard let object = NSClassFromString("AppkitBridge") as? NSObject.Type else {
-            return
-        }
-        let selector = NSSelectorFromString("removeFullSizeContentViewStyleMaskFromWindows")
-        object.perform(selector)
-        #endif
-    }
 }
