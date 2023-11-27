@@ -398,12 +398,7 @@ class WebAppViewController:
                 )
             }
         case "readArticle":
-            let data = message.data as! [String: Any]
-            readArticle(
-                reference: data.keys.contains("url") ?
-                    ArticleReference.url(URL(string: data["url"] as! String)!) :
-                    ArticleReference.slug(data["slug"] as! String)
-            )
+            readArticle(reference: ArticleReference(serializedReference: message.data as! [String: Any])!)
         case "requestAppleIdCredential":
             if #available(iOS 13.0, *) {
                 let appleIDProvider = ASAuthorizationAppleIDProvider()

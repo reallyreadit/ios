@@ -10,7 +10,31 @@
 
 import Foundation
 
-enum ArticleReference {
+enum ArticleReference: Encodable {
+    init?(serializedReference: [String: Any]) {
+        if serializedReference.keys.contains("url") {
+            self = .url(URL(string: serializedReference["url"] as! String)!)
+        } else {
+            self = .slug(serializedReference["slug"] as! String)
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch (self) {
+        case .slug(let slug):
+            try container.encode(slug, forKey: .slug)
+        case .url(let url):
+            try container.encode(url, forKey: .url)
+        }
+    }
+    
     case slug(String)
     case url(URL)
+    
+    enum CodingKeys: CodingKey {
+        case
+            slug,
+            url
+    }
 }
