@@ -359,12 +359,27 @@ class ArticleViewController:
                     [weak self] (comments: [CommentThread]) in
                     if let self = self {
                         DispatchQueue.main.async {
-                            self.webView.sendResponse(data: comments, callbackId: callbackId!)
+                            self.webView.sendResponse(
+                                data: WebViewResult<[CommentThread], ProblemDetails>(comments),
+                                callbackId: callbackId!
+                            )
                         }
                     }
                 },
                 onError: {
-                    _ in os_log("error fetching comments")
+                    [weak self] error in
+                    os_log("error fetching comments")
+                    if
+                        let self = self,
+                        let problemDetails = error as? HTTPProblemDetails
+                    {
+                        DispatchQueue.main.async {
+                            self.webView.sendResponse(
+                                data: WebViewResult<[CommentThread], HTTPProblemDetails>(problemDetails),
+                                callbackId: callbackId!
+                            )
+                        }
+                    }
                 }
             )
         case "getDisplayPreference":
