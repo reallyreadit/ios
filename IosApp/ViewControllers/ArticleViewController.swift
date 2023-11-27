@@ -345,9 +345,16 @@ class ArticleViewController:
         case "disableSignInReminder":
             LocalStorage.registerSignInReminderDisabled()
         case "getComments":
+            let query: URLQueryItem
+            switch (ArticleReference(serializedReference: message.data as! [String: Any])!) {
+            case .slug(let slug):
+                query = URLQueryItem(name: "slug", value: slug)
+            case .url(let url):
+                query = URLQueryItem(name: "url", value: url.absoluteString)
+            }
             apiServer.getJson(
                 path: "/Social/Comments",
-                queryItems: URLQueryItem(name: "slug", value: message.data as? String),
+                queryItems: query,
                 onSuccess: {
                     [weak self] (comments: [CommentThread]) in
                     if let self = self {
